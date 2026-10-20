@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+
+/* Minimal markdown styles for challenge descriptions. */
+.markdown h2 {
+  @apply mt-5 mb-2 text-base font-semibold;
+}
+.markdown p,
+.markdown ul {
+  @apply my-2;
+}
+.markdown ul {
+  @apply list-disc pl-5;
+}
+.markdown li {
+  @apply my-1;
+}
+.markdown code {
+  @apply rounded bg-zinc-100 px-1 py-0.5 text-[0.85em];
+}
+.markdown table {
+  @apply my-2 w-full text-left text-xs;
+}
+.markdown th,
+.markdown td {
+  @apply border-b border-zinc-200 py-1 pr-2 align-top;
+}

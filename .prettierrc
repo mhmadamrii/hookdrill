@@ -1,0 +1,11 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "overrides": [
+    {
+      "files": "packages/challenges/src/**/*.jsx",
+      "options": { "semi": true, "singleQuote": false }
+    }
+  ]
+}

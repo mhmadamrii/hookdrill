@@ -1,0 +1,15 @@
+{
+  "name": "hookdrill",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.11.2",
+  "scripts": {
+    "dev": "pnpm --filter @hookdrill/web dev",
+    "build": "pnpm --filter @hookdrill/web build",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
+  },
+  "devDependencies": {
+    "prettier": "3.9.10"
+  }
+}
