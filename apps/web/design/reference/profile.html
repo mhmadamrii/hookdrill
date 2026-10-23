@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Practice record · ada-dev · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+<style>
+  .who-head { display: flex; align-items: center; gap: 20px; }
+  .who-head .avatar { width: 64px; height: 64px; font-size: var(--t-xl); background: var(--cover); color: #fff; }
+  .line { font-size: var(--t-md); color: var(--ink-2); margin-top: 18px; max-width: 72ch; }
+  .line b { color: var(--ink); }
+  /* the book as a line of score: one measure per étude, closed by its barline */
+  .score { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border-top: 1px solid var(--ink); border-bottom: 1px solid var(--ink); margin-top: 14px; }
+  .measure { display: grid; grid-template-columns: 1fr auto; align-items: stretch; min-height: 92px; border-bottom: 1px solid var(--rule); }
+  .measure:nth-last-child(-n + 5) { border-bottom: 0; }
+  .measure a { padding: 14px 14px 14px 16px; text-decoration: none; display: flex; flex-direction: column; justify-content: space-between; }
+  .measure a:hover { background: var(--rule-soft); }
+  .measure .op { font-size: var(--t-xs); color: var(--cover); font-weight: 700; }
+  .measure .name { font-weight: 700; font-size: var(--t-sm); line-height: 1.25; }
+  .measure .st { font-size: var(--t-xs); color: var(--mute); }
+  .measure .st.pass { color: var(--pass); font-weight: 600; }
+  .measure .bl { height: auto; padding: 10px 0; }
+  .measure .bl.open i { background: var(--ink); }
+  .diary { display: grid; grid-template-columns: auto repeat(12, 1fr); gap: 4px; align-items: center; margin-top: 14px; max-width: 640px; }
+  .diary .dl { font-size: var(--t-xs); color: var(--mute); padding-right: 8px; }
+  .diary i { display: block; aspect-ratio: 1; border-radius: 2px; background: var(--rule-soft); }
+  .diary i.r { box-shadow: inset 0 0 0 1.5px var(--ink-2); background: transparent; }
+  .diary i.s { background: var(--ink); }
+  .diary .wk { font-size: 0.6875rem; color: var(--mute); text-align: center; }
+  .diary-key { display: flex; gap: 20px; margin-top: 12px; font-size: var(--t-xs); color: var(--mute); }
+  .diary-key span { display: inline-flex; gap: 6px; align-items: center; }
+  .diary-key i { width: 12px; height: 12px; border-radius: 2px; display: inline-block; background: var(--rule-soft); }
+  .diary-key i.r { box-shadow: inset 0 0 0 1.5px var(--ink-2); background: transparent; } .diary-key i.s { background: var(--ink); }
+  .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; }
+  @media (max-width: 900px) { .score { grid-template-columns: repeat(2, minmax(0, 1fr)); } .measure:nth-last-child(-n + 5) { border-bottom: 1px solid var(--rule); } .split { grid-template-columns: 1fr; gap: 40px; } }
+</style>
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html">Études</a><a href="workspace.html">Workspace</a><a href="submission.html">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html" aria-current="page">Practice record</a><a href="signin.html">Sign in</a><a href="404.html">404</a>
+  <span class="states" aria-label="Screen state"><button data-state="filled">In practice</button><button data-state="empty">New player</button></span>
+</div>
+
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="challenges.html"><b>HookDrill</b><span>Études for hands</span></a>
+    <nav aria-label="Books">
+      <a href="challenges.html"><span><b>Book I</b> · React</span><span class="count">10</span></a>
+      <a href="#"><span><b>Book II</b> · DSA</span><span class="count">soon</span></a>
+    </nav>
+    <hr>
+    <nav aria-label="Sections"><a href="profile.html" aria-current="page">Practice record</a><a href="rankings.html">Rankings</a><a href="#">Write an étude</a></nav>
+    <a class="me" href="profile.html"><span class="avatar">A</span><span class="txt"><b>ada-dev</b>5-day streak · 47 pts</span></a>
+  </aside>
+
+  <main class="main">
+    <div class="wrap">
+      <header class="pagehead">
+        <div class="who-head"><span class="avatar" aria-hidden="true">A</span><h1>ada-dev</h1></div>
+        <p class="summary">Joined 2 Oct 2026 · <a href="#">github.com/ada-dev</a></p>
+      </header>
+
+      <div data-state-panel="filled">
+        <p class="line"><b>4</b> of 10 études solved in Book I, <b>47</b> points, rank <b>42</b> all time. Practising <b>5</b> days in a row; longest run 9 days.</p>
+
+        <section style="margin-top:44px">
+          <h2>Book I · React</h2>
+          <div class="score" role="list" aria-label="Book I record">
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 1</span><span class="name">Todo List</span><span class="st pass">Solved · 10 pts</span></a><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></div>
+            <div class="measure" role="listitem"><a href="submission.html"><span class="op">Op. 2</span><span class="name">Playlist Builder</span><span class="st pass">Solved · 17 pts</span></a><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 3</span><span class="name">Accordion</span><span class="st pass">Solved · 10 pts</span></a><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 4</span><span class="name">Tabs</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 5</span><span class="name">Star Rating</span><span class="st pass">Solved · 10 pts</span></a><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 6</span><span class="name">Debounced Search</span><span class="st">In practice · 4 runs</span></a><span class="bl" role="img" aria-label="In practice"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 7</span><span class="name">Sortable Data Table</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 8</span><span class="name">Modal Focus Trap</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 9</span><span class="name">Autocomplete</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+            <div class="measure" role="listitem"><a href="#"><span class="op">Op. 10</span><span class="name">Infinite Feed</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+          </div>
+          <p class="sample" style="margin-top:10px">Op. 3–10 are sample études.</p>
+        </section>
+
+        <section>
+          <div class="split">
+            <div>
+              <h2>Practice diary</h2>
+              <div class="diary" aria-label="Last 12 weeks of practice">
+                <span></span><span class="wk">Aug</span><span class="wk"></span><span class="wk"></span><span class="wk"></span><span class="wk">Sep</span><span class="wk"></span><span class="wk"></span><span class="wk"></span><span class="wk">Oct</span><span class="wk"></span><span class="wk"></span><span class="wk"></span>
+                <span class="dl">Mon</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="s"></i><i class="r"></i><i class="s"></i>
+                <span class="dl">Tue</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="s"></i>
+                <span class="dl">Wed</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="s"></i><i class="r"></i><i class="r"></i><i class="r"></i>
+                <span class="dl">Thu</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="r"></i><i class="s"></i>
+                <span class="dl">Fri</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="r"></i><i></i>
+                <span class="dl">Sat</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i></i><i class="r"></i><i></i>
+                <span class="dl">Sun</span><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i class="r"></i><i class="r"></i><i></i>
+              </div>
+              <div class="diary-key"><span><i></i>No practice</span><span><i class="r"></i>Practised</span><span><i class="s"></i>Solved an étude</span></div>
+            </div>
+            <div>
+              <h2>Recent submissions</h2>
+              <table class="ruled" style="margin-top:6px">
+                <thead><tr><th>Étude</th><th>Verdict</th><th class="num">When</th></tr></thead>
+                <tbody>
+                  <tr><td><a href="submission.html">Op. 2 Playlist Builder</a></td><td><span class="v pass">Accepted</span></td><td class="num">Today</td></tr>
+                  <tr><td>Op. 2 Playlist Builder</td><td><span class="v fail">7 / 9</span></td><td class="num">Today</td></tr>
+                  <tr><td>Op. 6 Debounced Search</td><td><span class="v fail">Timed out</span></td><td class="num">Wed</td></tr>
+                  <tr><td>Op. 5 Star Rating</td><td><span class="v pass">Accepted</span></td><td class="num">Mon</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <div data-state-panel="empty">
+        <div class="empty">
+          <h2>Your record starts with Op. 1</h2>
+          <p>Every étude you solve closes a barline here. The first one is a todo list: about 20 minutes, no tricks, and it shows you how hints, public tests and grading work.</p>
+          <div class="actions"><a class="btn next lg" href="workspace.html">Start Op. 1 · Todo List</a><a class="btn lg" href="challenges.html">Browse Book I</a></div>
+        </div>
+        <div class="score" role="list" aria-label="Book I record" style="margin-top:24px">
+          <div class="measure" role="listitem"><a href="#"><span class="op">Op. 1</span><span class="name">Todo List</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+          <div class="measure" role="listitem"><a href="#"><span class="op">Op. 2</span><span class="name">Playlist Builder</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+          <div class="measure" role="listitem"><a href="#"><span class="op">Op. 3</span><span class="name">Accordion</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+          <div class="measure" role="listitem"><a href="#"><span class="op">Op. 4</span><span class="name">Tabs</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+          <div class="measure" role="listitem"><a href="#"><span class="op">Op. 5</span><span class="name">Star Rating</span><span class="st">Not played</span></a><span class="bl open" role="img" aria-label="Not played"><i></i></span></div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/reference.js"></script>
+</body>
+</html>

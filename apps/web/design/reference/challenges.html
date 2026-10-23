@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Études · Book I · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html" aria-current="page">Études</a><a href="workspace.html">Workspace</a><a href="submission.html">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html">Practice record</a><a href="signin.html">Sign in</a><a href="404.html">404</a>
+  <span class="states" aria-label="Screen state"><button data-state="returning">Returning</button><button data-state="first-run">First run</button><button data-state="no-results">No results</button></span>
+</div>
+
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="challenges.html"><b>HookDrill</b><span>Études for hands</span></a>
+    <nav aria-label="Books">
+      <a href="challenges.html" aria-current="page"><span><b>Book I</b> · React</span><span class="count">10</span></a>
+      <a href="#"><span><b>Book II</b> · DSA</span><span class="count">soon</span></a>
+    </nav>
+    <hr>
+    <nav aria-label="Sections">
+      <a href="profile.html">Practice record</a>
+      <a href="rankings.html">Rankings</a>
+      <a href="#">Write an étude</a>
+    </nav>
+    <a class="me" href="profile.html"><span class="avatar">A</span><span class="txt"><b>ada-dev</b>4-day streak · 30 pts</span></a>
+  </aside>
+
+  <main class="main">
+    <div class="wrap">
+      <header class="pagehead">
+        <h1><span class="book">Book I</span> · Études</h1>
+        <p class="summary" data-state-panel="returning no-results"><b>3</b> of 10 solved · <b>30</b> points · <b>4</b>-day streak</p>
+        <p class="summary" data-state-panel="first-run">10 études · React &amp; UI · hand-written, test-verified</p>
+      </header>
+
+      <div class="toolbar">
+        <div class="chips" role="group" aria-label="Difficulty">
+          <button class="chip" aria-pressed="true">All</button>
+          <button class="chip" aria-pressed="false">Easy</button>
+          <button class="chip" aria-pressed="false">Medium</button>
+          <button class="chip" aria-pressed="false">Hard</button>
+          <button class="chip" aria-pressed="false">Unsolved</button>
+        </div>
+        <label class="field">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+          <span class="vh">Search études</span>
+          <input type="search" placeholder="Search études" value="">
+        </label>
+      </div>
+
+      <!-- returning -->
+      <table class="index" data-state-panel="returning">
+        <thead><tr><th>No.</th><th>Étude</th><th>Difficulty</th><th class="num">Points</th><th class="rec">Record</th></tr></thead>
+        <tbody>
+          <tr><td class="no">Op. 1</td><td class="t"><a href="workspace.html">Todo List</a><p>Create, edit, delete, toggle · 6 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i></i><i></i></span>Easy</span></td><td class="num">10</td><td class="rec"><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></td></tr>
+          <tr class="current"><td class="no">Op. 2</td><td class="t"><a href="workspace.html">Playlist Builder</a> <a class="btn next resume" href="workspace.html">Resume</a><p>Pick songs, reorder, remove · 7 tests · 3 runs, last 5/7</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl" role="img" aria-label="In practice"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span></td></tr>
+          <tr><td class="no">Op. 3</td><td class="t"><a href="#">Accordion</a><p>Sample · keyboard support, aria-expanded · 5 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i></i><i></i></span>Easy</span></td><td class="num">10</td><td class="rec"><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></td></tr>
+          <tr><td class="no">Op. 4</td><td class="t"><a href="#">Tabs</a><p>Sample · roving tabindex, arrow keys · 6 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+          <tr><td class="no">Op. 5</td><td class="t"><a href="#">Star Rating</a><p>Sample · hover preview, keyboard, reset · 5 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i></i><i></i></span>Easy</span></td><td class="num">10</td><td class="rec"><span class="bl final" role="img" aria-label="Solved"><i></i><i class="thick"></i></span></td></tr>
+          <tr><td class="no">Op. 6</td><td class="t"><a href="#">Debounced Search</a><p>Sample · timers, stale responses · 6 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl" role="img" aria-label="In practice"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span></td></tr>
+          <tr><td class="no">Op. 7</td><td class="t"><a href="#">Sortable Data Table</a><p>Sample · sort direction, stable order · 7 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+          <tr><td class="no">Op. 8</td><td class="t"><a href="#">Modal Focus Trap</a><p>Sample · focus management, Escape, restore · 8 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i></span>Hard</span></td><td class="num">40</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+          <tr><td class="no">Op. 9</td><td class="t"><a href="#">Autocomplete</a><p>Sample · combobox pattern, async options · 9 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i></span>Hard</span></td><td class="num">40</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+          <tr><td class="no">Op. 10</td><td class="t"><a href="#">Infinite Feed</a><p>Sample · pagination, loading and error states · 9 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i class="on"></i></span>Hard</span></td><td class="num">40</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+        </tbody>
+      </table>
+
+      <!-- first run -->
+      <div data-state-panel="first-run">
+        <table class="index">
+          <thead><tr><th>No.</th><th>Étude</th><th>Difficulty</th><th class="num">Points</th><th class="rec">Record</th></tr></thead>
+          <tbody>
+            <tr class="current"><td class="no">Op. 1</td><td class="t"><a href="workspace.html">Todo List</a> <a class="btn next resume" href="workspace.html">Start here</a><p>Create, edit, delete, toggle · 6 tests · a good first étude</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i></i><i></i></span>Easy</span></td><td class="num">10</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+            <tr><td class="no">Op. 2</td><td class="t"><a href="workspace.html">Playlist Builder</a><p>Pick songs, reorder, remove · 7 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+            <tr><td class="no">Op. 3</td><td class="t"><a href="#">Accordion</a><p>Sample · keyboard support, aria-expanded · 5 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i></i><i></i></span>Easy</span></td><td class="num">10</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+            <tr><td class="no">Op. 4</td><td class="t"><a href="#">Tabs</a><p>Sample · roving tabindex, arrow keys · 6 tests</p></td><td class="d"><span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span></td><td class="num">20</td><td class="rec"><span class="bl open" role="img" aria-label="Not played"><i></i></span></td></tr>
+          </tbody>
+        </table>
+        <div class="empty" style="padding-top:36px">
+          <h2>How an étude works</h2>
+          <p>Read the requirements, write the component by hand, and run the public tests as often as you like. When they pass, submit: hidden tests run on our server, and only that verdict closes the barline and earns points. Hints are there when you are stuck; each one costs 15% of the étude's points.</p>
+        </div>
+      </div>
+
+      <!-- no results -->
+      <div class="empty" data-state-panel="no-results">
+        <h2>No étude matches “drag and drop”</h2>
+        <p>Book I has no drag-and-drop étude yet. Clear the search to see all ten, or propose one: études are written by maintainers as pull requests.</p>
+        <div class="actions"><button class="btn ink">Clear search</button><a class="btn" href="#">Write an étude</a></div>
+      </div>
+
+      <div class="legend" aria-label="Record legend">
+        <span><span class="bl sm open"><i></i></span>Not played</span>
+        <span><span class="bl sm"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span>In practice</span>
+        <span><span class="bl sm final"><i></i><i class="thick"></i></span>Solved, verified by server</span>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="assets/reference.js"></script>
+</body>
+</html>

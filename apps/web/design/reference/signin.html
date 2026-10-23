@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign in · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+<style>
+  .split { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); min-height: calc(100vh - 34px); }
+  /* the edition cover: cloth, a framed title panel, a colophon */
+  .cover { background: var(--cover); color: var(--on-cover); padding: 56px; display: flex; flex-direction: column; }
+  .cover .panel { border: 1px solid var(--on-cover-2); padding: 48px 44px; margin-top: auto; margin-bottom: auto; max-width: 560px; }
+  .cover .panel .ed { font-size: var(--t-xs); color: var(--on-cover-2); letter-spacing: 0.08em; text-transform: uppercase; }
+  .cover .title { font-size: clamp(3.5rem, 6vw, 5.75rem); font-weight: 900; letter-spacing: -0.04em; line-height: 0.92; margin: 0 0 18px; }
+  .cover .sub { font-size: var(--t-lg); color: var(--on-cover-2); }
+  .cover .contents { margin-top: 40px; border-top: 1px solid var(--cover-line); }
+  .cover .contents div { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid var(--cover-line); font-size: var(--t-sm); }
+  .cover .contents span { color: var(--on-cover-2); }
+  .cover .colophon { font-size: var(--t-xs); color: var(--on-cover-2); }
+  .form { display: flex; align-items: center; justify-content: center; padding: 56px; background: var(--paper); }
+  .form .box { width: 100%; max-width: 400px; }
+  .form h1 { font-size: var(--t-2xl); }
+  .form p { color: var(--ink-2); margin-top: 12px; font-size: var(--t-sm); }
+  .form .btn.lg { width: 100%; justify-content: center; margin-top: 28px; height: 52px; }
+  .form .fine { font-size: var(--t-xs); color: var(--mute); margin-top: 16px; }
+  .form .alert { display: flex; gap: 10px; margin-top: 24px; padding: 12px 14px; border-radius: var(--r-md); background: var(--fail-soft); color: #5e1f18; font-size: var(--t-sm); }
+  .form .alert svg.i { color: var(--fail); margin-top: 2px; }
+  .form ul { margin-top: 28px; padding: 0; list-style: none; border-top: 1px solid var(--rule); }
+  .form li { padding: 10px 0; border-bottom: 1px solid var(--rule); font-size: var(--t-sm); color: var(--ink-2); }
+  .form li b { color: var(--ink); }
+  .spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.35); border-top-color: #fff; animation: spin 800ms linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (max-width: 900px) {
+    .split { grid-template-columns: 1fr; }
+    .cover { padding: 28px 16px; } .cover .panel { padding: 28px 22px; margin: 0; } .cover .contents { display: none; }
+    .cover .colophon { display: none; }
+    .form { padding: 32px 16px 56px; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html">Études</a><a href="workspace.html">Workspace</a><a href="submission.html">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html">Practice record</a><a href="signin.html" aria-current="page">Sign in</a><a href="404.html">404</a>
+  <span class="states" aria-label="Screen state"><button data-state="default">Default</button><button data-state="loading">Redirecting</button><button data-state="denied">Access denied</button></span>
+</div>
+
+<div class="split">
+  <section class="cover" aria-label="HookDrill">
+    <div class="panel">
+      <div class="title">Hook<br>Drill</div>
+      <div class="sub">Études for hands. Write the component yourself, prove it with tests.</div>
+      <div class="contents">
+        <div>Book I · React &amp; UI<span>10 études</span></div>
+        <div>Book II · Data structures &amp; algorithms<span>in preparation</span></div>
+      </div>
+    </div>
+    <p class="colophon">Edition 2026 · No autocomplete, no copilot. Graded by hidden tests on our server.</p>
+  </section>
+
+  <section class="form">
+    <div class="box">
+      <h1>Sign in to practise</h1>
+      <p>Your drafts, solved études and streak are saved to your account.</p>
+
+      <div data-state-panel="default denied">
+        <div class="alert" role="alert" data-state-panel="denied"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 9v4M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span>GitHub didn't grant access, so you're not signed in. Try again and choose <b>Authorize</b>.</span></div>
+        <a class="btn ink lg" href="challenges.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" style="fill:currentColor;stroke:none"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.68 0-1.26.45-2.28 1.19-3.08-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.8 1.19 1.82 1.19 3.08 0 4.41-2.7 5.38-5.26 5.67.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z"/></svg>Continue with GitHub</a>
+      </div>
+      <div data-state-panel="loading">
+        <button class="btn ink lg" disabled style="background:var(--ink);color:#fff;border-color:var(--ink);cursor:progress"><span class="spin" aria-hidden="true"></span>Redirecting to GitHub…</button>
+      </div>
+      <p class="fine">We read your public profile and primary email. Nothing is posted to GitHub.</p>
+
+      <ul>
+        <li><b>Hints</b> are graduated; each one costs 15% of an étude's points.</li>
+        <li><b>Public tests</b> run in your browser as you work.</li>
+        <li><b>Grading tests</b> run on our server; only they earn points.</li>
+      </ul>
+    </div>
+  </section>
+</div>
+<script src="assets/reference.js"></script>
+</body>
+</html>

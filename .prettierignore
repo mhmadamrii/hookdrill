@@ -1,3 +1,5 @@
 pnpm-lock.yaml
 apps/web/src/routeTree.gen.ts
 goal.md
+apps/web/.impeccable
+apps/web/design/reference/**/*.html

@@ -1,0 +1,628 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-23T00:00:00Z",
+  "title": "Design System: HookDrill",
+  "extensions": {
+    "colorMeta": {
+      "cover": {
+        "role": "primary",
+        "displayName": "Edition Cover Blue",
+        "canonical": "#2f557f",
+        "tonalRamp": [
+          "#000a25",
+          "#00254b",
+          "#1e436c",
+          "#3d648f",
+          "#5e85b3",
+          "#80a9d8",
+          "#a3cdfe",
+          "#e3f0ff"
+        ]
+      },
+      "cover-deep": {
+        "role": "primary",
+        "displayName": "Active Book Blue",
+        "canonical": "#24466b",
+        "tonalRamp": [
+          "#000a24",
+          "#032548",
+          "#224468",
+          "#41648b",
+          "#6185ae",
+          "#83a8d3",
+          "#a6cdf9",
+          "#e4f0fe"
+        ]
+      },
+      "cover-line": {
+        "role": "primary",
+        "displayName": "Cover Rule",
+        "canonical": "#46698f",
+        "tonalRamp": [
+          "#000a24",
+          "#032647",
+          "#224467",
+          "#41648a",
+          "#6186ad",
+          "#83a9d2",
+          "#a7cdf8",
+          "#e4f0fe"
+        ]
+      },
+      "on-cover": {
+        "role": "neutral",
+        "displayName": "On-Cover White",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "on-cover-2": {
+        "role": "neutral",
+        "displayName": "On-Cover Mist",
+        "canonical": "#c9d7e6",
+        "tonalRamp": [
+          "#040c16",
+          "#1b2631",
+          "#38434f",
+          "#566370",
+          "#778492",
+          "#99a7b5",
+          "#bdcbda",
+          "#e3f0fe"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Engraving Paper",
+        "canonical": "#f8f9fa",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242526",
+          "#414243",
+          "#606162",
+          "#818283",
+          "#a4a5a6",
+          "#c8c9ca",
+          "#edeeef"
+        ]
+      },
+      "sheet": {
+        "role": "neutral",
+        "displayName": "Sheet",
+        "canonical": "#ffffff",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#15171c",
+        "tonalRamp": [
+          "#090b10",
+          "#23252a",
+          "#404248",
+          "#5f6167",
+          "#808289",
+          "#a2a5ac",
+          "#c6c9d0",
+          "#ebeef6"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Ink Secondary",
+        "canonical": "#474d57",
+        "tonalRamp": [
+          "#070b13",
+          "#20252e",
+          "#3c424c",
+          "#5b626c",
+          "#7c838e",
+          "#9fa5b1",
+          "#c2cad5",
+          "#e8effb"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Mute",
+        "canonical": "#646b76",
+        "tonalRamp": [
+          "#070b13",
+          "#1f252f",
+          "#3c424d",
+          "#5b626c",
+          "#7c838e",
+          "#9ea6b1",
+          "#c2cad6",
+          "#e7effc"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Rule",
+        "canonical": "#d8dce1",
+        "tonalRamp": [
+          "#090b0f",
+          "#222529",
+          "#3f4246",
+          "#5e6266",
+          "#7f8387",
+          "#a2a5aa",
+          "#c6c9ce",
+          "#ebeff4"
+        ]
+      },
+      "rule-soft": {
+        "role": "neutral",
+        "displayName": "Soft Rule",
+        "canonical": "#e9ecef",
+        "tonalRamp": [
+          "#090b0d",
+          "#232527",
+          "#404245",
+          "#5f6164",
+          "#808385",
+          "#a2a5a8",
+          "#c6c9cc",
+          "#eceff2"
+        ]
+      },
+      "cover-soft": {
+        "role": "neutral",
+        "displayName": "Selection Tint",
+        "canonical": "#e8eef5",
+        "tonalRamp": [
+          "#080c10",
+          "#21262b",
+          "#3e4248",
+          "#5d6268",
+          "#7e8389",
+          "#a0a6ac",
+          "#c4cad1",
+          "#e9eff6"
+        ]
+      },
+      "next": {
+        "role": "secondary",
+        "displayName": "Schirmer Yellow",
+        "canonical": "#e0a526",
+        "tonalRamp": [
+          "#150800",
+          "#332100",
+          "#573d00",
+          "#7f5a00",
+          "#a87902",
+          "#d4990c",
+          "#fabe48",
+          "#ffeccc"
+        ]
+      },
+      "next-deep": {
+        "role": "secondary",
+        "displayName": "Schirmer Yellow Deep",
+        "canonical": "#c38c14",
+        "tonalRamp": [
+          "#150800",
+          "#342100",
+          "#583c00",
+          "#7f5901",
+          "#aa7800",
+          "#d29a2c",
+          "#f8be57",
+          "#feecce"
+        ]
+      },
+      "next-soft": {
+        "role": "secondary",
+        "displayName": "Next Row Wash",
+        "canonical": "#fbf1db",
+        "tonalRamp": [
+          "#110a00",
+          "#2c2413",
+          "#49412f",
+          "#69604d",
+          "#8a816e",
+          "#aea490",
+          "#d2c8b3",
+          "#f8eed8"
+        ]
+      },
+      "fail": {
+        "role": "tertiary",
+        "displayName": "Teacher's Red Pencil",
+        "canonical": "#c63d2f",
+        "tonalRamp": [
+          "#230000",
+          "#4e0000",
+          "#810000",
+          "#af251a",
+          "#d74d3e",
+          "#fe7462",
+          "#feb3a7",
+          "#fee9e5"
+        ]
+      },
+      "fail-soft": {
+        "role": "tertiary",
+        "displayName": "Red Pencil Wash",
+        "canonical": "#fbecea",
+        "tonalRamp": [
+          "#110908",
+          "#2d2221",
+          "#4b3f3d",
+          "#6a5e5c",
+          "#8c7f7d",
+          "#afa19f",
+          "#d4c5c3",
+          "#faebe9"
+        ]
+      },
+      "pass": {
+        "role": "tertiary",
+        "displayName": "Server Green",
+        "canonical": "#2e7d5b",
+        "tonalRamp": [
+          "#001006",
+          "#002e1c",
+          "#004f34",
+          "#207250",
+          "#479471",
+          "#6bb893",
+          "#8fddb6",
+          "#c2ffdf"
+        ]
+      },
+      "pass-soft": {
+        "role": "tertiary",
+        "displayName": "Server Green Wash",
+        "canonical": "#e6f2ec",
+        "tonalRamp": [
+          "#060d0a",
+          "#1e2723",
+          "#3b4540",
+          "#5a645f",
+          "#7b8580",
+          "#9da8a3",
+          "#c1ccc7",
+          "#e6f2ec"
+        ]
+      },
+      "graphite": {
+        "role": "neutral",
+        "displayName": "Graphite",
+        "canonical": "#5d636c",
+        "tonalRamp": [
+          "#070b12",
+          "#20252d",
+          "#3d424b",
+          "#5c626b",
+          "#7c838c",
+          "#9fa6af",
+          "#c3cad4",
+          "#e8effa"
+        ]
+      },
+      "code-key": {
+        "role": "primary",
+        "displayName": "Code Keyword",
+        "canonical": "#2f557f",
+        "tonalRamp": [
+          "#000a25",
+          "#00254b",
+          "#1e436c",
+          "#3d648f",
+          "#5e85b3",
+          "#80a9d8",
+          "#a3cdfe",
+          "#e3f0ff"
+        ]
+      },
+      "code-str": {
+        "role": "tertiary",
+        "displayName": "Code String",
+        "canonical": "#8a5a12",
+        "tonalRamp": [
+          "#170600",
+          "#371f00",
+          "#5d3900",
+          "#85560a",
+          "#a97736",
+          "#ce9a5a",
+          "#f4be7d",
+          "#ffebd5"
+        ]
+      },
+      "code-fn": {
+        "role": "tertiary",
+        "displayName": "Code Function",
+        "canonical": "#7a3b8f",
+        "tonalRamp": [
+          "#190023",
+          "#3d004e",
+          "#5f1f73",
+          "#814296",
+          "#a464bb",
+          "#c987e0",
+          "#eab0ff",
+          "#f9e8ff"
+        ]
+      },
+      "code-com": {
+        "role": "neutral",
+        "displayName": "Code Comment",
+        "canonical": "#7b828c",
+        "tonalRamp": [
+          "#070b12",
+          "#20252e",
+          "#3c424b",
+          "#5b626b",
+          "#7c838d",
+          "#9ea6b0",
+          "#c2cad5",
+          "#e7effa"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Edition title on the sign-in cover only."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page headings and the verdict word."
+      },
+      "headline-sm": {
+        "displayName": "Headline Sm",
+        "purpose": "Workspace problem title, empty-state and sign-in headings."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Section headings."
+      },
+      "title-sm": {
+        "displayName": "Title Sm",
+        "purpose": "Étude titles in the index, subsection heads, ledger total."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Default copy."
+      },
+      "body-sm": {
+        "displayName": "Body Sm",
+        "purpose": "Problem statement, requirements, table cells, controls."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Metadata, timings, legends, notes."
+      },
+      "label-column": {
+        "displayName": "Label Column",
+        "purpose": "Uppercase table column headers only; never above a heading."
+      },
+      "figure": {
+        "displayName": "Figure",
+        "purpose": "Bare-integer data cells: points, positions, counts."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Editor, inline code, error output, file tabs; ligatures off."
+      }
+    },
+    "shadows": [
+      {
+        "name": "focus-ring-field",
+        "value": "0 0 0 3px rgba(47, 85, 127, 0.15)",
+        "purpose": "Focus-within ring on fields, alongside a cover-blue border. Not elevation."
+      },
+      {
+        "name": "row-wash-bleed",
+        "value": "-16px 0 0 var(--next-soft), 16px 0 0 var(--next-soft)",
+        "purpose": "Extends the current index row's wash past the table edge (12px with cover-soft for the rankings 'you' row). A drawing technique, not depth."
+      },
+      {
+        "name": "diary-practised",
+        "value": "inset 0 0 0 1.5px var(--ink-2)",
+        "purpose": "Ring marking a practised-but-unsolved day in the practice diary."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Default easing for all transitions and the barline rise."
+      },
+      {
+        "name": "state-transition",
+        "value": "160ms",
+        "purpose": "Button background and border changes."
+      },
+      {
+        "name": "bar-rise",
+        "value": "700ms ease-out, thick bar delayed 160ms, scaleY 0.08 to 1 from the baseline",
+        "purpose": "The one authored motion: the final barline closes on an accepted verdict. Off under prefers-reduced-motion."
+      },
+      {
+        "name": "spin",
+        "value": "800ms linear infinite",
+        "purpose": "Functional grading/running spinner. Off under prefers-reduced-motion."
+      },
+      {
+        "name": "caret-blink",
+        "value": "1.1s steps(1) infinite",
+        "purpose": "Editor caret. Off under prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "compact",
+        "value": "900px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Button",
+      "kind": "button",
+      "refersTo": "button",
+      "description": "Default control: sheet fill, rule border, 6px.",
+      "html": "<button class=\"ds-btn\">Back to the étude</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:6px; cursor:pointer; transition:border-color 160ms cubic-bezier(0.16,1,0.3,1), background-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { border-color:var(--ink-2, #474d57); } .ds-btn:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-btn:disabled { color:var(--mute, #646b76); background:var(--rule-soft, #e9ecef); border-color:var(--rule-soft, #e9ecef); cursor:not-allowed; }"
+    },
+    {
+      "name": "Next Action Button",
+      "kind": "button",
+      "refersTo": "button-next",
+      "description": "Schirmer yellow; the single next action on a screen.",
+      "html": "<button class=\"ds-btn-next\">Next étude: Op. 3 Accordion</button>",
+      "css": ".ds-btn-next { display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 22px; font:600 1.0625rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--next, #e0a526); border:1px solid var(--next, #e0a526); border-radius:6px; cursor:pointer; transition:background-color 160ms cubic-bezier(0.16,1,0.3,1), border-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-next:hover { background:var(--next-deep, #c38c14); border-color:var(--next-deep, #c38c14); } .ds-btn-next:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
+    },
+    {
+      "name": "Ink Button",
+      "kind": "button",
+      "refersTo": "button-ink",
+      "description": "Ink fill for sign-in and resets.",
+      "html": "<button class=\"ds-btn-ink\">Continue with GitHub</button>",
+      "css": ".ds-btn-ink { display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:#fff; background:var(--ink, #15171c); border:1px solid var(--ink, #15171c); border-radius:6px; cursor:pointer; } .ds-btn-ink:hover { background:#2a2e36; } .ds-btn-ink:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
+    },
+    {
+      "name": "Filter Chips",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Pill filters; pressed inverts to ink.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\">Easy</button><button class=\"ds-chip\" aria-pressed=\"false\">Medium</button></div>",
+      "css": ".ds-chips { display:flex; gap:8px; } .ds-chip { font:500 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:999px; padding:8px 14px; cursor:pointer; } .ds-chip:hover { border-color:var(--ink-2, #474d57); } .ds-chip:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-chip[aria-pressed='true'] { background:var(--ink, #15171c); border-color:var(--ink, #15171c); color:#fff; }"
+    },
+    {
+      "name": "Search Field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "40px field with leading stroke icon; cover focus ring.",
+      "html": "<label class=\"ds-field\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg><input placeholder=\"Search études\"></label>",
+      "css": ".ds-field { display:flex; align-items:center; gap:8px; height:40px; padding:0 12px; width:300px; background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:6px; color:var(--mute, #646b76); } .ds-field:focus-within { border-color:var(--cover, #2f557f); box-shadow:0 0 0 3px rgba(47,85,127,0.15); } .ds-field input { border:0; outline:0; font:400 0.9375rem 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:transparent; width:100%; } .ds-field input::placeholder { color:var(--mute, #646b76); }"
+    },
+    {
+      "name": "Cover Rail",
+      "kind": "nav",
+      "refersTo": "rail",
+      "description": "248px cover-cloth rail; active book in cover-deep.",
+      "html": "<nav class=\"ds-rail\"><a class=\"ds-brand\" href=\"#\"><b>HookDrill</b><span>Études for hands</span></a><a class=\"ds-item\" aria-current=\"page\" href=\"#\"><span><b>Book I</b> · React</span><small>10</small></a><a class=\"ds-item\" href=\"#\"><span><b>Book II</b> · DSA</span><small>soon</small></a><hr><a class=\"ds-item\" href=\"#\">Rankings</a></nav>",
+      "css": ".ds-rail { width:248px; background:var(--cover, #2f557f); color:#fff; padding:28px 0 24px; display:flex; flex-direction:column; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-brand { padding:0 28px 30px; color:#fff; text-decoration:none; } .ds-brand b { display:block; font-weight:800; font-size:1.375rem; letter-spacing:-0.015em; } .ds-brand span { display:block; font-size:0.8125rem; color:var(--on-cover-2, #c9d7e6); } .ds-item { display:flex; justify-content:space-between; padding:10px 28px; color:var(--on-cover-2, #c9d7e6); text-decoration:none; font-size:0.9375rem; } .ds-item b { color:#fff; font-weight:700; } .ds-item small { font-size:0.8125rem; font-variant-numeric:tabular-nums; } .ds-item:hover, .ds-item[aria-current='page'] { background:var(--cover-deep, #24466b); color:#fff; } .ds-item:focus-visible { outline:2px solid #fff; outline-offset:-2px; } .ds-rail hr { border:0; height:1px; background:var(--cover-line, #46698f); margin:18px 28px; }"
+    },
+    {
+      "name": "Tabs",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Underlined text tabs over a hairline.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">All time</button><button role=\"tab\" aria-selected=\"false\">This week</button></div>",
+      "css": ".ds-tabs { display:flex; gap:2px; border-bottom:1px solid var(--rule, #d8dce1); } .ds-tabs button { font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--mute, #646b76); background:none; border:0; padding:12px 14px 11px; border-bottom:2px solid transparent; margin-bottom:-1px; cursor:pointer; } .ds-tabs button:hover { color:var(--ink, #15171c); } .ds-tabs button:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-tabs [aria-selected='true'] { color:var(--ink, #15171c); border-bottom-color:var(--ink, #15171c); }"
+    },
+    {
+      "name": "Barlines",
+      "kind": "custom",
+      "refersTo": "barline",
+      "description": "Signature progress notation: open (not played), repeat (in practice), final in green (server-accepted, rises closed on accept).",
+      "html": "<div class=\"ds-bls\"><span class=\"ds-bl ds-open\" role=\"img\" aria-label=\"Not played\"><i></i></span><span class=\"ds-bl\" role=\"img\" aria-label=\"In practice\"><i class=\"ds-thick\"></i><i></i><span class=\"ds-dots\"><u></u><u></u></span></span><span class=\"ds-bl ds-final ds-closing\" role=\"img\" aria-label=\"Solved\"><i></i><i class=\"ds-thick\"></i></span></div>",
+      "css": ".ds-bls { display:flex; gap:28px; align-items:center; } .ds-bl { display:inline-flex; align-items:stretch; gap:4px; height:28px; } .ds-bl i { display:block; width:2px; background:var(--ink, #15171c); border-radius:0.5px; } .ds-bl i.ds-thick { width:7px; } .ds-dots { display:flex; flex-direction:column; justify-content:center; gap:7px; } .ds-dots u { display:block; width:6px; height:6px; border-radius:50%; background:var(--ink, #15171c); } .ds-open i { background:var(--mute, #646b76); } .ds-final i { background:var(--pass, #2e7d5b); } .ds-closing i { transform-origin:50% 100%; animation:ds-bar-rise 700ms cubic-bezier(0.16,1,0.3,1) both; } .ds-closing i.ds-thick { animation-delay:160ms; } @keyframes ds-bar-rise { from { transform:scaleY(0.08); background:var(--rule, #d8dce1); } to { transform:scaleY(1); } } @media (prefers-reduced-motion: reduce) { .ds-closing i { animation:none; } }"
+    },
+    {
+      "name": "Étude Index Rows",
+      "kind": "custom",
+      "refersTo": "index-row-current",
+      "description": "Ruled index with opus number, graded ticks, tabular points and barline; the in-practice row carries the yellow wash and Resume.",
+      "html": "<table class=\"ds-index\"><tbody><tr><td class=\"ds-no\">Op. 1</td><td class=\"ds-t\"><a href=\"#\">Todo List</a><p>Create, edit, delete, toggle · 6 tests</p></td><td><span class=\"ds-ticks\"><i class=\"on\"></i><i></i><i></i></span> Easy</td><td class=\"ds-num\">10</td></tr><tr class=\"ds-current\"><td class=\"ds-no\">Op. 2</td><td class=\"ds-t\"><a href=\"#\">Playlist Builder</a> <button class=\"ds-resume\">Resume</button><p>Pick songs, reorder, remove · 7 tests</p></td><td><span class=\"ds-ticks\"><i class=\"on\"></i><i class=\"on\"></i><i></i></span> Medium</td><td class=\"ds-num\">20</td></tr></tbody></table>",
+      "css": ".ds-index { width:100%; border-collapse:collapse; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); } .ds-index td { padding:16px 0; border-bottom:1px solid var(--rule, #d8dce1); vertical-align:middle; font-size:0.9375rem; } .ds-no { width:92px; color:var(--cover, #2f557f); font-weight:700; } .ds-t a { font-weight:700; font-size:1.25rem; letter-spacing:-0.01em; color:inherit; text-decoration:none; } .ds-t a:hover { text-decoration:underline; } .ds-t p { margin:2px 0 0; color:var(--mute, #646b76); } .ds-ticks { display:inline-flex; gap:3px; margin-right:8px; vertical-align:-2px; } .ds-ticks i { width:6px; height:14px; background:var(--rule, #d8dce1); } .ds-ticks i.on { background:var(--ink, #15171c); } .ds-num { text-align:right; font-weight:700; font-variant-numeric:tabular-nums; } .ds-current td { background:var(--next-soft, #fbf1db); } .ds-resume { margin-left:12px; height:30px; padding:0 12px; font:600 0.8125rem/1 inherit; background:var(--next, #e0a526); border:1px solid var(--next, #e0a526); border-radius:6px; color:var(--ink, #15171c); cursor:pointer; } .ds-resume:hover { background:var(--next-deep, #c38c14); } .ds-resume:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
+    },
+    {
+      "name": "Verdict Word",
+      "kind": "custom",
+      "refersTo": "verdict-word-pass",
+      "description": "Server verdict at headline size in its semantic colour.",
+      "html": "<div class=\"ds-verdict\"><span class=\"ds-word ds-pass\">Accepted</span><span class=\"ds-word ds-fail\">Failed</span></div>",
+      "css": ".ds-verdict { display:flex; gap:40px; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-word { font-size:3.5rem; font-weight:800; letter-spacing:-0.03em; line-height:1; } .ds-pass { color:var(--pass, #2e7d5b); } .ds-fail { color:var(--fail, #c63d2f); }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Étude Edition",
+    "overview": "HookDrill is printed as a graded collection of studies, in the lineage of Czerny, Hanon, Henle Urtext and Schirmer. Each challenge is an opus number in a book per track. The shell is the edition's blue cover cloth; the content is bright engraving paper set in near-black ink, divided by hairline engraved rules. Nothing floats. Hierarchy comes from heavy grotesk headings, a 2px ink underline beneath each page heading, and figures set right against the margin.\n\nDensity is a working reference book's density: tables are the primary form, rows are 14 to 16px tall in padding, and the only wash of colour in a list is the row that holds the user's next action. Colour is semantic and scarce. Schirmer yellow marks the one thing to do next, teacher's red pencil marks failure, green appears only when the server has graded a solve, and everything in between is graphite.\n\nThe signature is barline notation. Progress through an étude is written the way a score ends a passage: an open thin bar when unplayed, a repeat sign when in practice, and a thin+thick final barline in green when the server has accepted the solve. The system's single authored motion is the final barline rising closed on an accepted verdict.",
+    "keyCharacteristics": [
+      "Blue cover-cloth rail or bar framing a paper content area, never a dark IDE shell.",
+      "Hairline rules and tables instead of cards, panels or shadows.",
+      "One yellow next action per screen; green reserved for server verdicts.",
+      "Barline glyphs as the progress vocabulary in index, record and verdict.",
+      "Firm variable grotesk at heavy weights; JetBrains Mono only for code."
+    ],
+    "rules": [
+      {
+        "name": "The One Next Action Rule",
+        "body": "Schirmer yellow appears on exactly one control per screen: the action the user should take next. The index row that contains that action may carry the next-soft wash; nothing else may be yellow.",
+        "section": "colors"
+      },
+      {
+        "name": "The Honest Green Rule",
+        "body": "Green means \"the server graded this and accepted it\". In-browser public test passes are graphite, never green, so no screen implies points before a verdict.",
+        "section": "colors"
+      },
+      {
+        "name": "The You Tint Rule",
+        "body": "cover-soft marks \"you\" and selection: the current user's rankings row and the text selection colour. Do not use it as a generic highlight.",
+        "section": "colors"
+      },
+      {
+        "name": "The Plain Integer Rule",
+        "body": "Tabular figures apply only to cells holding a bare integer (points, positions, counts). Mixed text such as \"9 / 9\", \"1.4 s\" or prose keeps proportional figures.",
+        "section": "typography"
+      },
+      {
+        "name": "The Typed Characters Rule",
+        "body": "All code renders with ligatures off (`font-variant-ligatures: none`). The user sees exactly the characters they typed.",
+        "section": "typography"
+      },
+      {
+        "name": "The Heading Stands Alone Rule",
+        "body": "Headings carry their own weight. Never put a kicker or eyebrow label above a heading; uppercase tracking is for table column heads only.",
+        "section": "typography"
+      },
+      {
+        "name": "The Engraved Rule Rule",
+        "body": "Separate content with hairline rules, not cards or shadows. If something needs grouping, draw a rule or use a table.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put exactly one Schirmer yellow (#e0a526) action on each screen, and wash only the row that holds it.",
+      "Do reserve server green (#2e7d5b) for server-graded verdicts and final barlines; show in-browser test passes in graphite (#5d636c).",
+      "Do use barlines (open, repeat, final) to show étude progress wherever progress appears.",
+      "Do separate content with 1px rule (#d8dce1) hairlines, and close page heads and totals with a 2px ink rule.",
+      "Do right-align numeric columns and use tabular figures only on bare-integer cells.",
+      "Do set all code in JetBrains Mono with ligatures off.",
+      "Do keep the rail or coverbar in cover blue (#2f557f) on paper (#f8f9fa); paper stays cool white."
+    ],
+    "donts": [
+      "Don't put a kicker or eyebrow label above any heading.",
+      "Don't wrap content in cards or give anything an elevation shadow.",
+      "Don't colour a public, in-browser test pass green or imply points before a server verdict.",
+      "Don't use yellow for decoration, emphasis, or a second action.",
+      "Don't add motion beyond the final barline rise, state transitions of 160ms, and functional spinners and caret.",
+      "Don't add gamified arcade devices: confetti, XP bars, badge walls.",
+      "Don't shift to a dark IDE shell with a neon accent, or a cream paper."
+    ]
+  }
+}

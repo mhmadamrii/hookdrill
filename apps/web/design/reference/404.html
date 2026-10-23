@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Not in the book · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+<style>
+  .lost { padding-top: 72px; max-width: 760px; }
+  .lost h1 { font-size: var(--t-3xl); }
+  .lost p { color: var(--ink-2); margin-top: 16px; max-width: 56ch; }
+  .lost .actions { display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap; }
+  @media (max-width: 900px) { .lost { padding-top: 32px; } .lost h1 { font-size: 2.5rem; } }
+</style>
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html">Études</a><a href="workspace.html">Workspace</a><a href="submission.html">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html">Practice record</a><a href="signin.html">Sign in</a><a href="404.html" aria-current="page">404</a>
+</div>
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="challenges.html"><b>HookDrill</b><span>Études for hands</span></a>
+    <nav aria-label="Books">
+      <a href="challenges.html"><span><b>Book I</b> · React</span><span class="count">10</span></a>
+      <a href="#"><span><b>Book II</b> · DSA</span><span class="count">soon</span></a>
+    </nav>
+    <hr>
+    <nav aria-label="Sections"><a href="profile.html">Practice record</a><a href="rankings.html">Rankings</a><a href="#">Write an étude</a></nav>
+    <a class="me" href="profile.html"><span class="avatar">A</span><span class="txt"><b>ada-dev</b>5-day streak · 47 pts</span></a>
+  </aside>
+  <main class="main">
+    <div class="lost">
+      <div>
+        <h1>This étude isn't in the book</h1>
+        <p>There's no étude at <code class="mono">/challenges/drag-and-drop</code>. It may have been renamed, or it hasn't been written yet. Book I has ten études to work through meanwhile.</p>
+        <div class="actions"><a class="btn next" href="challenges.html">Open Book I</a><a class="btn" href="#">Suggest this étude</a></div>
+      </div>
+    </div>
+  </main>
+</div>
+</body>
+</html>

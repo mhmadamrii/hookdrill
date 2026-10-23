@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Submission #318 · Op. 2 Playlist Builder · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+<style>
+  .verdict { display: grid; grid-template-columns: auto 1fr auto; gap: 28px; align-items: center; padding: 40px 0 36px; border-bottom: 1px solid var(--rule); }
+  .verdict .word { font-size: var(--t-3xl); font-weight: 800; letter-spacing: -0.03em; line-height: 1; }
+  .verdict .word.pass { color: var(--pass); } .verdict .word.fail { color: var(--fail); } .verdict .word.wait { color: var(--ink); }
+  .verdict p { color: var(--ink-2); margin-top: 10px; font-size: var(--t-md); }
+  .verdict .actions { display: flex; flex-direction: column; gap: 10px; align-items: stretch; min-width: 240px; }
+  .verdict .actions .btn { justify-content: center; }
+  .cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr); gap: 56px; margin-top: 36px; }
+  .ledger { width: 100%; border-collapse: collapse; font-size: var(--t-sm); }
+  .ledger td { padding: 11px 0; border-bottom: 1px solid var(--rule); }
+  .ledger td.num { text-align: right; font-weight: 600; }
+  .ledger tr.total td { border-bottom: 2px solid var(--ink); font-weight: 800; font-size: var(--t-lg); }
+  .ledger .neg { color: var(--fail); }
+  .grading { list-style: none; padding: 0; border-top: 1px solid var(--rule); }
+  .grading li { display: flex; gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--rule-soft); font-size: var(--t-sm); }
+  .grading .pass { color: var(--pass); } .grading .fail { color: var(--fail); } .grading .idle { color: var(--rule); }
+  .grading li.f span.n { color: var(--fail); font-weight: 600; }
+  .grading .ms { margin-left: auto; color: var(--mute); font-size: var(--t-xs); }
+  .errbox { margin-top: 4px; padding: 14px 16px; background: var(--fail-soft); color: #5e1f18; font: 0.82rem/1.6 var(--mono); font-variant-ligatures: none; border-radius: var(--r-md); white-space: pre-wrap; }
+  .queue { display: flex; align-items: center; gap: 12px; font-size: var(--t-sm); color: var(--ink-2); }
+  .spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--rule); border-top-color: var(--cover); animation: spin 800ms linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .spin { animation: none; } }
+  .sub-h { font-size: var(--t-lg); letter-spacing: -0.01em; margin-bottom: 10px; }
+  @media (max-width: 900px) {
+    .verdict { grid-template-columns: auto 1fr; } .verdict .actions { grid-column: 1 / -1; min-width: 0; }
+    .verdict .word { font-size: 2.5rem; }
+    .cols { grid-template-columns: 1fr; gap: 36px; }
+  }
+</style>
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html">Études</a><a href="workspace.html">Workspace</a><a href="submission.html" aria-current="page">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html">Practice record</a><a href="signin.html">Sign in</a><a href="404.html">404</a>
+  <span class="states" aria-label="Screen state"><button data-state="accepted">Accepted</button><button data-state="queued">Queued</button><button data-state="running">Running</button><button data-state="failed">Failed</button><button data-state="error">Error</button><button data-state="timeout">Timeout</button></span>
+</div>
+
+<div class="app">
+  <aside class="rail">
+    <a class="brand" href="challenges.html"><b>HookDrill</b><span>Études for hands</span></a>
+    <nav aria-label="Books">
+      <a href="challenges.html" aria-current="page"><span><b>Book I</b> · React</span><span class="count">10</span></a>
+      <a href="#"><span><b>Book II</b> · DSA</span><span class="count">soon</span></a>
+    </nav>
+    <hr>
+    <nav aria-label="Sections"><a href="profile.html">Practice record</a><a href="rankings.html">Rankings</a><a href="#">Write an étude</a></nav>
+    <a class="me" href="profile.html"><span class="avatar">A</span><span class="txt"><b>ada-dev</b>4-day streak · 30 pts</span></a>
+  </aside>
+
+  <main class="main">
+    <div class="wrap">
+      <header class="pagehead">
+        <h1>Playlist Builder</h1>
+        <p class="summary"><b>Op. 2</b> · Submission #318 · 23 Oct, 10:47</p>
+      </header>
+
+      <!-- accepted -->
+      <div data-state-panel="accepted">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg final closing" role="img" aria-label="Solved"><i></i><i class="thick"></i></span>
+          <div><div class="word pass">Accepted</div><p>9 of 9 grading tests passed in 1.4 s. The barline is closed: Op. 2 counts toward your record.</p></div>
+          <div class="actions"><a class="btn next lg" href="challenges.html">Next étude: Op. 3 Accordion</a><a class="btn" href="workspace.html">Back to Playlist Builder</a></div>
+        </div>
+        <div class="cols">
+          <div><h2 class="sub-h">Grading tests</h2>
+            <ul class="grading">
+              <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">adds songs in click order</span><span class="ms">118 ms</span></li>
+              <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">never lists a song twice</span><span class="ms">96 ms</span></li>
+              <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">reorders across the whole playlist</span><span class="ms">212 ms</span></li>
+              <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">boundary buttons follow every move</span><span class="ms">187 ms</span></li>
+              <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">… 5 more</span></li>
+            </ul>
+            <p class="sample" style="margin-top:12px">Grading tests run on HookDrill's server and are never sent to your browser. Names are shown; their code stays hidden.</p>
+          </div>
+          <div><h2 class="sub-h">Points</h2>
+            <table class="ledger">
+              <tr><td>Op. 2 · Medium</td><td class="num">20</td></tr>
+              <tr><td>Hint 1 revealed · −15%</td><td class="num neg">−3</td></tr>
+              <tr class="total"><td>Awarded</td><td class="num">17</td></tr>
+              <tr><td>Your total</td><td class="num">30 → 47</td></tr>
+              <tr><td>This week</td><td class="num">+37</td></tr>
+              <tr><td>Streak</td><td class="num">5 days</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- queued -->
+      <div data-state-panel="queued">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg" role="img" aria-label="Waiting"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span>
+          <div><div class="word wait">Queued</div><p class="queue"><span class="spin" aria-hidden="true"></span>Waiting for a grader. 2 submissions ahead of yours.</p></div>
+          <div class="actions"><a class="btn" href="workspace.html">Keep practising meanwhile</a></div>
+        </div>
+      </div>
+
+      <!-- running -->
+      <div data-state-panel="running">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg" role="img" aria-label="Grading"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span>
+          <div><div class="word wait">Grading…</div><p class="queue"><span class="spin" aria-hidden="true"></span>4 of 9 grading tests done</p></div>
+          <div class="actions"><a class="btn" href="workspace.html">Back to the étude</a></div>
+        </div>
+        <div class="cols"><div><h2 class="sub-h">Grading tests</h2>
+          <ul class="grading">
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">adds songs in click order</span><span class="ms">118 ms</span></li>
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">never lists a song twice</span><span class="ms">96 ms</span></li>
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">reorders across the whole playlist</span><span class="ms">212 ms</span></li>
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">boundary buttons follow every move</span><span class="ms">187 ms</span></li>
+            <li><span class="spin" aria-hidden="true"></span><span class="n">removing the last song shows the empty state</span></li>
+          </ul></div></div>
+      </div>
+
+      <!-- failed -->
+      <div data-state-panel="failed">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg" role="img" aria-label="In practice"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span>
+          <div><div class="word fail">7 of 9 passed</div><p>Close. Two grading tests failed, so the barline stays open. No points are lost for trying again.</p></div>
+          <div class="actions"><a class="btn next lg" href="workspace.html">Back to the étude</a><a class="btn" href="#">Reveal hint 2 (−15%)</a></div>
+        </div>
+        <div class="cols"><div><h2 class="sub-h">Grading tests</h2>
+          <ul class="grading">
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">adds songs in click order</span><span class="ms">118 ms</span></li>
+            <li class="f"><svg class="i fail" viewBox="0 0 24 24" aria-label="Failed"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="n">boundary buttons follow every move</span><span class="ms">187 ms</span></li>
+            <li class="f"><svg class="i fail" viewBox="0 0 24 24" aria-label="Failed"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="n">a single song has both moves disabled</span><span class="ms">74 ms</span></li>
+            <li><svg class="i pass" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="n">… 6 more passing</span></li>
+          </ul>
+          <p class="sample" style="margin-top:12px">Both failures relate to the <b>Boundaries</b> requirement. Re-read it, then run the public tests again.</p></div></div>
+      </div>
+
+      <!-- error -->
+      <div data-state-panel="error">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg open" role="img" aria-label="Not graded"><i></i></span>
+          <div><div class="word fail">Didn't compile</div><p>The grader couldn't build your code, so no tests ran. This attempt is not counted.</p></div>
+          <div class="actions"><a class="btn next lg" href="workspace.html">Fix it in the editor</a></div>
+        </div>
+        <div class="cols"><div><h2 class="sub-h">Build error</h2>
+          <div class="errbox">SyntaxError: /App.jsx: Unexpected token, expected "," (21:4)
+
+  19 |             onClick={() =&gt; move(i, 1)}&gt;Down&lt;/button&gt;
+  20 |         &lt;/li&gt;
+&gt; 21 |     ))}
+     |     ^</div></div></div>
+      </div>
+
+      <!-- timeout -->
+      <div data-state-panel="timeout">
+        <div class="verdict" aria-live="polite">
+          <span class="bl lg open" role="img" aria-label="Not graded"><i></i></span>
+          <div><div class="word fail">Timed out</div><p>Grading stopped after 30 seconds. This usually means an endless render loop, for example calling <code>setPlaylist</code> during render.</p></div>
+          <div class="actions"><a class="btn next lg" href="workspace.html">Back to the étude</a></div>
+        </div>
+      </div>
+
+      <section class="later">
+        <h2 class="sub-h">Your submissions for Op. 2</h2>
+        <table class="ruled">
+          <thead><tr><th>#</th><th class="hide-sm">When</th><th>Verdict</th><th class="num">Grading tests</th><th class="num">Time</th></tr></thead>
+          <tbody>
+            <tr data-state-panel="accepted"><td>318</td><td class="hide-sm">Today 10:47</td><td><span class="v pass">Accepted</span></td><td class="num">9 / 9</td><td class="num">1.4 s</td></tr>
+            <tr data-state-panel="queued running"><td>318</td><td class="hide-sm">Today 10:47</td><td><span class="v wait">Grading…</span></td><td class="num">–</td><td class="num">–</td></tr>
+            <tr data-state-panel="failed"><td>318</td><td class="hide-sm">Today 10:47</td><td><span class="v fail">Failed</span></td><td class="num">7 / 9</td><td class="num">1.3 s</td></tr>
+            <tr data-state-panel="error"><td>318</td><td class="hide-sm">Today 10:47</td><td><span class="v err">Didn't compile</span></td><td class="num">–</td><td class="num">0.2 s</td></tr>
+            <tr data-state-panel="timeout"><td>318</td><td class="hide-sm">Today 10:47</td><td><span class="v err">Timed out</span></td><td class="num">–</td><td class="num">30 s</td></tr>
+            <tr><td>311</td><td class="hide-sm">Today 10:31</td><td><span class="v fail">Failed</span></td><td class="num">7 / 9</td><td class="num">1.3 s</td></tr>
+            <tr><td>305</td><td class="hide-sm">Yesterday 21:12</td><td><span class="v err">Didn't compile</span></td><td class="num">–</td><td class="num">0.2 s</td></tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+</div>
+<script src="assets/reference.js"></script>
+</body>
+</html>

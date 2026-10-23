@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Op. 2 Playlist Builder · HookDrill</title>
+<link rel="stylesheet" href="assets/hookdrill.css">
+<link rel="stylesheet" href="assets/workspace.css">
+</head>
+<body>
+<div class="ref" role="note" aria-label="Reference navigation">
+  <b>UI reference</b>
+  <a href="index.html">Index</a><a href="challenges.html">Études</a><a href="workspace.html" aria-current="page">Workspace</a><a href="submission.html">Submission</a><a href="rankings.html">Rankings</a><a href="profile.html">Practice record</a><a href="signin.html">Sign in</a><a href="404.html">404</a>
+  <span class="states" aria-label="Screen state"><button data-state="failing">Tests failing</button><button data-state="fresh">Not run yet</button><button data-state="running">Running</button><button data-state="ready">Ready to submit</button></span>
+</div>
+
+<header class="coverbar">
+  <a class="brand" href="challenges.html"><b>HookDrill</b></a>
+  <nav class="crumbs" aria-label="Breadcrumb">
+    <a class="hide-sm" href="challenges.html">Book I · React</a>
+    <svg class="i hide-sm" viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg>
+    <b>Op. 2 · Playlist Builder</b>
+  </nav>
+  <span class="bl sm" role="img" aria-label="Record: in practice"><i class="thick"></i><i></i><span class="dots"><u></u><u></u></span></span>
+  <div class="right"><span class="hide-sm">Draft saved 10:42</span><span class="avatar" aria-label="ada-dev">A</span></div>
+</header>
+
+<nav class="mobile-tabs tabs" aria-label="Jump to">
+  <a href="#problem" aria-current="page">Problem</a><a href="#code">Code</a><a href="#preview">Preview</a><a href="#tests">Tests</a>
+</nav>
+
+<div class="ws">
+  <article class="problem" id="problem" aria-label="Problem">
+    <h1>Playlist Builder</h1>
+    <div class="meta">
+      <span class="no">Op. 2</span>
+      <span class="grade"><span class="ticks"><i class="on"></i><i class="on"></i><i></i></span>Medium</span>
+      <span>20 points</span><span>7 public tests</span>
+    </div>
+    <p>Build a playlist picker in <code>App.jsx</code> (default export <code>App</code>), like adding songs to a playlist in Spotify. The song library is in <code>songs.js</code>.</p>
+
+    <h2>Requirements</h2>
+    <ol class="reqs">
+      <li><span class="mark" data-state-panel="failing ready"><svg class="i pass" viewBox="0 0 24 24" aria-label="Passing"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mark none" data-state-panel="fresh running"><svg class="i" viewBox="0 0 24 24" aria-label="Not run"><circle cx="12" cy="12" r="8"/></svg></span>
+        <div><b>Add.</b> Clicking Add appends the song to the end of the playlist. A song can be in the playlist once; its Add button is <code>disabled</code> while it is.
+          <span class="proof">Proved by <b>adds songs to the end of the playlist in click order</b>, <b>disables Add for a song already in the playlist</b></span></div></li>
+      <li><span class="mark" data-state-panel="failing ready"><svg class="i pass" viewBox="0 0 24 24" aria-label="Passing"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mark none" data-state-panel="fresh running"><svg class="i" viewBox="0 0 24 24" aria-label="Not run"><circle cx="12" cy="12" r="8"/></svg></span>
+        <div><b>Reorder.</b> Each playlist item has Up and Down buttons that move it one position.
+          <span class="proof">Proved by <b>moves a song up</b>, <b>moves a song down</b></span></div></li>
+      <li><span class="mark fail" data-state-panel="failing"><svg class="i" viewBox="0 0 24 24" aria-label="Failing"><path d="M18 6 6 18M6 6l12 12"/></svg></span><span class="mark pass" data-state-panel="ready"><svg class="i" viewBox="0 0 24 24" aria-label="Passing"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mark none" data-state-panel="fresh running"><svg class="i" viewBox="0 0 24 24" aria-label="Not run"><circle cx="12" cy="12" r="8"/></svg></span>
+        <div><b>Boundaries.</b> The first item's Up and the last item's Down are <code>disabled</code>; with a single item, both are.
+          <span class="proof fail" data-state-panel="failing">Failing <b>disables Up on the first item and Down on the last item</b>, <b>updates the disabled buttons after reordering</b></span>
+          <span class="proof" data-state-panel="fresh running ready">Proved by <b>disables Up on the first item and Down on the last item</b>, <b>updates the disabled buttons after reordering</b></span></div></li>
+      <li><span class="mark" data-state-panel="failing ready"><svg class="i pass" viewBox="0 0 24 24" aria-label="Passing"><path d="M20 6 9 17l-5-5"/></svg></span><span class="mark none" data-state-panel="fresh running"><svg class="i" viewBox="0 0 24 24" aria-label="Not run"><circle cx="12" cy="12" r="8"/></svg></span>
+        <div><b>Remove and empty state.</b> Removing a song re-enables its Add button. An empty playlist shows <code>playlist-empty</code>.
+          <span class="proof">Proved by <b>removes a song and lets it be added again</b></span></div></li>
+    </ol>
+
+    <h2>Required test ids</h2>
+    <table class="ids">
+      <tr><td><code>library-item</code></td><td>one per song, in <code>SONGS</code> order</td></tr>
+      <tr><td><code>add-button</code></td><td>inside <code>library-item</code></td></tr>
+      <tr><td><code>playlist-item</code></td><td>one per playlist song, in order</td></tr>
+      <tr><td><code>song-title</code></td><td>inside both item kinds</td></tr>
+      <tr><td><code>move-up-button</code> <code>move-down-button</code></td><td>inside <code>playlist-item</code></td></tr>
+      <tr><td><code>remove-button</code></td><td>inside <code>playlist-item</code></td></tr>
+      <tr><td><code>playlist-empty</code></td><td>empty-playlist message</td></tr>
+    </table>
+
+    <h2>Hints</h2>
+    <div class="hints">
+      <div class="hint">
+        <div class="h"><span>Hint 1 of 4</span><span>revealed · −15%</span></div>
+        <p>Keep the library as the static <code>SONGS</code> import and store only the playlist in state, as an array of song ids.</p>
+      </div>
+      <div class="hint-cost">
+        <button class="btn">
+          <svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M17 3l4 4L8 20H4v-4L17 3z"/></svg>Reveal hint 2
+        </button>
+        <span>Solving now earns 17 of 20 points. Each further hint costs 3 more.</span>
+      </div>
+    </div>
+  </article>
+
+  <section class="work" id="code" aria-label="Code, preview and tests">
+    <div class="actionbar">
+      <div class="files" role="tablist" aria-label="Files"><button role="tab" aria-selected="true">App.jsx</button><button role="tab" aria-selected="false">songs.js</button></div>
+      <button class="btn ghost"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5"/></svg>Reset</button>
+      <span data-state-panel="fresh failing"><button class="btn next"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Run tests <span class="kbd">⌘↵</span></button></span>
+      <span data-state-panel="running"><button class="btn" disabled><span class="spin" aria-hidden="true"></span>Running…</button></span>
+      <span data-state-panel="ready"><button class="btn"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg>Run tests</button></span>
+      <span data-state-panel="fresh failing running"><a class="btn" href="submission.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit</a></span>
+      <span data-state-panel="ready"><a class="btn next" href="submission.html"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>Submit for grading</a></span>
+    </div>
+
+    <div class="editor" role="region" aria-label="Code editor, App.jsx"><span class="ln"><span class="k">import</span> { useState } <span class="k">from</span> <span class="s">"react"</span>;</span><span class="ln"><span class="k">import</span> { SONGS } <span class="k">from</span> <span class="s">"./songs.js"</span>;</span><span class="ln"> </span><span class="ln"><span class="k">export default function</span> <span class="f">App</span>() {</span><span class="ln">  <span class="k">const</span> [playlist, setPlaylist] = <span class="f">useState</span>([]);</span><span class="ln"> </span><span class="ln">  <span class="k">function</span> <span class="f">move</span>(index, delta) {</span><span class="ln">    <span class="k">const</span> next = [...playlist];</span><span class="ln">    [next[index], next[index + delta]] = [next[index + delta], next[index]];</span><span class="ln">    <span class="f">setPlaylist</span>(next);</span><span class="ln">  }</span><span class="ln"> </span><span class="ln">  <span class="k">return</span> (</span><span class="ln">    &lt;<span class="k">ol</span>&gt;</span><span class="ln">      {playlist.<span class="f">map</span>((id, i) =&gt; (</span><span class="ln">        &lt;<span class="k">li</span> key={id} data-testid=<span class="s">"playlist-item"</span>&gt;</span><span class="ln">          &lt;<span class="k">button</span> data-testid=<span class="s">"move-up-button"</span> disabled={i === <span class="s">0</span>}</span><span class="ln">            onClick={() =&gt; <span class="f">move</span>(i, -<span class="s">1</span>)}&gt;Up&lt;/<span class="k">button</span>&gt;</span><span class="ln cur">          &lt;<span class="k">button</span> data-testid=<span class="s">"move-down-button"</span><span class="caret" aria-hidden="true"></span></span><span class="ln">            onClick={() =&gt; <span class="f">move</span>(i, <span class="s">1</span>)}&gt;Down&lt;/<span class="k">button</span>&gt;</span><span class="ln">        &lt;/<span class="k">li</span>&gt;</span><span class="ln">      ))}</span><span class="ln">    &lt;/<span class="k">ol</span>&gt;</span><span class="ln">  );</span><span class="ln">}</span></div>
+
+    <div class="lower">
+      <div class="pane" id="preview">
+        <header><b>Preview</b><span>live</span></header>
+        <div class="body preview" aria-label="Live preview of your app">
+          <h2>Playlist</h2>
+          <ol>
+            <li>Hotel California <button disabled>Up</button><button>Down</button><button>Remove</button></li>
+            <li>Bohemian Rhapsody <button>Up</button><button>Down</button><button>Remove</button></li>
+            <li>Levitating <button>Up</button><button>Down</button><button>Remove</button></li>
+          </ol>
+        </div>
+      </div>
+      <div class="pane" id="tests">
+        <header>
+          <b>Public tests</b>
+          <span class="r tally" data-state-panel="failing"><span class="bar" aria-hidden="true"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="f"></i><i class="f"></i><i class="p"></i></span><span>5 of 7 passing · 0.9 s</span></span>
+          <span class="r" data-state-panel="fresh">Not run yet</span>
+          <span class="r tally" data-state-panel="running"><span class="spin" aria-hidden="true"></span><span>Running 3 of 7…</span></span>
+          <span class="r tally" data-state-panel="ready"><span class="bar" aria-hidden="true"><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i><i class="p"></i></span><span>7 of 7 passing · 0.8 s</span></span>
+        </header>
+        <div class="body">
+          <ul class="tests" data-state-panel="failing">
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">adds songs to the end of the playlist in click order</span><span class="ms">142 ms</span></div></li>
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">disables Add for a song already in the playlist</span><span class="ms">88 ms</span></div></li>
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">moves a song up</span><span class="ms">131 ms</span></div></li>
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">moves a song down</span><span class="ms">127 ms</span></div></li>
+            <li class="fail"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Failed"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="name">disables Up on the first item and Down on the last item</span><span class="ms">96 ms</span></div>
+              <pre>expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+
+  at playlist.test.jsx:91 · buttons(view, 0).down.disabled</pre></li>
+            <li class="fail"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Failed"><path d="M18 6 6 18M6 6l12 12"/></svg><span class="name">updates the disabled buttons after reordering</span><span class="ms">104 ms</span></div></li>
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">removes a song and lets it be added again</span><span class="ms">158 ms</span></div></li>
+          </ul>
+          <div data-state-panel="fresh">
+            <ul class="tests">
+              <li class="idle"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg><span class="name">adds songs to the end of the playlist in click order</span></div></li>
+              <li class="idle"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg><span class="name">disables Add for a song already in the playlist</span></div></li>
+              <li class="idle"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg><span class="name">moves a song up</span></div></li>
+              <li class="idle"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg><span class="name">… 4 more</span></div></li>
+            </ul>
+            <p class="note">Public tests run here in your browser and never count for points. The runner takes a few seconds to start the first time.</p>
+          </div>
+          <ul class="tests" data-state-panel="running">
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">adds songs to the end of the playlist in click order</span><span class="ms">142 ms</span></div></li>
+            <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">disables Add for a song already in the playlist</span><span class="ms">88 ms</span></div></li>
+            <li class="run"><div class="row"><span class="spin" aria-hidden="true"></span><span class="name">moves a song up</span></div></li>
+            <li class="idle"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/></svg><span class="name">moves a song down</span></div></li>
+          </ul>
+          <div data-state-panel="ready">
+            <ul class="tests">
+              <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">adds songs to the end of the playlist in click order</span><span class="ms">139 ms</span></div></li>
+              <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">disables Up on the first item and Down on the last item</span><span class="ms">101 ms</span></div></li>
+              <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">updates the disabled buttons after reordering</span><span class="ms">97 ms</span></div></li>
+              <li class="pass"><div class="row"><svg class="i" viewBox="0 0 24 24" aria-label="Passed"><path d="M20 6 9 17l-5-5"/></svg><span class="name">… 4 more passing</span></div></li>
+            </ul>
+            <p class="note">Public tests pass. Submitting runs the hidden grading tests on our server; only that verdict earns points.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<script src="assets/reference.js"></script>
+</body>
+</html>

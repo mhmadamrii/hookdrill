@@ -1,5 +1,6 @@
 import type { Challenge, ChallengeMeta, FileMap } from './types'
 import { meta as todoList } from './react/todo-list/meta'
+import { meta as playlistBuilder } from './react/playlist-builder/meta'
 
 export type * from './types'
 
@@ -10,13 +11,21 @@ const registry: Record<
   { meta: ChallengeMeta; load: () => Promise<{ default: Challenge }> }
 > = {
   [todoList.slug]: { meta: todoList, load: () => import('./react/todo-list') },
+  [playlistBuilder.slug]: {
+    meta: playlistBuilder,
+    load: () => import('./react/playlist-builder'),
+  },
 }
 
 // Reference solutions exist only in dev builds. The literal condition lets the
 // production build drop these imports entirely.
 const solutions: Record<string, () => Promise<{ default: FileMap }>> =
   import.meta.env.DEV
-    ? { [todoList.slug]: () => import('./react/todo-list/solution') }
+    ? {
+        [todoList.slug]: () => import('./react/todo-list/solution'),
+        [playlistBuilder.slug]: () =>
+          import('./react/playlist-builder/solution'),
+      }
     : {}
 
 export function listChallenges(): ChallengeMeta[] {
