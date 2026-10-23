@@ -4,8 +4,12 @@
   "type": "module",
   "packageManager": "pnpm@12.11.2",
   "scripts": {
-    "dev": "pnpm --filter @hookdrill/web dev",
+    "dev": "pnpm --parallel --filter @hookdrill/web --filter @hookdrill/api dev",
     "build": "pnpm --filter @hookdrill/web build",
+    "typecheck": "pnpm --filter @hookdrill/web --filter @hookdrill/api --filter @hookdrill/db exec tsc --noEmit",
+    "db:generate": "pnpm --filter @hookdrill/db generate",
+    "db:migrate": "pnpm --filter @hookdrill/db migrate",
+    "db:sync-challenges": "pnpm --filter @hookdrill/db sync-challenges",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },

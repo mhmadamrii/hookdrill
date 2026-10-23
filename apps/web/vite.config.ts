@@ -7,6 +7,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 const config = defineConfig({
   resolve: { tsconfigPaths: true },
+  // One .env at the repo root; only VITE_* values reach the client.
+  envDir: '../..',
   plugins: [tailwindcss(), tanstackStart(), viteReact()],
 })
 

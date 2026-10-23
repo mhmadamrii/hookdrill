@@ -1,20 +1,13 @@
 import type { Challenge, ChallengeMeta, FileMap } from './types'
-import { meta as todoList } from './react/todo-list/meta'
-import { meta as playlistBuilder } from './react/playlist-builder/meta'
+import { catalog } from './catalog'
 
 export type * from './types'
 
 // Metadata is small and loaded eagerly. Content is loaded on demand, so each
 // challenge ends up in its own chunk instead of the main bundle.
-const registry: Record<
-  string,
-  { meta: ChallengeMeta; load: () => Promise<{ default: Challenge }> }
-> = {
-  [todoList.slug]: { meta: todoList, load: () => import('./react/todo-list') },
-  [playlistBuilder.slug]: {
-    meta: playlistBuilder,
-    load: () => import('./react/playlist-builder'),
-  },
+const loaders: Record<string, () => Promise<{ default: Challenge }>> = {
+  'todo-list': () => import('./react/todo-list'),
+  'playlist-builder': () => import('./react/playlist-builder'),
 }
 
 // Reference solutions exist only in dev builds. The literal condition lets the
@@ -22,21 +15,20 @@ const registry: Record<
 const solutions: Record<string, () => Promise<{ default: FileMap }>> =
   import.meta.env.DEV
     ? {
-        [todoList.slug]: () => import('./react/todo-list/solution'),
-        [playlistBuilder.slug]: () =>
-          import('./react/playlist-builder/solution'),
+        'todo-list': () => import('./react/todo-list/solution'),
+        'playlist-builder': () => import('./react/playlist-builder/solution'),
       }
     : {}
 
 export function listChallenges(): ChallengeMeta[] {
-  return Object.values(registry).map((entry) => entry.meta)
+  return catalog
 }
 
 export async function getChallenge(
   slug: string,
 ): Promise<Challenge | undefined> {
-  const entry = registry[slug]
-  return entry && (await entry.load()).default
+  const load = loaders[slug]
+  return load && (await load()).default
 }
 
 /** Dev only: always resolves to undefined in production builds. */

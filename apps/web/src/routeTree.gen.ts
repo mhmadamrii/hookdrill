@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MeRouteImport } from './routes/me'
 import { Route as PlaygroundRouteImport } from './routes/playground'
+import { Route as SigninRouteImport } from './routes/signin'
 import { Route as ChallengesSlugRouteImport } from './routes/challenges.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -18,9 +20,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MeRoute = MeRouteImport.update({
+  id: '/me',
+  path: '/me',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlaygroundRoute = PlaygroundRouteImport.update({
   id: '/playground',
   path: '/playground',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SigninRoute = SigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChallengesSlugRoute = ChallengesSlugRouteImport.update({
@@ -31,31 +43,39 @@ const ChallengesSlugRoute = ChallengesSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/me': typeof MeRoute
   '/playground': typeof PlaygroundRoute
+  '/signin': typeof SigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/me': typeof MeRoute
   '/playground': typeof PlaygroundRoute
+  '/signin': typeof SigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/me': typeof MeRoute
   '/playground': typeof PlaygroundRoute
+  '/signin': typeof SigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/playground' | '/challenges/$slug'
+  fullPaths: '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/playground' | '/challenges/$slug'
-  id: '__root__' | '/' | '/playground' | '/challenges/$slug'
+  to: '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
+  id: '__root__' | '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MeRoute: typeof MeRoute
   PlaygroundRoute: typeof PlaygroundRoute
+  SigninRoute: typeof SigninRoute
   ChallengesSlugRoute: typeof ChallengesSlugRoute
 }
 
@@ -68,11 +88,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/me': {
+      id: '/me'
+      path: '/me'
+      fullPath: '/me'
+      preLoaderRoute: typeof MeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/playground': {
       id: '/playground'
       path: '/playground'
       fullPath: '/playground'
       preLoaderRoute: typeof PlaygroundRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/signin': {
+      id: '/signin'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof SigninRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/challenges/$slug': {
@@ -87,7 +121,9 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MeRoute: MeRoute,
   PlaygroundRoute: PlaygroundRoute,
+  SigninRoute: SigninRoute,
   ChallengesSlugRoute: ChallengesSlugRoute,
 }
 export const routeTree = rootRouteImport

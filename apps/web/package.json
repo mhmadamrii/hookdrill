@@ -6,7 +6,7 @@
     "#/*": "./src/*"
   },
   "scripts": {
-    "dev": "vite dev --port 3000",
+    "dev": "vite dev --port 3000 --strictPort",
     "generate-routes": "tsr generate",
     "build": "vite build",
     "preview": "vite preview"
@@ -15,19 +15,31 @@
     "@codesandbox/sandpack-react": "2.20.0",
     "@hookdrill/challenges": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
+    "@tanstack/react-query": "5.104.5",
     "@tanstack/react-router": "1.170.45",
     "@tanstack/react-start": "1.169.3",
+    "@trpc/client": "11.19.0",
+    "@trpc/tanstack-react-query": "11.19.0",
+    "better-auth": "1.7.12",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.61.0",
     "marked": "18.1.1",
+    "radix-ui": "^1.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "superjson": "2.2.6",
+    "tailwind-merge": "^3.7.0",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
+    "@hookdrill/api": "workspace:*",
     "@tanstack/router-cli": "^1.132.0",
     "@types/node": "^22.10.2",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^6.0.1",
+    "tw-animate-css": "^1.4.0",
     "typescript": "^6.0.2",
     "vite": "^8.0.0"
   }

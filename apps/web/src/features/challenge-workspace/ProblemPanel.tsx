@@ -3,7 +3,15 @@ import { marked } from 'marked'
 import type { Challenge } from '@hookdrill/challenges'
 import { DifficultyBadge } from '#/components/ui/DifficultyBadge'
 
-export function ProblemPanel({ challenge }: { challenge: Challenge }) {
+export function ProblemPanel({
+  challenge,
+  hintsRevealed = 0,
+  onHintReveal,
+}: {
+  challenge: Challenge
+  hintsRevealed?: number
+  onHintReveal?: (count: number) => void
+}) {
   return (
     <section className="min-h-0 overflow-y-auto bg-white p-5 text-sm leading-relaxed">
       <div className="mb-3 flex items-center gap-3">
@@ -17,13 +25,25 @@ export function ProblemPanel({ challenge }: { challenge: Challenge }) {
           __html: marked.parse(challenge.description, { async: false }),
         }}
       />
-      <HintList hints={challenge.hints} />
+      <HintList
+        hints={challenge.hints}
+        initial={hintsRevealed}
+        onReveal={onHintReveal}
+      />
     </section>
   )
 }
 
-function HintList({ hints }: { hints: string[] }) {
-  const [revealed, setRevealed] = useState(0)
+function HintList({
+  hints,
+  initial,
+  onReveal,
+}: {
+  hints: string[]
+  initial: number
+  onReveal?: (count: number) => void
+}) {
+  const [revealed, setRevealed] = useState(Math.min(initial, hints.length))
 
   if (hints.length === 0) return null
 
@@ -52,7 +72,10 @@ function HintList({ hints }: { hints: string[] }) {
       {revealed < hints.length && (
         <button
           className="mt-2 rounded border border-zinc-300 px-3 py-1 hover:bg-zinc-100"
-          onClick={() => setRevealed(revealed + 1)}
+          onClick={() => {
+            setRevealed(revealed + 1)
+            onReveal?.(revealed + 1)
+          }}
         >
           Show hint {revealed + 1} of {hints.length}
         </button>

@@ -4,6 +4,8 @@ import {
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
+import { UserMenu } from '@/components/user-menu'
+import { ApiProvider } from '@/lib/trpc'
 
 import appCss from '../styles/app.css?url'
 
@@ -25,13 +27,26 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body className="bg-zinc-50 text-zinc-900 antialiased">
-        <header className="border-b border-zinc-200 bg-white px-4 py-2">
-          <Link to="/" className="font-semibold">
-            HookDrill
-          </Link>
-        </header>
-        {children}
+      <body>
+        <ApiProvider>
+          <header className="flex h-14 items-center gap-6 bg-cover px-5 text-on-cover">
+            <Link to="/" className="text-lg font-extrabold tracking-tight">
+              HookDrill
+            </Link>
+            <nav className="flex gap-4 text-sm text-on-cover-2">
+              <Link
+                to="/"
+                className="hover:text-on-cover [&.active]:text-on-cover"
+              >
+                Book I · React
+              </Link>
+            </nav>
+            <div className="ml-auto">
+              <UserMenu />
+            </div>
+          </header>
+          {children}
+        </ApiProvider>
         <Scripts />
       </body>
     </html>

@@ -1,8 +1,150 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Étude Edition. Tokens come from DESIGN.md; shadcn's semantic variables map onto them. */
+
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('./fonts/SchibstedGrotesk-normal.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Schibsted Grotesk';
+  src: url('./fonts/SchibstedGrotesk-italic.woff2') format('woff2');
+  font-weight: 400 900;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('./fonts/JetBrainsMono-normal.woff2') format('woff2');
+  font-weight: 400 700;
+  font-display: swap;
+}
+
+:root {
+  /* edition cover cloth */
+  --cover: #2f557f;
+  --cover-deep: #24466b;
+  --cover-line: #46698f;
+  --on-cover: #ffffff;
+  --on-cover-2: #c9d7e6;
+  --cover-soft: #e8eef5;
+  /* engraving paper and ink */
+  --paper: #f8f9fa;
+  --sheet: #ffffff;
+  --ink: #15171c;
+  --ink-2: #474d57;
+  --mute: #646b76;
+  --rule: #d8dce1;
+  --rule-soft: #e9ecef;
+  /* reserved roles */
+  --next: #e0a526;
+  --next-deep: #c38c14;
+  --next-soft: #fbf1db;
+  --fail: #c63d2f;
+  --fail-soft: #fbecea;
+  --pass: #2e7d5b;
+  --pass-soft: #e6f2ec;
+  --graphite: #5d636c;
+
+  /* shadcn semantic variables */
+  --radius: 0.375rem;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: var(--sheet);
+  --card-foreground: var(--ink);
+  --popover: var(--sheet);
+  --popover-foreground: var(--ink);
+  --primary: var(--ink);
+  --primary-foreground: #ffffff;
+  --secondary: var(--rule-soft);
+  --secondary-foreground: var(--ink);
+  --muted: var(--rule-soft);
+  --muted-foreground: var(--mute);
+  --accent: var(--cover-soft);
+  --accent-foreground: var(--ink);
+  --destructive: var(--fail);
+  --border: var(--rule);
+  --input: var(--rule);
+  --ring: var(--cover);
+}
+
+@theme inline {
+  --font-sans: 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-cover: var(--cover);
+  --color-cover-deep: var(--cover-deep);
+  --color-cover-line: var(--cover-line);
+  --color-cover-soft: var(--cover-soft);
+  --color-on-cover: var(--on-cover);
+  --color-on-cover-2: var(--on-cover-2);
+  --color-paper: var(--paper);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-mute: var(--mute);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+  --color-next: var(--next);
+  --color-next-deep: var(--next-deep);
+  --color-next-soft: var(--next-soft);
+  --color-fail: var(--fail);
+  --color-fail-soft: var(--fail-soft);
+  --color-pass: var(--pass);
+  --color-pass-soft: var(--pass-soft);
+  --color-graphite: var(--graphite);
+
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    caret-color: var(--cover);
+  }
+  ::selection {
+    background: var(--cover-soft);
+    color: var(--ink);
+  }
+  code,
+  pre,
+  .font-mono {
+    font-variant-ligatures: none;
+  }
+}
 
 /* Minimal markdown styles for challenge descriptions. */
 .markdown h2 {
-  @apply mt-5 mb-2 text-base font-semibold;
+  @apply mt-6 mb-2 text-base font-extrabold;
 }
 .markdown p,
 .markdown ul {
@@ -15,12 +157,12 @@
   @apply my-1;
 }
 .markdown code {
-  @apply rounded bg-zinc-100 px-1 py-0.5 text-[0.85em];
+  @apply rounded bg-rule-soft px-1 py-0.5 font-mono text-[0.85em];
 }
 .markdown table {
   @apply my-2 w-full text-left text-xs;
 }
 .markdown th,
 .markdown td {
-  @apply border-b border-zinc-200 py-1 pr-2 align-top;
+  @apply border-b border-rule py-1 pr-2 align-top;
 }

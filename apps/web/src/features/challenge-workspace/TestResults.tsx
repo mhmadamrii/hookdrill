@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react'
 import { useTestRunner } from './useTestRunner'
 import type { TestCase } from './useTestRunner'
 
@@ -8,9 +9,26 @@ const icon: Record<TestCase['status'], string> = {
   fail: '✗',
 }
 
-export function TestResults() {
+export interface TestRunResult {
+  passed: number
+  total: number
+}
+
+export function TestResults({
+  onComplete,
+}: {
+  onComplete?: (result: TestRunResult) => void
+}) {
   const { iframe, status, tests, fileError, run } = useTestRunner()
   const passed = tests.filter((t) => t.status === 'pass').length
+
+  const latest = useRef({ onComplete, passed, total: tests.length, fileError })
+  latest.current = { onComplete, passed, total: tests.length, fileError }
+  useEffect(() => {
+    const { onComplete, passed, total, fileError } = latest.current
+    // A file error means the suite never ran; that's not a test result.
+    if (status === 'done' && !fileError) onComplete?.({ passed, total })
+  }, [status])
 
   return (
     <div className="rounded-lg border border-zinc-200 bg-white p-3 text-sm">
