@@ -49,7 +49,11 @@ export function Countdown({ startsAt }: { startsAt: string }) {
     <div
       className="flex items-start gap-1.5 sm:gap-2"
       role="timer"
-      aria-label={parts ? `Starts in ${parts.days} days ${parts.hours} hours ${parts.minutes} minutes` : 'Countdown'}
+      aria-label={
+        parts
+          ? `Starts in ${parts.days} days ${parts.hours} hours ${parts.minutes} minutes`
+          : 'Countdown'
+      }
     >
       {cells.map(([label, value], i) => (
         <div key={label} className="flex items-start gap-1.5 sm:gap-2">
@@ -57,10 +61,15 @@ export function Countdown({ startsAt }: { startsAt: string }) {
             <span className="text-2xl font-semibold tabular-nums tracking-tight sm:text-3xl">
               {value === undefined ? '--' : pad(value)}
             </span>
-            <span className="mt-0.5 text-[11px] font-medium text-primary-foreground/75">{label}</span>
+            <span className="mt-0.5 text-2xs font-medium text-primary-foreground/75">
+              {label}
+            </span>
           </div>
           {i < cells.length - 1 && (
-            <span aria-hidden className="pt-2 text-2xl font-semibold text-primary-foreground/50 sm:text-3xl">
+            <span
+              aria-hidden
+              className="pt-2 text-2xl font-semibold text-primary-foreground/50 sm:text-3xl"
+            >
               :
             </span>
           )}
@@ -71,7 +80,13 @@ export function Countdown({ startsAt }: { startsAt: string }) {
 }
 
 /** Compact "in 2d 4h" text for secondary cards. */
-export function RelativeStart({ startsAt, className }: { startsAt: string; className?: string }) {
+export function RelativeStart({
+  startsAt,
+  className,
+}: {
+  startsAt: string
+  className?: string
+}) {
   const now = useNow(30_000)
   const target = new Date(startsAt).getTime()
   let text = '…'
@@ -79,7 +94,10 @@ export function RelativeStart({ startsAt, className }: { startsAt: string; class
     if (target <= now) text = 'Starting soon'
     else {
       const p = split(target - now)
-      text = p.days > 0 ? `Starts in ${p.days}d ${p.hours}h` : `Starts in ${p.hours}h ${p.minutes}m`
+      text =
+        p.days > 0
+          ? `Starts in ${p.days}d ${p.hours}h`
+          : `Starts in ${p.hours}h ${p.minutes}m`
     }
   }
   return <span className={cn('tabular-nums', className)}>{text}</span>

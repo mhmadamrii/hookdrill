@@ -12,8 +12,19 @@ export function LogoMark({ className }: { className?: string }) {
         strokeWidth="3"
         strokeLinecap="round"
       />
-      <path d="M21 8v3.5" stroke="white" strokeWidth="3" strokeLinecap="round" />
-      <path d="M8.5 25h15" stroke="white" strokeOpacity=".55" strokeWidth="2.5" strokeLinecap="round" />
+      <path
+        d="M21 8v3.5"
+        stroke="white"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+      <path
+        d="M8.5 25h15"
+        stroke="white"
+        strokeOpacity=".55"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }
@@ -22,7 +33,9 @@ export function Logo({ className }: { className?: string }) {
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
       <LogoMark />
-      <span className="text-[17px] font-semibold tracking-tight">HookDrill</span>
+      <span className="text-[17px] font-semibold tracking-tight">
+        HookDrill
+      </span>
     </span>
   )
 }

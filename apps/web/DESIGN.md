@@ -1,386 +1,355 @@
 ---
 name: HookDrill
-description: A graded étude edition for hand-written React practice. Cover-cloth shell, engraving paper, barline notation.
+description: A competitive-programming-grade practice platform for hand-written React UI, in light and dark.
 colors:
-  cover: '#2f557f'
-  cover-deep: '#24466b'
-  cover-line: '#46698f'
-  on-cover: '#ffffff'
-  on-cover-2: '#c9d7e6'
-  paper: '#f8f9fa'
-  sheet: '#ffffff'
-  ink: '#15171c'
-  ink-2: '#474d57'
-  mute: '#646b76'
-  rule: '#d8dce1'
-  rule-soft: '#e9ecef'
-  cover-soft: '#e8eef5'
-  next: '#e0a526'
-  next-deep: '#c38c14'
-  next-soft: '#fbf1db'
-  fail: '#c63d2f'
-  fail-soft: '#fbecea'
-  pass: '#2e7d5b'
-  pass-soft: '#e6f2ec'
-  graphite: '#5d636c'
-  code-key: '#2f557f'
-  code-str: '#8a5a12'
-  code-fn: '#7a3b8f'
-  code-com: '#7b828c'
+  primary: '#4f5df0'
+  primary-foreground: '#ffffff'
+  ring: '#5b6cff'
+  ring-dark: '#6b7aff'
+  brand-text: '#4351e6'
+  brand-text-dark: '#8f9aff'
+  easy: '#00806f'
+  medium: '#94600a'
+  hard: '#d61f45'
+  easy-dark: '#00b8a3'
+  medium-dark: '#ffc01e'
+  hard-dark: '#ff5a75'
+  accepted: '#18864b'
+  wrong: '#d92d20'
+  accepted-dark: '#2cbb5d'
+  wrong-dark: '#ef4743'
+  banner-daily: '#3f4cd8'
+  banner-plan: '#0a6b5f'
+  banner-contest: '#8a2347'
+  ground: '#f7f8fa'
+  panel: '#ffffff'
+  surface-2: '#f1f3f6'
+  secondary: '#eef0f4'
+  border: '#e3e6eb'
+  input: '#dcdfe5'
+  ink: '#0f1115'
+  muted-ink: '#5c6370'
+  graphite-ground: '#1a1a1a'
+  graphite-panel: '#262626'
+  graphite-popover: '#2c2c2c'
+  graphite-surface-2: '#303030'
+  graphite-border: '#353535'
+  graphite-ink: '#eff1f6'
+  graphite-muted-ink: '#a3a6ad'
 typography:
-  display:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: 'clamp(3.5rem, 6vw, 5.75rem)'
-    fontWeight: 900
-    lineHeight: 0.92
+  hero:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '2.75rem'
+    fontWeight: 600
+    lineHeight: 1.02
     letterSpacing: '-0.04em'
+    fontFeature: "'cv11', 'ss01'"
   headline:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '3.5rem'
-    fontWeight: 800
-    lineHeight: 1
-    letterSpacing: '-0.03em'
-  headline-sm:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '2.25rem'
-    fontWeight: 800
-    lineHeight: 1
-    letterSpacing: '-0.03em'
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '1.875rem'
+    fontWeight: 600
+    lineHeight: 1.2
+    letterSpacing: '-0.025em'
   title:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '1.625rem'
-    fontWeight: 800
-    lineHeight: 1.15
-    letterSpacing: '-0.02em'
-  title-sm:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '1.25rem'
-    fontWeight: 700
-    lineHeight: 1.3
-    letterSpacing: '-0.01em'
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '1.5rem'
+    fontWeight: 600
+    lineHeight: 1.33
+    letterSpacing: '-0.025em'
+  panel-title:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '0.875rem'
+    fontWeight: 600
+    lineHeight: 1.43
   body:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '1.0625rem'
-    fontWeight: 400
-    lineHeight: 1.5
-  body-sm:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '0.9375rem'
-    fontWeight: 400
-    lineHeight: 1.6
-  label:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '0.8125rem'
-    fontWeight: 500
-    lineHeight: 1.4
-  label-column:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '0.8125rem'
-    fontWeight: 500
-    lineHeight: 1
-    letterSpacing: '0.06em'
-  figure:
-    fontFamily: 'Schibsted Grotesk, ui-sans-serif, system-ui, sans-serif'
-    fontSize: '1.0625rem'
-    fontWeight: 700
-    lineHeight: 1.5
-    fontFeature: '"tnum" 1'
-  code:
-    fontFamily: 'JetBrains Mono, ui-monospace, SF Mono, Menlo, monospace'
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
     fontSize: '0.875rem'
     fontWeight: 400
-    lineHeight: 1.7
-    fontFeature: '"liga" 0, "calt" 0'
+    lineHeight: 1.43
+    fontFeature: "'cv11', 'ss01'"
+  statement:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '15px'
+    fontWeight: 400
+    lineHeight: 1.75
+  label:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '0.75rem'
+    fontWeight: 500
+    lineHeight: 1.33
+  micro:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '0.6875rem'
+    fontWeight: 500
+    lineHeight: 1
+  data:
+    fontFamily: 'Inter Variable, ui-sans-serif, system-ui, sans-serif'
+    fontSize: '0.875rem'
+    fontWeight: 400
+    fontFeature: "'tnum'"
+  code:
+    fontFamily: 'JetBrains Mono Variable, ui-monospace, SF Mono, Menlo, monospace'
+    fontSize: '0.85em'
+    fontWeight: 400
+    fontFeature: "'liga' 0, 'calt' 0"
 rounded:
-  sm: '4px'
-  md: '6px'
-  pill: '999px'
-  round: '50%'
+  cell: '3px'
+  sm: '6px'
+  md: '8px'
+  lg: '10px'
+  xl: '14px'
+  full: '9999px'
 spacing:
-  hair: '4px'
-  xs: '8px'
-  sm: '12px'
-  md: '16px'
-  lg: '24px'
-  gutter: '28px'
-  section: '56px'
+  gutter: '8px'
+  xs: '4px'
+  sm: '8px'
+  md: '12px'
+  lg: '16px'
+  xl: '24px'
+  container: '1440px'
+  header: '56px'
+  workspace-bar: '48px'
 components:
-  button:
-    backgroundColor: '{colors.sheet}'
-    textColor: '{colors.ink}'
-    typography: '{typography.body-sm}'
+  button-primary:
+    backgroundColor: '{colors.primary}'
+    textColor: '{colors.primary-foreground}'
     rounded: '{rounded.md}'
-    padding: '0 16px'
-    height: '38px'
-  button-lg:
-    rounded: '{rounded.md}'
-    typography: '{typography.body}'
-    padding: '0 22px'
-    height: '48px'
-  button-next:
-    backgroundColor: '{colors.next}'
-    textColor: '{colors.ink}'
-    rounded: '{rounded.md}'
-    padding: '0 16px'
-    height: '38px'
-  button-next-hover:
-    backgroundColor: '{colors.next-deep}'
-    textColor: '{colors.ink}'
-  button-ink:
-    backgroundColor: '{colors.ink}'
-    textColor: '{colors.sheet}'
-    rounded: '{rounded.md}'
-    padding: '0 16px'
-    height: '38px'
-  button-ghost:
-    textColor: '{colors.ink}'
-    rounded: '{rounded.md}'
-    padding: '0 16px'
-    height: '38px'
-  button-ghost-hover:
-    backgroundColor: '{colors.rule-soft}'
-  button-disabled:
-    backgroundColor: '{colors.rule-soft}'
-    textColor: '{colors.mute}'
-  chip:
-    backgroundColor: '{colors.sheet}'
-    textColor: '{colors.ink}'
-    typography: '{typography.body-sm}'
-    rounded: '{rounded.pill}'
-    padding: '8px 14px'
-  chip-selected:
-    backgroundColor: '{colors.ink}'
-    textColor: '{colors.sheet}'
-    rounded: '{rounded.pill}'
-  field:
-    backgroundColor: '{colors.sheet}'
-    textColor: '{colors.ink}'
+    padding: '8px 16px'
+    height: '36px'
+  button-submit:
+    backgroundColor: '{colors.accepted}'
+    textColor: '{colors.primary-foreground}'
     rounded: '{rounded.md}'
     padding: '0 12px'
-    height: '40px'
-  tab:
-    textColor: '{colors.mute}'
-    typography: '{typography.body-sm}'
-    padding: '12px 14px 11px'
-  tab-selected:
+    height: '32px'
+  button-secondary:
+    backgroundColor: '{colors.secondary}'
     textColor: '{colors.ink}'
-  rail:
-    backgroundColor: '{colors.cover}'
-    textColor: '{colors.on-cover}'
-    width: '248px'
-  rail-item:
-    textColor: '{colors.on-cover-2}'
-    typography: '{typography.body-sm}'
-    padding: '10px 28px'
-  rail-item-active:
-    backgroundColor: '{colors.cover-deep}'
-    textColor: '{colors.on-cover}'
-  coverbar:
-    backgroundColor: '{colors.cover}'
-    textColor: '{colors.on-cover}'
-    height: '56px'
-    padding: '0 20px'
-  index-row-current:
-    backgroundColor: '{colors.next-soft}'
-  ruled-row-me:
-    backgroundColor: '{colors.cover-soft}'
-  verdict-word-pass:
-    textColor: '{colors.pass}'
-    typography: '{typography.headline}'
-  verdict-word-fail:
-    textColor: '{colors.fail}'
-    typography: '{typography.headline}'
-  error-well:
-    backgroundColor: '{colors.fail-soft}'
     rounded: '{rounded.md}'
-    padding: '10px 12px'
+    padding: '8px 16px'
+    height: '36px'
+  input:
+    backgroundColor: '{colors.panel}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.md}'
+    padding: '4px 12px'
+    height: '36px'
+  panel:
+    backgroundColor: '{colors.panel}'
+    textColor: '{colors.ink}'
+    rounded: '{rounded.lg}'
+    padding: '16px'
+  panel-tabs:
+    backgroundColor: '{colors.surface-2}'
+    height: '40px'
+    padding: '0 8px'
+  difficulty-pill:
+    backgroundColor: '{colors.surface-2}'
+    rounded: '{rounded.full}'
+    padding: '0 10px'
+    height: '24px'
+    typography: '{typography.label}'
+  sample-chip:
+    textColor: '{colors.muted-ink}'
+    rounded: '{rounded.full}'
+    padding: '0 8px'
+    height: '20px'
+    typography: '{typography.micro}'
+  test-cell:
+    backgroundColor: '{colors.accepted}'
+    rounded: '{rounded.cell}'
+    size: '14px'
+  test-cell-sm:
+    backgroundColor: '{colors.accepted}'
+    rounded: '{rounded.cell}'
+    size: '10px'
+  banner:
+    backgroundColor: '{colors.banner-daily}'
+    textColor: '{colors.primary-foreground}'
+    rounded: '{rounded.lg}'
 ---
 
 # Design System: HookDrill
 
 ## Overview
 
-**Creative North Star: "The Étude Edition"**
+**Creative North Star: "The Practice Arena"**
 
-HookDrill is printed as a graded collection of studies, in the lineage of Czerny, Hanon, Henle Urtext and Schirmer. Each challenge is an opus number in a book per track. The shell is the edition's blue cover cloth; the content is bright engraving paper set in near-black ink, divided by hairline engraved rules. Nothing floats. Hierarchy comes from heavy grotesk headings, a 2px ink underline beneath each page heading, and figures set right against the margin.
+HookDrill is built to the category standard set by LeetCode, HackerRank and Codeforces. Pages are dense and fast. Problem tables, a split coding workspace, dashboards, contests and rankings all sit on a quiet neutral ground, and colour is kept for meaning: what to click, how hard a problem is, and whether the tests passed. The world is the same in light and dark mode. Dark is a neutral graphite with no blue tint, after the LeetCode references. Light is a cool off-white ground with white panels. Both themes use the same token names, and components reference only those semantic tokens, never raw theme hexes.
 
-Density is a working reference book's density: tables are the primary form, rows are 14 to 16px tall in padding, and the only wash of colour in a list is the row that holds the user's next action. Colour is semantic and scarce. Schirmer yellow marks the one thing to do next, teacher's red pencil marks failure, green appears only when the server has graded a solve, and everything in between is graphite.
+Depth comes from tone, not shadow. Panels are flat, rounded rectangles with a 1px border, sitting on the page ground. In the workspace they float apart with 8px gutters. The one signature is the test strip: one small square per test, filled pass-green or fail-red, read left to right. It carries HookDrill's promise that every result comes from real tests, and it appears wherever results appear.
 
-The signature is barline notation. Progress through an étude is written the way a score ends a passage: an open thin bar when unplayed, a repeat sign when in practice, and a thin+thick final barline in green when the server has accepted the solve. The system's single authored motion is the final barline rising closed on an accepted verdict.
+This world replaces the rejected "Étude Edition" world. Nothing editorial, paper-like or music-book carries over, and there is no arcade gamification (confetti, XP bars).
 
 **Key Characteristics:**
 
-- Blue cover-cloth rail or bar framing a paper content area, never a dark IDE shell.
-- Hairline rules and tables instead of cards, panels or shadows.
-- One yellow next action per screen; green reserved for server verdicts.
-- Barline glyphs as the progress vocabulary in index, record and verdict.
-- Firm variable grotesk at heavy weights; JetBrains Mono only for code.
+- Dense, tabular and calm. Colour signals state, never decorates.
+- Matching light and dark themes from one semantic token set. The theme follows the system setting until the user chooses, then persists, and a pre-paint script prevents a flash.
+- Flat bordered panels, gently rounded (10px), with tonal surface steps instead of shadows.
+- Inter for everything except code. Numbers are tabular.
+- The test strip is the signature mark.
+- Sample data is always labelled as sample.
 
 ## Colors
 
-A cloth-and-paper palette: one structural blue, a white-paper neutral ramp in cool greys, and four semantic voices used sparingly.
+The palette is a neutral ground plus one blue-violet brand accent. A small set of category-standard semantic colours carries difficulty and verdict.
 
 ### Primary
 
-- **Edition Cover Blue** (cover): the rail, the workspace coverbar, the sign-in cover, opus numbers ("Op. 2") in the index and problem meta, the book name in page headings, the focus ring, the caret, and the editor's keyword colour.
-- **Active Book Blue** (cover-deep): the active and hovered rail item; the darker spine of the book you are in.
-- **Cover Rule** (cover-line): hairlines drawn on the cloth, and the open barline on the coverbar.
-- **On-Cover White / On-Cover Mist** (on-cover, on-cover-2): primary and secondary text on cloth.
+- **Drill Blue-Violet** (primary): primary buttons ("Start practicing", the shuffle action), focus rings (ring / ring-dark), selection tint, heat-map top step. It is the same in both themes. Use **Brand Text** (brand-text / brand-text-dark) for text and link hovers in the accent, such as a problem title on row hover. It is a darker step in light mode and a lighter one in dark mode so it stays legible.
 
-### Secondary
+### Secondary (semantic: difficulty)
 
-- **Schirmer Yellow** (next): the single next action on a screen: Resume, Run tests, Submit, Next étude, Start Op. 1. Hover deepens to next-deep. Its pale wash (next-soft) tints only the index row that holds that action.
+- **Easy Teal, Medium Amber, Hard Rose** (easy / medium / hard, with -dark pairs): the difficulty word in tables, pills, progress bars and banners. Each light value is a darkened, text-safe step of the category's convention. Each dark value is the bright convention hue.
 
-### Tertiary
+### Tertiary (semantic: verdict)
 
-- **Teacher's Red Pencil** (fail): failed tests, failed and errored verdicts, hint deductions. Its wash (fail-soft) backs error output wells and the sign-in alert, with a deep red text on top.
-- **Server Green** (pass): server-accepted verdict words, the final barline, solved measures in the practice record, and the "verified by server grading" note. Its wash (pass-soft) is defined but not yet used on a shipped surface.
-- **Graphite** (graphite): in-browser public test passes, requirement marks, pending/grading states, hint headers. It is the honest neutral between failure and a graded pass.
+- **Accepted Green** (accepted / accepted-dark): passed tests, the "Accepted" verdict, solved status, the current-day calendar marker, and the Submit button.
+- **Wrong Red** (wrong / wrong-dark): failed tests and the "Wrong Answer" verdict. Destructive actions use the separate destructive token.
+
+### Banner fills
+
+- **Daily Indigo, Plan Teal, Contest Wine** (banner-daily / banner-plan / banner-contest): solid fills for the three promo banners above the problems table. They are identical in both themes, like LeetCode's banner art, and carry white text. Each holds its own inline SVG illustration.
 
 ### Neutral
 
-- **Engraving Paper** (paper): page background. Bright and cool, never cream.
-- **Sheet** (sheet): the work column, buttons, chips and fields sitting on paper.
-- **Ink / Ink Secondary / Mute** (ink, ink-2, mute): headings and body; supporting copy; metadata, column heads and placeholders.
-- **Rule / Soft Rule** (rule, rule-soft): hairline dividers and control borders; secondary dividers, disabled fills, selected file tabs, inline code backgrounds.
-- **Selection Tint** (cover-soft): text selection and the "you" row in rankings.
-- **Code voices** (code-key, code-str, code-fn, code-com): keyword, string, function and italic comment in the editor, on white.
+- **Cool Ground** (ground): light page background. **White Panel** (panel): cards, panels, odd table rows, popovers. **Surface Step** (surface-2): panel tab bars, pill fills, idle test cells, inline code. **Quiet Fill** (secondary): secondary buttons, chips, count badges. **Hairline** (border) and **Field Edge** (input). **Ink** (ink) for text and **Muted Ink** (muted-ink) for metadata and locked rows.
+- **Graphite Ground** (graphite-ground): dark page background. **Graphite Panel** (graphite-panel), **Graphite Popover** (graphite-popover) and **Graphite Step** (graphite-surface-2) are the three tonal panel steps. **Graphite Border** (graphite-border), **Graphite Ink** (graphite-ink) and **Graphite Muted Ink** (graphite-muted-ink) complete the set.
+- The heat-map ramp (heat-0 to heat-4) runs from the neutral step to the brand accent in five steps, one ramp per theme.
+- Code syntax uses the GitHub-light palette in light mode and the VS Code dark palette in dark mode, exposed as code-* custom properties. The Sandpack editor theme reads them, so the editor follows the app theme.
+- Rating tiers on leaderboards and profiles use Codeforces-style colours from the theme-independent Tailwind palette (see sample-data rating tiers).
 
 ### Named Rules
 
-**The One Next Action Rule.** Schirmer yellow appears on exactly one control per screen: the action the user should take next. The index row that contains that action may carry the next-soft wash; nothing else may be yellow.
+**The One Accent Rule.** Blue-violet is the only brand hue. It marks primary actions and focus, and nothing else competes with it as decoration.
 
-**The Honest Green Rule.** Green means "the server graded this and accepted it". In-browser public test passes are graphite, never green, so no screen implies points before a verdict.
+**The Text-Safe Difficulty Rule.** Every difficulty colour passes WCAG AA as text on both zebra rows in both themes. Never dim a difficulty colour with opacity. A locked row dims through its muted title colour only.
 
-**The You Tint Rule.** cover-soft marks "you" and selection: the current user's rankings row and the text selection colour. Do not use it as a generic highlight.
+**The Verdict Rule.** Green means accepted and red means wrong, everywhere: test cells, verdict headings, status icons. The Submit button is accepted green, as on LeetCode.
+
+**The Solid Banner Rule.** Banner fills are solid tokens. Illustration accents inside the banner SVG art are allowed. Gradient fills and glows are not.
 
 ## Typography
 
-**Display Font:** Schibsted Grotesk (variable 400–900, normal and italic, self-hosted; with ui-sans-serif, system-ui)
-**Body Font:** Schibsted Grotesk
-**Label/Mono Font:** JetBrains Mono (variable 400–700, self-hosted; with ui-monospace, SF Mono, Menlo), code only
+**Display Font:** Inter Variable (with ui-sans-serif, system-ui)
+**Body Font:** Inter Variable, with stylistic sets cv11 and ss01 enabled on the body
+**Label/Mono Font:** JetBrains Mono Variable (with ui-monospace, SF Mono, Menlo), for code only
 
-**Character:** A firm, slightly condensed newsroom grotesk set heavy and tight for headings, with a quiet regular weight for body. Mono is a separate instrument, reserved for what the user types.
+**Character:** One neutral sans for the whole interface, tightened with negative tracking at large sizes. It is set dense, at 14px, for working pages. A monospace appears only where the content really is code.
 
 ### Hierarchy
 
-- **Display** (900, clamp(3.5rem, 6vw, 5.75rem), 0.92): the edition title on the sign-in cover only.
-- **Headline** (800, 3.5rem, 1, -0.03em): page headings and the verdict word. Drops to 2.5rem under 900px.
-- **Headline Small** (800, 2.25rem): workspace problem title, empty-state headings, sign-in form heading.
-- **Title** (800, 1.625rem, 1.15, -0.02em): section headings.
-- **Title Small** (700, 1.25rem, -0.01em): étude titles in the index, subsection heads, ledger total.
-- **Body** (400, 1.0625rem, 1.5): default copy.
-- **Body Small** (400, 0.9375rem, 1.6): problem statement and requirements (max 62ch), table cells, controls.
-- **Label** (500, 0.8125rem): metadata, timings, legends, notes.
-- **Column Label** (500, 0.8125rem, 0.06em, uppercase): table column headers only.
-- **Figure** (700–800, tabular): points, positions and counts in data columns, right-aligned.
-- **Code** (JetBrains Mono 400, 0.875rem, 1.7; inline at 0.86em): editor, inline code, error output, file tabs.
+- **Hero** (600, text-hero step 2.75rem growing to 3.75rem / 4.5rem at sm / xl, tracking -0.04em): the landing headline only.
+- **Headline** (600, 1.875rem rising to 2.25rem, tracking -0.025em): landing section headings and the contest hero.
+- **Title** (600, 1.5rem, tracking tight): the problem title in the workspace and the sign-in heading. Profile and prompt titles use 1.25rem.
+- **Panel title** (600, 14px): the heading of every dashboard, rail and leaderboard panel.
+- **Body** (400, 14px): tables, lists, controls. Problem statements use a relaxed 15px with a 28px line height.
+- **Label** (500, 12px): table column headers, pills, metadata lines.
+- **Micro** (500, text-2xs step 11px): Sample chips, count badges, date-tile months, and chips in banner meta lines.
+- **Code** (JetBrains Mono, 0.85em inline): the editor, inline code in statements, file tabs.
 
 ### Named Rules
 
-**The Plain Integer Rule.** Tabular figures apply only to cells holding a bare integer (points, positions, counts). Mixed text such as "9 / 9", "1.4 s" or prose keeps proportional figures.
+**The Tabular Numbers Rule.** Every count, percentage, rating, rank, date and timer uses tabular numerals, so columns line up.
 
-**The Typed Characters Rule.** All code renders with ligatures off (`font-variant-ligatures: none`). The user sees exactly the characters they typed.
+**The Code-Only Mono Rule.** JetBrains Mono is for code, with ligatures off (code, pre and the editor content). UI labels, numbers and badges are never set in mono.
 
-**The Heading Stands Alone Rule.** Headings carry their own weight. Never put a kicker or eyebrow label above a heading; uppercase tracking is for table column heads only.
+**The Named Steps Rule.** Beyond Tailwind's ramp, the only type steps are text-2xs (11px) and text-hero (2.75rem). New one-off pixel sizes are not part of the system.
 
 ## Layout
 
-The app shell is a two-column grid: a fixed 248px cover-blue rail (sticky, full height) and a fluid main column padded 44px top, 56px sides, 72px bottom, with content capped at 1120px. Every page opens with a page head: the headline on the left, a one-line right-aligned summary on the right, closed by a 2px ink rule. Sections are separated by 56px.
+App pages sit in a centred container of up to 1440px, with 16px side padding rising to 24px from md. A sticky 56px top bar holds the logo, primary navigation (Problems, Explore, Contests, Leaderboard), search, the theme toggle and the user menu.
 
-The workspace replaces the rail with a 56px coverbar (brand, breadcrumb with a barline, user) and splits into a problem column (min 360px, 34%) on paper and a work column on sheet. The work column stacks an action bar, the editor (1.25fr) and a lower row of preview and tests (1fr), each pane headed by a 10px/16px header with a hairline beneath.
+The problems page has three columns: a library sidebar, the main column (banner row, topic tabs, filter bar, table) and a right rail (streak calendar, progress, trending topics). Dashboard, leaderboard and profile follow the same pattern, a main column plus a rail of panels. Spacing is tight: 8px is the dominant gap, then 6px and 12px. Panels use 16px internal padding and 20px for hero-scale cards.
 
-Rhythm runs on 4px steps: 8 and 12px gaps inside controls, 16px row padding, 24px between blocks, 28px rail insets, 56px between sections and column gutters.
-
-At 900px and below, a single breakpoint, the rail becomes a top bar with horizontally scrolling nav, the grid is top-aligned (`align-content: start`), the main padding falls to 28px/16px, and tables reflow: index rows become three-line grids, low-priority columns hide. The workspace stacks problem then work, with sticky mobile tabs and a sticky action bar whose buttons share the width.
+The workspace is full-height. A 48px bar has the problem navigation on the left, a centred Run/Submit pill, and account actions on the right. Below it, resizable floating panels (description | code over preview/console) sit on the page ground with 8px gutters. The resize handles are transparent and tint the accent on hover or drag. On mobile, the workspace becomes a tabbed stack (Problem / Code / Console). Site navigation collapses below sm and the right rails stack under the main column.
 
 ## Elevation & Depth
 
-The system is flat. Depth is printed, not lifted: paper against cloth, sheet against paper, and hairline rules (1px rule; 2px ink for page heads and ledger totals). There is no elevation shadow anywhere.
+The system is flat with tonal layering. Panels sit on the ground at rest with only a 1px border. In dark mode, depth reads through the step from ground (#1a1a1a) to panel (#262626), popover (#2c2c2c) and surface step (#303030). Shadows are limited to what the primitives ship for transient overlays (menus, popovers, dialogs, sheets) and the hairline xs lift on outline buttons, inputs and the Run/Submit pill.
 
-`box-shadow` appears only as a drawing tool, never as depth: a 3px cover-tinted focus ring on fields, horizontal bleeds that extend a row wash past the table edge, and an inset 1.5px ring marking a practised-but-unsolved day in the practice diary.
+### Shadow Vocabulary
+
+- **Hairline lift** (`box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)`): outline buttons, inputs, the Run/Submit pill.
+- **Overlay** (`box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)`): dropdowns, popovers, selects, chart tooltips.
+- **Modal** (`box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)`): dialogs and sheets.
 
 ### Named Rules
 
-**The Engraved Rule Rule.** Separate content with hairline rules, not cards or shadows. If something needs grouping, draw a rule or use a table.
+**The No-Glow Rule.** No glows, coloured shadows or decorative gradients. Surfaces separate by tone and hairline, not by light.
+
+**The Flat Panel Rule.** Content panels never cast shadows. If a panel needs to stand out, give it a different tonal step, not elevation.
 
 ## Shapes
 
-Corners are barely softened: 6px on buttons, fields, select, error wells and alerts; 4px on focus outlines; 3px on inline code. Chips and the reference state switcher are full pills. Avatars are circles. Barlines, grade ticks and diary cells are near-square (0.5–2px). Rows and sections have no corners at all because they have no boxes. The sign-in cover's title panel is the only framed rectangle: a 1px on-cover-2 border on cloth, like a cover label.
+Corners are gently rounded, all derived from one 10px radius: panels, banners and table rows use 10px, buttons and inputs 8px, small controls 6px. Pills, chips, avatars and badges are fully round. Test cells are tiny 3px-rounded squares. Table rows are separate rounded bars, zebra-striped (odd rows on the panel colour, even rows on the ground) instead of being divided by rules. Borders are always 1px hairlines. A dashed hairline means "not real yet": Sample chips and empty states.
 
 ## Components
 
 ### Buttons
 
-Quiet and firm; colour only when it means something.
+Compact and conventional, after shadcn new-york.
 
-- **Shape:** gently squared (6px), 38px tall, 16px sides; large 48px tall, 22px sides.
-- **Default:** sheet fill, ink label, 1px rule border, 600 weight. Hover darkens the border to ink-2 (160ms ease-out).
-- **Next:** Schirmer yellow fill and border with ink text; hover goes to next-deep. One per screen.
-- **Ink:** ink fill, white text; used for sign-in and "clear search" type resets.
-- **Ghost:** transparent; hover fills rule-soft. Used for Reset in the workspace action bar.
-- **Disabled:** rule-soft fill, mute text, not-allowed cursor.
-- Keyboard hints sit inside the label in mono at 70% opacity.
+- **Shape:** gently rounded (8px), 36px tall by default, with 32px small and 24px extra-small sizes.
+- **Primary:** blue-violet fill, white text, medium weight. Hover drops to 90% fill.
+- **Submit:** accepted-green fill, white text. Used only for Submit in the workspace pill.
+- **Secondary / Outline / Ghost:** quiet fill, bordered panel, or bare with the accent fill on hover.
+- **Focus:** 3px ring of the ring token at 50%, plus a ring-coloured border.
 
 ### Chips
 
-- **Style:** pill, sheet fill, 1px rule border, 500 weight body-small, 8px/14px.
-- **State:** pressed chips invert to ink fill with white text. Used for difficulty filters.
+- **Meta chips:** small round pills on the surface step or quiet fill (Topics, Hint, contest kind, topic counts). Labels that would otherwise sit above a heading go here, inline in the meta line.
+- **Sample chip:** 20px, micro type, muted ink, dashed hairline border ("Sample data", "Sample"). It is required wherever sample content could pass for real.
+- **Difficulty pill:** 24px round pill on the surface step with the difficulty colour as text.
 
 ### Cards / Containers
 
-There are no cards. Content sits directly on paper between rules. The only tinted containers are error output wells (fail-soft, 6px, deep red mono text) and the sign-in alert.
+- **Corner Style:** 10px.
+- **Background:** panel colour on the page ground. Banners use their solid banner tokens.
+- **Shadow Strategy:** none (see Elevation).
+- **Border:** 1px hairline.
+- **Internal Padding:** 16px, with a 48px header row holding the panel title, an optional Sample chip and actions.
 
 ### Inputs / Fields
 
-- **Style:** 40px, sheet fill, 1px rule border, 6px, leading 18px stroke icon in mute.
-- **Focus:** border turns cover blue with a 3px cover ring at 15% opacity.
-- Selects match: 38px, rule border, 6px.
+- **Style:** 36px, 8px radius, input-edge border, transparent fill (input tint at 30% in dark), muted placeholder. The header search is a rounded field with a ⌘K hint.
+- **Focus:** ring-coloured border plus a 3px ring at 50%.
+- **Error / Disabled:** destructive border and ring. Disabled at 50% opacity.
 
 ### Navigation
 
-- **Rail:** brand (800, 1.375rem) with a mist subtitle; book items with an item count; hairline on cloth; secondary links; user with streak and points pinned at the foot. Active and hover: cover-deep fill, white text. Focus outlines turn white on cloth.
-- **Tabs:** 600 body-small in mute with a 2px transparent underline; selected turns ink with an ink underline over a 1px rule.
-- **Coverbar** (workspace): 56px cloth bar with breadcrumbs in mist, current étude in white, and the étude's barline drawn in white.
+The top bar has 14px muted links that turn ink on hover. The active link is ink with a 2px rounded underline flush to the bar's bottom edge. The bar is sticky, with a translucent ground and a backdrop blur. The workspace swaps it for its own 48px bar. Panel tab bars are 40px strips on the surface step tint.
 
-### Étude Index (signature)
+### Problem Table
 
-The challenge list is a ruled table: opus number in cover blue (700), title (700, 1.25rem) with a mute detail line, difficulty as three graded ticks (6x14px, ink when on), points as right-aligned tabular figures, and Record as a barline. The in-practice row carries the next-soft wash bled 16px past both edges, and the yellow Resume button sits beside its title. A legend below the table explains the three barlines.
+Separate rounded zebra rows, 44px tall: status icon, numbered title, acceptance % (tabular, headed by a Sample chip), short difficulty word, and a lock for unplayable problems. Playable rows take the accent fill on hover and the title turns brand-text. Locked rows are muted.
 
-### Barline (signature)
+### Test Strip (signature)
 
-- **Open** (thin bar in mute): not played.
-- **Repeat** (thick bar, thin bar, two dots, in ink): in practice.
-- **Final** (thin + thick bar in pass green): solved by server verdict.
-- Sizes: 16px (inline), 28px (default), 64px (verdict). On cloth it draws in white with an open bar in cover-line.
-- **Motion:** on an accepted verdict the final barline rises from 8% to full height over 700ms (ease-out cubic-bezier(0.16, 1, 0.3, 1)), the thick bar trailing by 160ms. Disabled under `prefers-reduced-motion`. This is the system's only authored motion.
+One square cell per test, 3px gaps, read left to right: 14px cells (10px small). Pass is accepted green, fail is wrong red, running is a pulsing accent at 60%, idle is the surface step with an inset hairline outline. It carries an accessible label ("n of m tests passed"). It appears in the workspace console under the verdict, the landing hero mock, dashboard recent activity, the profile and sign-in.
 
-### Verdict
+### Workspace Console
 
-A three-column band: large barline, the verdict word at headline size in its semantic colour (Accepted in green, Failed or error in red, Grading in ink) with one line of explanation, and a stacked action column with the yellow next action on top. A points ledger beside the grading list ends with a 2px ink total rule.
-
-### Practice Record
-
-The book is drawn as a line of score: five measures per line between ink rules, each holding opus number, name, state and its closing barline. A practice diary grid marks solved days in ink and practised days with an inset ring.
+A verdict heading in the verdict colour ("Accepted" / "Wrong Answer"), then a count and time line, the test strip, and case tabs, each tab with a pass/fail dot.
 
 ## Do's and Don'ts
 
 ### Do:
 
-- **Do** put exactly one Schirmer yellow (#e0a526) action on each screen, and wash only the row that holds it.
-- **Do** reserve server green (#2e7d5b) for server-graded verdicts and final barlines; show in-browser test passes in graphite (#5d636c).
-- **Do** use barlines (open, repeat, final) to show étude progress wherever progress appears.
-- **Do** separate content with 1px rule (#d8dce1) hairlines, and close page heads and totals with a 2px ink rule.
-- **Do** right-align numeric columns and use tabular figures only on bare-integer cells.
-- **Do** set all code in JetBrains Mono with ligatures off.
-- **Do** keep the rail or coverbar in cover blue (#2f557f) on paper (#f8f9fa); paper stays cool white.
+- **Do** use only semantic tokens (background, card, surface-2, primary, easy, accepted…) so every surface works in both themes.
+- **Do** keep blue-violet for primary actions, focus and the accent hover. Use brand-text when the accent is text.
+- **Do** colour the Submit button accepted green and the verdict in its verdict colour.
+- **Do** render every set of test results as a test strip.
+- **Do** label sample problems, contests, players, scores and acceptance rates with a Sample chip.
+- **Do** describe in-browser runs as running the public tests. Never present them as server grading.
+- **Do** use tabular numerals for every number, and JetBrains Mono with ligatures off for code only.
+- **Do** put workspace panels on the page ground with 8px gutters, with Run/Submit centred in a pill.
 
 ### Don't:
 
-- **Don't** put a kicker or eyebrow label above any heading.
-- **Don't** wrap content in cards or give anything an elevation shadow.
-- **Don't** colour a public, in-browser test pass green or imply points before a server verdict.
-- **Don't** use yellow for decoration, emphasis, or a second action.
-- **Don't** add motion beyond the final barline rise, state transitions of 160ms, and functional spinners and caret.
-- **Don't** add gamified arcade devices: confetti, XP bars, badge walls.
-- **Don't** shift to a dark IDE shell with a neon accent, or a cream paper.
+- **Don't** add glows, coloured shadows or decorative gradients. Banners stay solid.
+- **Don't** put eyebrows or kickers above headings. Move the label into a chip in the meta line.
+- **Don't** dim difficulty or verdict colours with opacity.
+- **Don't** introduce a second brand accent, or use the banner fills outside banners.
+- **Don't** add new arbitrary pixel type sizes. Use the Tailwind ramp plus text-2xs and text-hero.
+- **Don't** bring back the Étude Edition world (paper, editorial serif, barlines) or arcade gamification (confetti, XP bars).

@@ -2,7 +2,11 @@ import { Link } from '@tanstack/react-router'
 import { ArrowRight, Lock } from 'lucide-react'
 import { DifficultyText } from '@/components/difficulty'
 import { StatusIcon } from '@/components/status-icon'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { problems, topics } from '@/lib/problems'
 import { useMyProgress } from '@/lib/progress'
 import { cn } from '@/lib/utils'
@@ -15,12 +19,17 @@ export function ProblemPreview() {
     <section aria-labelledby="problems-heading" className="border-y bg-card/40">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-20 md:px-6 md:py-24 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
         <div className="flex flex-col">
-          <h2 id="problems-heading" className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl">
+          <h2
+            id="problems-heading"
+            className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl"
+          >
             Problems you would actually ship
           </h2>
           <p className="mt-3 max-w-[52ch] text-base leading-relaxed text-pretty text-muted-foreground">
-            Lists, forms, focus traps, async search. Each one is a component a product team needs, with tests that
-            check the behaviour rather than the markup. Two are open today; the rest of the catalogue is on the way.
+            Lists, forms, focus traps, async search. Each one is a component a
+            product team needs, with tests that check the behaviour rather than
+            the markup. Two are open today; the rest of the catalogue is on the
+            way.
           </p>
           <ul className="mt-6 flex flex-wrap gap-2" aria-label="Topics">
             {topics.slice(0, 8).map((t) => (
@@ -29,7 +38,9 @@ export function ProblemPreview() {
                 className="inline-flex h-7 items-center gap-1.5 rounded-full bg-secondary px-3 text-[13px]"
               >
                 {t.name}
-                <span className="text-muted-foreground tabular-nums">{t.count}</span>
+                <span className="text-muted-foreground tabular-nums">
+                  {t.count}
+                </span>
               </li>
             ))}
           </ul>
@@ -46,7 +57,12 @@ export function ProblemPreview() {
           <div className="grid grid-cols-[1.75rem_minmax(0,1fr)_3.5rem_1.5rem] items-center gap-3 border-b px-4 py-2.5 text-[13px] text-muted-foreground sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]">
             <span aria-hidden />
             <span>Title</span>
-            <span className="text-right max-sm:hidden">Acceptance</span>
+            <span className="inline-flex items-center justify-end gap-1.5 text-right max-sm:hidden">
+              Acceptance
+              <span className="rounded-full bg-secondary px-1.5 py-px text-2xs">
+                Sample
+              </span>
+            </span>
             <span>Difficulty</span>
             <span className="sr-only">Access</span>
           </div>
@@ -55,13 +71,24 @@ export function ProblemPreview() {
               const row = (
                 <>
                   <span className="grid place-items-center">
-                    {p.playable ? <StatusIcon status={progress.status(p.slug)} /> : <span className="size-4" />}
+                    {p.playable ? (
+                      <StatusIcon status={progress.status(p.slug)} />
+                    ) : (
+                      <span className="size-4" />
+                    )}
                   </span>
-                  <span className={cn('truncate font-medium', !p.playable && 'text-foreground/70')}>
+                  <span
+                    className={cn(
+                      'truncate font-medium',
+                      !p.playable && 'text-foreground/70',
+                    )}
+                  >
                     {p.number}. {p.title}
                   </span>
                   <span className="text-right text-muted-foreground tabular-nums max-sm:hidden">
-                    {p.acceptance == null ? 'New' : `${p.acceptance.toFixed(1)}%`}
+                    {p.acceptance == null
+                      ? 'New'
+                      : `${p.acceptance.toFixed(1)}%`}
                   </span>
                   <DifficultyText level={p.difficulty} short />
                   <span className="grid place-items-center">

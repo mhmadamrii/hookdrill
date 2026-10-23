@@ -1,10 +1,23 @@
 import type { ReactNode } from 'react'
 import { Panel } from './panel'
 import { RecentHeatmap } from './recent-heatmap'
-import { activityDays, plural, relativeTime, resolveRows, summarize, type ProgressRow } from './stats'
+import {
+  activityDays,
+  plural,
+  relativeTime,
+  resolveRows,
+  summarize,
+  type ProgressRow,
+} from './stats'
 
 /** Heatmap built from the user's own progress rows (one mark per problem per last-touched day). */
-export function ActivityPanel({ rows, className }: { rows: ProgressRow[]; className?: string }) {
+export function ActivityPanel({
+  rows,
+  className,
+}: {
+  rows: ProgressRow[]
+  className?: string
+}) {
   const days = activityDays(rows)
   const active = days.filter((d) => d.count > 0).length
   const s = summarize(rows)
@@ -14,7 +27,10 @@ export function ActivityPanel({ rows, className }: { rows: ProgressRow[]; classN
       className={className}
       title={
         <>
-          {plural(active, 'active day')} <span className="font-normal text-muted-foreground">in the past year</span>
+          {plural(active, 'active day')}{' '}
+          <span className="font-normal text-muted-foreground">
+            in the past year
+          </span>
         </>
       }
     >
@@ -49,7 +65,9 @@ export function HeatmapLayout({
             {facts.map(([term, value]) => (
               <div key={term}>
                 <dt>{term}</dt>
-                <dd className="mt-0.5 text-sm font-semibold text-foreground tabular-nums">{value}</dd>
+                <dd className="mt-0.5 text-sm font-semibold text-foreground tabular-nums">
+                  {value}
+                </dd>
               </div>
             ))}
           </dl>
@@ -65,9 +83,11 @@ export function Legend() {
   return (
     <span className="flex items-center gap-1.5">
       Less
-      {['bg-heat-0', 'bg-heat-1', 'bg-heat-2', 'bg-heat-3', 'bg-heat-4'].map((c) => (
-        <span key={c} className={`size-[11px] rounded-[2px] ${c}`} />
-      ))}
+      {['bg-heat-0', 'bg-heat-1', 'bg-heat-2', 'bg-heat-3', 'bg-heat-4'].map(
+        (c) => (
+          <span key={c} className={`size-[11px] rounded-[2px] ${c}`} />
+        ),
+      )}
       More
     </span>
   )

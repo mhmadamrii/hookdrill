@@ -34,7 +34,13 @@ const real: Problem[] = listChallenges().map((c, i) => ({
 // Sample catalogue (labelled as such in the UI) so the product reads at full scale.
 const sample: Array<[string, Difficulty, number, string[], Track]> = [
   ['Accordion', 'easy', 71.2, ['Accessibility', 'Keyboard'], 'react'],
-  ['Tabs with Roving Focus', 'medium', 48.9, ['Accessibility', 'Keyboard'], 'react'],
+  [
+    'Tabs with Roving Focus',
+    'medium',
+    48.9,
+    ['Accessibility', 'Keyboard'],
+    'react',
+  ],
   ['Star Rating', 'easy', 66.4, ['State', 'Events'], 'react'],
   ['Debounced Search', 'medium', 41.7, ['Async', 'Timers'], 'react'],
   ['Sortable Data Table', 'medium', 44.3, ['Lists', 'Sorting'], 'react'],
@@ -43,7 +49,13 @@ const sample: Array<[string, Difficulty, number, string[], Track]> = [
   ['Infinite Feed', 'hard', 27.5, ['Async', 'Pagination'], 'react'],
   ['Counter with Undo', 'easy', 74.9, ['State', 'History'], 'react'],
   ['Multi-step Form', 'medium', 39.6, ['Forms', 'Validation'], 'react'],
-  ['Password Strength Meter', 'easy', 68.1, ['Forms', 'Derived State'], 'react'],
+  [
+    'Password Strength Meter',
+    'easy',
+    68.1,
+    ['Forms', 'Derived State'],
+    'react',
+  ],
   ['Kanban Board', 'hard', 22.7, ['Lists', 'Drag and Drop'], 'react'],
   ['Countdown Timer', 'easy', 63.3, ['Timers', 'Effects'], 'react'],
   ['File Explorer Tree', 'medium', 37.9, ['Recursion', 'Lists'], 'react'],
@@ -54,14 +66,26 @@ const sample: Array<[string, Difficulty, number, string[], Track]> = [
   ['Two Sum', 'easy', 55.8, ['Array', 'Hash Table'], 'dsa'],
   ['Valid Parentheses', 'easy', 42.1, ['String', 'Stack'], 'dsa'],
   ['Group Anagrams', 'medium', 69.4, ['String', 'Hash Table'], 'dsa'],
-  ['Longest Substring Without Repeats', 'medium', 36.9, ['String', 'Sliding Window'], 'dsa'],
+  [
+    'Longest Substring Without Repeats',
+    'medium',
+    36.9,
+    ['String', 'Sliding Window'],
+    'dsa',
+  ],
   ['Merge Intervals', 'medium', 48.6, ['Array', 'Sorting'], 'dsa'],
   ['Number of Islands', 'medium', 61.2, ['Graph', 'BFS'], 'dsa'],
   ['LRU Cache', 'medium', 44.7, ['Design', 'Hash Table'], 'dsa'],
   ['Binary Tree Level Order', 'medium', 67.3, ['Tree', 'BFS'], 'dsa'],
   ['Coin Change', 'medium', 45.9, ['Dynamic Programming'], 'dsa'],
   ['Trapping Rain Water', 'hard', 63.8, ['Array', 'Two Pointers'], 'dsa'],
-  ['Median of Two Sorted Arrays', 'hard', 41.4, ['Array', 'Binary Search'], 'dsa'],
+  [
+    'Median of Two Sorted Arrays',
+    'hard',
+    41.4,
+    ['Array', 'Binary Search'],
+    'dsa',
+  ],
   ['Word Ladder', 'hard', 40.2, ['Graph', 'BFS'], 'dsa'],
 ]
 

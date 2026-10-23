@@ -5,7 +5,11 @@ import { ContinueCard } from '@/components/dashboard/continue-card'
 import { Panel } from '@/components/dashboard/panel'
 import { ProgressList } from '@/components/dashboard/progress-list'
 import { SignInPrompt } from '@/components/dashboard/sign-in-prompt'
-import { TodaysProblem, TopThisWeek, UpcomingContests } from '@/components/dashboard/side-cards'
+import {
+  TodaysProblem,
+  TopThisWeek,
+  UpcomingContests,
+} from '@/components/dashboard/side-cards'
 import { SolvedPanel } from '@/components/dashboard/solved-panel'
 import { resolveRows, summarize } from '@/components/dashboard/stats'
 import { SiteFooter } from '@/components/site-footer'
@@ -85,7 +89,8 @@ function Dashboard() {
                 <ProgressList rows={resolved.slice(0, 8)} />
               ) : (
                 <p className="rounded-md border border-dashed px-4 py-8 text-center text-sm text-muted-foreground">
-                  Your runs show up here, one row per problem, with the last test strip.
+                  Your runs show up here, one row per problem, with the last
+                  test strip.
                 </p>
               )}
             </Panel>
@@ -104,7 +109,10 @@ function Dashboard() {
 
 function DashboardSkeleton() {
   return (
-    <main aria-busy className="mx-auto max-w-[1440px] px-4 py-6 md:px-6 md:py-8">
+    <main
+      aria-busy
+      className="mx-auto max-w-[1440px] px-4 py-6 md:px-6 md:py-8"
+    >
       <Skeleton className="h-8 w-64" />
       <Skeleton className="mt-2 h-4 w-96 max-w-full" />
       <div className="mt-6 grid gap-5 lg:grid-cols-[minmax(0,1fr)_320px]">

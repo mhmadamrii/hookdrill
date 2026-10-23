@@ -5,7 +5,14 @@ import {
   useSandpack,
 } from '@codesandbox/sandpack-react'
 import type { SandpackFiles } from '@codesandbox/sandpack-react'
-import { CloudUpload, Code2, Loader2, Play, RotateCcw, Sparkles } from 'lucide-react'
+import {
+  CloudUpload,
+  Code2,
+  Loader2,
+  Play,
+  RotateCcw,
+  Sparkles,
+} from 'lucide-react'
 import { getSolutionFiles } from '@hookdrill/challenges'
 import type { Challenge, FileMap } from '@hookdrill/challenges'
 import { Button } from '@/components/ui/button'
@@ -18,14 +25,27 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from '@/components/ui/resizable'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { ConsolePanel, type ConsoleTab } from './ConsolePanel'
 import { editorTheme } from './editor-theme'
 import { Panel, PanelTabs } from './panel'
 import { ProblemPanel, type ProblemRecord } from './ProblemPanel'
-import { TestRunnerProvider, useRunner, type RunMode, type TestRunResult } from './test-runner'
+import {
+  TestRunnerProvider,
+  useRunner,
+  type RunMode,
+  type TestRunResult,
+} from './test-runner'
 
 export type { ProblemRecord, TestRunResult }
 
@@ -74,7 +94,9 @@ export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
       customSetup={customSetup}
       options={{ visibleFiles: editable, activeFile: editable[0] }}
     >
-      {onFilesChange && <FileWatcher paths={editable} onChange={onFilesChange} />}
+      {onFilesChange && (
+        <FileWatcher paths={editable} onChange={onFilesChange} />
+      )}
       <TestRunnerProvider onComplete={onTestRunComplete}>
         <div className="flex h-dvh flex-col bg-background text-foreground">
           <TopBar
@@ -133,8 +155,17 @@ function TopBar({
       <div className="flex items-center gap-1 rounded-lg bg-card p-1 shadow-xs ring-1 ring-border">
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="ghost" size="sm" disabled={busy} onClick={() => start('run')}>
-              {status === 'running' ? <Loader2 className="animate-spin" /> : <Play className="fill-current" />}
+            <Button
+              variant="ghost"
+              size="sm"
+              disabled={busy}
+              onClick={() => start('run')}
+            >
+              {status === 'running' ? (
+                <Loader2 className="animate-spin" />
+              ) : (
+                <Play className="fill-current" />
+              )}
               Run
             </Button>
           </TooltipTrigger>
@@ -152,7 +183,9 @@ function TopBar({
             </Button>
           </TooltipTrigger>
           <TooltipContent>
-            {status === 'loading' ? 'Starting the test runner…' : 'Submit · Ctrl/⌘ + Enter'}
+            {status === 'loading'
+              ? 'Starting the test runner…'
+              : 'Submit · Ctrl/⌘ + Enter'}
           </TooltipContent>
         </Tooltip>
       </div>
@@ -182,25 +215,47 @@ function Layout(
     </Panel>
   )
   const code = <CodePanel challenge={props.challenge} status={props.status} />
-  const consolePanel = <ConsolePanel tab={props.consoleTab} onTabChange={props.onConsoleTab} />
+  const consolePanel = (
+    <ConsolePanel tab={props.consoleTab} onTabChange={props.onConsoleTab} />
+  )
 
   if (mobile) {
     return (
-      <Tabs defaultValue="problem" className="flex min-h-0 flex-1 flex-col gap-2 px-2 pb-2">
+      <Tabs
+        defaultValue="problem"
+        className="flex min-h-0 flex-1 flex-col gap-2 px-2 pb-2"
+      >
         <TabsList className="w-full">
           <TabsTrigger value="problem">Problem</TabsTrigger>
           <TabsTrigger value="code">Code</TabsTrigger>
           <TabsTrigger value="console">Preview & tests</TabsTrigger>
         </TabsList>
-        <TabsContent value="problem" className="min-h-0 flex-1">{problem}</TabsContent>
-        <TabsContent value="code" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">{code}</TabsContent>
-        <TabsContent value="console" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">{consolePanel}</TabsContent>
+        <TabsContent value="problem" className="min-h-0 flex-1">
+          {problem}
+        </TabsContent>
+        <TabsContent
+          value="code"
+          forceMount
+          className="min-h-0 flex-1 data-[state=inactive]:hidden"
+        >
+          {code}
+        </TabsContent>
+        <TabsContent
+          value="console"
+          forceMount
+          className="min-h-0 flex-1 data-[state=inactive]:hidden"
+        >
+          {consolePanel}
+        </TabsContent>
       </Tabs>
     )
   }
 
   return (
-    <ResizablePanelGroup orientation="horizontal" className="min-h-0 flex-1 px-2 pb-2">
+    <ResizablePanelGroup
+      orientation="horizontal"
+      className="min-h-0 flex-1 px-2 pb-2"
+    >
       <ResizablePanel defaultSize="42" minSize="25">
         {problem}
       </ResizablePanel>
@@ -227,7 +282,13 @@ function Gutter() {
   )
 }
 
-function CodePanel({ challenge, status }: { challenge: Challenge; status?: React.ReactNode }) {
+function CodePanel({
+  challenge,
+  status,
+}: {
+  challenge: Challenge
+  status?: React.ReactNode
+}) {
   const { sandpack } = useSandpack()
   const [confirmReset, setConfirmReset] = useState(false)
 
@@ -256,12 +317,19 @@ function CodePanel({ challenge, status }: { challenge: Challenge; status?: React
                   <Sparkles />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Load reference solution (dev only)</TooltipContent>
+              <TooltipContent>
+                Load reference solution (dev only)
+              </TooltipContent>
             </Tooltip>
           )}
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="ghost" size="icon-sm" aria-label="Reset to starter code" onClick={() => setConfirmReset(true)}>
+              <Button
+                variant="ghost"
+                size="icon-sm"
+                aria-label="Reset to starter code"
+                onClick={() => setConfirmReset(true)}
+              >
                 <RotateCcw />
               </Button>
             </TooltipTrigger>
@@ -288,7 +356,8 @@ function CodePanel({ challenge, status }: { challenge: Challenge; status?: React
           <DialogHeader>
             <DialogTitle>Reset to starter code?</DialogTitle>
             <DialogDescription>
-              Your current code in every file of this problem is replaced with the starter. This can't be undone.
+              Your current code in every file of this problem is replaced with
+              the starter. This can't be undone.
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>

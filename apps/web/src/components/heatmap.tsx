@@ -26,16 +26,23 @@ export function Heatmap({
   weeks.forEach((w, i) => {
     const d = w.find(Boolean)
     if (!d) return
-    const label = new Date(d.date).toLocaleString('en', { month: 'short', timeZone: 'UTC' })
+    const label = new Date(d.date).toLocaleString('en', {
+      month: 'short',
+      timeZone: 'UTC',
+    })
     if (months.at(-1)?.label !== label) months.push({ index: i, label })
   })
 
   return (
     <div className={cn('overflow-x-auto', className)}>
       <div className="inline-flex flex-col gap-1.5">
-        <div className="relative h-4 text-[11px] text-muted-foreground">
+        <div className="relative h-4 text-2xs text-muted-foreground">
           {months.slice(1).map((m) => (
-            <span key={m.index} className="absolute" style={{ left: m.index * 14 }}>
+            <span
+              key={m.index}
+              className="absolute"
+              style={{ left: m.index * 14 }}
+            >
               {m.label}
             </span>
           ))}
@@ -48,7 +55,10 @@ export function Heatmap({
                   <span
                     key={j}
                     title={`${d.count} submission${d.count === 1 ? '' : 's'} on ${d.date}`}
-                    className={cn('size-[11px] rounded-[2px]', levels[level(d.count)])}
+                    className={cn(
+                      'size-[11px] rounded-[2px]',
+                      levels[level(d.count)],
+                    )}
                   />
                 ) : (
                   <span key={j} className="size-[11px]" />

@@ -51,7 +51,10 @@ function Profile() {
           <Panel
             title="Problems"
             action={
-              <Tabs value={filter} onValueChange={(v) => setFilter(v as Filter)}>
+              <Tabs
+                value={filter}
+                onValueChange={(v) => setFilter(v as Filter)}
+              >
                 <TabsList className="h-8">
                   <TabsTrigger value="all" className="text-xs">
                     All {resolved.length}
@@ -94,7 +97,10 @@ function Profile() {
 
 function ProfileSkeleton() {
   return (
-    <main aria-busy className="mx-auto grid max-w-[1440px] gap-5 px-4 py-6 md:px-6 md:py-8 lg:grid-cols-[300px_minmax(0,1fr)]">
+    <main
+      aria-busy
+      className="mx-auto grid max-w-[1440px] gap-5 px-4 py-6 md:px-6 md:py-8 lg:grid-cols-[300px_minmax(0,1fr)]"
+    >
       <Skeleton className="h-96 rounded-lg" />
       <div className="flex flex-col gap-5">
         <Skeleton className="h-52 rounded-lg" />

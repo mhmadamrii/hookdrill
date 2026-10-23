@@ -35,7 +35,7 @@
   --brand-text: #4351e6;
   --surface-2: #f1f3f6;
   --easy: #00806f;
-  --medium: #a66d00;
+  --medium: #94600a;
   --hard: #d61f45;
   --accepted: #18864b;
   --wrong: #d92d20;
@@ -82,7 +82,7 @@
   --surface-2: #303030;
   --easy: #00b8a3;
   --medium: #ffc01e;
-  --hard: #ff375f;
+  --hard: #ff5a75;
   --accepted: #2cbb5d;
   --wrong: #ef4743;
   --heat-0: #303030;
@@ -105,7 +105,8 @@
 
 @theme inline {
   --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --font-mono:
+    'JetBrains Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -138,6 +139,17 @@
   --color-heat-2: var(--heat-2);
   --color-heat-3: var(--heat-3);
   --color-heat-4: var(--heat-4);
+
+  /* banner fills: same in both themes, like LeetCode's banner art */
+  --color-banner-daily: #3f4cd8;
+  --color-banner-plan: #0a6b5f;
+  --color-banner-contest: #8a2347;
+
+  /* type steps outside Tailwind's default ramp */
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: 1rem;
+  --text-hero: 2.75rem;
+  --text-hero--line-height: 1.05;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

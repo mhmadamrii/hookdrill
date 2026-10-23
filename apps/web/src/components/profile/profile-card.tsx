@@ -1,7 +1,11 @@
 import { CalendarDays, Mail, Pencil } from 'lucide-react'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { summarize, type ProgressRow } from '@/components/dashboard/stats'
 
 interface User {
@@ -12,7 +16,13 @@ interface User {
 }
 
 /** Left column of the own profile: identity, rating state and quick counts. */
-export function ProfileCard({ user, rows }: { user: User; rows: ProgressRow[] }) {
+export function ProfileCard({
+  user,
+  rows,
+}: {
+  user: User
+  rows: ProgressRow[]
+}) {
   const name = user.name?.trim() || user.email.split('@')[0]
   const joined = new Date(user.createdAt)
   const s = summarize(rows)
@@ -26,16 +36,24 @@ export function ProfileCard({ user, rows }: { user: User; rows: ProgressRow[] })
           </AvatarFallback>
         </Avatar>
         <div className="min-w-0">
-          <h1 className="truncate text-xl font-semibold tracking-tight">{name}</h1>
+          <h1 className="truncate text-xl font-semibold tracking-tight">
+            {name}
+          </h1>
           <p className="mt-0.5 text-sm text-muted-foreground">
-            Unrated <span className="text-xs">· rating starts with your first contest</span>
+            Unrated{' '}
+            <span className="text-xs">
+              · rating starts with your first contest
+            </span>
           </p>
         </div>
       </div>
 
       <Tooltip>
         <TooltipTrigger asChild>
-          <span tabIndex={0} className="mt-5 block rounded-md focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none">
+          <span
+            tabIndex={0}
+            className="mt-5 block rounded-md focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:outline-none"
+          >
             <Button variant="secondary" className="w-full" disabled>
               <Pencil />
               Edit profile
@@ -53,7 +71,12 @@ export function ProfileCard({ user, rows }: { user: User; rows: ProgressRow[] })
         {!Number.isNaN(joined.getTime()) && (
           <li className="flex items-center gap-2.5 text-muted-foreground">
             <CalendarDays className="size-4 shrink-0" />
-            Joined {joined.toLocaleDateString('en', { month: 'long', day: 'numeric', year: 'numeric' })}
+            Joined{' '}
+            {joined.toLocaleDateString('en', {
+              month: 'long',
+              day: 'numeric',
+              year: 'numeric',
+            })}
           </li>
         )}
       </ul>

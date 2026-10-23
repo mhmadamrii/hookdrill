@@ -8,7 +8,8 @@ import { formatDate, formatDuration, formatTime, kindLabel } from './format'
 
 function register() {
   toast('Contests open with server grading', {
-    description: 'Registration starts once submissions are graded on the server. Practice problems work today.',
+    description:
+      'Registration starts once submissions are graded on the server. Practice problems work today.',
   })
 }
 
@@ -22,7 +23,16 @@ function StripField() {
       const v = (r * 7 + c * 13 + r * c) % 9
       const opacity = c < 4 + r ? (v < 6 ? 0.34 : 0.14) : v < 2 ? 0.2 : 0.07
       cells.push(
-        <rect key={`${r}-${c}`} x={c * 22} y={r * 22} width="16" height="16" rx="4" fill="white" fillOpacity={opacity} />,
+        <rect
+          key={`${r}-${c}`}
+          x={c * 22}
+          y={r * 22}
+          width="16"
+          height="16"
+          rx="4"
+          fill="white"
+          fillOpacity={opacity}
+        />,
       )
     }
   }
@@ -54,7 +64,10 @@ export function ContestHero({ contest }: { contest: Contest }) {
       <StripField />
       <div className="relative flex flex-col gap-6 p-5 sm:p-7 lg:flex-row lg:items-end lg:justify-between">
         <div className="min-w-0">
-          <h2 id="next-contest" className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2
+            id="next-contest"
+            className="text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          >
             {contest.name}
           </h2>
           <dl className="mt-3 flex flex-wrap gap-x-5 gap-y-1.5 text-sm text-primary-foreground/85">
@@ -106,15 +119,17 @@ export function UpcomingCard({ contest }: { contest: Contest }) {
     >
       <div className="flex min-w-0 items-center gap-4">
         <div className="flex size-12 shrink-0 flex-col items-center justify-center rounded-lg bg-secondary text-center">
-          <span className="text-[10px] font-semibold uppercase text-muted-foreground">
+          <span className="text-2xs font-semibold uppercase text-muted-foreground">
             {formatDate(contest.startsAt).split(', ')[1]?.split(' ')[0]}
           </span>
-          <span className="text-lg leading-none font-bold tabular-nums">{new Date(contest.startsAt).getUTCDate()}</span>
+          <span className="text-lg leading-none font-bold tabular-nums">
+            {new Date(contest.startsAt).getUTCDate()}
+          </span>
         </div>
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <h3 className="font-semibold">{contest.name}</h3>
-            <span className="rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+            <span className="rounded-full bg-secondary px-2 py-0.5 text-2xs font-medium text-muted-foreground">
               {kindLabel[contest.kind]}
             </span>
           </div>
@@ -124,13 +139,17 @@ export function UpcomingCard({ contest }: { contest: Contest }) {
             </span>
             <span className="inline-flex items-center gap-1">
               <Timer className="size-3.5" aria-hidden />
-              {formatDuration(contest.durationMin)} · {contest.problems} problems
+              {formatDuration(contest.durationMin)} · {contest.problems}{' '}
+              problems
             </span>
           </p>
         </div>
       </div>
       <div className="flex items-center gap-3 sm:shrink-0">
-        <RelativeStart startsAt={contest.startsAt} className="text-sm font-medium text-brand" />
+        <RelativeStart
+          startsAt={contest.startsAt}
+          className="text-sm font-medium text-brand"
+        />
         <Button variant="outline" onClick={register}>
           Register
         </Button>

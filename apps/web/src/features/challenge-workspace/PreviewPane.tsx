@@ -16,7 +16,10 @@ export function PreviewPane() {
     const clientId = ref.current?.clientId
     if (!clientId) return
     return listen((msg) => {
-      if (msg.type === 'start' || (msg.type === 'done' && !msg.compilatonError)) {
+      if (
+        msg.type === 'start' ||
+        (msg.type === 'done' && !msg.compilatonError)
+      ) {
         setError(null)
       } else if (msg.type === 'action' && msg.action === 'show-error') {
         setError(`${msg.title}\n${msg.message}`)

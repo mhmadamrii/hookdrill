@@ -58,11 +58,19 @@ function useRunSequence() {
   return passed
 }
 
-function PanelTab({ icon: Icon, label, active }: { icon: typeof Code2; label: string; active?: boolean }) {
+function PanelTab({
+  icon: Icon,
+  label,
+  active,
+}: {
+  icon: typeof Code2
+  label: string
+  active?: boolean
+}) {
   return (
     <span
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-[11px] font-medium',
+        'inline-flex items-center gap-1.5 rounded-md px-2 py-1 text-2xs font-medium',
         active ? 'text-foreground' : 'text-muted-foreground',
       )}
     >
@@ -72,16 +80,31 @@ function PanelTab({ icon: Icon, label, active }: { icon: typeof Code2; label: st
   )
 }
 
-function Panel({ className, children }: { className?: string; children: React.ReactNode }) {
+function Panel({
+  className,
+  children,
+}: {
+  className?: string
+  children: React.ReactNode
+}) {
   return (
-    <div className={cn('flex min-w-0 flex-col overflow-hidden rounded-lg border bg-card', className)}>
+    <div
+      className={cn(
+        'flex min-w-0 flex-col overflow-hidden rounded-lg border bg-card',
+        className,
+      )}
+    >
       {children}
     </div>
   )
 }
 
 function PanelBar({ children }: { children: React.ReactNode }) {
-  return <div className="flex h-8 shrink-0 items-center gap-0.5 border-b bg-surface-2/60 px-1.5">{children}</div>
+  return (
+    <div className="flex h-8 shrink-0 items-center gap-0.5 border-b bg-surface-2/60 px-1.5">
+      {children}
+    </div>
+  )
 }
 
 const todos = [
@@ -92,7 +115,7 @@ const todos = [
 
 function PreviewTodo() {
   return (
-    <div className="p-3 text-[12px]">
+    <div className="p-3 text-xs">
       <p className="mb-2 text-[13px] font-semibold">Todos</p>
       <div className="flex gap-1.5">
         <span className="flex h-7 min-w-0 flex-1 items-center rounded-md border bg-background px-2 text-muted-foreground">
@@ -113,7 +136,12 @@ function PreviewTodo() {
             >
               {t.done && <Check className="size-2.5" strokeWidth={3.5} />}
             </span>
-            <span className={cn('min-w-0 flex-1 truncate', t.done && 'text-muted-foreground line-through')}>
+            <span
+              className={cn(
+                'min-w-0 flex-1 truncate',
+                t.done && 'text-muted-foreground line-through',
+              )}
+            >
               {t.text}
             </span>
             <Pencil className="size-3 text-muted-foreground" />
@@ -148,12 +176,12 @@ function Console({ passed }: { passed: number }) {
         >
           {done ? 'Accepted' : 'Running tests'}
         </span>
-        <span className="text-[11px] text-muted-foreground tabular-nums">
+        <span className="text-2xs text-muted-foreground tabular-nums">
           {passed} / {TESTS} passed{done && <> · Runtime 412 ms</>}
         </span>
       </div>
       <TestStrip cells={cells} />
-      <ul className="space-y-1 text-[11px]">
+      <ul className="space-y-1 text-2xs">
         {names.map((n, i) => (
           <li key={n} className="flex items-center gap-1.5">
             <CircleCheck
@@ -162,7 +190,14 @@ function Console({ passed }: { passed: number }) {
                 i < passed ? 'text-accepted' : 'text-muted-foreground/40',
               )}
             />
-            <span className={cn('truncate', i < passed ? 'text-foreground/80' : 'text-muted-foreground')}>{n}</span>
+            <span
+              className={cn(
+                'truncate',
+                i < passed ? 'text-foreground/80' : 'text-muted-foreground',
+              )}
+            >
+              {n}
+            </span>
           </li>
         ))}
         <li className="flex items-center gap-1.5 text-muted-foreground">
@@ -181,21 +216,24 @@ export function WorkspaceMock({ className }: { className?: string }) {
     <div
       role="img"
       aria-label="The HookDrill workspace: the Todo List problem, a code editor with a hand-written React component, a live preview of the todo list, and a test console showing 6 of 6 tests passed, Accepted."
-      className={cn('overflow-hidden rounded-xl border bg-background text-left', className)}
+      className={cn(
+        'overflow-hidden rounded-xl border bg-background text-left',
+        className,
+      )}
     >
       {/* top bar */}
       <div className="flex h-10 items-center gap-2 border-b px-3">
         <LogoMark className="size-5" />
-        <span className="ml-1 inline-flex items-center gap-1 text-[11px] font-medium text-muted-foreground">
+        <span className="ml-1 inline-flex items-center gap-1 text-2xs font-medium text-muted-foreground">
           <List className="size-3.5" /> Problem List
           <ChevronLeft className="ml-1 size-3.5" />
           <ChevronRight className="size-3.5" />
         </span>
         <div className="mx-auto flex items-center gap-1.5">
-          <span className="inline-flex h-6 items-center gap-1 rounded-md bg-secondary px-2.5 text-[11px] font-medium">
+          <span className="inline-flex h-6 items-center gap-1 rounded-md bg-secondary px-2.5 text-2xs font-medium">
             <Play className="size-3" /> Run
           </span>
-          <span className="inline-flex h-6 items-center gap-1 rounded-md bg-accepted/15 px-2.5 text-[11px] font-semibold text-accepted">
+          <span className="inline-flex h-6 items-center gap-1 rounded-md bg-accepted/15 px-2.5 text-2xs font-semibold text-accepted">
             <Upload className="size-3" /> Submit
           </span>
         </div>
@@ -210,31 +248,48 @@ export function WorkspaceMock({ className }: { className?: string }) {
             <PanelTab icon={FlaskConical} label="Submissions" />
           </PanelBar>
           <div className="space-y-3 p-3">
-            <p className="text-[15px] font-semibold tracking-tight">1. Todo List</p>
-            <DifficultyPill level="easy" className="h-5 text-[11px]" />
-            <p className="text-[12px] leading-relaxed text-muted-foreground">
-              Build a todo list in <span className="font-mono text-foreground">App.jsx</span>. Add, edit, delete and
-              toggle each item.
+            <p className="text-[15px] font-semibold tracking-tight">
+              1. Todo List
             </p>
-            <div className="rounded-md border text-[11px]">
-              <div className="border-b px-2 py-1 font-medium text-muted-foreground">Required test ids</div>
-              {['todo-input', 'add-button', 'todo-item', 'toggle-button', 'edit-button', 'delete-button'].map(
-                (id) => (
-                  <div key={id} className="border-b px-2 py-1 font-mono text-foreground/85 last:border-b-0">
-                    {id}
-                  </div>
-                ),
-              )}
+            <DifficultyPill level="easy" className="h-5 text-2xs" />
+            <p className="text-xs leading-relaxed text-muted-foreground">
+              Build a todo list in{' '}
+              <span className="font-mono text-foreground">App.jsx</span>. Add,
+              edit, delete and toggle each item.
+            </p>
+            <div className="rounded-md border text-2xs">
+              <div className="border-b px-2 py-1 font-medium text-muted-foreground">
+                Required test ids
+              </div>
+              {[
+                'todo-input',
+                'add-button',
+                'todo-item',
+                'toggle-button',
+                'edit-button',
+                'delete-button',
+              ].map((id) => (
+                <div
+                  key={id}
+                  className="border-b px-2 py-1 font-mono text-foreground/85 last:border-b-0"
+                >
+                  {id}
+                </div>
+              ))}
             </div>
-            <ul className="space-y-1.5 text-[12px] text-muted-foreground">
-              {['Empty input adds nothing', 'Toggle sets data-done', 'Edit saves the new text'].map((r) => (
+            <ul className="space-y-1.5 text-xs text-muted-foreground">
+              {[
+                'Empty input adds nothing',
+                'Toggle sets data-done',
+                'Edit saves the new text',
+              ].map((r) => (
                 <li key={r} className="flex items-center gap-1.5">
                   <Check className="size-3 shrink-0 text-brand" />
                   {r}
                 </li>
               ))}
             </ul>
-            <div className="flex items-center gap-2 rounded-md bg-surface-2/70 px-2 py-1.5 text-[11px] text-muted-foreground">
+            <div className="flex items-center gap-2 rounded-md bg-surface-2/70 px-2 py-1.5 text-2xs text-muted-foreground">
               <Lock className="size-3" /> 4 hints, revealed one at a time
             </div>
           </div>
@@ -245,10 +300,12 @@ export function WorkspaceMock({ className }: { className?: string }) {
           <Panel>
             <PanelBar>
               <PanelTab icon={Code2} label="Code" active />
-              <span className="ml-1 rounded-md bg-card px-2 py-0.5 font-mono text-[11px] text-foreground/85 ring-1 ring-border">
+              <span className="ml-1 rounded-md bg-card px-2 py-0.5 font-mono text-2xs text-foreground/85 ring-1 ring-border">
                 App.jsx
               </span>
-              <span className="ml-auto pr-1 text-[10px] text-muted-foreground">React · JSX</span>
+              <span className="ml-auto pr-1 text-2xs text-muted-foreground">
+                React · JSX
+              </span>
             </PanelBar>
             <CodeLines code={CODE} start={3} activeLine={18} className="py-2" />
           </Panel>

@@ -2,7 +2,11 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
 import { SiteFooter } from '@/components/site-footer'
 import { Banners } from '@/components/problems/banners'
-import { CategoryPills, Toolbar, TopicChips } from '@/components/problems/filters'
+import {
+  CategoryPills,
+  Toolbar,
+  TopicChips,
+} from '@/components/problems/filters'
 import { LibrarySidebar } from '@/components/problems/library-sidebar'
 import { ProblemTable } from '@/components/problems/problem-table'
 import { RightRail } from '@/components/problems/right-rail'
@@ -26,7 +30,11 @@ function Problems() {
   const progress = useMyProgress()
 
   const update = (patch: Partial<ProblemsSearch>) =>
-    navigate({ search: (prev) => ({ ...prev, ...patch }), replace: true, resetScroll: false })
+    navigate({
+      search: (prev) => ({ ...prev, ...patch }),
+      replace: true,
+      resetScroll: false,
+    })
 
   const rows = useMemo(
     () => applyProblemsSearch(problems, search, progress.status),
@@ -39,7 +47,11 @@ function Problems() {
     : 0
 
   const clearAll = () =>
-    navigate({ search: { sort: search.sort }, replace: true, resetScroll: false })
+    navigate({
+      search: { sort: search.sort },
+      replace: true,
+      resetScroll: false,
+    })
 
   return (
     <>
@@ -53,7 +65,10 @@ function Problems() {
           <Banners />
 
           <div className="flex flex-col gap-4 border-t pt-5">
-            <TopicChips active={search.tag} onSelect={(tag) => update({ tag })} />
+            <TopicChips
+              active={search.tag}
+              onSelect={(tag) => update({ tag })}
+            />
             <CategoryPills track={search.track} update={update} />
             <Toolbar
               search={search}
@@ -72,14 +87,17 @@ function Problems() {
             />
             {rows.length > 0 && (
               <p className="mt-3 px-3 text-xs text-muted-foreground">
-                Showing {rows.length} of {problems.length}. Locked problems are a sample of the
-                catalogue and open when their tests ship.
+                Showing {rows.length} of {problems.length}. Locked problems are
+                a sample of the catalogue and open when their tests ship.
               </p>
             )}
           </div>
         </div>
 
-        <aside className="lg:col-start-2 xl:col-start-3 xl:row-start-1" aria-label="Daily problem and progress">
+        <aside
+          className="lg:col-start-2 xl:col-start-3 xl:row-start-1"
+          aria-label="Daily problem and progress"
+        >
           <RightRail onSelectTopic={(tag) => update({ tag })} />
         </aside>
       </main>

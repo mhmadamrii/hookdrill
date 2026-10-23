@@ -25,17 +25,37 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { playableProblems, problems, topics } from '@/lib/problems'
 import { cn } from '@/lib/utils'
-import { activeFilterCount, type ProblemsSearch, type SortKey, type StatusFilter } from './search'
+import {
+  activeFilterCount,
+  type ProblemsSearch,
+  type SortKey,
+  type StatusFilter,
+} from './search'
 
 type Update = (patch: Partial<ProblemsSearch>) => void
 
-const focusRing = 'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50'
+const focusRing =
+  'outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50'
 
-export function TopicChips({ active, onSelect }: { active?: string; onSelect: (tag?: string) => void }) {
+export function TopicChips({
+  active,
+  onSelect,
+}: {
+  active?: string
+  onSelect: (tag?: string) => void
+}) {
   const [open, setOpen] = useState(false)
   const shown = open ? topics : topics.slice(0, 9)
   return (
@@ -57,7 +77,9 @@ export function TopicChips({ active, onSelect }: { active?: string; onSelect: (t
                 className={cn(
                   'inline-flex h-8 items-center gap-1.5 rounded-full px-3 text-sm transition-colors',
                   focusRing,
-                  on ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-accent',
+                  on
+                    ? 'bg-primary text-primary-foreground'
+                    : 'text-foreground hover:bg-accent',
                 )}
               >
                 {t.name}
@@ -94,12 +116,20 @@ const categories = [
   { value: 'dsa' as const, label: 'DSA', icon: Binary },
 ]
 
-export function CategoryPills({ track, update }: { track?: 'react' | 'dsa'; update: Update }) {
+export function CategoryPills({
+  track,
+  update,
+}: {
+  track?: 'react' | 'dsa'
+  update: Update
+}) {
   return (
     <div role="group" aria-label="Track" className="flex flex-wrap gap-2">
       {categories.map(({ value, label, icon: Icon }) => {
         const on = track === value
-        const count = value ? problems.filter((p) => p.track === value).length : problems.length
+        const count = value
+          ? problems.filter((p) => p.track === value).length
+          : problems.length
         return (
           <button
             key={label}
@@ -116,7 +146,12 @@ export function CategoryPills({ track, update }: { track?: 'react' | 'dsa'; upda
           >
             <Icon className="size-4" />
             {label}
-            <span className={cn('text-xs tabular-nums', on ? 'opacity-70' : 'text-muted-foreground')}>
+            <span
+              className={cn(
+                'text-xs tabular-nums',
+                on ? 'opacity-70' : 'text-muted-foreground',
+              )}
+            >
               {count}
             </span>
           </button>
@@ -145,7 +180,9 @@ const statusOptions: Array<[StatusFilter, string]> = [
 ]
 
 function toggle<T>(list: T[] | undefined, v: T): T[] | undefined {
-  const next = list?.includes(v) ? list.filter((x) => x !== v) : [...(list ?? []), v]
+  const next = list?.includes(v)
+    ? list.filter((x) => x !== v)
+    : [...(list ?? []), v]
   return next.length ? next : undefined
 }
 
@@ -166,7 +203,8 @@ export function Toolbar({
   useEffect(() => setQ(search.q ?? ''), [search.q])
 
   function pickRandom() {
-    const p = playableProblems[Math.floor(Math.random() * playableProblems.length)]
+    const p =
+      playableProblems[Math.floor(Math.random() * playableProblems.length)]
     navigate({ to: '/problems/$slug', params: { slug: p.slug } })
   }
 
@@ -195,7 +233,10 @@ export function Toolbar({
                 variant="ghost"
                 size="icon"
                 aria-label={`Sort: ${sortLabels[search.sort ?? 'default']}`}
-                className={cn('rounded-full', search.sort && 'bg-secondary text-brand')}
+                className={cn(
+                  'rounded-full',
+                  search.sort && 'bg-secondary text-brand',
+                )}
               >
                 <ArrowUpDown />
               </Button>
@@ -207,7 +248,9 @@ export function Toolbar({
           <DropdownMenuLabel>Sort by</DropdownMenuLabel>
           <DropdownMenuRadioGroup
             value={search.sort ?? 'default'}
-            onValueChange={(v) => update({ sort: v === 'default' ? undefined : (v as SortKey) })}
+            onValueChange={(v) =>
+              update({ sort: v === 'default' ? undefined : (v as SortKey) })
+            }
           >
             {(Object.keys(sortLabels) as SortKey[]).map((k) => (
               <DropdownMenuRadioItem key={k} value={k}>
@@ -226,11 +269,14 @@ export function Toolbar({
                 variant="ghost"
                 size="icon"
                 aria-label={filters ? `Filters (${filters} active)` : 'Filters'}
-                className={cn('relative rounded-full', filters > 0 && 'bg-secondary text-brand')}
+                className={cn(
+                  'relative rounded-full',
+                  filters > 0 && 'bg-secondary text-brand',
+                )}
               >
                 <ListFilter />
                 {filters > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 grid size-4 place-items-center rounded-full bg-primary text-[10px] font-semibold text-primary-foreground tabular-nums">
+                  <span className="absolute -top-0.5 -right-0.5 grid size-4 place-items-center rounded-full bg-primary text-2xs font-semibold text-primary-foreground tabular-nums">
                     {filters}
                   </span>
                 )}
@@ -242,28 +288,39 @@ export function Toolbar({
         <PopoverContent align="start" className="w-64 p-0">
           <div className="space-y-4 p-4">
             <fieldset className="space-y-2.5">
-              <legend className="mb-2 text-xs font-medium text-muted-foreground">Difficulty</legend>
+              <legend className="mb-2 text-xs font-medium text-muted-foreground">
+                Difficulty
+              </legend>
               {diffOptions.map(([v, label, color]) => (
                 <div key={v} className="flex items-center gap-2.5">
                   <Checkbox
                     id={`diff-${v}`}
                     checked={!!search.diff?.includes(v)}
-                    onCheckedChange={() => update({ diff: toggle(search.diff, v) })}
+                    onCheckedChange={() =>
+                      update({ diff: toggle(search.diff, v) })
+                    }
                   />
-                  <Label htmlFor={`diff-${v}`} className={cn('font-medium', color)}>
+                  <Label
+                    htmlFor={`diff-${v}`}
+                    className={cn('font-medium', color)}
+                  >
                     {label}
                   </Label>
                 </div>
               ))}
             </fieldset>
             <fieldset className="space-y-2.5">
-              <legend className="mb-2 text-xs font-medium text-muted-foreground">Status</legend>
+              <legend className="mb-2 text-xs font-medium text-muted-foreground">
+                Status
+              </legend>
               {statusOptions.map(([v, label]) => (
                 <div key={v} className="flex items-center gap-2.5">
                   <Checkbox
                     id={`status-${v}`}
                     checked={!!search.status?.includes(v)}
-                    onCheckedChange={() => update({ status: toggle(search.status, v) })}
+                    onCheckedChange={() =>
+                      update({ status: toggle(search.status, v) })
+                    }
                   />
                   <Label htmlFor={`status-${v}`}>{label}</Label>
                 </div>
@@ -273,7 +330,9 @@ export function Toolbar({
               <Checkbox
                 id="only-playable"
                 checked={!!search.playable}
-                onCheckedChange={(c) => update({ playable: c === true ? true : undefined })}
+                onCheckedChange={(c) =>
+                  update({ playable: c === true ? true : undefined })
+                }
               />
               <Label htmlFor="only-playable">Only open problems</Label>
             </div>
@@ -283,7 +342,13 @@ export function Toolbar({
               variant="ghost"
               size="sm"
               disabled={!filters}
-              onClick={() => update({ diff: undefined, status: undefined, playable: undefined })}
+              onClick={() =>
+                update({
+                  diff: undefined,
+                  status: undefined,
+                  playable: undefined,
+                })
+              }
             >
               <X /> Reset filters
             </Button>
@@ -294,7 +359,10 @@ export function Toolbar({
       <div className="ml-auto flex items-center gap-3">
         <p className="text-sm text-muted-foreground">
           <span
-            className={cn('font-semibold text-foreground tabular-nums', progressLoading && 'opacity-50')}
+            className={cn(
+              'font-semibold text-foreground tabular-nums',
+              progressLoading && 'opacity-50',
+            )}
           >
             {solved}
           </span>

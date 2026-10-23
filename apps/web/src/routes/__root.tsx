@@ -60,9 +60,12 @@ function NotFound() {
   return (
     <main className="mx-auto flex min-h-[70vh] max-w-xl flex-col items-start justify-center px-6">
       <p className="font-mono text-sm text-muted-foreground">404</p>
-      <h1 className="mt-2 text-3xl font-semibold tracking-tight">This page doesn't exist</h1>
+      <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+        This page doesn't exist
+      </h1>
       <p className="mt-3 text-muted-foreground">
-        The problem or page you're looking for may have moved, or it hasn't been written yet.
+        The problem or page you're looking for may have moved, or it hasn't been
+        written yet.
       </p>
       <div className="mt-6 flex gap-3">
         <Button asChild>

@@ -1,13 +1,29 @@
 import { useEffect, useRef } from 'react'
-import { Link, createFileRoute, notFound, useNavigate } from '@tanstack/react-router'
+import {
+  Link,
+  createFileRoute,
+  notFound,
+  useNavigate,
+} from '@tanstack/react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft, ChevronRight, ListTree, Shuffle } from 'lucide-react'
-import { getChallenge, type Challenge, type FileMap } from '@hookdrill/challenges'
-import { ChallengeWorkspace, type ChallengeWorkspaceProps } from '#/features/challenge-workspace'
+import {
+  getChallenge,
+  type Challenge,
+  type FileMap,
+} from '@hookdrill/challenges'
+import {
+  ChallengeWorkspace,
+  type ChallengeWorkspaceProps,
+} from '#/features/challenge-workspace'
 import { LogoMark } from '@/components/logo'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import { UserMenu } from '@/components/user-menu'
 import { useSession } from '@/lib/auth-client'
 import { findProblem, playableProblems } from '@/lib/problems'
@@ -24,7 +40,9 @@ export const Route = createFileRoute('/problems/$slug')({
     return challenge
   },
   head: ({ loaderData }) => ({
-    meta: [{ title: loaderData ? `${loaderData.title} · HookDrill` : 'HookDrill' }],
+    meta: [
+      { title: loaderData ? `${loaderData.title} · HookDrill` : 'HookDrill' },
+    ],
   }),
   pendingComponent: Loading,
   component: ProblemPage,
@@ -63,7 +81,12 @@ function ProblemPage() {
 }
 
 /** Props shared by the signed-in and signed-out workspace. */
-function common(challenge: Challenge): Pick<ChallengeWorkspaceProps, 'challenge' | 'number' | 'tags' | 'nav' | 'actions'> {
+function common(
+  challenge: Challenge,
+): Pick<
+  ChallengeWorkspaceProps,
+  'challenge' | 'number' | 'tags' | 'nav' | 'actions'
+> {
   const meta = findProblem(challenge.slug)
   return {
     challenge,
@@ -84,7 +107,8 @@ function ProblemNav({ slug }: { slug: string }) {
   const i = playableProblems.findIndex((p) => p.slug === slug)
   const prev = playableProblems[i - 1]
   const next = playableProblems[i + 1]
-  const go = (s: string) => navigate({ to: '/problems/$slug', params: { slug: s } })
+  const go = (s: string) =>
+    navigate({ to: '/problems/$slug', params: { slug: s } })
   const others = playableProblems.filter((p) => p.slug !== slug)
 
   return (
@@ -99,19 +123,35 @@ function ProblemNav({ slug }: { slug: string }) {
       </Button>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon-sm" disabled={!prev} onClick={() => prev && go(prev.slug)} aria-label="Previous problem">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!prev}
+            onClick={() => prev && go(prev.slug)}
+            aria-label="Previous problem"
+          >
             <ChevronLeft />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>{prev ? `Previous: ${prev.title}` : 'First problem'}</TooltipContent>
+        <TooltipContent>
+          {prev ? `Previous: ${prev.title}` : 'First problem'}
+        </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button variant="ghost" size="icon-sm" disabled={!next} onClick={() => next && go(next.slug)} aria-label="Next problem">
+          <Button
+            variant="ghost"
+            size="icon-sm"
+            disabled={!next}
+            onClick={() => next && go(next.slug)}
+            aria-label="Next problem"
+          >
             <ChevronRight />
           </Button>
         </TooltipTrigger>
-        <TooltipContent>{next ? `Next: ${next.title}` : 'Last playable problem'}</TooltipContent>
+        <TooltipContent>
+          {next ? `Next: ${next.title}` : 'Last playable problem'}
+        </TooltipContent>
       </Tooltip>
       <Tooltip>
         <TooltipTrigger asChild>
@@ -120,7 +160,9 @@ function ProblemNav({ slug }: { slug: string }) {
             size="icon-sm"
             className="max-sm:hidden"
             disabled={others.length === 0}
-            onClick={() => go(others[Math.floor(Math.random() * others.length)].slug)}
+            onClick={() =>
+              go(others[Math.floor(Math.random() * others.length)].slug)
+            }
             aria-label="Random problem"
           >
             <Shuffle />
@@ -198,7 +240,9 @@ function SignedInWorkspace({ challenge }: { challenge: Challenge }) {
       initialFiles={draft.data?.files}
       initialHintsRevealed={mine?.hintsRevealed ?? 0}
       onFilesChange={onFilesChange}
-      onTestRunComplete={(r) => recordRun.mutate({ slug, passed: r.passed, total: r.total })}
+      onTestRunComplete={(r) =>
+        recordRun.mutate({ slug, passed: r.passed, total: r.total })
+      }
       onHintReveal={(count) => revealHint.mutate({ slug, count })}
       status={status}
     />

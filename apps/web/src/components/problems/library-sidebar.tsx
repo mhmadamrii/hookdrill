@@ -35,7 +35,10 @@ function Item({
 
 export function LibrarySidebar() {
   return (
-    <nav aria-label="Library" className="sticky top-[4.5rem] flex flex-col gap-1">
+    <nav
+      aria-label="Library"
+      className="sticky top-[4.5rem] flex flex-col gap-1"
+    >
       <Item icon={BookOpen} to="/problems" active>
         Library
       </Item>
@@ -51,7 +54,9 @@ export function LibrarySidebar() {
 
       <div className="my-3 h-px bg-border" />
 
-      <h2 className="px-3 pb-1 text-xs font-medium text-muted-foreground">My lists</h2>
+      <h2 className="px-3 pb-1 text-xs font-medium text-muted-foreground">
+        My lists
+      </h2>
       <div
         className={cn(row, 'cursor-default text-muted-foreground')}
         title="Starring problems is coming soon"

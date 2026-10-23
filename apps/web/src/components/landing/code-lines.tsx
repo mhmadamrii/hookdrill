@@ -61,7 +61,7 @@ export function CodeLines({
   return (
     <pre
       className={cn(
-        'overflow-hidden font-mono text-[12px] leading-[1.7] text-muted-foreground',
+        'overflow-hidden font-mono text-xs leading-[1.7] text-muted-foreground',
         className,
       )}
     >

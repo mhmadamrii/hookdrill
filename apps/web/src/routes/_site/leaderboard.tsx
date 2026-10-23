@@ -17,7 +17,8 @@ function Leaderboard() {
           <div>
             <h1 className="text-2xl font-bold tracking-tight">Leaderboard</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              Contest ratings by handle. Ratings arrive with rated contests; this table shows how it will look.
+              Contest ratings by handle. Ratings arrive with rated contests;
+              this table shows how it will look.
             </p>
           </div>
           <SampleNote>Sample data, not real players</SampleNote>

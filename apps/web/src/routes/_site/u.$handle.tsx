@@ -3,7 +3,12 @@ import { ArrowLeft, Flame, MapPin, Trophy, UserX } from 'lucide-react'
 import { HeatmapLayout } from '@/components/dashboard/activity-panel'
 import { Panel, SampleBadge } from '@/components/dashboard/panel'
 import { RatingChart } from '@/components/profile/rating-chart'
-import { ratingHistory, recentContests, seedFor, solvedSplit } from '@/components/profile/sample-player'
+import {
+  ratingHistory,
+  recentContests,
+  seedFor,
+  solvedSplit,
+} from '@/components/profile/sample-player'
 import { RatingName } from '@/components/rating-name'
 import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
@@ -11,7 +16,9 @@ import { players, sampleActivity, tierFor } from '@/lib/sample-data'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/_site/u/$handle')({
-  head: ({ params }) => ({ meta: [{ title: `${params.handle} · Sample profile · HookDrill` }] }),
+  head: ({ params }) => ({
+    meta: [{ title: `${params.handle} · Sample profile · HookDrill` }],
+  }),
   component: PublicProfile,
 })
 
@@ -73,9 +80,15 @@ function PublicProfile() {
             {player.handle.charAt(0).toUpperCase()}
           </span>
           <div className="min-w-0">
-            <p className={cn('text-sm font-medium', tier.className)}>{tier.name}</p>
-            <h1 className="truncate text-2xl font-semibold tracking-tight">
-              <RatingName handle={player.handle} rating={player.rating} />
+            <h1 className="flex flex-wrap items-baseline gap-x-2 text-2xl font-semibold tracking-tight">
+              <RatingName
+                handle={player.handle}
+                rating={player.rating}
+                className="truncate"
+              />
+              <span className={cn('text-sm font-medium', tier.className)}>
+                {tier.name}
+              </span>
             </h1>
             <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
               <span className="inline-flex items-center gap-1.5">
@@ -84,7 +97,10 @@ function PublicProfile() {
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Trophy className="size-3.5" />
-                Global rank <span className="font-medium text-foreground tabular-nums">#{player.rank}</span>
+                Global rank{' '}
+                <span className="font-medium text-foreground tabular-nums">
+                  #{player.rank}
+                </span>
               </span>
               <span className="inline-flex items-center gap-1.5">
                 <Flame className="size-3.5" />
@@ -93,8 +109,16 @@ function PublicProfile() {
             </p>
           </div>
           <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-3 border-t pt-4 sm:grid-cols-4 md:grid-cols-2 md:col-span-1 md:border-t-0 md:border-l md:pt-0 md:pl-6 xl:grid-cols-4">
-            <HeaderStat term="Rating" value={player.rating} className={tier.className} />
-            <HeaderStat term="Peak" value={peak} className={peakTier.className} />
+            <HeaderStat
+              term="Rating"
+              value={player.rating}
+              className={tier.className}
+            />
+            <HeaderStat
+              term="Peak"
+              value={peak}
+              className={peakTier.className}
+            />
             <HeaderStat term="Contests" value={player.contests} />
             <HeaderStat term="Solved" value={player.solved} />
           </dl>
@@ -104,7 +128,11 @@ function PublicProfile() {
           <Panel
             title="Rating"
             sample
-            action={<span className="text-xs text-muted-foreground">Hover for each contest</span>}
+            action={
+              <span className="text-xs text-muted-foreground">
+                Hover for each contest
+              </span>
+            }
           >
             <RatingChart history={history} />
           </Panel>
@@ -116,7 +144,10 @@ function PublicProfile() {
         <Panel
           title={
             <>
-              {submissions} submissions <span className="font-normal text-muted-foreground">in the past year</span>
+              {submissions} submissions{' '}
+              <span className="font-normal text-muted-foreground">
+                in the past year
+              </span>
             </>
           }
           sample
@@ -144,12 +175,22 @@ function PublicProfile() {
               </thead>
               <tbody>
                 {contests.map((c) => (
-                  <tr key={c.contest.id} className="border-b last:border-0 even:bg-surface-2/50">
-                    <td className="px-4 py-2.5 font-medium">{c.contest.name}</td>
-                    <td className="px-4 py-2.5 text-muted-foreground tabular-nums">
-                      {new Date(c.contest.startsAt).toLocaleDateString('en', { month: 'short', day: 'numeric' })}
+                  <tr
+                    key={c.contest.id}
+                    className="border-b last:border-0 even:bg-surface-2/50"
+                  >
+                    <td className="px-4 py-2.5 font-medium">
+                      {c.contest.name}
                     </td>
-                    <td className="px-4 py-2.5 text-right tabular-nums">{c.rank}</td>
+                    <td className="px-4 py-2.5 text-muted-foreground tabular-nums">
+                      {new Date(c.contest.startsAt).toLocaleDateString('en', {
+                        month: 'short',
+                        day: 'numeric',
+                      })}
+                    </td>
+                    <td className="px-4 py-2.5 text-right tabular-nums">
+                      {c.rank}
+                    </td>
                     <td
                       className={cn(
                         'px-4 py-2.5 text-right font-medium tabular-nums',
@@ -159,7 +200,12 @@ function PublicProfile() {
                       {c.delta >= 0 ? '+' : ''}
                       {c.delta}
                     </td>
-                    <td className={cn('px-4 py-2.5 text-right font-semibold tabular-nums', tierFor(c.rating).className)}>
+                    <td
+                      className={cn(
+                        'px-4 py-2.5 text-right font-semibold tabular-nums',
+                        tierFor(c.rating).className,
+                      )}
+                    >
                       {c.rating}
                     </td>
                   </tr>
@@ -174,11 +220,21 @@ function PublicProfile() {
   )
 }
 
-function HeaderStat({ term, value, className }: { term: string; value: number; className?: string }) {
+function HeaderStat({
+  term,
+  value,
+  className,
+}: {
+  term: string
+  value: number
+  className?: string
+}) {
   return (
     <div>
       <dt className="text-xs text-muted-foreground">{term}</dt>
-      <dd className={cn('text-lg font-semibold tabular-nums', className)}>{value}</dd>
+      <dd className={cn('text-lg font-semibold tabular-nums', className)}>
+        {value}
+      </dd>
     </div>
   )
 }
@@ -189,16 +245,29 @@ const levelRows = [
   { key: 'hard', label: 'Hard', text: 'text-hard', bg: 'bg-hard' },
 ] as const
 
-function SolvedBreakdown({ split, total }: { split: Record<'easy' | 'medium' | 'hard', number>; total: number }) {
+function SolvedBreakdown({
+  split,
+  total,
+}: {
+  split: Record<'easy' | 'medium' | 'hard', number>
+  total: number
+}) {
   return (
     <div className="flex flex-col gap-4">
       <p className="flex items-baseline gap-1.5 tabular-nums">
         <span className="text-4xl font-semibold tracking-tight">{total}</span>
         <span className="text-sm text-muted-foreground">problems solved</span>
       </p>
-      <div className="flex h-2 gap-0.5 overflow-hidden rounded-full" aria-hidden>
+      <div
+        className="flex h-2 gap-0.5 overflow-hidden rounded-full"
+        aria-hidden
+      >
         {levelRows.map((l) => (
-          <span key={l.key} className={l.bg} style={{ width: `${(split[l.key] / total) * 100}%` }} />
+          <span
+            key={l.key}
+            className={l.bg}
+            style={{ width: `${(split[l.key] / total) * 100}%` }}
+          />
         ))}
       </div>
       <ul className="flex flex-col gap-2 text-sm">
@@ -207,7 +276,9 @@ function SolvedBreakdown({ split, total }: { split: Record<'easy' | 'medium' | '
             <span className={cn('font-medium', l.text)}>{l.label}</span>
             <span className="tabular-nums">
               {split[l.key]}
-              <span className="ml-2 text-xs text-muted-foreground">{Math.round((split[l.key] / total) * 100)}%</span>
+              <span className="ml-2 text-xs text-muted-foreground">
+                {Math.round((split[l.key] / total) * 100)}%
+              </span>
             </span>
           </li>
         ))}
@@ -223,10 +294,12 @@ function NotFound({ handle }: { handle: string }) {
         <span className="grid size-12 place-items-center rounded-full bg-surface-2 text-muted-foreground">
           <UserX className="size-5" />
         </span>
-        <h1 className="mt-5 text-xl font-semibold tracking-tight">No player called “{handle}”</h1>
+        <h1 className="mt-5 text-xl font-semibold tracking-tight">
+          No player called “{handle}”
+        </h1>
         <p className="mt-2 text-sm text-muted-foreground">
-          Public profiles are sample data for now, and this handle is not one of them. The leaderboard lists every
-          sample player.
+          Public profiles are sample data for now, and this handle is not one of
+          them. The leaderboard lists every sample player.
         </p>
         <Button asChild className="mt-6">
           <Link to="/leaderboard">Open the leaderboard</Link>

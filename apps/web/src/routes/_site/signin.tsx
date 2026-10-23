@@ -34,13 +34,12 @@ function SignIn() {
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(var(--border)_1.2px,transparent_1.2px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]"
       />
-      <div
-        aria-hidden
-        className="absolute top-[-10%] left-1/2 -z-10 size-[520px] -translate-x-1/2 rounded-full bg-primary/8 blur-3xl"
-      />
       <div className="mx-auto grid min-h-[calc(100dvh-3.5rem)] max-w-[1100px] items-center gap-12 px-4 py-10 md:px-6 lg:grid-cols-[1fr_420px] lg:gap-20">
         <section aria-labelledby="why-sign-in" className="order-2 lg:order-1">
-          <h2 id="why-sign-in" className="max-w-md text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+          <h2
+            id="why-sign-in"
+            className="max-w-md text-3xl font-bold tracking-tight text-balance sm:text-4xl"
+          >
             <span className="block">Write it by hand.</span>
             <span className="block">Let the tests decide.</span>
           </h2>
@@ -48,7 +47,18 @@ function SignIn() {
             Practice is open without an account. Signing in keeps your work.
           </p>
           <div className="mt-6 flex items-center gap-3 text-sm text-muted-foreground">
-            <TestStrip cells={['pass', 'pass', 'pass', 'pass', 'fail', 'pass', 'pass', 'pass']} />
+            <TestStrip
+              cells={[
+                'pass',
+                'pass',
+                'pass',
+                'pass',
+                'fail',
+                'pass',
+                'pass',
+                'pass',
+              ]}
+            />
             <span className="tabular-nums">7 of 8 tests passing</span>
           </div>
           <ul className="mt-8 max-w-md space-y-5">

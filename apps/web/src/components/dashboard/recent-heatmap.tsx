@@ -2,7 +2,11 @@ import { useEffect, useRef } from 'react'
 import { Heatmap } from '@/components/heatmap'
 
 /** Shared heatmap, scrolled to the latest weeks when it overflows (phones). */
-export function RecentHeatmap({ days }: { days: Array<{ date: string; count: number }> }) {
+export function RecentHeatmap({
+  days,
+}: {
+  days: Array<{ date: string; count: number }>
+}) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     const scroller = ref.current?.firstElementChild as HTMLElement | null

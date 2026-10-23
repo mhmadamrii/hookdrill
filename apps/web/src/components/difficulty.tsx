@@ -1,9 +1,21 @@
 import type { Difficulty as Level } from '@hookdrill/challenges'
 import { cn } from '@/lib/utils'
 
-const text: Record<Level, string> = { easy: 'text-easy', medium: 'text-medium', hard: 'text-hard' }
-const short: Record<Level, string> = { easy: 'Easy', medium: 'Med.', hard: 'Hard' }
-const long: Record<Level, string> = { easy: 'Easy', medium: 'Medium', hard: 'Hard' }
+const text: Record<Level, string> = {
+  easy: 'text-easy',
+  medium: 'text-medium',
+  hard: 'text-hard',
+}
+const short: Record<Level, string> = {
+  easy: 'Easy',
+  medium: 'Med.',
+  hard: 'Hard',
+}
+const long: Record<Level, string> = {
+  easy: 'Easy',
+  medium: 'Medium',
+  hard: 'Hard',
+}
 
 /** Coloured difficulty word, as in problem tables. */
 export function DifficultyText({
@@ -23,7 +35,13 @@ export function DifficultyText({
 }
 
 /** Pill used on problem pages and cards. */
-export function DifficultyPill({ level, className }: { level: Level; className?: string }) {
+export function DifficultyPill({
+  level,
+  className,
+}: {
+  level: Level
+  className?: string
+}) {
   return (
     <span
       className={cn(

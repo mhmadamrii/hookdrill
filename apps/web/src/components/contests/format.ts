@@ -15,7 +15,8 @@ const timeFmt = new Intl.DateTimeFormat('en-US', {
 })
 
 export const formatDate = (iso: string) => dateFmt.format(new Date(iso))
-export const formatTime = (iso: string) => `${timeFmt.format(new Date(iso))} UTC`
+export const formatTime = (iso: string) =>
+  `${timeFmt.format(new Date(iso))} UTC`
 
 export function formatDuration(min: number) {
   const h = Math.floor(min / 60)

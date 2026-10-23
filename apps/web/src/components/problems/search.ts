@@ -21,20 +21,30 @@ const DIFFS: Difficulty[] = ['easy', 'medium', 'hard']
 const STATUSES: StatusFilter[] = ['solved', 'attempted', 'todo']
 
 function list<T extends string>(raw: unknown, allowed: T[]): T[] | undefined {
-  const arr = Array.isArray(raw) ? raw : typeof raw === 'string' ? raw.split(',') : []
+  const arr = Array.isArray(raw)
+    ? raw
+    : typeof raw === 'string'
+      ? raw.split(',')
+      : []
   const out = arr.filter((v): v is T => allowed.includes(v as T))
   return out.length ? out : undefined
 }
 
-export function validateProblemsSearch(raw: Record<string, unknown>): ProblemsSearch {
+export function validateProblemsSearch(
+  raw: Record<string, unknown>,
+): ProblemsSearch {
   return {
     q: typeof raw.q === 'string' && raw.q ? raw.q : undefined,
     tag: typeof raw.tag === 'string' && raw.tag ? raw.tag : undefined,
     track: raw.track === 'react' || raw.track === 'dsa' ? raw.track : undefined,
-    sort: SORTS.includes(raw.sort as SortKey) && raw.sort !== 'default' ? (raw.sort as SortKey) : undefined,
+    sort:
+      SORTS.includes(raw.sort as SortKey) && raw.sort !== 'default'
+        ? (raw.sort as SortKey)
+        : undefined,
     diff: list(raw.diff, DIFFS),
     status: list(raw.status, STATUSES),
-    playable: raw.playable === true || raw.playable === 'true' ? true : undefined,
+    playable:
+      raw.playable === true || raw.playable === 'true' ? true : undefined,
   }
 }
 
@@ -61,7 +71,11 @@ export function applyProblemsSearch(
   })
   switch (s.sort) {
     case 'difficulty':
-      return out.sort((a, b) => DIFF_RANK[a.difficulty] - DIFF_RANK[b.difficulty] || a.number - b.number)
+      return out.sort(
+        (a, b) =>
+          DIFF_RANK[a.difficulty] - DIFF_RANK[b.difficulty] ||
+          a.number - b.number,
+      )
     case 'acceptance':
       return out.sort((a, b) => (b.acceptance ?? -1) - (a.acceptance ?? -1))
     case 'title':

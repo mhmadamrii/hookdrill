@@ -1,5 +1,6 @@
 import { Link } from '@tanstack/react-router'
-import { ChevronLeft, ChevronRight, Flame, LogIn } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Flame, LogIn } from 'lucide-react'
 import type { Difficulty } from '@hookdrill/challenges'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -10,51 +11,81 @@ import { cn } from '@/lib/utils'
 
 const panel = 'rounded-xl border bg-card p-4'
 
-// October 2026, fixed to the product's "today" so the calendar is deterministic.
-const YEAR = 2026
-const MONTH = 9
-const TODAY = 23
-const DAYS_IN_MONTH = 31
-const FIRST_WEEKDAY = new Date(Date.UTC(YEAR, MONTH, 1)).getUTCDay()
+const WEEKDAYS = ['S', 'M', 'T', 'W', 'T', 'F', 'S']
 
-const activity = sampleActivity(TODAY, 40)
-const done = new Set(activity.map((d, i) => (d.count > 0 ? i + 1 : 0)).filter(Boolean))
-const streak = (() => {
-  let n = 0
-  for (let d = TODAY; d >= 1 && done.has(d); d--) n++
-  return n
-})()
+function dayKey(d: Date) {
+  return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+}
+
+/** Today in the visitor's time zone, known only after mount (avoids SSR mismatch). */
+function useToday() {
+  const [today, setToday] = useState<Date | null>(null)
+  useEffect(() => setToday(new Date()), [])
+  return today
+}
 
 function DailyCalendar() {
+  const today = useToday()
+  const { signedIn, isLoading, rows } = useMyProgress()
+
+  if (!today || isLoading) {
+    return (
+      <section className={panel}>
+        <Skeleton className="h-5 w-32" />
+        <Skeleton className="mt-4 h-52 w-full" />
+      </section>
+    )
+  }
+
+  const year = today.getFullYear()
+  const month = today.getMonth()
+  const todayDate = today.getDate()
+  const daysInMonth = new Date(year, month + 1, 0).getDate()
+  const firstWeekday = new Date(year, month, 1).getDay()
+
+  // Signed in: the user's real practice days. Signed out: labelled sample dots.
+  const active = new Set<string>()
+  if (signedIn) {
+    for (const r of rows) active.add(dayKey(new Date(r.updatedAt)))
+  } else {
+    sampleActivity(todayDate, 40).forEach((d, i) => {
+      if (d.count > 0) active.add(dayKey(new Date(year, month, i + 1)))
+    })
+  }
+  let streak = 0
+  const cursor = new Date(year, month, todayDate)
+  // A streak survives until the end of today, so start from yesterday if today is empty.
+  if (!active.has(dayKey(cursor))) cursor.setDate(cursor.getDate() - 1)
+  while (active.has(dayKey(cursor))) {
+    streak++
+    cursor.setDate(cursor.getDate() - 1)
+  }
+
   const cells: Array<number | null> = [
-    ...Array.from({ length: FIRST_WEEKDAY }, () => null),
-    ...Array.from({ length: DAYS_IN_MONTH }, (_, i) => i + 1),
+    ...Array.from({ length: firstWeekday }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, i) => i + 1),
   ]
   return (
     <section className={panel} aria-labelledby="daily-cal">
       <div className="flex items-center justify-between">
         <h2 id="daily-cal" className="text-sm font-semibold">
-          October 2026
+          {today.toLocaleDateString('en', { month: 'long', year: 'numeric' })}
         </h2>
-        <div className="flex items-center gap-1">
-          <span className="mr-1 rounded-full bg-secondary px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+        {!signedIn && (
+          <span className="rounded-full bg-secondary px-2 py-0.5 text-2xs font-medium text-muted-foreground">
             Sample
           </span>
-          <Button variant="ghost" size="icon-xs" aria-label="Previous month" disabled>
-            <ChevronLeft />
-          </Button>
-          <Button variant="ghost" size="icon-xs" aria-label="Next month" disabled>
-            <ChevronRight />
-          </Button>
-        </div>
+        )}
       </div>
       <p className="mt-2 flex items-center gap-1.5 text-sm">
         <Flame className="size-4 text-medium" />
         <span className="font-semibold tabular-nums">{streak}</span>
-        <span className="text-muted-foreground">day streak on the daily problem</span>
+        <span className="text-muted-foreground">
+          day practice streak{signedIn ? '' : ' (sample)'}
+        </span>
       </p>
       <div className="mt-3 grid grid-cols-7 gap-y-1 text-center text-xs">
-        {['S', 'M', 'T', 'W', 'T', 'F', 'S'].map((d, i) => (
+        {WEEKDAYS.map((d, i) => (
           <span key={i} className="pb-1 font-medium text-muted-foreground">
             {d}
           </span>
@@ -65,12 +96,12 @@ function DailyCalendar() {
           ) : (
             <span key={d} className="flex flex-col items-center gap-0.5">
               <span
-                aria-current={d === TODAY ? 'date' : undefined}
+                aria-current={d === todayDate ? 'date' : undefined}
                 className={cn(
                   'grid size-7 place-items-center rounded-full tabular-nums',
-                  d === TODAY
-                    ? 'bg-accepted font-semibold text-background'
-                    : d > TODAY
+                  d === todayDate
+                    ? 'bg-accepted font-semibold text-white'
+                    : d > todayDate
                       ? 'text-muted-foreground/60'
                       : 'text-foreground',
                 )}
@@ -81,7 +112,9 @@ function DailyCalendar() {
                 aria-hidden
                 className={cn(
                   'size-1 rounded-full',
-                  d < TODAY && done.has(d) ? 'bg-accepted' : 'bg-transparent',
+                  d < todayDate && active.has(dayKey(new Date(year, month, d)))
+                    ? 'bg-accepted'
+                    : 'bg-transparent',
                 )}
               />
             </span>
@@ -132,7 +165,10 @@ function YourProgress() {
                 <div className="flex items-baseline justify-between text-sm">
                   <span className={cn('font-medium', text)}>{label}</span>
                   <span className="text-muted-foreground tabular-nums">
-                    <span className="font-semibold text-foreground">{solved}</span>/{all.length}
+                    <span className="font-semibold text-foreground">
+                      {solved}
+                    </span>
+                    /{all.length}
                   </span>
                 </div>
                 <div className="mt-1.5 h-1.5 overflow-hidden rounded-full bg-secondary">
@@ -165,7 +201,7 @@ function TrendingTopics({ onSelect }: { onSelect: (tag: string) => void }) {
               className="inline-flex h-7 items-center gap-1.5 rounded-full bg-secondary px-2.5 text-xs font-medium transition-colors outline-none hover:bg-accent focus-visible:ring-[3px] focus-visible:ring-ring/50"
             >
               {t.name}
-              <span className="rounded-full bg-medium/20 px-1.5 text-[11px] text-medium tabular-nums">
+              <span className="rounded-full bg-medium/20 px-1.5 text-2xs text-medium tabular-nums">
                 {t.count}
               </span>
             </button>
@@ -176,7 +212,11 @@ function TrendingTopics({ onSelect }: { onSelect: (tag: string) => void }) {
   )
 }
 
-export function RightRail({ onSelectTopic }: { onSelectTopic: (tag: string) => void }) {
+export function RightRail({
+  onSelectTopic,
+}: {
+  onSelectTopic: (tag: string) => void
+}) {
   return (
     <div className="flex flex-col gap-3 xl:sticky xl:top-[4.5rem]">
       <DailyCalendar />

@@ -36,7 +36,7 @@ export function ProblemSearch() {
       >
         <Search className="size-4 shrink-0" />
         <span className="max-md:hidden">Search problems</span>
-        <kbd className="ml-auto rounded border bg-background px-1.5 font-mono text-[10px] max-md:hidden">
+        <kbd className="ml-auto rounded border bg-background px-1.5 font-mono text-2xs max-md:hidden">
           ⌘K
         </kbd>
       </button>
@@ -55,10 +55,16 @@ export function ProblemSearch() {
                   navigate({ to: '/problems/$slug', params: { slug: p.slug } })
                 }}
               >
-                <span className="w-8 text-muted-foreground tabular-nums">{p.number}.</span>
+                <span className="w-8 text-muted-foreground tabular-nums">
+                  {p.number}.
+                </span>
                 <span className="flex-1 truncate">{p.title}</span>
                 {!p.playable && <Lock className="text-muted-foreground" />}
-                <DifficultyText level={p.difficulty} short className="w-12 text-right text-xs" />
+                <DifficultyText
+                  level={p.difficulty}
+                  short
+                  className="w-12 text-right text-xs"
+                />
               </CommandItem>
             ))}
           </CommandGroup>

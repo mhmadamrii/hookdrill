@@ -1,5 +1,12 @@
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, CalendarClock, Check, Clock, ListChecks, Minus, Trophy } from 'lucide-react'
+import {
+  ArrowRight,
+  Check,
+  Clock,
+  ListChecks,
+  Minus,
+  Trophy,
+} from 'lucide-react'
 import { RatingName } from '@/components/rating-name'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
@@ -12,7 +19,10 @@ const h2 = 'text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl'
 
 function SampleBadge({ className }: { className?: string }) {
   return (
-    <Badge variant="outline" className={cn('font-normal text-muted-foreground', className)}>
+    <Badge
+      variant="outline"
+      className={cn('font-normal text-muted-foreground', className)}
+    >
       Sample data
     </Badge>
   )
@@ -26,25 +36,40 @@ const inEditor = [
   'Every test by name, with a verdict per test',
   'Hints, revealed one at a time when you ask',
 ]
-const leftOut = ['AI completion and suggested fixes', 'The test source', 'Anything that writes the component for you']
+const leftOut = [
+  'AI completion and suggested fixes',
+  'The test source',
+  'Anything that writes the component for you',
+]
 
 export function WhyByHand() {
   return (
-    <section aria-labelledby="why-heading" className={cn(container, 'py-20 md:py-28')}>
+    <section
+      aria-labelledby="why-heading"
+      className={cn(container, 'py-20 md:py-28')}
+    >
       <div className="grid gap-12 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)] lg:gap-20">
         <div>
-          <h2 id="why-heading" className="text-4xl font-semibold tracking-[-0.03em] text-balance md:text-5xl">
+          <h2
+            id="why-heading"
+            className="text-4xl font-semibold tracking-[-0.03em] text-balance md:text-5xl"
+          >
             AI writes code all day. Your hands still have to know how.
           </h2>
           <div className="mt-6 max-w-[62ch] space-y-4 text-base leading-relaxed text-pretty text-muted-foreground md:text-lg">
             <p>
-              Assistants are great at work. They also make it easy to go months without building a component from an
-              empty file, and that skill fades quietly.
+              Assistants are great at work. They also make it easy to go months
+              without building a component from an empty file, and that skill
+              fades quietly.
             </p>
             <p>
-              Interviews, code review and the late-night bug in a reducer still ask for it. HookDrill is deliberate
-              practice for exactly that: a spec, an empty <span className="font-mono text-[0.9em] text-foreground">App.jsx</span>,
-              and tests that only care whether it works.
+              Interviews, code review and the late-night bug in a reducer still
+              ask for it. HookDrill is deliberate practice for exactly that: a
+              spec, an empty{' '}
+              <span className="font-mono text-[0.9em] text-foreground">
+                App.jsx
+              </span>
+              , and tests that only care whether it works.
             </p>
           </div>
         </div>
@@ -80,11 +105,23 @@ export function WhyByHand() {
 
 /* ------------------------------------------------------------------ */
 
-function TrackRow({ title, blurb, level, count }: { title: string; blurb: string; level: string; count: number }) {
+function TrackRow({
+  title,
+  blurb,
+  level,
+  count,
+}: {
+  title: string
+  blurb: string
+  level: string
+  count: number
+}) {
   return (
     <li className="grid grid-cols-[minmax(0,1fr)_auto] items-baseline gap-x-4 gap-y-0.5 py-3.5">
       <span className="font-medium">{title}</span>
-      <span className="text-[13px] text-muted-foreground tabular-nums">{count} problems</span>
+      <span className="text-[13px] text-muted-foreground tabular-nums">
+        {count} problems
+      </span>
       <span className="text-sm text-muted-foreground">{blurb}</span>
       <span className="text-[13px] text-muted-foreground">{level}</span>
     </li>
@@ -96,15 +133,18 @@ export function Tracks() {
   const dsa = studyTracks.filter((t) => t.track === 'dsa')
   const dsaTitles = problems.filter((p) => p.track === 'dsa').slice(0, 5)
   return (
-    <section aria-labelledby="tracks-heading" className={cn(container, 'pb-20 md:pb-28')}>
+    <section
+      aria-labelledby="tracks-heading"
+      className={cn(container, 'pb-20 md:pb-28')}
+    >
       <div className="flex flex-wrap items-end justify-between gap-4">
         <div className="max-w-2xl">
           <h2 id="tracks-heading" className={h2}>
             React UI first. Algorithms next.
           </h2>
           <p className="mt-3 text-base leading-relaxed text-muted-foreground md:text-lg">
-            The React track is open now. A DSA track with the classic interview set is being built on the same editor
-            and test runner.
+            The React track is open now. A DSA track with the classic interview
+            set is being built on the same editor and test runner.
           </p>
         </div>
       </div>
@@ -140,22 +180,38 @@ export function Tracks() {
           </div>
           <ul className="divide-y">
             {react.map((t) => (
-              <TrackRow key={t.slug} title={t.title} blurb={t.blurb} level={t.level} count={t.problems} />
+              <TrackRow
+                key={t.slug}
+                title={t.title}
+                blurb={t.blurb}
+                level={t.level}
+                count={t.problems}
+              />
             ))}
           </ul>
         </div>
 
         <div className="flex flex-col rounded-lg border border-dashed p-5 md:p-6">
           <div className="flex flex-wrap items-center gap-2.5">
-            <h3 className="text-lg font-semibold">Data structures and algorithms</h3>
+            <h3 className="text-lg font-semibold">
+              Data structures and algorithms
+            </h3>
             <span className="inline-flex h-6 items-center rounded-full bg-secondary px-2.5 text-xs font-medium text-muted-foreground">
               Coming later
             </span>
           </div>
-          <p className="mt-2 text-sm text-muted-foreground">Same rules: no AI, hidden tests, one cell per test.</p>
+          <p className="mt-2 text-sm text-muted-foreground">
+            Same rules: no AI, hidden tests, one cell per test.
+          </p>
           <ul className="mt-5 divide-y border-t">
             {dsa.map((t) => (
-              <TrackRow key={t.slug} title={t.title} blurb={t.blurb} level={t.level} count={t.problems} />
+              <TrackRow
+                key={t.slug}
+                title={t.title}
+                blurb={t.blurb}
+                level={t.level}
+                count={t.problems}
+              />
             ))}
           </ul>
           <p className="mt-auto pt-6 text-[13px] text-muted-foreground">
@@ -192,34 +248,36 @@ export function Arena() {
           <SampleBadge className="mt-1" />
         </div>
         <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
-          Timed rounds of UI problems, scored by the same hidden tests. This is a preview of how contests and the
-          leaderboard will look.
+          Timed rounds of UI problems, scored by the same hidden tests. This is
+          a preview of how contests and the leaderboard will look.
         </p>
 
         <div className="mt-10 grid gap-4 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
           {/* next contest */}
           <div className="flex flex-col rounded-lg border bg-card p-5 md:p-6">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <CalendarClock className="size-4" />
-              Next contest
-            </div>
-            <p className="mt-3 text-2xl font-semibold tracking-tight">{next.name}</p>
+            <p className="text-2xl font-semibold tracking-tight">{next.name}</p>
             <dl className="mt-5 grid grid-cols-3 gap-4 border-y py-4 text-sm">
               <div>
                 <dt className="text-muted-foreground">Starts</dt>
-                <dd className="mt-1 font-medium tabular-nums">{dateFmt.format(new Date(next.startsAt))} UTC</dd>
+                <dd className="mt-1 font-medium tabular-nums">
+                  {dateFmt.format(new Date(next.startsAt))} UTC
+                </dd>
               </div>
               <div>
                 <dt className="flex items-center gap-1 text-muted-foreground">
                   <Clock className="size-3.5" /> Length
                 </dt>
-                <dd className="mt-1 font-medium tabular-nums">{next.durationMin} min</dd>
+                <dd className="mt-1 font-medium tabular-nums">
+                  {next.durationMin} min
+                </dd>
               </div>
               <div>
                 <dt className="flex items-center gap-1 text-muted-foreground">
                   <ListChecks className="size-3.5" /> Problems
                 </dt>
-                <dd className="mt-1 font-medium tabular-nums">{next.problems}</dd>
+                <dd className="mt-1 font-medium tabular-nums">
+                  {next.problems}
+                </dd>
               </div>
             </dl>
             <Button asChild variant="outline" className="mt-6 w-fit">
@@ -249,20 +307,30 @@ export function Arena() {
                   <th className="w-12 py-2.5 pl-5 font-normal">#</th>
                   <th className="py-2.5 font-normal">Handle</th>
                   <th className="py-2.5 font-normal max-sm:hidden">Country</th>
-                  <th className="py-2.5 text-right font-normal max-sm:hidden">Solved</th>
+                  <th className="py-2.5 text-right font-normal max-sm:hidden">
+                    Solved
+                  </th>
                   <th className="py-2.5 pr-5 text-right font-normal">Rating</th>
                 </tr>
               </thead>
               <tbody>
                 {top.map((p) => (
                   <tr key={p.handle} className="border-t">
-                    <td className="py-3 pl-5 text-muted-foreground tabular-nums">{p.rank}</td>
+                    <td className="py-3 pl-5 text-muted-foreground tabular-nums">
+                      {p.rank}
+                    </td>
                     <td className="py-3">
                       <RatingName handle={p.handle} rating={p.rating} />
                     </td>
-                    <td className="py-3 text-muted-foreground max-sm:hidden">{p.country}</td>
-                    <td className="py-3 text-right tabular-nums max-sm:hidden">{p.solved}</td>
-                    <td className="py-3 pr-5 text-right font-medium tabular-nums">{p.rating}</td>
+                    <td className="py-3 text-muted-foreground max-sm:hidden">
+                      {p.country}
+                    </td>
+                    <td className="py-3 text-right tabular-nums max-sm:hidden">
+                      {p.solved}
+                    </td>
+                    <td className="py-3 pr-5 text-right font-medium tabular-nums">
+                      {p.rating}
+                    </td>
                   </tr>
                 ))}
               </tbody>
@@ -280,17 +348,14 @@ export function FinalCta({ signedIn }: { signedIn: boolean }) {
   return (
     <section className={cn(container, 'py-20 md:py-24')}>
       <div className="relative overflow-hidden rounded-xl bg-primary px-6 py-12 text-primary-foreground md:px-12 md:py-16">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -top-1/2 -right-1/4 size-[36rem] rounded-full bg-[radial-gradient(closest-side,color-mix(in_oklab,var(--primary-foreground)_18%,transparent),transparent)]"
-        />
         <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl">
               An empty App.jsx is waiting.
             </h2>
             <p className="mt-3 text-base leading-relaxed text-primary-foreground/80 md:text-lg">
-              Start with Todo List: one component, six tests, nothing to lean on but what you know.
+              Start with Todo List: one component, six tests, nothing to lean on
+              but what you know.
             </p>
           </div>
           <div className="flex flex-wrap gap-3">
@@ -300,7 +365,8 @@ export function FinalCta({ signedIn }: { signedIn: boolean }) {
               className="bg-background text-foreground hover:bg-background/90 focus-visible:ring-primary-foreground/60"
             >
               <Link to={signedIn ? '/dashboard' : '/problems'}>
-                {signedIn ? 'Go to dashboard' : 'Start practicing'} <ArrowRight />
+                {signedIn ? 'Go to dashboard' : 'Start practicing'}{' '}
+                <ArrowRight />
               </Link>
             </Button>
             <Button

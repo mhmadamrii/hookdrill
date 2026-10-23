@@ -19,7 +19,8 @@ function Contests() {
         <div className="mb-5">
           <h1 className="text-2xl font-bold tracking-tight">Contests</h1>
           <p className="mt-1 text-sm text-muted-foreground">
-            Timed rounds of React problems, graded by hidden tests. The schedule below is a preview.
+            Timed rounds of React problems, graded by hidden tests. The schedule
+            below is a preview.
           </p>
         </div>
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_340px]">

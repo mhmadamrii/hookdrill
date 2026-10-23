@@ -1,5 +1,11 @@
+import { cn } from '@/lib/utils'
 import { Link } from '@tanstack/react-router'
-import { ArrowRight, CalendarClock, Route as RouteIcon, Zap } from 'lucide-react'
+import {
+  ArrowRight,
+  CalendarClock,
+  Route as RouteIcon,
+  Zap,
+} from 'lucide-react'
 import type { ReactNode } from 'react'
 import { playableProblems } from '@/lib/problems'
 import { studyTracks, upcomingContests } from '@/lib/sample-data'
@@ -26,9 +32,15 @@ function Cta({ children }: { children: ReactNode }) {
 
 function DailyArt() {
   // A grid of test cells: the brand's signature, most of them passing.
-  const pattern = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0.4, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1]
+  const pattern = [
+    1, 1, 1, 0, 1, 1, 1, 1, 1, 0.4, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1,
+  ]
   return (
-    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-6 bottom-0 -z-10 h-[78%] w-auto">
+    <svg
+      aria-hidden
+      viewBox="0 0 200 150"
+      className="absolute -right-6 bottom-0 -z-10 h-[78%] w-auto"
+    >
       <circle cx="170" cy="20" r="80" fill="#ffffff" opacity="0.08" />
       <circle cx="170" cy="20" r="52" fill="#ffffff" opacity="0.07" />
       {pattern.map((v, i) => (
@@ -50,10 +62,30 @@ function DailyArt() {
 function TrackArt() {
   // Ascending steps along a path: progress through a plan.
   return (
-    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-4 top-0 -z-10 h-full w-auto">
-      <path d="M40 140 C 90 135, 110 90, 150 70 S 200 20, 220 10" stroke="#ffffff" strokeOpacity="0.25" strokeWidth="2" strokeDasharray="4 6" fill="none" />
+    <svg
+      aria-hidden
+      viewBox="0 0 200 150"
+      className="absolute -right-4 top-0 -z-10 h-full w-auto"
+    >
+      <path
+        d="M40 140 C 90 135, 110 90, 150 70 S 200 20, 220 10"
+        stroke="#ffffff"
+        strokeOpacity="0.25"
+        strokeWidth="2"
+        strokeDasharray="4 6"
+        fill="none"
+      />
       {[0, 1, 2, 3].map((i) => (
-        <rect key={i} x={84 + i * 28} y={112 - i * 26} width="22" height={38 + i * 26} rx="5" fill="#ffffff" opacity={0.1 + i * 0.05} />
+        <rect
+          key={i}
+          x={84 + i * 28}
+          y={112 - i * 26}
+          width="22"
+          height={38 + i * 26}
+          rx="5"
+          fill="#ffffff"
+          opacity={0.1 + i * 0.05}
+        />
       ))}
       <circle cx="176" cy="22" r="7" fill="#ffd36b" />
       <circle cx="176" cy="22" r="14" fill="#ffd36b" opacity="0.25" />
@@ -64,8 +96,20 @@ function TrackArt() {
 function ContestArt() {
   // A countdown dial.
   return (
-    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-10 top-0 -z-10 h-full w-auto">
-      <circle cx="150" cy="78" r="62" fill="none" stroke="#ffffff" strokeOpacity="0.12" strokeWidth="14" />
+    <svg
+      aria-hidden
+      viewBox="0 0 200 150"
+      className="absolute -right-10 top-0 -z-10 h-full w-auto"
+    >
+      <circle
+        cx="150"
+        cy="78"
+        r="62"
+        fill="none"
+        stroke="#ffffff"
+        strokeOpacity="0.12"
+        strokeWidth="14"
+      />
       <circle
         cx="150"
         cy="78"
@@ -79,7 +123,13 @@ function ContestArt() {
         transform="rotate(-90 150 78)"
       />
       <circle cx="150" cy="78" r="34" fill="#ffffff" opacity="0.08" />
-      <path d="M150 78 L150 56 M150 78 L166 86" stroke="#ffffff" strokeOpacity="0.6" strokeWidth="4" strokeLinecap="round" />
+      <path
+        d="M150 78 L150 56 M150 78 L166 86"
+        stroke="#ffffff"
+        strokeOpacity="0.6"
+        strokeWidth="4"
+        strokeLinecap="round"
+      />
     </svg>
   )
 }
@@ -103,35 +153,35 @@ export function Banners() {
       <Link
         to="/problems/$slug"
         params={{ slug: daily.slug }}
-        className={card}
-        style={{ background: 'linear-gradient(135deg, #3340c9 0%, #5363f5 100%)' }}
+        className={cn(card, 'bg-banner-daily')}
       >
         <DailyArt />
         <div>
-          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
-            <Zap className="size-3.5" /> Daily problem
-          </p>
-          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{daily.title}</h3>
-          <p className="mt-1 max-w-[24ch] text-sm text-white/80">
-            <span className="font-medium text-white capitalize">{daily.difficulty}</span> · {daily.tags.join(', ')}
+          <h3 className="text-xl font-semibold tracking-tight">
+            {daily.title}
+          </h3>
+          <p className="mt-1.5 flex max-w-[26ch] flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
+            <Chip>
+              <Zap className="size-3" /> Daily problem
+            </Chip>
+            <span className="font-medium text-white capitalize">
+              {daily.difficulty}
+            </span>
           </p>
         </div>
         <Cta>Solve today's problem</Cta>
       </Link>
 
-      <Link
-        to="/explore"
-        hash="tracks"
-        className={card}
-        style={{ background: 'linear-gradient(135deg, #064f48 0%, #0b7f70 100%)' }}
-      >
+      <Link to="/explore" hash="tracks" className={cn(card, 'bg-banner-plan')}>
         <TrackArt />
         <div>
-          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
-            <RouteIcon className="size-3.5" /> Study plan
-          </p>
-          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{track.title}</h3>
-          <p className="mt-1 max-w-[22ch] text-sm text-white/80">
+          <h3 className="text-xl font-semibold tracking-tight">
+            {track.title}
+          </h3>
+          <p className="mt-1.5 flex max-w-[24ch] flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
+            <Chip>
+              <RouteIcon className="size-3" /> Study plan
+            </Chip>
             {track.problems} problems · {track.level}
           </p>
         </div>
@@ -140,24 +190,31 @@ export function Banners() {
 
       <Link
         to="/contests"
-        className={`${card} sm:col-span-2 xl:col-span-1`}
-        style={{ background: 'linear-gradient(135deg, #5a1630 0%, #a62a50 100%)' }}
+        className={cn(card, 'bg-banner-contest sm:col-span-2 xl:col-span-1')}
       >
         <ContestArt />
         <div>
-          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
-            <CalendarClock className="size-3.5" /> Next contest
-            <span className="ml-auto rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium text-white/90">
-              Sample
-            </span>
-          </p>
-          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{contest.name}</h3>
-          <p className="mt-1 text-sm text-white/80">
-            {contestDate.format(new Date(contest.startsAt))} UTC · {contest.durationMin} min
+          <h3 className="text-xl font-semibold tracking-tight">
+            {contest.name}
+          </h3>
+          <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
+            <Chip>
+              <CalendarClock className="size-3" /> Next contest · Sample
+            </Chip>
+            {contestDate.format(new Date(contest.startsAt))} UTC ·{' '}
+            {contest.durationMin} min
           </p>
         </div>
         <Cta>See contest details</Cta>
       </Link>
     </div>
+  )
+}
+
+function Chip({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1 rounded-full bg-white/15 px-2 py-0.5 text-2xs font-medium text-white">
+      {children}
+    </span>
   )
 }

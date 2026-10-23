@@ -2,7 +2,8 @@ import { pastContests, type Player } from '@/lib/sample-data'
 
 function hash(s: string) {
   let h = 2166136261
-  for (let i = 0; i < s.length; i++) h = Math.imul(h ^ s.charCodeAt(i), 16777619)
+  for (let i = 0; i < s.length; i++)
+    h = Math.imul(h ^ s.charCodeAt(i), 16777619)
   return h >>> 0
 }
 
@@ -46,15 +47,20 @@ export function solvedSplit(player: Player) {
 /** Their last few contests, aligned with the tail of the rating history. */
 export function recentContests(player: Player, history: number[]) {
   const rnd = mulberry32(hash(player.handle) ^ 0x51ed27)
-  return pastContests.slice(0, Math.min(pastContests.length, history.length - 1)).map((c, i) => {
-    const idx = history.length - 1 - i
-    const participants = c.participants ?? 1000
-    const strength = Math.max(0.002, (3000 - history[idx]) / 3000)
-    return {
-      contest: c,
-      rank: Math.max(1, Math.round(participants * strength * (0.15 + rnd() * 0.5))),
-      rating: history[idx],
-      delta: history[idx] - history[idx - 1],
-    }
-  })
+  return pastContests
+    .slice(0, Math.min(pastContests.length, history.length - 1))
+    .map((c, i) => {
+      const idx = history.length - 1 - i
+      const participants = c.participants ?? 1000
+      const strength = Math.max(0.002, (3000 - history[idx]) / 3000)
+      return {
+        contest: c,
+        rank: Math.max(
+          1,
+          Math.round(participants * strength * (0.15 + rnd() * 0.5)),
+        ),
+        rating: history[idx],
+        delta: history[idx] - history[idx - 1],
+      }
+    })
 }

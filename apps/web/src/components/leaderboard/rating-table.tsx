@@ -3,8 +3,21 @@ import { Link } from '@tanstack/react-router'
 import { ChevronLeft, ChevronRight, Search, SearchX } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { RatingName } from '@/components/rating-name'
 import { players, tierFor, type Player } from '@/lib/sample-data'
@@ -25,15 +38,23 @@ interface Row extends Player {
 }
 
 function buildRows(view: View, country: string): Row[] {
-  const withDelta = players.map((p) => ({ ...p, delta: weeklyDelta(p), pos: 0 }))
+  const withDelta = players.map((p) => ({
+    ...p,
+    delta: weeklyDelta(p),
+    pos: 0,
+  }))
   let list = withDelta
-  if (view === 'week') list = [...withDelta].sort((a, b) => b.delta - a.delta || b.rating - a.rating)
+  if (view === 'week')
+    list = [...withDelta].sort(
+      (a, b) => b.delta - a.delta || b.rating - a.rating,
+    )
   if (view === 'country') list = withDelta.filter((p) => p.country === country)
   return list.map((p, i) => ({ ...p, pos: i + 1 }))
 }
 
 function RankBadge({ pos }: { pos: number }) {
-  if (pos > 3) return <span className="text-muted-foreground tabular-nums">{pos}</span>
+  if (pos > 3)
+    return <span className="text-muted-foreground tabular-nums">{pos}</span>
   return (
     <span className="inline-flex size-6 items-center justify-center rounded-md bg-primary/12 text-xs font-bold text-brand tabular-nums ring-1 ring-primary/25 ring-inset">
       {pos}
@@ -42,9 +63,15 @@ function RankBadge({ pos }: { pos: number }) {
 }
 
 function Delta({ value }: { value: number }) {
-  if (value === 0) return <span className="text-muted-foreground tabular-nums">0</span>
+  if (value === 0)
+    return <span className="text-muted-foreground tabular-nums">0</span>
   return (
-    <span className={cn('font-medium tabular-nums', value > 0 ? 'text-accepted' : 'text-wrong')}>
+    <span
+      className={cn(
+        'font-medium tabular-nums',
+        value > 0 ? 'text-accepted' : 'text-wrong',
+      )}
+    >
       {value > 0 ? `+${value}` : `−${Math.abs(value)}`}
     </span>
   )
@@ -69,7 +96,10 @@ export function RatingTable() {
   const to = Math.min(current * PAGE_SIZE, rows.length)
 
   return (
-    <section aria-labelledby="ratings" className="min-w-0 rounded-lg border bg-card">
+    <section
+      aria-labelledby="ratings"
+      className="min-w-0 rounded-lg border bg-card"
+    >
       <h2 id="ratings" className="sr-only">
         Ratings
       </h2>
@@ -116,7 +146,10 @@ export function RatingTable() {
           )}
         </div>
         <div className="relative sm:w-60">
-          <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />
+          <Search
+            className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground"
+            aria-hidden
+          />
           <Input
             type="search"
             value={query}
@@ -138,15 +171,29 @@ export function RatingTable() {
             <TableHead>Handle</TableHead>
             <TableHead className="hidden sm:table-cell">Country</TableHead>
             <TableHead className="text-right">Rating</TableHead>
-            {view === 'week' && <TableHead className="text-right">7 days</TableHead>}
-            <TableHead className="hidden text-right sm:table-cell">Solved</TableHead>
-            <TableHead className="hidden text-right md:table-cell">Contests</TableHead>
-            <TableHead className="hidden pr-4 text-right md:table-cell">Streak</TableHead>
+            {view === 'week' && (
+              <TableHead className="text-right">7 days</TableHead>
+            )}
+            <TableHead className="hidden text-right sm:table-cell">
+              Solved
+            </TableHead>
+            <TableHead className="hidden text-right md:table-cell">
+              Contests
+            </TableHead>
+            <TableHead className="hidden pr-4 text-right md:table-cell">
+              Streak
+            </TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {visible.map((p) => (
-            <TableRow key={p.handle} className={cn('even:bg-surface-2/60', p.pos <= 3 && 'bg-primary/[0.045] even:bg-primary/[0.045]')}>
+            <TableRow
+              key={p.handle}
+              className={cn(
+                'even:bg-surface-2/60',
+                p.pos <= 3 && 'bg-primary/[0.045] even:bg-primary/[0.045]',
+              )}
+            >
               <TableCell className="py-2 pl-4 text-center">
                 <RankBadge pos={p.pos} />
               </TableCell>
@@ -158,12 +205,19 @@ export function RatingTable() {
                 >
                   <RatingName handle={p.handle} rating={p.rating} />
                 </Link>
-                <span className="ml-2 hidden text-xs text-muted-foreground lg:inline">{tierFor(p.rating).name}</span>
+                <span className="ml-2 hidden text-xs text-muted-foreground lg:inline">
+                  {tierFor(p.rating).name}
+                </span>
               </TableCell>
               <TableCell className="hidden py-2 sm:table-cell">
                 <CountryPill code={p.country} />
               </TableCell>
-              <TableCell className={cn('py-2 text-right font-semibold tabular-nums', tierFor(p.rating).className)}>
+              <TableCell
+                className={cn(
+                  'py-2 text-right font-semibold tabular-nums',
+                  tierFor(p.rating).className,
+                )}
+              >
                 {p.rating}
               </TableCell>
               {view === 'week' && (
@@ -171,8 +225,12 @@ export function RatingTable() {
                   <Delta value={p.delta} />
                 </TableCell>
               )}
-              <TableCell className="hidden py-2 text-right tabular-nums sm:table-cell">{p.solved}</TableCell>
-              <TableCell className="hidden py-2 text-right tabular-nums md:table-cell">{p.contests}</TableCell>
+              <TableCell className="hidden py-2 text-right tabular-nums sm:table-cell">
+                {p.solved}
+              </TableCell>
+              <TableCell className="hidden py-2 text-right tabular-nums md:table-cell">
+                {p.contests}
+              </TableCell>
               <TableCell className="hidden py-2 pr-4 text-right text-muted-foreground tabular-nums md:table-cell">
                 {p.streak} d
               </TableCell>
@@ -181,8 +239,13 @@ export function RatingTable() {
           {visible.length === 0 && (
             <TableRow className="hover:bg-transparent">
               <TableCell colSpan={8} className="py-14 text-center">
-                <SearchX className="mx-auto size-5 text-muted-foreground" aria-hidden />
-                <p className="mt-2 font-medium">No handle matches “{query.trim()}”</p>
+                <SearchX
+                  className="mx-auto size-5 text-muted-foreground"
+                  aria-hidden
+                />
+                <p className="mt-2 font-medium">
+                  No handle matches “{query.trim()}”
+                </p>
                 <Button variant="link" size="sm" onClick={() => setQuery('')}>
                   Clear search
                 </Button>

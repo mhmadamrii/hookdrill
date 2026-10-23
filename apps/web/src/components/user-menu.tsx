@@ -15,7 +15,8 @@ import { signOut, useSession } from '@/lib/auth-client'
 export function UserMenu() {
   const { data, isPending } = useSession()
 
-  if (isPending) return <span className="size-8 rounded-full bg-secondary" aria-hidden />
+  if (isPending)
+    return <span className="size-8 rounded-full bg-secondary" aria-hidden />
 
   if (!data) {
     return (
@@ -33,7 +34,10 @@ export function UserMenu() {
   const { user } = data
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring" aria-label="Account menu">
+      <DropdownMenuTrigger
+        className="rounded-full outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        aria-label="Account menu"
+      >
         <Avatar className="size-8">
           {user.image && <AvatarImage src={user.image} alt="" />}
           <AvatarFallback className="bg-primary text-sm font-semibold text-primary-foreground">
@@ -44,7 +48,9 @@ export function UserMenu() {
       <DropdownMenuContent align="end" className="w-56">
         <DropdownMenuLabel className="font-normal">
           <span className="block font-semibold">{user.name}</span>
-          <span className="block truncate text-xs text-muted-foreground">{user.email}</span>
+          <span className="block truncate text-xs text-muted-foreground">
+            {user.email}
+          </span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

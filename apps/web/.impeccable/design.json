@@ -1,628 +1,413 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-23T00:00:00Z",
+  "generatedAt": "2026-10-23T04:33:02.053592+00:00",
   "title": "Design System: HookDrill",
   "extensions": {
     "colorMeta": {
-      "cover": {
+      "primary": {
         "role": "primary",
-        "displayName": "Edition Cover Blue",
-        "canonical": "#2f557f",
+        "displayName": "Drill Blue-Violet",
         "tonalRamp": [
-          "#000a25",
-          "#00254b",
-          "#1e436c",
-          "#3d648f",
-          "#5e85b3",
-          "#80a9d8",
-          "#a3cdfe",
-          "#e3f0ff"
+          "#141a5c",
+          "#1f2a8a",
+          "#2c3270",
+          "#3a46a8",
+          "#4351e6",
+          "#6b79f2",
+          "#9aa4f8",
+          "#c7cdfb"
         ]
       },
-      "cover-deep": {
+      "ring": {
         "role": "primary",
-        "displayName": "Active Book Blue",
-        "canonical": "#24466b",
-        "tonalRamp": [
-          "#000a24",
-          "#032548",
-          "#224468",
-          "#41648b",
-          "#6185ae",
-          "#83a8d3",
-          "#a6cdf9",
-          "#e4f0fe"
-        ]
+        "displayName": "Focus Ring (light)"
       },
-      "cover-line": {
+      "ring-dark": {
         "role": "primary",
-        "displayName": "Cover Rule",
-        "canonical": "#46698f",
-        "tonalRamp": [
-          "#000a24",
-          "#032647",
-          "#224467",
-          "#41648a",
-          "#6186ad",
-          "#83a9d2",
-          "#a7cdf8",
-          "#e4f0fe"
-        ]
+        "displayName": "Focus Ring (dark)"
       },
-      "on-cover": {
-        "role": "neutral",
-        "displayName": "On-Cover White",
-        "canonical": "#ffffff",
-        "tonalRamp": [
-          "#0b0b0b",
-          "#252525",
-          "#424242",
-          "#616161",
-          "#828282",
-          "#a5a5a5",
-          "#c9c9c9",
-          "#eeeeee"
-        ]
+      "brand-text": {
+        "role": "primary",
+        "displayName": "Brand Text (light)"
       },
-      "on-cover-2": {
-        "role": "neutral",
-        "displayName": "On-Cover Mist",
-        "canonical": "#c9d7e6",
-        "tonalRamp": [
-          "#040c16",
-          "#1b2631",
-          "#38434f",
-          "#566370",
-          "#778492",
-          "#99a7b5",
-          "#bdcbda",
-          "#e3f0fe"
-        ]
+      "brand-text-dark": {
+        "role": "primary",
+        "displayName": "Brand Text (dark)"
       },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Engraving Paper",
-        "canonical": "#f8f9fa",
-        "tonalRamp": [
-          "#0b0b0c",
-          "#242526",
-          "#414243",
-          "#606162",
-          "#818283",
-          "#a4a5a6",
-          "#c8c9ca",
-          "#edeeef"
-        ]
+      "easy": {
+        "role": "secondary",
+        "displayName": "Easy Teal (light, text-safe)"
       },
-      "sheet": {
+      "medium": {
+        "role": "secondary",
+        "displayName": "Medium Amber (light, text-safe)"
+      },
+      "hard": {
+        "role": "secondary",
+        "displayName": "Hard Rose (light, text-safe)"
+      },
+      "easy-dark": {
+        "role": "secondary",
+        "displayName": "Easy Teal (dark)"
+      },
+      "medium-dark": {
+        "role": "secondary",
+        "displayName": "Medium Amber (dark)"
+      },
+      "hard-dark": {
+        "role": "secondary",
+        "displayName": "Hard Rose (dark)"
+      },
+      "accepted": {
+        "role": "tertiary",
+        "displayName": "Accepted Green (light)"
+      },
+      "wrong": {
+        "role": "tertiary",
+        "displayName": "Wrong Red (light)"
+      },
+      "accepted-dark": {
+        "role": "tertiary",
+        "displayName": "Accepted Green (dark)"
+      },
+      "wrong-dark": {
+        "role": "tertiary",
+        "displayName": "Wrong Red (dark)"
+      },
+      "banner-daily": {
+        "role": "tertiary",
+        "displayName": "Daily Indigo (both themes)"
+      },
+      "banner-plan": {
+        "role": "tertiary",
+        "displayName": "Plan Teal (both themes)"
+      },
+      "banner-contest": {
+        "role": "tertiary",
+        "displayName": "Contest Wine (both themes)"
+      },
+      "ground": {
         "role": "neutral",
-        "displayName": "Sheet",
-        "canonical": "#ffffff",
-        "tonalRamp": [
-          "#0b0b0b",
-          "#252525",
-          "#424242",
-          "#616161",
-          "#828282",
-          "#a5a5a5",
-          "#c9c9c9",
-          "#eeeeee"
-        ]
+        "displayName": "Cool Ground"
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "White Panel"
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Surface Step"
+      },
+      "secondary": {
+        "role": "neutral",
+        "displayName": "Quiet Fill"
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Hairline"
+      },
+      "input": {
+        "role": "neutral",
+        "displayName": "Field Edge"
       },
       "ink": {
         "role": "neutral",
-        "displayName": "Ink",
-        "canonical": "#15171c",
-        "tonalRamp": [
-          "#090b10",
-          "#23252a",
-          "#404248",
-          "#5f6167",
-          "#808289",
-          "#a2a5ac",
-          "#c6c9d0",
-          "#ebeef6"
-        ]
+        "displayName": "Ink"
       },
-      "ink-2": {
+      "muted-ink": {
         "role": "neutral",
-        "displayName": "Ink Secondary",
-        "canonical": "#474d57",
-        "tonalRamp": [
-          "#070b13",
-          "#20252e",
-          "#3c424c",
-          "#5b626c",
-          "#7c838e",
-          "#9fa5b1",
-          "#c2cad5",
-          "#e8effb"
-        ]
+        "displayName": "Muted Ink"
       },
-      "mute": {
+      "graphite-ground": {
         "role": "neutral",
-        "displayName": "Mute",
-        "canonical": "#646b76",
+        "displayName": "Graphite Ground",
         "tonalRamp": [
-          "#070b13",
-          "#1f252f",
-          "#3c424d",
-          "#5b626c",
-          "#7c838e",
-          "#9ea6b1",
-          "#c2cad6",
-          "#e7effc"
+          "#1a1a1a",
+          "#262626",
+          "#2c2c2c",
+          "#303030",
+          "#353535",
+          "#3a3a3a",
+          "#a3a6ad",
+          "#eff1f6"
         ]
       },
-      "rule": {
+      "graphite-panel": {
         "role": "neutral",
-        "displayName": "Rule",
-        "canonical": "#d8dce1",
-        "tonalRamp": [
-          "#090b0f",
-          "#222529",
-          "#3f4246",
-          "#5e6266",
-          "#7f8387",
-          "#a2a5aa",
-          "#c6c9ce",
-          "#ebeff4"
-        ]
+        "displayName": "Graphite Panel"
       },
-      "rule-soft": {
+      "graphite-popover": {
         "role": "neutral",
-        "displayName": "Soft Rule",
-        "canonical": "#e9ecef",
-        "tonalRamp": [
-          "#090b0d",
-          "#232527",
-          "#404245",
-          "#5f6164",
-          "#808385",
-          "#a2a5a8",
-          "#c6c9cc",
-          "#eceff2"
-        ]
+        "displayName": "Graphite Popover"
       },
-      "cover-soft": {
+      "graphite-surface-2": {
         "role": "neutral",
-        "displayName": "Selection Tint",
-        "canonical": "#e8eef5",
-        "tonalRamp": [
-          "#080c10",
-          "#21262b",
-          "#3e4248",
-          "#5d6268",
-          "#7e8389",
-          "#a0a6ac",
-          "#c4cad1",
-          "#e9eff6"
-        ]
+        "displayName": "Graphite Step"
       },
-      "next": {
-        "role": "secondary",
-        "displayName": "Schirmer Yellow",
-        "canonical": "#e0a526",
-        "tonalRamp": [
-          "#150800",
-          "#332100",
-          "#573d00",
-          "#7f5a00",
-          "#a87902",
-          "#d4990c",
-          "#fabe48",
-          "#ffeccc"
-        ]
-      },
-      "next-deep": {
-        "role": "secondary",
-        "displayName": "Schirmer Yellow Deep",
-        "canonical": "#c38c14",
-        "tonalRamp": [
-          "#150800",
-          "#342100",
-          "#583c00",
-          "#7f5901",
-          "#aa7800",
-          "#d29a2c",
-          "#f8be57",
-          "#feecce"
-        ]
-      },
-      "next-soft": {
-        "role": "secondary",
-        "displayName": "Next Row Wash",
-        "canonical": "#fbf1db",
-        "tonalRamp": [
-          "#110a00",
-          "#2c2413",
-          "#49412f",
-          "#69604d",
-          "#8a816e",
-          "#aea490",
-          "#d2c8b3",
-          "#f8eed8"
-        ]
-      },
-      "fail": {
-        "role": "tertiary",
-        "displayName": "Teacher's Red Pencil",
-        "canonical": "#c63d2f",
-        "tonalRamp": [
-          "#230000",
-          "#4e0000",
-          "#810000",
-          "#af251a",
-          "#d74d3e",
-          "#fe7462",
-          "#feb3a7",
-          "#fee9e5"
-        ]
-      },
-      "fail-soft": {
-        "role": "tertiary",
-        "displayName": "Red Pencil Wash",
-        "canonical": "#fbecea",
-        "tonalRamp": [
-          "#110908",
-          "#2d2221",
-          "#4b3f3d",
-          "#6a5e5c",
-          "#8c7f7d",
-          "#afa19f",
-          "#d4c5c3",
-          "#faebe9"
-        ]
-      },
-      "pass": {
-        "role": "tertiary",
-        "displayName": "Server Green",
-        "canonical": "#2e7d5b",
-        "tonalRamp": [
-          "#001006",
-          "#002e1c",
-          "#004f34",
-          "#207250",
-          "#479471",
-          "#6bb893",
-          "#8fddb6",
-          "#c2ffdf"
-        ]
-      },
-      "pass-soft": {
-        "role": "tertiary",
-        "displayName": "Server Green Wash",
-        "canonical": "#e6f2ec",
-        "tonalRamp": [
-          "#060d0a",
-          "#1e2723",
-          "#3b4540",
-          "#5a645f",
-          "#7b8580",
-          "#9da8a3",
-          "#c1ccc7",
-          "#e6f2ec"
-        ]
-      },
-      "graphite": {
+      "graphite-border": {
         "role": "neutral",
-        "displayName": "Graphite",
-        "canonical": "#5d636c",
-        "tonalRamp": [
-          "#070b12",
-          "#20252d",
-          "#3d424b",
-          "#5c626b",
-          "#7c838c",
-          "#9fa6af",
-          "#c3cad4",
-          "#e8effa"
-        ]
+        "displayName": "Graphite Border"
       },
-      "code-key": {
-        "role": "primary",
-        "displayName": "Code Keyword",
-        "canonical": "#2f557f",
-        "tonalRamp": [
-          "#000a25",
-          "#00254b",
-          "#1e436c",
-          "#3d648f",
-          "#5e85b3",
-          "#80a9d8",
-          "#a3cdfe",
-          "#e3f0ff"
-        ]
-      },
-      "code-str": {
-        "role": "tertiary",
-        "displayName": "Code String",
-        "canonical": "#8a5a12",
-        "tonalRamp": [
-          "#170600",
-          "#371f00",
-          "#5d3900",
-          "#85560a",
-          "#a97736",
-          "#ce9a5a",
-          "#f4be7d",
-          "#ffebd5"
-        ]
-      },
-      "code-fn": {
-        "role": "tertiary",
-        "displayName": "Code Function",
-        "canonical": "#7a3b8f",
-        "tonalRamp": [
-          "#190023",
-          "#3d004e",
-          "#5f1f73",
-          "#814296",
-          "#a464bb",
-          "#c987e0",
-          "#eab0ff",
-          "#f9e8ff"
-        ]
-      },
-      "code-com": {
+      "graphite-ink": {
         "role": "neutral",
-        "displayName": "Code Comment",
-        "canonical": "#7b828c",
-        "tonalRamp": [
-          "#070b12",
-          "#20252e",
-          "#3c424b",
-          "#5b626b",
-          "#7c838d",
-          "#9ea6b0",
-          "#c2cad5",
-          "#e7effa"
-        ]
+        "displayName": "Graphite Ink"
+      },
+      "graphite-muted-ink": {
+        "role": "neutral",
+        "displayName": "Graphite Muted Ink"
       }
     },
     "typographyMeta": {
-      "display": {
-        "displayName": "Display",
-        "purpose": "Edition title on the sign-in cover only."
+      "hero": {
+        "displayName": "Hero",
+        "purpose": "Landing headline only (text-hero, grows to 3.75rem / 4.5rem)."
       },
       "headline": {
         "displayName": "Headline",
-        "purpose": "Page headings and the verdict word."
-      },
-      "headline-sm": {
-        "displayName": "Headline Sm",
-        "purpose": "Workspace problem title, empty-state and sign-in headings."
+        "purpose": "Landing section headings and the contest hero."
       },
       "title": {
         "displayName": "Title",
-        "purpose": "Section headings."
+        "purpose": "Problem title in the workspace, sign-in heading."
       },
-      "title-sm": {
-        "displayName": "Title Sm",
-        "purpose": "Étude titles in the index, subsection heads, ledger total."
+      "panel-title": {
+        "displayName": "Panel title",
+        "purpose": "Heading of every dashboard, rail and leaderboard panel."
       },
       "body": {
         "displayName": "Body",
-        "purpose": "Default copy."
+        "purpose": "Dense working text: tables, lists, controls."
       },
-      "body-sm": {
-        "displayName": "Body Sm",
-        "purpose": "Problem statement, requirements, table cells, controls."
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Problem statements (prose-problem)."
       },
       "label": {
         "displayName": "Label",
-        "purpose": "Metadata, timings, legends, notes."
+        "purpose": "Column headers, pills, metadata lines."
       },
-      "label-column": {
-        "displayName": "Label Column",
-        "purpose": "Uppercase table column headers only; never above a heading."
+      "micro": {
+        "displayName": "Micro",
+        "purpose": "text-2xs: Sample chips, count badges, date tiles, banner meta chips."
       },
-      "figure": {
-        "displayName": "Figure",
-        "purpose": "Bare-integer data cells: points, positions, counts."
+      "data": {
+        "displayName": "Data",
+        "purpose": "Tabular numerals for every count, %, rating, rank, date, timer."
       },
       "code": {
         "displayName": "Code",
-        "purpose": "Editor, inline code, error output, file tabs; ligatures off."
+        "purpose": "Editor and inline code only; ligatures off."
       }
     },
     "shadows": [
       {
-        "name": "focus-ring-field",
-        "value": "0 0 0 3px rgba(47, 85, 127, 0.15)",
-        "purpose": "Focus-within ring on fields, alongside a cover-blue border. Not elevation."
+        "name": "hairline-lift",
+        "value": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "purpose": "Outline buttons, inputs, the Run/Submit pill."
       },
       {
-        "name": "row-wash-bleed",
-        "value": "-16px 0 0 var(--next-soft), 16px 0 0 var(--next-soft)",
-        "purpose": "Extends the current index row's wash past the table edge (12px with cover-soft for the rankings 'you' row). A drawing technique, not depth."
+        "name": "overlay",
+        "value": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        "purpose": "Dropdowns, popovers, selects, chart tooltips."
       },
       {
-        "name": "diary-practised",
-        "value": "inset 0 0 0 1.5px var(--ink-2)",
-        "purpose": "Ring marking a practised-but-unsolved day in the practice diary."
+        "name": "modal",
+        "value": "0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)",
+        "purpose": "Dialogs and sheets."
       }
     ],
     "motion": [
       {
-        "name": "ease-out",
-        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
-        "purpose": "Default easing for all transitions and the barline rise."
+        "name": "color-transition",
+        "value": "150ms cubic-bezier(0.4, 0, 0.2, 1)",
+        "purpose": "Hover colour changes on links, rows, buttons."
       },
       {
-        "name": "state-transition",
-        "value": "160ms",
-        "purpose": "Button background and border changes."
+        "name": "arrow-nudge",
+        "value": "300ms ease-out",
+        "purpose": "Banner CTA arrow translates 2px on hover."
       },
       {
-        "name": "bar-rise",
-        "value": "700ms ease-out, thick bar delayed 160ms, scaleY 0.08 to 1 from the baseline",
-        "purpose": "The one authored motion: the final barline closes on an accepted verdict. Off under prefers-reduced-motion."
-      },
-      {
-        "name": "spin",
-        "value": "800ms linear infinite",
-        "purpose": "Functional grading/running spinner. Off under prefers-reduced-motion."
-      },
-      {
-        "name": "caret-blink",
-        "value": "1.1s steps(1) infinite",
-        "purpose": "Editor caret. Off under prefers-reduced-motion."
+        "name": "running-cell",
+        "value": "pulse",
+        "purpose": "Test cell while a test runs (accent at 60%)."
       }
     ],
     "breakpoints": [
       {
-        "name": "compact",
-        "value": "900px"
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      },
+      {
+        "name": "xl",
+        "value": "1280px"
       }
-    ]
+    ],
+    "themes": {
+      "mechanism": "class 'dark' on <html>; light/dark/system persisted in localStorage 'hookdrill-theme'; pre-paint script prevents flash",
+      "codeSyntax": {
+        "light": "GitHub light",
+        "dark": "VS Code dark"
+      }
+    }
   },
   "components": [
     {
-      "name": "Button",
+      "name": "Primary Button",
       "kind": "button",
-      "refersTo": "button",
-      "description": "Default control: sheet fill, rule border, 6px.",
-      "html": "<button class=\"ds-btn\">Back to the étude</button>",
-      "css": ".ds-btn { display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:6px; cursor:pointer; transition:border-color 160ms cubic-bezier(0.16,1,0.3,1), background-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn:hover { border-color:var(--ink-2, #474d57); } .ds-btn:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-btn:disabled { color:var(--mute, #646b76); background:var(--rule-soft, #e9ecef); border-color:var(--rule-soft, #e9ecef); cursor:not-allowed; }"
+      "refersTo": "button-primary",
+      "description": "Primary actions such as Start practicing.",
+      "html": "<button class=\"ds-btn-primary\">Start practicing</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;height:36px;padding:0 16px;border:0;border-radius:8px;background:var(--primary,#4f5df0);color:var(--primary-foreground,#fff);font:500 14px/1 'Inter Variable',system-ui,sans-serif;cursor:pointer;transition:background .15s}.ds-btn-primary:hover{background:color-mix(in oklab,var(--primary,#4f5df0) 90%,transparent)}.ds-btn-primary:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,#5b6cff) 50%,transparent)}"
     },
     {
-      "name": "Next Action Button",
+      "name": "Run / Submit Pill",
+      "kind": "custom",
+      "refersTo": "button-submit",
+      "description": "Centred workspace action pill; Submit is accepted green.",
+      "html": "<div class=\"ds-pill\"><button class=\"ds-run\"><svg width=\"14\" height=\"14\" viewBox=\"0 0 24 24\" fill=\"currentColor\"><path d=\"M6 4l14 8-14 8z\"/></svg>Run</button><button class=\"ds-submit\">Submit</button></div>",
+      "css": ".ds-pill{display:inline-flex;gap:4px;padding:4px;border-radius:10px;background:var(--card,#fff);box-shadow:0 0 0 1px var(--border,#e3e6eb),0 1px 2px rgb(0 0 0/.05)}.ds-run,.ds-submit{display:inline-flex;align-items:center;gap:6px;height:32px;padding:0 12px;border:0;border-radius:8px;font:500 14px/1 'Inter Variable',system-ui,sans-serif;cursor:pointer}.ds-run{background:transparent;color:var(--foreground,#0f1115)}.ds-run:hover{background:var(--accent,#eef0f4)}.ds-submit{background:var(--accepted,#18864b);color:#fff}.ds-submit:hover{background:color-mix(in oklab,var(--accepted,#18864b) 90%,transparent)}.ds-run:focus-visible,.ds-submit:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,#5b6cff) 50%,transparent)}"
+    },
+    {
+      "name": "Secondary Button",
       "kind": "button",
-      "refersTo": "button-next",
-      "description": "Schirmer yellow; the single next action on a screen.",
-      "html": "<button class=\"ds-btn-next\">Next étude: Op. 3 Accordion</button>",
-      "css": ".ds-btn-next { display:inline-flex; align-items:center; gap:8px; height:48px; padding:0 22px; font:600 1.0625rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--next, #e0a526); border:1px solid var(--next, #e0a526); border-radius:6px; cursor:pointer; transition:background-color 160ms cubic-bezier(0.16,1,0.3,1), border-color 160ms cubic-bezier(0.16,1,0.3,1); } .ds-btn-next:hover { background:var(--next-deep, #c38c14); border-color:var(--next-deep, #c38c14); } .ds-btn-next:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
+      "refersTo": "button-secondary",
+      "description": "Quiet secondary actions.",
+      "html": "<button class=\"ds-btn-secondary\">Clear filters</button>",
+      "css": ".ds-btn-secondary{height:36px;padding:0 16px;border:0;border-radius:8px;background:var(--secondary,#eef0f4);color:var(--secondary-foreground,#0f1115);font:500 14px/1 'Inter Variable',system-ui,sans-serif;cursor:pointer}.ds-btn-secondary:hover{background:color-mix(in oklab,var(--secondary,#eef0f4) 80%,transparent)}.ds-btn-secondary:focus-visible{outline:none;box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,#5b6cff) 50%,transparent)}"
     },
     {
-      "name": "Ink Button",
-      "kind": "button",
-      "refersTo": "button-ink",
-      "description": "Ink fill for sign-in and resets.",
-      "html": "<button class=\"ds-btn-ink\">Continue with GitHub</button>",
-      "css": ".ds-btn-ink { display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 16px; font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:#fff; background:var(--ink, #15171c); border:1px solid var(--ink, #15171c); border-radius:6px; cursor:pointer; } .ds-btn-ink:hover { background:#2a2e36; } .ds-btn-ink:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
-    },
-    {
-      "name": "Filter Chips",
-      "kind": "chip",
-      "refersTo": "chip",
-      "description": "Pill filters; pressed inverts to ink.",
-      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\">All</button><button class=\"ds-chip\" aria-pressed=\"false\">Easy</button><button class=\"ds-chip\" aria-pressed=\"false\">Medium</button></div>",
-      "css": ".ds-chips { display:flex; gap:8px; } .ds-chip { font:500 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:999px; padding:8px 14px; cursor:pointer; } .ds-chip:hover { border-color:var(--ink-2, #474d57); } .ds-chip:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-chip[aria-pressed='true'] { background:var(--ink, #15171c); border-color:var(--ink, #15171c); color:#fff; }"
-    },
-    {
-      "name": "Search Field",
+      "name": "Search Input",
       "kind": "input",
-      "refersTo": "field",
-      "description": "40px field with leading stroke icon; cover focus ring.",
-      "html": "<label class=\"ds-field\"><svg viewBox=\"0 0 24 24\" width=\"18\" height=\"18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.75\" stroke-linecap=\"round\" aria-hidden=\"true\"><circle cx=\"11\" cy=\"11\" r=\"7\"/><path d=\"m20 20-3.5-3.5\"/></svg><input placeholder=\"Search études\"></label>",
-      "css": ".ds-field { display:flex; align-items:center; gap:8px; height:40px; padding:0 12px; width:300px; background:var(--sheet, #ffffff); border:1px solid var(--rule, #d8dce1); border-radius:6px; color:var(--mute, #646b76); } .ds-field:focus-within { border-color:var(--cover, #2f557f); box-shadow:0 0 0 3px rgba(47,85,127,0.15); } .ds-field input { border:0; outline:0; font:400 0.9375rem 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); background:transparent; width:100%; } .ds-field input::placeholder { color:var(--mute, #646b76); }"
+      "refersTo": "input",
+      "description": "Standard 36px field with ring focus.",
+      "html": "<input class=\"ds-input\" placeholder=\"Search problems\">",
+      "css": ".ds-input{height:36px;width:260px;padding:4px 12px;border:1px solid var(--input,#dcdfe5);border-radius:8px;background:transparent;color:var(--foreground,#0f1115);font:400 14px 'Inter Variable',system-ui,sans-serif;box-shadow:0 1px 2px rgb(0 0 0/.05);outline:none}.ds-input::placeholder{color:var(--muted-foreground,#5c6370)}.ds-input:focus-visible{border-color:var(--ring,#5b6cff);box-shadow:0 0 0 3px color-mix(in oklab,var(--ring,#5b6cff) 50%,transparent)}"
     },
     {
-      "name": "Cover Rail",
+      "name": "Top Navigation",
       "kind": "nav",
-      "refersTo": "rail",
-      "description": "248px cover-cloth rail; active book in cover-deep.",
-      "html": "<nav class=\"ds-rail\"><a class=\"ds-brand\" href=\"#\"><b>HookDrill</b><span>Études for hands</span></a><a class=\"ds-item\" aria-current=\"page\" href=\"#\"><span><b>Book I</b> · React</span><small>10</small></a><a class=\"ds-item\" href=\"#\"><span><b>Book II</b> · DSA</span><small>soon</small></a><hr><a class=\"ds-item\" href=\"#\">Rankings</a></nav>",
-      "css": ".ds-rail { width:248px; background:var(--cover, #2f557f); color:#fff; padding:28px 0 24px; display:flex; flex-direction:column; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-brand { padding:0 28px 30px; color:#fff; text-decoration:none; } .ds-brand b { display:block; font-weight:800; font-size:1.375rem; letter-spacing:-0.015em; } .ds-brand span { display:block; font-size:0.8125rem; color:var(--on-cover-2, #c9d7e6); } .ds-item { display:flex; justify-content:space-between; padding:10px 28px; color:var(--on-cover-2, #c9d7e6); text-decoration:none; font-size:0.9375rem; } .ds-item b { color:#fff; font-weight:700; } .ds-item small { font-size:0.8125rem; font-variant-numeric:tabular-nums; } .ds-item:hover, .ds-item[aria-current='page'] { background:var(--cover-deep, #24466b); color:#fff; } .ds-item:focus-visible { outline:2px solid #fff; outline-offset:-2px; } .ds-rail hr { border:0; height:1px; background:var(--cover-line, #46698f); margin:18px 28px; }"
+      "refersTo": "",
+      "description": "56px sticky bar; active link carries a 2px underline.",
+      "html": "<nav class=\"ds-nav\"><a class=\"ds-active\" href=\"#\">Problems</a><a href=\"#\">Explore</a><a href=\"#\">Contests</a><a href=\"#\">Leaderboard</a></nav>",
+      "css": ".ds-nav{display:flex;height:56px;align-items:stretch;gap:4px;border-bottom:1px solid var(--border,#e3e6eb);background:var(--background,#f7f8fa);font:400 14px 'Inter Variable',system-ui,sans-serif}.ds-nav a{position:relative;display:flex;align-items:center;padding:0 12px;color:var(--muted-foreground,#5c6370);text-decoration:none;transition:color .15s}.ds-nav a:hover{color:var(--foreground,#0f1115)}.ds-nav a:focus-visible{outline:none;box-shadow:inset 0 0 0 2px color-mix(in oklab,var(--ring,#5b6cff) 50%,transparent)}.ds-nav a.ds-active{color:var(--foreground,#0f1115)}.ds-nav a.ds-active::after{content:'';position:absolute;left:12px;right:12px;bottom:0;height:2px;border-radius:9999px;background:var(--foreground,#0f1115)}"
     },
     {
-      "name": "Tabs",
-      "kind": "nav",
-      "refersTo": "tab",
-      "description": "Underlined text tabs over a hairline.",
-      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button role=\"tab\" aria-selected=\"true\">All time</button><button role=\"tab\" aria-selected=\"false\">This week</button></div>",
-      "css": ".ds-tabs { display:flex; gap:2px; border-bottom:1px solid var(--rule, #d8dce1); } .ds-tabs button { font:600 0.9375rem/1 'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--mute, #646b76); background:none; border:0; padding:12px 14px 11px; border-bottom:2px solid transparent; margin-bottom:-1px; cursor:pointer; } .ds-tabs button:hover { color:var(--ink, #15171c); } .ds-tabs button:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; } .ds-tabs [aria-selected='true'] { color:var(--ink, #15171c); border-bottom-color:var(--ink, #15171c); }"
+      "name": "Difficulty Pill + Sample Chip",
+      "kind": "chip",
+      "refersTo": "difficulty-pill",
+      "description": "Meta-line chips: difficulty in its text-safe colour; dashed Sample chip for sample data.",
+      "html": "<span class=\"ds-diff\">Medium</span> <span class=\"ds-sample\">Sample data</span>",
+      "css": ".ds-diff{display:inline-flex;align-items:center;height:24px;padding:0 10px;border-radius:9999px;background:var(--surface-2,#f1f3f6);color:var(--medium,#94600a);font:500 12px 'Inter Variable',system-ui,sans-serif}.ds-sample{display:inline-flex;align-items:center;height:20px;padding:0 8px;border:1px dashed var(--border,#e3e6eb);border-radius:9999px;color:var(--muted-foreground,#5c6370);font:500 11px 'Inter Variable',system-ui,sans-serif}"
     },
     {
-      "name": "Barlines",
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Flat bordered panel with 48px header row; no shadow.",
+      "html": "<section class=\"ds-panel\"><header><h2>Your progress</h2><span class=\"ds-chip\">Sample data</span></header><p>Easy <b>1</b>/9</p></section>",
+      "css": ".ds-panel{width:280px;border:1px solid var(--border,#e3e6eb);border-radius:10px;background:var(--card,#fff);color:var(--card-foreground,#0f1115);font:400 14px 'Inter Variable',system-ui,sans-serif}.ds-panel header{display:flex;align-items:center;gap:8px;min-height:48px;padding:8px 16px}.ds-panel h2{margin:0;font-size:14px;font-weight:600}.ds-panel p{margin:0;padding:0 16px 16px;font-variant-numeric:tabular-nums}.ds-chip{display:inline-flex;align-items:center;height:20px;padding:0 8px;border:1px dashed var(--border,#e3e6eb);border-radius:9999px;color:var(--muted-foreground,#5c6370);font-size:11px;font-weight:500}"
+    },
+    {
+      "name": "Test Strip",
       "kind": "custom",
-      "refersTo": "barline",
-      "description": "Signature progress notation: open (not played), repeat (in practice), final in green (server-accepted, rises closed on accept).",
-      "html": "<div class=\"ds-bls\"><span class=\"ds-bl ds-open\" role=\"img\" aria-label=\"Not played\"><i></i></span><span class=\"ds-bl\" role=\"img\" aria-label=\"In practice\"><i class=\"ds-thick\"></i><i></i><span class=\"ds-dots\"><u></u><u></u></span></span><span class=\"ds-bl ds-final ds-closing\" role=\"img\" aria-label=\"Solved\"><i></i><i class=\"ds-thick\"></i></span></div>",
-      "css": ".ds-bls { display:flex; gap:28px; align-items:center; } .ds-bl { display:inline-flex; align-items:stretch; gap:4px; height:28px; } .ds-bl i { display:block; width:2px; background:var(--ink, #15171c); border-radius:0.5px; } .ds-bl i.ds-thick { width:7px; } .ds-dots { display:flex; flex-direction:column; justify-content:center; gap:7px; } .ds-dots u { display:block; width:6px; height:6px; border-radius:50%; background:var(--ink, #15171c); } .ds-open i { background:var(--mute, #646b76); } .ds-final i { background:var(--pass, #2e7d5b); } .ds-closing i { transform-origin:50% 100%; animation:ds-bar-rise 700ms cubic-bezier(0.16,1,0.3,1) both; } .ds-closing i.ds-thick { animation-delay:160ms; } @keyframes ds-bar-rise { from { transform:scaleY(0.08); background:var(--rule, #d8dce1); } to { transform:scaleY(1); } } @media (prefers-reduced-motion: reduce) { .ds-closing i { animation:none; } }"
+      "refersTo": "test-cell",
+      "description": "Signature: one cell per test, pass green / fail red / idle outlined.",
+      "html": "<span class=\"ds-strip\" role=\"img\" aria-label=\"5 of 7 tests passed\"><i class=\"p\"></i><i class=\"p\"></i><i class=\"p\"></i><i class=\"p\"></i><i class=\"p\"></i><i class=\"f\"></i><i class=\"i\"></i></span>",
+      "css": ".ds-strip{display:inline-flex;gap:3px}.ds-strip i{display:block;width:14px;height:14px;border-radius:3px}.ds-strip .p{background:var(--accepted,#18864b)}.ds-strip .f{background:var(--wrong,#d92d20)}.ds-strip .i{background:var(--surface-2,#f1f3f6);box-shadow:inset 0 0 0 1px var(--border,#e3e6eb)}"
     },
     {
-      "name": "Étude Index Rows",
+      "name": "Console Verdict",
       "kind": "custom",
-      "refersTo": "index-row-current",
-      "description": "Ruled index with opus number, graded ticks, tabular points and barline; the in-practice row carries the yellow wash and Resume.",
-      "html": "<table class=\"ds-index\"><tbody><tr><td class=\"ds-no\">Op. 1</td><td class=\"ds-t\"><a href=\"#\">Todo List</a><p>Create, edit, delete, toggle · 6 tests</p></td><td><span class=\"ds-ticks\"><i class=\"on\"></i><i></i><i></i></span> Easy</td><td class=\"ds-num\">10</td></tr><tr class=\"ds-current\"><td class=\"ds-no\">Op. 2</td><td class=\"ds-t\"><a href=\"#\">Playlist Builder</a> <button class=\"ds-resume\">Resume</button><p>Pick songs, reorder, remove · 7 tests</p></td><td><span class=\"ds-ticks\"><i class=\"on\"></i><i class=\"on\"></i><i></i></span> Medium</td><td class=\"ds-num\">20</td></tr></tbody></table>",
-      "css": ".ds-index { width:100%; border-collapse:collapse; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; color:var(--ink, #15171c); } .ds-index td { padding:16px 0; border-bottom:1px solid var(--rule, #d8dce1); vertical-align:middle; font-size:0.9375rem; } .ds-no { width:92px; color:var(--cover, #2f557f); font-weight:700; } .ds-t a { font-weight:700; font-size:1.25rem; letter-spacing:-0.01em; color:inherit; text-decoration:none; } .ds-t a:hover { text-decoration:underline; } .ds-t p { margin:2px 0 0; color:var(--mute, #646b76); } .ds-ticks { display:inline-flex; gap:3px; margin-right:8px; vertical-align:-2px; } .ds-ticks i { width:6px; height:14px; background:var(--rule, #d8dce1); } .ds-ticks i.on { background:var(--ink, #15171c); } .ds-num { text-align:right; font-weight:700; font-variant-numeric:tabular-nums; } .ds-current td { background:var(--next-soft, #fbf1db); } .ds-resume { margin-left:12px; height:30px; padding:0 12px; font:600 0.8125rem/1 inherit; background:var(--next, #e0a526); border:1px solid var(--next, #e0a526); border-radius:6px; color:var(--ink, #15171c); cursor:pointer; } .ds-resume:hover { background:var(--next-deep, #c38c14); } .ds-resume:focus-visible { outline:2px solid var(--cover, #2f557f); outline-offset:2px; }"
-    },
-    {
-      "name": "Verdict Word",
-      "kind": "custom",
-      "refersTo": "verdict-word-pass",
-      "description": "Server verdict at headline size in its semantic colour.",
-      "html": "<div class=\"ds-verdict\"><span class=\"ds-word ds-pass\">Accepted</span><span class=\"ds-word ds-fail\">Failed</span></div>",
-      "css": ".ds-verdict { display:flex; gap:40px; font-family:'Schibsted Grotesk', ui-sans-serif, system-ui, sans-serif; } .ds-word { font-size:3.5rem; font-weight:800; letter-spacing:-0.03em; line-height:1; } .ds-pass { color:var(--pass, #2e7d5b); } .ds-fail { color:var(--fail, #c63d2f); }"
+      "refersTo": "",
+      "description": "Verdict heading in verdict colour, count line, then the test strip.",
+      "html": "<div class=\"ds-verdict\"><p><strong>Accepted</strong><span>7 / 7 testcases passed · 2.5 s</span></p><span class=\"ds-vs\"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></div>",
+      "css": ".ds-verdict{font-family:'Inter Variable',system-ui,sans-serif}.ds-verdict p{display:flex;align-items:baseline;gap:12px;margin:0 0 10px}.ds-verdict strong{font-size:20px;font-weight:600;color:var(--accepted,#18864b)}.ds-verdict span{font-size:14px;color:var(--muted-foreground,#5c6370);font-variant-numeric:tabular-nums}.ds-vs{display:inline-flex;gap:3px}.ds-vs i{display:block;width:14px;height:14px;border-radius:3px;background:var(--accepted,#18864b)}"
     }
   ],
   "narrative": {
-    "northStar": "The Étude Edition",
-    "overview": "HookDrill is printed as a graded collection of studies, in the lineage of Czerny, Hanon, Henle Urtext and Schirmer. Each challenge is an opus number in a book per track. The shell is the edition's blue cover cloth; the content is bright engraving paper set in near-black ink, divided by hairline engraved rules. Nothing floats. Hierarchy comes from heavy grotesk headings, a 2px ink underline beneath each page heading, and figures set right against the margin.\n\nDensity is a working reference book's density: tables are the primary form, rows are 14 to 16px tall in padding, and the only wash of colour in a list is the row that holds the user's next action. Colour is semantic and scarce. Schirmer yellow marks the one thing to do next, teacher's red pencil marks failure, green appears only when the server has graded a solve, and everything in between is graphite.\n\nThe signature is barline notation. Progress through an étude is written the way a score ends a passage: an open thin bar when unplayed, a repeat sign when in practice, and a thin+thick final barline in green when the server has accepted the solve. The system's single authored motion is the final barline rising closed on an accepted verdict.",
+    "northStar": "The Practice Arena",
+    "overview": "**Creative North Star: \"The Practice Arena\"**\n\nHookDrill is built to the category standard set by LeetCode, HackerRank and Codeforces. Pages are dense and fast. Problem tables, a split coding workspace, dashboards, contests and rankings all sit on a quiet neutral ground, and colour is kept for meaning: what to click, how hard a problem is, and whether the tests passed. The world is the same in light and dark mode. Dark is a neutral graphite with no blue tint, after the LeetCode references. Light is a cool off-white ground with white panels. Both themes use the same token names, and components reference only those semantic tokens, never raw theme hexes.\n\nDepth comes from tone, not shadow. Panels are flat, rounded rectangles with a 1px border, sitting on the page ground. In the workspace they float apart with 8px gutters. The one signature is the test strip: one small square per test, filled pass-green or fail-red, read left to right. It carries HookDrill's promise that every result comes from real tests, and it appears wherever results appear.\n\nThis world replaces the rejected \"Étude Edition\" world. Nothing editorial, paper-like or music-book carries over, and there is no arcade gamification (confetti, XP bars).",
     "keyCharacteristics": [
-      "Blue cover-cloth rail or bar framing a paper content area, never a dark IDE shell.",
-      "Hairline rules and tables instead of cards, panels or shadows.",
-      "One yellow next action per screen; green reserved for server verdicts.",
-      "Barline glyphs as the progress vocabulary in index, record and verdict.",
-      "Firm variable grotesk at heavy weights; JetBrains Mono only for code."
+      "Dense, tabular and calm. Colour signals state, never decorates.",
+      "Matching light and dark themes from one semantic token set. The theme follows the system setting until the user chooses, then persists, and a pre-paint script prevents a flash.",
+      "Flat bordered panels, gently rounded (10px), with tonal surface steps instead of shadows.",
+      "Inter for everything except code. Numbers are tabular.",
+      "The test strip is the signature mark.",
+      "Sample data is always labelled as sample."
     ],
     "rules": [
       {
-        "name": "The One Next Action Rule",
-        "body": "Schirmer yellow appears on exactly one control per screen: the action the user should take next. The index row that contains that action may carry the next-soft wash; nothing else may be yellow.",
+        "name": "The One Accent Rule",
+        "body": "Blue-violet is the only brand hue. It marks primary actions and focus, and nothing else competes with it as decoration.",
         "section": "colors"
       },
       {
-        "name": "The Honest Green Rule",
-        "body": "Green means \"the server graded this and accepted it\". In-browser public test passes are graphite, never green, so no screen implies points before a verdict.",
+        "name": "The Text-Safe Difficulty Rule",
+        "body": "Every difficulty colour passes WCAG AA as text on both zebra rows in both themes. Never dim a difficulty colour with opacity. A locked row dims through its muted title colour only.",
         "section": "colors"
       },
       {
-        "name": "The You Tint Rule",
-        "body": "cover-soft marks \"you\" and selection: the current user's rankings row and the text selection colour. Do not use it as a generic highlight.",
+        "name": "The Verdict Rule",
+        "body": "Green means accepted and red means wrong, everywhere: test cells, verdict headings, status icons. The Submit button is accepted green, as on LeetCode.",
         "section": "colors"
       },
       {
-        "name": "The Plain Integer Rule",
-        "body": "Tabular figures apply only to cells holding a bare integer (points, positions, counts). Mixed text such as \"9 / 9\", \"1.4 s\" or prose keeps proportional figures.",
+        "name": "The Solid Banner Rule",
+        "body": "Banner fills are solid tokens. Illustration accents inside the banner SVG art are allowed. Gradient fills and glows are not.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Every count, percentage, rating, rank, date and timer uses tabular numerals, so columns line up.",
         "section": "typography"
       },
       {
-        "name": "The Typed Characters Rule",
-        "body": "All code renders with ligatures off (`font-variant-ligatures: none`). The user sees exactly the characters they typed.",
+        "name": "The Code-Only Mono Rule",
+        "body": "JetBrains Mono is for code, with ligatures off (code, pre and the editor content). UI labels, numbers and badges are never set in mono.",
         "section": "typography"
       },
       {
-        "name": "The Heading Stands Alone Rule",
-        "body": "Headings carry their own weight. Never put a kicker or eyebrow label above a heading; uppercase tracking is for table column heads only.",
+        "name": "The Named Steps Rule",
+        "body": "Beyond Tailwind's ramp, the only type steps are text-2xs (11px) and text-hero (2.75rem). New one-off pixel sizes are not part of the system.",
         "section": "typography"
       },
       {
-        "name": "The Engraved Rule Rule",
-        "body": "Separate content with hairline rules, not cards or shadows. If something needs grouping, draw a rule or use a table.",
+        "name": "The No-Glow Rule",
+        "body": "No glows, coloured shadows or decorative gradients. Surfaces separate by tone and hairline, not by light.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Flat Panel Rule",
+        "body": "Content panels never cast shadows. If a panel needs to stand out, give it a different tonal step, not elevation.",
         "section": "elevation"
       }
     ],
     "dos": [
-      "Do put exactly one Schirmer yellow (#e0a526) action on each screen, and wash only the row that holds it.",
-      "Do reserve server green (#2e7d5b) for server-graded verdicts and final barlines; show in-browser test passes in graphite (#5d636c).",
-      "Do use barlines (open, repeat, final) to show étude progress wherever progress appears.",
-      "Do separate content with 1px rule (#d8dce1) hairlines, and close page heads and totals with a 2px ink rule.",
-      "Do right-align numeric columns and use tabular figures only on bare-integer cells.",
-      "Do set all code in JetBrains Mono with ligatures off.",
-      "Do keep the rail or coverbar in cover blue (#2f557f) on paper (#f8f9fa); paper stays cool white."
+      "Do use only semantic tokens (background, card, surface-2, primary, easy, accepted…) so every surface works in both themes.",
+      "Do keep blue-violet for primary actions, focus and the accent hover. Use brand-text when the accent is text.",
+      "Do colour the Submit button accepted green and the verdict in its verdict colour.",
+      "Do render every set of test results as a test strip.",
+      "Do label sample problems, contests, players, scores and acceptance rates with a Sample chip.",
+      "Do describe in-browser runs as running the public tests. Never present them as server grading.",
+      "Do use tabular numerals for every number, and JetBrains Mono with ligatures off for code only.",
+      "Do put workspace panels on the page ground with 8px gutters, with Run/Submit centred in a pill."
     ],
     "donts": [
-      "Don't put a kicker or eyebrow label above any heading.",
-      "Don't wrap content in cards or give anything an elevation shadow.",
-      "Don't colour a public, in-browser test pass green or imply points before a server verdict.",
-      "Don't use yellow for decoration, emphasis, or a second action.",
-      "Don't add motion beyond the final barline rise, state transitions of 160ms, and functional spinners and caret.",
-      "Don't add gamified arcade devices: confetti, XP bars, badge walls.",
-      "Don't shift to a dark IDE shell with a neon accent, or a cream paper."
+      "Don't add glows, coloured shadows or decorative gradients. Banners stay solid.",
+      "Don't put eyebrows or kickers above headings. Move the label into a chip in the meta line.",
+      "Don't dim difficulty or verdict colours with opacity.",
+      "Don't introduce a second brand accent, or use the banner fills outside banners.",
+      "Don't add new arbitrary pixel type sizes. Use the Tailwind ramp plus text-2xs and text-hero.",
+      "Don't bring back the Étude Edition world (paper, editorial serif, barlines) or arcade gamification (confetti, XP bars)."
     ]
   }
 }

@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useRef, useState } from 'react'
-import { useTestRunner, type RunnerStatus, type TestCase } from './useTestRunner'
+import {
+  useTestRunner,
+  type RunnerStatus,
+  type TestCase,
+} from './useTestRunner'
 
 export type RunMode = 'run' | 'submit'
 
@@ -59,7 +63,13 @@ export function TestRunnerProvider({
 
   return (
     <RunnerContext.Provider
-      value={{ status: runner.status, tests: runner.tests, fileError: runner.fileError, lastRun, run }}
+      value={{
+        status: runner.status,
+        tests: runner.tests,
+        fileError: runner.fileError,
+        lastRun,
+        run,
+      }}
     >
       {/* Hidden bundler that runs the test files. */}
       <iframe ref={runner.iframe} title="Test runner" className="hidden" />

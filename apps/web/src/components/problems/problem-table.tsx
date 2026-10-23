@@ -4,7 +4,11 @@ import { DifficultyText } from '@/components/difficulty'
 import { StatusIcon } from '@/components/status-icon'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from '@/components/ui/tooltip'
 import type { Problem } from '@/lib/problems'
 import type { ProblemStatus } from '@/lib/progress'
 import { cn } from '@/lib/utils'
@@ -30,7 +34,8 @@ export function ProblemTable({
         </span>
         <h3 className="mt-4 font-semibold">No problems match these filters</h3>
         <p className="mt-1 max-w-sm text-sm text-muted-foreground">
-          Try a different search, or clear the topic, track and filters to see the full library.
+          Try a different search, or clear the topic, track and filters to see
+          the full library.
         </p>
         <Button variant="secondary" className="mt-5" onClick={onClear}>
           Clear filters
@@ -41,25 +46,43 @@ export function ProblemTable({
 
   return (
     <table className="w-full border-separate border-spacing-0 text-sm">
-      <thead className="sr-only">
-        <tr>
-          <th scope="col">Status</th>
-          <th scope="col">Title</th>
-          <th scope="col">Acceptance</th>
-          <th scope="col">Difficulty</th>
-          <th scope="col">Availability</th>
+      <thead>
+        <tr className="h-9 text-left text-xs text-muted-foreground [&>th]:font-medium">
+          <th scope="col" className="pl-3">
+            <span className="sr-only">Status</span>
+          </th>
+          <th scope="col" className="pr-3">
+            Title
+          </th>
+          <th scope="col" className="pr-3 text-right max-sm:hidden">
+            <span className="inline-flex items-center gap-1.5">
+              Acceptance
+              <span className="rounded-full bg-secondary px-1.5 py-px text-2xs">
+                Sample
+              </span>
+            </span>
+          </th>
+          <th scope="col" className="pr-3">
+            Difficulty
+          </th>
+          <th scope="col">
+            <span className="sr-only">Availability</span>
+          </th>
         </tr>
       </thead>
       <tbody>
         {rows.map((p) => {
-          const open = () => navigate({ to: '/problems/$slug', params: { slug: p.slug } })
+          const open = () =>
+            navigate({ to: '/problems/$slug', params: { slug: p.slug } })
           return (
             <tr
               key={p.slug}
               onClick={p.playable ? open : undefined}
               className={cn(
                 'group h-11 odd:bg-card [&>td:first-child]:rounded-l-lg [&>td:last-child]:rounded-r-lg',
-                p.playable ? 'cursor-pointer hover:bg-accent odd:hover:bg-accent' : 'text-muted-foreground',
+                p.playable
+                  ? 'cursor-pointer hover:bg-accent odd:hover:bg-accent'
+                  : 'text-muted-foreground',
               )}
             >
               <td className="w-10 pl-3">
@@ -80,18 +103,18 @@ export function ProblemTable({
                     {p.number}. {p.title}
                   </Link>
                 ) : (
-                  <span className="block truncate opacity-75">
+                  <span className="block truncate">
                     {p.number}. {p.title}
                   </span>
                 )}
               </td>
               <td className="w-24 pr-3 text-right tabular-nums max-sm:hidden">
-                <span className={cn(!p.playable && 'opacity-75')}>
+                <span>
                   {p.acceptance === null ? '—' : `${p.acceptance.toFixed(1)}%`}
                 </span>
               </td>
               <td className="w-16 pr-3 sm:w-20">
-                <DifficultyText level={p.difficulty} short className={cn(!p.playable && 'opacity-60')} />
+                <DifficultyText level={p.difficulty} short />
               </td>
               <td className="w-10 pr-3 text-right">
                 {!p.playable && (
