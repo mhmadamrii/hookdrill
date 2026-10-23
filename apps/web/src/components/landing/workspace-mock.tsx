@@ -28,7 +28,7 @@ const CODE = `export default function App() {
   function add(e) {
     e.preventDefault();
     if (!text.trim()) return;
-    setTodos([...todos, { id: Date.now(), text, done: false }]);
+    setTodos([...todos, { id: Date.now(), text }]);
     setText("");
   }
 
@@ -225,6 +225,17 @@ export function WorkspaceMock({ className }: { className?: string }) {
                   </div>
                 ),
               )}
+            </div>
+            <ul className="space-y-1.5 text-[12px] text-muted-foreground">
+              {['Empty input adds nothing', 'Toggle sets data-done', 'Edit saves the new text'].map((r) => (
+                <li key={r} className="flex items-center gap-1.5">
+                  <Check className="size-3 shrink-0 text-brand" />
+                  {r}
+                </li>
+              ))}
+            </ul>
+            <div className="flex items-center gap-2 rounded-md bg-surface-2/70 px-2 py-1.5 text-[11px] text-muted-foreground">
+              <Lock className="size-3" /> 4 hints, revealed one at a time
             </div>
           </div>
         </Panel>

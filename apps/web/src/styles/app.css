@@ -205,3 +205,23 @@
 .prose-problem td {
   @apply border-b py-2 pr-3 align-top;
 }
+
+/*
+ * Sandpack derives a light/dark variant from the theme's surface colour and
+ * can't read CSS variables, so it assumes dark (white text, white caret).
+ * Pin both to the tokens so the editor follows the app theme.
+ */
+html .sp-wrapper {
+  color: var(--foreground);
+}
+.sp-wrapper .cm-editor .cm-content {
+  caret-color: var(--foreground) !important;
+  font-variant-ligatures: none;
+}
+.sp-wrapper .cm-editor .cm-cursor {
+  border-left-color: var(--foreground) !important;
+}
+.sp-wrapper .cm-editor .cm-selectionBackground,
+.sp-wrapper .cm-editor ::selection {
+  background: color-mix(in oklab, var(--ring) 28%, transparent) !important;
+}

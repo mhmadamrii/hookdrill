@@ -123,7 +123,7 @@ export function HowItWorks() {
               <h3 className="text-lg font-semibold tracking-tight">{s.title}</h3>
             </div>
             <p className="max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">{s.body}</p>
-            <div className="mt-auto max-w-md">{s.visual}</div>
+            <div className="max-w-md">{s.visual}</div>
           </li>
         ))}
       </ol>

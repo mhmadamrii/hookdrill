@@ -43,10 +43,10 @@ export function ProblemPreview() {
         </div>
 
         <div className="min-w-0 overflow-hidden rounded-lg border bg-card">
-          <div className="grid grid-cols-[1.75rem_minmax(0,1fr)_4.5rem_4rem_1.5rem] items-center gap-3 border-b px-4 py-2.5 text-[13px] text-muted-foreground sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]">
-            <span className="sr-only">Status</span>
+          <div className="grid grid-cols-[1.75rem_minmax(0,1fr)_3.5rem_1.5rem] items-center gap-3 border-b px-4 py-2.5 text-[13px] text-muted-foreground sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]">
+            <span aria-hidden />
             <span>Title</span>
-            <span className="text-right">Acceptance</span>
+            <span className="text-right max-sm:hidden">Acceptance</span>
             <span>Difficulty</span>
             <span className="sr-only">Access</span>
           </div>
@@ -60,7 +60,7 @@ export function ProblemPreview() {
                   <span className={cn('truncate font-medium', !p.playable && 'text-foreground/70')}>
                     {p.number}. {p.title}
                   </span>
-                  <span className="text-right text-muted-foreground tabular-nums">
+                  <span className="text-right text-muted-foreground tabular-nums max-sm:hidden">
                     {p.acceptance == null ? 'New' : `${p.acceptance.toFixed(1)}%`}
                   </span>
                   <DifficultyText level={p.difficulty} short />
@@ -83,7 +83,7 @@ export function ProblemPreview() {
                 </>
               )
               const cls =
-                'grid grid-cols-[1.75rem_minmax(0,1fr)_4.5rem_4rem_1.5rem] items-center gap-3 rounded-md px-2.5 py-2.5 text-sm sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]'
+                'grid grid-cols-[1.75rem_minmax(0,1fr)_3.5rem_1.5rem] items-center gap-3 rounded-md px-2.5 py-2.5 text-sm sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]'
               return (
                 <li key={p.slug} className="odd:bg-surface-2/70 rounded-md">
                   {p.playable ? (

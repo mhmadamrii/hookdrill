@@ -76,7 +76,7 @@ export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
     >
       {onFilesChange && <FileWatcher paths={editable} onChange={onFilesChange} />}
       <TestRunnerProvider onComplete={onTestRunComplete}>
-        <div className="flex h-dvh flex-col bg-background">
+        <div className="flex h-dvh flex-col bg-background text-foreground">
           <TopBar
             nav={props.nav}
             actions={props.actions}

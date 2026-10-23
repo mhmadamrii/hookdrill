@@ -15,7 +15,7 @@ function register() {
 /** Decorative test-strip field: the brand's one-cell-per-test motif, scaled up. */
 function StripField() {
   const rows = 6
-  const cols = 14
+  const cols = 8
   const cells = []
   for (let r = 0; r < rows; r++) {
     for (let c = 0; c < cols; c++) {
@@ -30,7 +30,7 @@ function StripField() {
     <svg
       aria-hidden
       viewBox={`0 0 ${cols * 22} ${rows * 22}`}
-      className="pointer-events-none absolute -right-6 bottom-0 hidden h-[132px] w-auto translate-y-4 opacity-90 md:block"
+      className="pointer-events-none absolute top-1/2 right-[380px] hidden h-[132px] w-auto -translate-y-1/2 [mask-image:linear-gradient(to_right,transparent,black_45%)] xl:block"
     >
       {cells}
     </svg>

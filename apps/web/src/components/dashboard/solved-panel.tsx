@@ -33,7 +33,8 @@ export function SolvedPanel({ rows, className }: { rows: ProgressRow[]; classNam
         </Tooltip>
       }
     >
-      <div className="grid items-center gap-5 sm:grid-cols-[auto_1fr]">
+      <div className="@container">
+      <div className="grid items-center gap-5 sm:grid-cols-[auto_1fr] @4xl:grid-cols-[auto_minmax(0,1fr)_auto] @4xl:gap-8">
         <div className="flex flex-col">
           <p className="flex items-baseline gap-1 tabular-nums">
             <span className="text-4xl font-semibold tracking-tight">{s.solved}</span>
@@ -60,13 +61,14 @@ export function SolvedPanel({ rows, className }: { rows: ProgressRow[]; classNam
             </li>
           ))}
         </ul>
-      </div>
-      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 border-t pt-4 sm:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-x-4 gap-y-3 border-t pt-4 sm:col-span-2 sm:grid-cols-4 @4xl:col-span-1 @4xl:grid-cols-2 @4xl:gap-x-8 @4xl:border-t-0 @4xl:border-l @4xl:pt-0 @4xl:pl-8">
         <Stat term="Runs" value={s.runs} />
         <Stat term="Current streak" value={s.streak} unit={s.streak === 1 ? 'day' : 'days'} />
         <Stat term="Active days" value={s.activeDays} />
         <Stat term="Rating" value="Unrated" muted />
       </dl>
+      </div>
+      </div>
     </Panel>
   )
 }

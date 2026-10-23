@@ -275,7 +275,7 @@ export function Toolbar({
                 checked={!!search.playable}
                 onCheckedChange={(c) => update({ playable: c === true ? true : undefined })}
               />
-              <Label htmlFor="only-playable">Only problems you can open now</Label>
+              <Label htmlFor="only-playable">Only open problems</Label>
             </div>
           </div>
           <div className="flex justify-end border-t p-2">

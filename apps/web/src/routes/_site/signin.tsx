@@ -41,7 +41,8 @@ function SignIn() {
       <div className="mx-auto grid min-h-[calc(100dvh-3.5rem)] max-w-[1100px] items-center gap-12 px-4 py-10 md:px-6 lg:grid-cols-[1fr_420px] lg:gap-20">
         <section aria-labelledby="why-sign-in" className="order-2 lg:order-1">
           <h2 id="why-sign-in" className="max-w-md text-3xl font-bold tracking-tight text-balance sm:text-4xl">
-            Write it by hand. Let the tests decide.
+            <span className="block">Write it by hand.</span>
+            <span className="block">Let the tests decide.</span>
           </h2>
           <p className="mt-3 max-w-md text-muted-foreground">
             Practice is open without an account. Signing in keeps your work.

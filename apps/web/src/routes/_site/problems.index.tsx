@@ -22,7 +22,7 @@ export const Route = createFileRoute('/_site/problems/')({
 
 function Problems() {
   const search = Route.useSearch()
-  const navigate = useNavigate({ from: '/problems' })
+  const navigate = useNavigate({ from: Route.fullPath })
   const progress = useMyProgress()
 
   const update = (patch: Partial<ProblemsSearch>) =>

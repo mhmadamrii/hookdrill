@@ -1,6 +1,10 @@
 # HookDrill
 
-Practice platform for keeping coding fundamentals sharp: React/UI challenges ("études") you write by hand, with a live preview and tests that check your code. The architecture is in [ARCHITECTURE.md](./ARCHITECTURE.md), the visual system in [apps/web/DESIGN.md](./apps/web/DESIGN.md), and the UI reference in `apps/web/design/reference/`.
+Practice platform for keeping coding fundamentals sharp: React/UI problems you write by hand, without AI, with a live preview and hidden tests that check your code. Problems, a dashboard, contests and a leaderboard in the style of LeetCode, HackerRank and Codeforces, in light and dark mode.
+
+![HookDrill landing page in dark mode: the headline "Keep your hands on the code." beside a workspace showing the Todo List problem, its code, a live preview and an Accepted test result](./landing-page.png)
+
+The architecture is in [ARCHITECTURE.md](./ARCHITECTURE.md) and product context in [apps/web/PRODUCT.md](./apps/web/PRODUCT.md).
 
 ## Quick start
 

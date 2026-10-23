@@ -197,7 +197,8 @@ function SkillGroup({ track }: { track: Track }) {
               <div className="flex items-baseline justify-between gap-2">
                 <span className="font-medium group-hover:text-brand">{s.name}</span>
                 <span className="text-sm text-muted-foreground tabular-nums">
-                  <span className="font-semibold text-foreground">{s.total}</span> problems
+                  <span className="font-semibold text-foreground">{s.total}</span>{' '}
+                  {s.total === 1 ? 'problem' : 'problems'}
                 </span>
               </div>
               <div

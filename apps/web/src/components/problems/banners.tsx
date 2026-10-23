@@ -1,7 +1,6 @@
 import { Link } from '@tanstack/react-router'
 import { ArrowRight, CalendarClock, Route as RouteIcon, Zap } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { DifficultyText } from '@/components/difficulty'
 import { playableProblems } from '@/lib/problems'
 import { studyTracks, upcomingContests } from '@/lib/sample-data'
 
@@ -12,7 +11,7 @@ export function dailyProblem(now = Date.now()) {
 }
 
 const card =
-  'group relative isolate flex min-h-[148px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+  'group relative isolate flex min-h-[160px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
 
 function Cta({ children }: { children: ReactNode }) {
   return (
@@ -29,14 +28,14 @@ function DailyArt() {
   // A grid of test cells: the brand's signature, most of them passing.
   const pattern = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0.4, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1]
   return (
-    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-6 top-0 -z-10 h-full w-auto">
+    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-6 bottom-0 -z-10 h-[78%] w-auto">
       <circle cx="170" cy="20" r="80" fill="#ffffff" opacity="0.08" />
       <circle cx="170" cy="20" r="52" fill="#ffffff" opacity="0.07" />
       {pattern.map((v, i) => (
         <rect
           key={i}
-          x={70 + (i % 6) * 18}
-          y={64 + Math.floor(i / 6) * 18}
+          x={84 + (i % 6) * 18}
+          y={70 + Math.floor(i / 6) * 18}
           width="13"
           height="13"
           rx="3"
@@ -113,8 +112,8 @@ export function Banners() {
             <Zap className="size-3.5" /> Daily problem
           </p>
           <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{daily.title}</h3>
-          <p className="mt-1 text-sm text-white/80">
-            <DifficultyText level={daily.difficulty} className="text-[#b8ffde]" /> · {daily.tags.join(', ')}
+          <p className="mt-1 max-w-[24ch] text-sm text-white/80">
+            <span className="font-medium text-white capitalize">{daily.difficulty}</span> · {daily.tags.join(', ')}
           </p>
         </div>
         <Cta>Solve today's problem</Cta>

@@ -17,7 +17,7 @@ const TODAY = 23
 const DAYS_IN_MONTH = 31
 const FIRST_WEEKDAY = new Date(Date.UTC(YEAR, MONTH, 1)).getUTCDay()
 
-const activity = sampleActivity(TODAY, 11)
+const activity = sampleActivity(TODAY, 40)
 const done = new Set(activity.map((d, i) => (d.count > 0 ? i + 1 : 0)).filter(Boolean))
 const streak = (() => {
   let n = 0

@@ -24,7 +24,10 @@ export const Route = createRootRoute({
           'Build real React components without AI, verified by hidden tests. Problems, contests and rankings for developers who want to stay sharp.',
       },
     ],
-    links: [{ rel: 'stylesheet', href: appCss }],
+    links: [
+      { rel: 'stylesheet', href: appCss },
+      { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+    ],
   }),
   shellComponent: RootDocument,
   notFoundComponent: NotFound,

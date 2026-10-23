@@ -1,8 +1,7 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { ArrowLeft, Flame, MapPin, Trophy, UserX } from 'lucide-react'
-import { Legend } from '@/components/dashboard/activity-panel'
+import { HeatmapLayout } from '@/components/dashboard/activity-panel'
 import { Panel, SampleBadge } from '@/components/dashboard/panel'
-import { Heatmap } from '@/components/heatmap'
 import { RatingChart } from '@/components/profile/rating-chart'
 import { ratingHistory, recentContests, seedFor, solvedSplit } from '@/components/profile/sample-player'
 import { RatingName } from '@/components/rating-name'
@@ -38,6 +37,13 @@ function PublicProfile() {
   const activity = sampleActivity(365, seedFor(player.handle))
   const submissions = activity.reduce((n, d) => n + d.count, 0)
   const contests = recentContests(player, history)
+  const activeDays = activity.filter((d) => d.count > 0).length
+  let maxStreak = 0
+  activity.reduce((run, d) => {
+    const next = d.count > 0 ? run + 1 : 0
+    maxStreak = Math.max(maxStreak, next)
+    return next
+  }, 0)
 
   return (
     <>
@@ -56,11 +62,11 @@ function PublicProfile() {
           </p>
         </div>
 
-        <section className="grid gap-5 rounded-lg border bg-card p-5 md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center">
+        <section className="grid grid-cols-[auto_minmax(0,1fr)] items-center gap-x-4 gap-y-5 rounded-lg border bg-card p-5 md:grid-cols-[auto_minmax(0,1fr)_auto] md:gap-x-5">
           <span
             aria-hidden
             className={cn(
-              'grid size-20 place-items-center rounded-lg bg-surface-2 text-3xl font-semibold',
+              'grid size-14 place-items-center rounded-lg bg-surface-2 text-2xl font-semibold md:size-20 md:text-3xl',
               tier.className,
             )}
           >
@@ -86,7 +92,7 @@ function PublicProfile() {
               </span>
             </p>
           </div>
-          <dl className="grid grid-cols-2 gap-x-8 gap-y-3 border-t pt-4 sm:grid-cols-4 md:grid-cols-2 md:border-t-0 md:border-l md:pt-0 md:pl-6 xl:grid-cols-4">
+          <dl className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-3 border-t pt-4 sm:grid-cols-4 md:grid-cols-2 md:col-span-1 md:border-t-0 md:border-l md:pt-0 md:pl-6 xl:grid-cols-4">
             <HeaderStat term="Rating" value={player.rating} className={tier.className} />
             <HeaderStat term="Peak" value={peak} className={peakTier.className} />
             <HeaderStat term="Contests" value={player.contests} />
@@ -115,10 +121,13 @@ function PublicProfile() {
           }
           sample
         >
-          <Heatmap days={activity} className="pb-1" />
-          <div className="mt-3 flex justify-end text-xs text-muted-foreground">
-            <Legend />
-          </div>
+          <HeatmapLayout
+            days={activity}
+            facts={[
+              ['Active days', activeDays],
+              ['Max streak', `${maxStreak} days`],
+            ]}
+          />
         </Panel>
 
         <Panel title="Recent contests" sample bodyClassName="px-0 pb-1">
