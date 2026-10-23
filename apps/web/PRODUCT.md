@@ -38,14 +38,18 @@ Two things combined, and a neighbouring product would not truthfully claim both:
 - Challenges are **data**: each one lives in its own folder in `packages/challenges` with metadata, a markdown description, hints, starter code, a solution, and tests. Adding one never changes UI code.
 - **Selectors are a contract.** Each challenge publishes the `data-testid` values its tests use, and the description must list them.
 - In-browser execution and preview use Sandpack. Sandpack is used only inside `src/features/challenge-workspace`.
-- **Built:** challenge list, challenge workspace (Todo List, Playlist Builder), public tests in the browser.
+- **Built:** challenge list, challenge workspace (Todo List, Playlist Builder), public tests in the browser, accounts (Better Auth), saved drafts, and a personal progress record (tRPC API on Hono, Postgres via Drizzle).
 - **Planned** (`ARCHITECTURE.md`): accounts, saved drafts, server-graded submissions, leaderboards, profiles and streaks, DSA challenges.
 - **Terminology:** challenge, track (react, dsa), difficulty (easy, medium, hard), hint, starter, public tests, grading tests, submission, verdict (accepted, failed, error, timeout), solve, points, streak.
 - **Undecided:** the timing of the public leaderboard relative to launch (phase 1 vs phase 2), monetisation, and DSA languages.
 
 ## Brand Commitments
 
-Name: **HookDrill**. No logo, palette, typography, or voice is committed yet.
+Name: **HookDrill**.
+
+Standing preference (user, 2026-10-23): HookDrill should look and feel like the category standard. LeetCode, HackerRank and Codeforces set the bar for craft and convention: dense problem tables, a split coding workspace, dashboards, contests and rankings. It must ship **light and dark mode**. The earlier "Étude Edition" world was rejected as old-fashioned and boring; do not bring it back.
+
+The user explicitly allows sample content (problems, contests, players, scores) to fill the product while the catalogue is small. Label it as sample wherever a visitor could take it for real.
 
 ## Evidence on Hand
 

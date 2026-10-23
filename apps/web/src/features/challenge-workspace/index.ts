@@ -3,5 +3,6 @@
 export { ChallengeWorkspace } from './ChallengeWorkspace'
 export type {
   ChallengeWorkspaceProps,
+  ProblemRecord,
   TestRunResult,
 } from './ChallengeWorkspace'

@@ -1,0 +1,164 @@
+import { Link } from '@tanstack/react-router'
+import { ArrowRight, CalendarClock, Route as RouteIcon, Zap } from 'lucide-react'
+import type { ReactNode } from 'react'
+import { DifficultyText } from '@/components/difficulty'
+import { playableProblems } from '@/lib/problems'
+import { studyTracks, upcomingContests } from '@/lib/sample-data'
+
+/** Rotates through the playable problems by UTC day, so it is stable across SSR and hydration. */
+export function dailyProblem(now = Date.now()) {
+  const day = Math.floor(now / 86_400_000)
+  return playableProblems[day % playableProblems.length]
+}
+
+const card =
+  'group relative isolate flex min-h-[148px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
+
+function Cta({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex h-8 w-fit items-center gap-1.5 rounded-full bg-white/95 px-3 text-xs font-semibold text-[#14172b] transition-colors group-hover:bg-white">
+      {children}
+      <ArrowRight className="size-3.5 transition-transform duration-300 ease-out group-hover:translate-x-0.5" />
+    </span>
+  )
+}
+
+/* Decorative fills are fixed hex values, deliberately the same in both themes. */
+
+function DailyArt() {
+  // A grid of test cells: the brand's signature, most of them passing.
+  const pattern = [1, 1, 1, 0, 1, 1, 1, 1, 1, 0.4, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.4, 1, 1, 1]
+  return (
+    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-6 top-0 -z-10 h-full w-auto">
+      <circle cx="170" cy="20" r="80" fill="#ffffff" opacity="0.08" />
+      <circle cx="170" cy="20" r="52" fill="#ffffff" opacity="0.07" />
+      {pattern.map((v, i) => (
+        <rect
+          key={i}
+          x={70 + (i % 6) * 18}
+          y={64 + Math.floor(i / 6) * 18}
+          width="13"
+          height="13"
+          rx="3"
+          fill={v === 0 ? '#ff8aa3' : '#b8ffde'}
+          opacity={v === 0 ? 0.85 : 0.22 + (v === 1 ? (i % 5) * 0.09 : 0)}
+        />
+      ))}
+    </svg>
+  )
+}
+
+function TrackArt() {
+  // Ascending steps along a path: progress through a plan.
+  return (
+    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-4 top-0 -z-10 h-full w-auto">
+      <path d="M40 140 C 90 135, 110 90, 150 70 S 200 20, 220 10" stroke="#ffffff" strokeOpacity="0.25" strokeWidth="2" strokeDasharray="4 6" fill="none" />
+      {[0, 1, 2, 3].map((i) => (
+        <rect key={i} x={84 + i * 28} y={112 - i * 26} width="22" height={38 + i * 26} rx="5" fill="#ffffff" opacity={0.1 + i * 0.05} />
+      ))}
+      <circle cx="176" cy="22" r="7" fill="#ffd36b" />
+      <circle cx="176" cy="22" r="14" fill="#ffd36b" opacity="0.25" />
+    </svg>
+  )
+}
+
+function ContestArt() {
+  // A countdown dial.
+  return (
+    <svg aria-hidden viewBox="0 0 200 150" className="absolute -right-10 top-0 -z-10 h-full w-auto">
+      <circle cx="150" cy="78" r="62" fill="none" stroke="#ffffff" strokeOpacity="0.12" strokeWidth="14" />
+      <circle
+        cx="150"
+        cy="78"
+        r="62"
+        fill="none"
+        stroke="#ffc9d6"
+        strokeOpacity="0.7"
+        strokeWidth="14"
+        strokeDasharray="120 400"
+        strokeLinecap="round"
+        transform="rotate(-90 150 78)"
+      />
+      <circle cx="150" cy="78" r="34" fill="#ffffff" opacity="0.08" />
+      <path d="M150 78 L150 56 M150 78 L166 86" stroke="#ffffff" strokeOpacity="0.6" strokeWidth="4" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+const contestDate = new Intl.DateTimeFormat('en-US', {
+  weekday: 'short',
+  month: 'short',
+  day: 'numeric',
+  hour: '2-digit',
+  minute: '2-digit',
+  hourCycle: 'h23',
+  timeZone: 'UTC',
+})
+
+export function Banners() {
+  const daily = dailyProblem()
+  const track = studyTracks[0]
+  const contest = upcomingContests[0]
+  return (
+    <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+      <Link
+        to="/problems/$slug"
+        params={{ slug: daily.slug }}
+        className={card}
+        style={{ background: 'linear-gradient(135deg, #3340c9 0%, #5363f5 100%)' }}
+      >
+        <DailyArt />
+        <div>
+          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
+            <Zap className="size-3.5" /> Daily problem
+          </p>
+          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{daily.title}</h3>
+          <p className="mt-1 text-sm text-white/80">
+            <DifficultyText level={daily.difficulty} className="text-[#b8ffde]" /> · {daily.tags.join(', ')}
+          </p>
+        </div>
+        <Cta>Solve today's problem</Cta>
+      </Link>
+
+      <Link
+        to="/explore"
+        hash="tracks"
+        className={card}
+        style={{ background: 'linear-gradient(135deg, #064f48 0%, #0b7f70 100%)' }}
+      >
+        <TrackArt />
+        <div>
+          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
+            <RouteIcon className="size-3.5" /> Study plan
+          </p>
+          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{track.title}</h3>
+          <p className="mt-1 max-w-[22ch] text-sm text-white/80">
+            {track.problems} problems · {track.level}
+          </p>
+        </div>
+        <Cta>Start the plan</Cta>
+      </Link>
+
+      <Link
+        to="/contests"
+        className={`${card} sm:col-span-2 xl:col-span-1`}
+        style={{ background: 'linear-gradient(135deg, #5a1630 0%, #a62a50 100%)' }}
+      >
+        <ContestArt />
+        <div>
+          <p className="flex items-center gap-1.5 text-xs font-medium text-white/80">
+            <CalendarClock className="size-3.5" /> Next contest
+            <span className="ml-auto rounded-full bg-white/15 px-2 py-0.5 text-[11px] font-medium text-white/90">
+              Sample
+            </span>
+          </p>
+          <h3 className="mt-1.5 text-xl font-semibold tracking-tight">{contest.name}</h3>
+          <p className="mt-1 text-sm text-white/80">
+            {contestDate.format(new Date(contest.startsAt))} UTC · {contest.durationMin} min
+          </p>
+        </div>
+        <Cta>See contest details</Cta>
+      </Link>
+    </div>
+  )
+}

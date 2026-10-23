@@ -9,20 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as MeRouteImport } from './routes/me'
+import { Route as SiteRouteImport } from './routes/_site'
 import { Route as PlaygroundRouteImport } from './routes/playground'
-import { Route as SigninRouteImport } from './routes/signin'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteContestsRouteImport } from './routes/_site/contests'
+import { Route as SiteDashboardRouteImport } from './routes/_site/dashboard'
+import { Route as SiteExploreRouteImport } from './routes/_site/explore'
+import { Route as SiteLeaderboardRouteImport } from './routes/_site/leaderboard'
+import { Route as SiteProfileRouteImport } from './routes/_site/profile'
+import { Route as SiteSigninRouteImport } from './routes/_site/signin'
 import { Route as ChallengesSlugRouteImport } from './routes/challenges.$slug'
+import { Route as ProblemsSlugRouteImport } from './routes/problems.$slug'
+import { Route as SiteProblemsIndexRouteImport } from './routes/_site/problems.index'
+import { Route as SiteUHandleRouteImport } from './routes/_site/u.$handle'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeRoute = MeRouteImport.update({
-  id: '/me',
-  path: '/me',
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlaygroundRoute = PlaygroundRouteImport.update({
@@ -30,69 +32,166 @@ const PlaygroundRoute = PlaygroundRouteImport.update({
   path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SigninRoute = SigninRouteImport.update({
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteContestsRoute = SiteContestsRouteImport.update({
+  id: '/contests',
+  path: '/contests',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteDashboardRoute = SiteDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteExploreRoute = SiteExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteLeaderboardRoute = SiteLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProfileRoute = SiteProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteSigninRoute = SiteSigninRouteImport.update({
   id: '/signin',
   path: '/signin',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => SiteRoute,
 } as any)
 const ChallengesSlugRoute = ChallengesSlugRouteImport.update({
   id: '/challenges/$slug',
   path: '/challenges/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProblemsSlugRoute = ProblemsSlugRouteImport.update({
+  id: '/problems/$slug',
+  path: '/problems/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteProblemsIndexRoute = SiteProblemsIndexRouteImport.update({
+  id: '/problems/',
+  path: '/problems/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteUHandleRoute = SiteUHandleRouteImport.update({
+  id: '/u/$handle',
+  path: '/u/$handle',
+  getParentRoute: () => SiteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/me': typeof MeRoute
+  '/': typeof SiteIndexRoute
   '/playground': typeof PlaygroundRoute
-  '/signin': typeof SigninRoute
+  '/contests': typeof SiteContestsRoute
+  '/dashboard': typeof SiteDashboardRoute
+  '/explore': typeof SiteExploreRoute
+  '/leaderboard': typeof SiteLeaderboardRoute
+  '/profile': typeof SiteProfileRoute
+  '/signin': typeof SiteSigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
+  '/problems/$slug': typeof ProblemsSlugRoute
+  '/u/$handle': typeof SiteUHandleRoute
+  '/problems/': typeof SiteProblemsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/me': typeof MeRoute
   '/playground': typeof PlaygroundRoute
-  '/signin': typeof SigninRoute
+  '/contests': typeof SiteContestsRoute
+  '/dashboard': typeof SiteDashboardRoute
+  '/explore': typeof SiteExploreRoute
+  '/leaderboard': typeof SiteLeaderboardRoute
+  '/profile': typeof SiteProfileRoute
+  '/signin': typeof SiteSigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
+  '/problems/$slug': typeof ProblemsSlugRoute
+  '/': typeof SiteIndexRoute
+  '/u/$handle': typeof SiteUHandleRoute
+  '/problems': typeof SiteProblemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/me': typeof MeRoute
+  '/_site': typeof SiteRouteWithChildren
   '/playground': typeof PlaygroundRoute
-  '/signin': typeof SigninRoute
+  '/_site/contests': typeof SiteContestsRoute
+  '/_site/dashboard': typeof SiteDashboardRoute
+  '/_site/explore': typeof SiteExploreRoute
+  '/_site/leaderboard': typeof SiteLeaderboardRoute
+  '/_site/profile': typeof SiteProfileRoute
+  '/_site/signin': typeof SiteSigninRoute
   '/challenges/$slug': typeof ChallengesSlugRoute
+  '/problems/$slug': typeof ProblemsSlugRoute
+  '/_site/': typeof SiteIndexRoute
+  '/_site/u/$handle': typeof SiteUHandleRoute
+  '/_site/problems/': typeof SiteProblemsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
+  fullPaths:
+    | '/'
+    | '/playground'
+    | '/contests'
+    | '/dashboard'
+    | '/explore'
+    | '/leaderboard'
+    | '/profile'
+    | '/signin'
+    | '/challenges/$slug'
+    | '/problems/$slug'
+    | '/u/$handle'
+    | '/problems/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
-  id: '__root__' | '/' | '/me' | '/playground' | '/signin' | '/challenges/$slug'
+  to:
+    | '/playground'
+    | '/contests'
+    | '/dashboard'
+    | '/explore'
+    | '/leaderboard'
+    | '/profile'
+    | '/signin'
+    | '/challenges/$slug'
+    | '/problems/$slug'
+    | '/'
+    | '/u/$handle'
+    | '/problems'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/playground'
+    | '/_site/contests'
+    | '/_site/dashboard'
+    | '/_site/explore'
+    | '/_site/leaderboard'
+    | '/_site/profile'
+    | '/_site/signin'
+    | '/challenges/$slug'
+    | '/problems/$slug'
+    | '/_site/'
+    | '/_site/u/$handle'
+    | '/_site/problems/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  MeRoute: typeof MeRoute
+  SiteRoute: typeof SiteRouteWithChildren
   PlaygroundRoute: typeof PlaygroundRoute
-  SigninRoute: typeof SigninRoute
   ChallengesSlugRoute: typeof ChallengesSlugRoute
+  ProblemsSlugRoute: typeof ProblemsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
+    '/_site': {
+      id: '/_site'
+      path: ''
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/me': {
-      id: '/me'
-      path: '/me'
-      fullPath: '/me'
-      preLoaderRoute: typeof MeRouteImport
+      preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/playground': {
@@ -102,12 +201,54 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/signin': {
-      id: '/signin'
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/contests': {
+      id: '/_site/contests'
+      path: '/contests'
+      fullPath: '/contests'
+      preLoaderRoute: typeof SiteContestsRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/dashboard': {
+      id: '/_site/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof SiteDashboardRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/explore': {
+      id: '/_site/explore'
+      path: '/explore'
+      fullPath: '/explore'
+      preLoaderRoute: typeof SiteExploreRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/leaderboard': {
+      id: '/_site/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof SiteLeaderboardRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/profile': {
+      id: '/_site/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof SiteProfileRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/signin': {
+      id: '/_site/signin'
       path: '/signin'
       fullPath: '/signin'
-      preLoaderRoute: typeof SigninRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SiteSigninRouteImport
+      parentRoute: typeof SiteRoute
     }
     '/challenges/$slug': {
       id: '/challenges/$slug'
@@ -116,15 +257,61 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChallengesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/problems/$slug': {
+      id: '/problems/$slug'
+      path: '/problems/$slug'
+      fullPath: '/problems/$slug'
+      preLoaderRoute: typeof ProblemsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/problems/': {
+      id: '/_site/problems/'
+      path: '/problems'
+      fullPath: '/problems/'
+      preLoaderRoute: typeof SiteProblemsIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/u/$handle': {
+      id: '/_site/u/$handle'
+      path: '/u/$handle'
+      fullPath: '/u/$handle'
+      preLoaderRoute: typeof SiteUHandleRouteImport
+      parentRoute: typeof SiteRoute
+    }
   }
 }
 
+interface SiteRouteChildren {
+  SiteContestsRoute: typeof SiteContestsRoute
+  SiteDashboardRoute: typeof SiteDashboardRoute
+  SiteExploreRoute: typeof SiteExploreRoute
+  SiteLeaderboardRoute: typeof SiteLeaderboardRoute
+  SiteProfileRoute: typeof SiteProfileRoute
+  SiteSigninRoute: typeof SiteSigninRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+  SiteUHandleRoute: typeof SiteUHandleRoute
+  SiteProblemsIndexRoute: typeof SiteProblemsIndexRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteContestsRoute: SiteContestsRoute,
+  SiteDashboardRoute: SiteDashboardRoute,
+  SiteExploreRoute: SiteExploreRoute,
+  SiteLeaderboardRoute: SiteLeaderboardRoute,
+  SiteProfileRoute: SiteProfileRoute,
+  SiteSigninRoute: SiteSigninRoute,
+  SiteIndexRoute: SiteIndexRoute,
+  SiteUHandleRoute: SiteUHandleRoute,
+  SiteProblemsIndexRoute: SiteProblemsIndexRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  MeRoute: MeRoute,
+  SiteRoute: SiteRouteWithChildren,
   PlaygroundRoute: PlaygroundRoute,
-  SigninRoute: SigninRoute,
   ChallengesSlugRoute: ChallengesSlugRoute,
+  ProblemsSlugRoute: ProblemsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

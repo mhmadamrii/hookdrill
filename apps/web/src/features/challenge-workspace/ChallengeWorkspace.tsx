@@ -1,20 +1,41 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   SandpackCodeEditor,
   SandpackProvider,
   useSandpack,
 } from '@codesandbox/sandpack-react'
 import type { SandpackFiles } from '@codesandbox/sandpack-react'
+import { CloudUpload, Code2, Loader2, Play, RotateCcw, Sparkles } from 'lucide-react'
 import { getSolutionFiles } from '@hookdrill/challenges'
 import type { Challenge, FileMap } from '@hookdrill/challenges'
-import { PreviewPane } from './PreviewPane'
-import { ProblemPanel } from './ProblemPanel'
-import { TestResults, type TestRunResult } from './TestResults'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { ConsolePanel, type ConsoleTab } from './ConsolePanel'
+import { editorTheme } from './editor-theme'
+import { Panel, PanelTabs } from './panel'
+import { ProblemPanel, type ProblemRecord } from './ProblemPanel'
+import { TestRunnerProvider, useRunner, type RunMode, type TestRunResult } from './test-runner'
 
-export type { TestRunResult }
+export type { ProblemRecord, TestRunResult }
 
 export interface ChallengeWorkspaceProps {
   challenge: Challenge
+  /** Display number in the problem list. */
+  number: number
+  tags: string[]
+  record: ProblemRecord | null
+  signedIn: boolean
   /** Saved code; paths the challenge doesn't have are ignored. */
   initialFiles?: FileMap
   initialHintsRevealed?: number
@@ -22,19 +43,16 @@ export interface ChallengeWorkspaceProps {
   onFilesChange?: (files: FileMap) => void
   onTestRunComplete?: (result: TestRunResult) => void
   onHintReveal?: (count: number) => void
-  /** Short status shown in the toolbar, e.g. draft save state. */
+  /** Short status under the editor, e.g. draft save state. */
   status?: React.ReactNode
+  /** Left side of the top bar (problem list navigation). */
+  nav?: React.ReactNode
+  /** Right side of the top bar (theme, account). */
+  actions?: React.ReactNode
 }
 
-export function ChallengeWorkspace({
-  challenge,
-  initialFiles,
-  initialHintsRevealed,
-  onFilesChange,
-  onTestRunComplete,
-  onHintReveal,
-  status,
-}: ChallengeWorkspaceProps) {
+export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
+  const { challenge, initialFiles, onFilesChange, onTestRunComplete } = props
   const editable = Object.keys(challenge.starterFiles)
   // SandpackProvider resets every file whenever `files` or `customSetup` changes
   // by reference, so both must stay stable across re-renders.
@@ -46,71 +64,263 @@ export function ChallengeWorkspace({
     () => ({ dependencies: challenge.dependencies }),
     [challenge],
   )
+  const [consoleTab, setConsoleTab] = useState<ConsoleTab>('preview')
 
   return (
     <SandpackProvider
       template="react"
+      theme={editorTheme}
       files={files}
       customSetup={customSetup}
       options={{ visibleFiles: editable, activeFile: editable[0] }}
     >
-      {onFilesChange && (
-        <FileWatcher paths={editable} onChange={onFilesChange} />
-      )}
-      <div className="grid h-[calc(100vh-56px)] grid-cols-1 lg:grid-cols-[minmax(320px,2fr)_3fr]">
-        <ProblemPanel
-          challenge={challenge}
-          hintsRevealed={initialHintsRevealed}
-          onHintReveal={onHintReveal}
-        />
-        <section className="flex min-h-0 flex-col gap-3 overflow-y-auto border-l border-zinc-200 p-3">
-          <Toolbar challenge={challenge} status={status} />
-          <div className="overflow-hidden rounded-lg border border-zinc-200">
-            <SandpackCodeEditor showLineNumbers style={{ height: '42vh' }} />
-          </div>
-          <PreviewPane />
-          <TestResults onComplete={onTestRunComplete} />
-        </section>
-      </div>
+      {onFilesChange && <FileWatcher paths={editable} onChange={onFilesChange} />}
+      <TestRunnerProvider onComplete={onTestRunComplete}>
+        <div className="flex h-dvh flex-col bg-background">
+          <TopBar
+            nav={props.nav}
+            actions={props.actions}
+            onRun={() => setConsoleTab('result')}
+          />
+          <Layout
+            {...props}
+            consoleTab={consoleTab}
+            onConsoleTab={setConsoleTab}
+          />
+        </div>
+      </TestRunnerProvider>
     </SandpackProvider>
   )
 }
 
-function Toolbar({
-  challenge,
-  status,
+function TopBar({
+  nav,
+  actions,
+  onRun,
 }: {
-  challenge: Challenge
-  status?: React.ReactNode
+  nav?: React.ReactNode
+  actions?: React.ReactNode
+  onRun: () => void
 }) {
-  const { sandpack } = useSandpack()
+  const { status, run } = useRunner()
+  const busy = status === 'loading' || status === 'running'
+  const start = (mode: RunMode) => {
+    if (busy) return
+    onRun()
+    run(mode)
+  }
+  const startRef = useRef(start)
+  startRef.current = start
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (!(e.metaKey || e.ctrlKey)) return
+      if (e.key === "'") {
+        e.preventDefault()
+        startRef.current('run')
+      } else if (e.key === 'Enter') {
+        e.preventDefault()
+        startRef.current('submit')
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   return (
-    <div className="flex gap-2 text-sm">
-      <button
-        className="rounded border border-zinc-300 bg-white px-3 py-1 hover:bg-zinc-100"
-        onClick={() => sandpack.updateFile(challenge.starterFiles)}
-      >
-        Reset code
-      </button>
-      {import.meta.env.DEV && (
-        <button
-          className="rounded border border-dashed border-zinc-400 px-3 py-1 text-zinc-600 hover:bg-zinc-100"
-          onClick={async () => {
-            const files = await getSolutionFiles(challenge.slug)
-            if (files) sandpack.updateFile(files)
-          }}
-        >
-          Load reference solution (dev only)
-        </button>
-      )}
-      {status && (
-        <span className="ml-auto self-center text-xs text-muted-foreground">
-          {status}
-        </span>
-      )}
-    </div>
+    <header className="grid h-12 shrink-0 grid-cols-[1fr_auto_1fr] items-center gap-2 px-2 md:px-3">
+      <div className="flex min-w-0 items-center gap-1">{nav}</div>
+      <div className="flex items-center gap-1 rounded-lg bg-card p-1 shadow-xs ring-1 ring-border">
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button variant="ghost" size="sm" disabled={busy} onClick={() => start('run')}>
+              {status === 'running' ? <Loader2 className="animate-spin" /> : <Play className="fill-current" />}
+              Run
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>Run public tests · Ctrl/⌘ + '</TooltipContent>
+        </Tooltip>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="sm"
+              disabled={busy}
+              onClick={() => start('submit')}
+              className="bg-accepted text-white hover:bg-accepted/90"
+            >
+              <CloudUpload /> Submit
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            {status === 'loading' ? 'Starting the test runner…' : 'Submit · Ctrl/⌘ + Enter'}
+          </TooltipContent>
+        </Tooltip>
+      </div>
+      <div className="flex items-center justify-end gap-1">{actions}</div>
+    </header>
   )
+}
+
+function Layout(
+  props: ChallengeWorkspaceProps & {
+    consoleTab: ConsoleTab
+    onConsoleTab: (tab: ConsoleTab) => void
+  },
+) {
+  const mobile = useIsMobile()
+  const problem = (
+    <Panel>
+      <ProblemPanel
+        challenge={props.challenge}
+        number={props.number}
+        tags={props.tags}
+        record={props.record}
+        signedIn={props.signedIn}
+        hintsRevealed={props.initialHintsRevealed}
+        onHintReveal={props.onHintReveal}
+      />
+    </Panel>
+  )
+  const code = <CodePanel challenge={props.challenge} status={props.status} />
+  const consolePanel = <ConsolePanel tab={props.consoleTab} onTabChange={props.onConsoleTab} />
+
+  if (mobile) {
+    return (
+      <Tabs defaultValue="problem" className="flex min-h-0 flex-1 flex-col gap-2 px-2 pb-2">
+        <TabsList className="w-full">
+          <TabsTrigger value="problem">Problem</TabsTrigger>
+          <TabsTrigger value="code">Code</TabsTrigger>
+          <TabsTrigger value="console">Preview & tests</TabsTrigger>
+        </TabsList>
+        <TabsContent value="problem" className="min-h-0 flex-1">{problem}</TabsContent>
+        <TabsContent value="code" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">{code}</TabsContent>
+        <TabsContent value="console" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">{consolePanel}</TabsContent>
+      </Tabs>
+    )
+  }
+
+  return (
+    <ResizablePanelGroup orientation="horizontal" className="min-h-0 flex-1 px-2 pb-2">
+      <ResizablePanel defaultSize="42" minSize="25">
+        {problem}
+      </ResizablePanel>
+      <Gutter />
+      <ResizablePanel defaultSize="58" minSize="30">
+        <ResizablePanelGroup orientation="vertical">
+          <ResizablePanel defaultSize="58" minSize="20">
+            {code}
+          </ResizablePanel>
+          <Gutter />
+          <ResizablePanel defaultSize="42" minSize="15">
+            {consolePanel}
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </ResizablePanel>
+    </ResizablePanelGroup>
+  )
+}
+
+/** An 8px transparent gap that is the resize handle, with a hover line. */
+function Gutter() {
+  return (
+    <ResizableHandle className="bg-transparent p-1 transition-colors after:hidden hover:bg-primary/40 data-[separator=active]:bg-primary/60 aria-[orientation=horizontal]:h-2 aria-[orientation=vertical]:w-2" />
+  )
+}
+
+function CodePanel({ challenge, status }: { challenge: Challenge; status?: React.ReactNode }) {
+  const { sandpack } = useSandpack()
+  const [confirmReset, setConfirmReset] = useState(false)
+
+  return (
+    <Panel>
+      <PanelTabs className="justify-between">
+        <span className="flex items-center gap-1.5 px-2 font-medium">
+          <Code2 className="size-4 text-accepted" /> Code
+          <span className="ml-2 rounded bg-secondary px-1.5 py-0.5 text-xs font-normal text-muted-foreground">
+            React · JSX
+          </span>
+        </span>
+        <span className="flex items-center gap-0.5">
+          {import.meta.env.DEV && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="icon-sm"
+                  aria-label="Load reference solution (development only)"
+                  onClick={async () => {
+                    const solution = await getSolutionFiles(challenge.slug)
+                    if (solution) sandpack.updateFile(solution)
+                  }}
+                >
+                  <Sparkles />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>Load reference solution (dev only)</TooltipContent>
+            </Tooltip>
+          )}
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button variant="ghost" size="icon-sm" aria-label="Reset to starter code" onClick={() => setConfirmReset(true)}>
+                <RotateCcw />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>Reset to starter code</TooltipContent>
+          </Tooltip>
+        </span>
+      </PanelTabs>
+      <div className="min-h-0 flex-1 [&_.sp-wrapper]:h-full [&_.sp-stack]:h-full">
+        <SandpackCodeEditor
+          showTabs
+          showLineNumbers
+          showInlineErrors
+          wrapContent={false}
+          style={{ height: '100%' }}
+        />
+      </div>
+      <div className="flex h-7 shrink-0 items-center justify-between border-t px-3 text-xs text-muted-foreground">
+        <span>{status ?? 'Not saved'}</span>
+        <span>No autocomplete. That's the point.</span>
+      </div>
+
+      <Dialog open={confirmReset} onOpenChange={setConfirmReset}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Reset to starter code?</DialogTitle>
+            <DialogDescription>
+              Your current code in every file of this problem is replaced with the starter. This can't be undone.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Keep my code</Button>
+            </DialogClose>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                sandpack.updateFile(challenge.starterFiles)
+                setConfirmReset(false)
+              }}
+            >
+              Reset code
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </Panel>
+  )
+}
+
+function useIsMobile() {
+  const [mobile, setMobile] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const update = () => setMobile(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+  return mobile
 }
 
 /** Reports the editable files whenever their code changes, skipping the initial load. */

@@ -16,10 +16,7 @@ export function PreviewPane() {
     const clientId = ref.current?.clientId
     if (!clientId) return
     return listen((msg) => {
-      if (
-        msg.type === 'start' ||
-        (msg.type === 'done' && !msg.compilatonError)
-      ) {
+      if (msg.type === 'start' || (msg.type === 'done' && !msg.compilatonError)) {
         setError(null)
       } else if (msg.type === 'action' && msg.action === 'show-error') {
         setError(`${msg.title}\n${msg.message}`)
@@ -29,15 +26,16 @@ export function PreviewPane() {
   }, [])
 
   return (
-    <div className="relative overflow-hidden rounded-lg border border-zinc-200 bg-white">
+    <div className="relative h-full bg-white">
       <SandpackPreview
         ref={ref}
         showOpenInCodeSandbox={false}
         showSandpackErrorOverlay={false}
-        style={{ height: '28vh' }}
+        showRefreshButton
+        style={{ height: '100%' }}
       />
       {error && (
-        <pre className="absolute inset-0 overflow-auto whitespace-pre-wrap bg-rose-50 p-3 text-xs text-rose-800">
+        <pre className="absolute inset-0 overflow-auto bg-card p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-wrong">
           {error}
         </pre>
       )}
