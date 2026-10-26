@@ -7,14 +7,8 @@ import {
   Zap,
 } from 'lucide-react'
 import type { ReactNode } from 'react'
-import { playableProblems } from '@/lib/problems'
+import { useDailyProblem } from '@/lib/daily'
 import { studyTracks, upcomingContests } from '@/lib/sample-data'
-
-/** Rotates through the playable problems by UTC day, so it is stable across SSR and hydration. */
-export function dailyProblem(now = Date.now()) {
-  const day = Math.floor(now / 86_400_000)
-  return playableProblems[day % playableProblems.length]
-}
 
 const card =
   'group relative isolate flex min-h-[160px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
@@ -145,32 +139,43 @@ const contestDate = new Intl.DateTimeFormat('en-US', {
 })
 
 export function Banners() {
-  const daily = dailyProblem()
+  const { daily } = useDailyProblem()
   const track = studyTracks[0]
   const contest = upcomingContests[0]
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
-      <Link
-        to="/problems/$slug"
-        params={{ slug: daily.slug }}
-        className={cn(card, 'bg-banner-daily')}
-      >
-        <DailyArt />
-        <div>
-          <h3 className="text-xl font-semibold tracking-tight">
-            {daily.title}
-          </h3>
-          <p className="mt-1.5 flex max-w-[26ch] flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
-            <Chip>
-              <Zap className="size-3" /> Daily problem
-            </Chip>
-            <span className="font-medium text-white capitalize">
-              {daily.difficulty}
-            </span>
-          </p>
+      {daily ? (
+        <Link
+          to="/problems/$slug"
+          params={{ slug: daily.slug }}
+          className={cn(card, 'bg-banner-daily')}
+        >
+          <DailyArt />
+          <div>
+            <h3 className="text-xl font-semibold tracking-tight">
+              {daily.title}
+            </h3>
+            <p className="mt-1.5 flex max-w-[26ch] flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
+              <Chip>
+                <Zap className="size-3" /> Daily problem
+              </Chip>
+              <span className="font-medium text-white capitalize">
+                {daily.difficulty}
+              </span>
+            </p>
+          </div>
+          <Cta>Solve today's problem</Cta>
+        </Link>
+      ) : (
+        <div aria-busy className={cn(card, 'bg-banner-daily')}>
+          <DailyArt />
+          <div>
+            <span className="block h-7 w-44 rounded-md bg-white/20" />
+            <span className="mt-2 block h-5 w-32 rounded-full bg-white/15" />
+          </div>
+          <span className="block h-8 w-40 rounded-full bg-white/20" />
         </div>
-        <Cta>Solve today's problem</Cta>
-      </Link>
+      )}
 
       <Link to="/explore" hash="tracks" className={cn(card, 'bg-banner-plan')}>
         <TrackArt />

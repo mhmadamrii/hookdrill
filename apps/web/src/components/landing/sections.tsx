@@ -317,7 +317,6 @@ export function Arena() {
                 <tr>
                   <th className="w-12 py-2.5 pl-5 font-normal">#</th>
                   <th className="py-2.5 font-normal">Handle</th>
-                  <th className="py-2.5 font-normal max-sm:hidden">Country</th>
                   <th className="py-2.5 text-right font-normal max-sm:hidden">
                     Solved
                   </th>
@@ -332,9 +331,6 @@ export function Arena() {
                     </td>
                     <td className="py-3">
                       <RatingName handle={p.handle} rating={p.rating} />
-                    </td>
-                    <td className="py-3 text-muted-foreground max-sm:hidden">
-                      {p.country}
                     </td>
                     <td className="py-3 text-right tabular-nums max-sm:hidden">
                       {p.solved}

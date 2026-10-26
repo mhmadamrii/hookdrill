@@ -1,10 +1,13 @@
 import {
+  date,
+  index,
   integer,
   jsonb,
   pgTable,
   primaryKey,
   text,
   timestamp,
+  unique,
 } from 'drizzle-orm/pg-core'
 import { user } from './auth'
 
@@ -63,4 +66,74 @@ export const progress = pgTable(
       .defaultNow(),
   },
   (t) => [primaryKey({ columns: [t.userId, t.challengeId] })],
+)
+
+/** Running totals per user. Rating stays 0 until server grading ships. */
+export const userStats = pgTable(
+  'user_stats',
+  {
+    userId: text('user_id')
+      .primaryKey()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    rating: integer('rating').notNull().default(0),
+    fame: integer('fame').notNull().default(0),
+    currentStreak: integer('current_streak').notNull().default(0),
+    bestStreak: integer('best_streak').notNull().default(0),
+    /** UTC date of the latest check-in, `YYYY-MM-DD`. */
+    lastCheckinDay: date('last_checkin_day'),
+    lastRatingAt: timestamp('last_rating_at', { withTimezone: true }),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index().on(t.fame.desc())],
+)
+
+/** One problem per UTC day, the same for everyone. Scheduled, or filled on first request. */
+export const dailyProblems = pgTable('daily_problems', {
+  day: date('day').primaryKey(),
+  challengeId: text('challenge_id')
+    .notNull()
+    .references(() => challenges.id, { onDelete: 'cascade' }),
+  createdAt: timestamp('created_at', { withTimezone: true })
+    .notNull()
+    .defaultNow(),
+})
+
+export const checkins = pgTable(
+  'checkins',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    day: date('day').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.day] })],
+)
+
+/**
+ * Append-only fame ledger; user_stats.fame is its running total. The unique
+ * key makes every award idempotent. `ref` names the source (e.g. a contest id).
+ */
+export const fameEvents = pgTable(
+  'fame_events',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    kind: text('kind', {
+      enum: ['checkin', 'daily_solve', 'contest'],
+    }).notNull(),
+    day: date('day').notNull(),
+    amount: integer('amount').notNull(),
+    ref: text('ref').notNull().default(''),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [unique().on(t.userId, t.kind, t.day, t.ref), index().on(t.day)],
 )

@@ -21,15 +21,3 @@ export function SampleNote({
     </span>
   )
 }
-
-/** ISO country code in a small pill. */
-export function CountryPill({ code }: { code: string }) {
-  return (
-    <span
-      title={code}
-      className="inline-flex h-5 min-w-8 items-center justify-center rounded border bg-surface-2 px-1.5 text-2xs font-semibold tracking-wide text-muted-foreground"
-    >
-      {code}
-    </span>
-  )
-}

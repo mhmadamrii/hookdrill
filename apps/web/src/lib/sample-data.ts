@@ -28,7 +28,6 @@ export function tierFor(rating: number) {
 export interface Player {
   rank: number
   handle: string
-  country: string
   rating: number
   solved: number
   contests: number
@@ -67,43 +66,9 @@ const handles = [
   'hana',
   'omar.dev',
 ]
-const countries = [
-  'JP',
-  'PL',
-  'HU',
-  'ES',
-  'NO',
-  'BR',
-  'GH',
-  'IN',
-  'DE',
-  'PL',
-  'JP',
-  'AE',
-  'AR',
-  'CN',
-  'NG',
-  'SE',
-  'MA',
-  'IN',
-  'FR',
-  'RU',
-  'JP',
-  'KE',
-  'MX',
-  'PT',
-  'US',
-  'ZA',
-  'IT',
-  'NL',
-  'KR',
-  'EG',
-]
-
 export const players: Player[] = handles.map((handle, i) => ({
   rank: i + 1,
   handle,
-  country: countries[i],
   rating: Math.round(2780 - i * 54 - (i % 3) * 17),
   solved: Math.max(12, 412 - i * 11 - (i % 4) * 5),
   contests: Math.max(3, 64 - i * 2),

@@ -2,6 +2,8 @@ import { TRPCError } from '@trpc/server'
 import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { challenges, drafts, progress, type Db } from '@hookdrill/db'
+import { dailyProblem } from '../services/daily'
+import { checkIn, fameLeaderboard, fameStatus } from '../services/fame'
 import { protectedProcedure, publicProcedure, router } from './init'
 
 const slug = z.string().min(1).max(100)
@@ -45,6 +47,35 @@ export const appRouter = router({
         .where(sql`${progress.runs} > 0`)
         .groupBy(challenges.slug),
     ),
+  }),
+
+  daily: router({
+    /** Today's problem (UTC), the same for everyone. */
+    today: publicProcedure.query(({ ctx }) => dailyProblem(ctx.db)),
+  }),
+
+  fame: router({
+    status: protectedProcedure.query(({ ctx }) =>
+      fameStatus(ctx.db, ctx.session.user.id),
+    ),
+
+    /** Once per UTC day. Returns null if the user already checked in today. */
+    checkIn: protectedProcedure.mutation(({ ctx }) =>
+      checkIn(ctx.db, ctx.session.user.id),
+    ),
+  }),
+
+  leaderboard: router({
+    fame: publicProcedure
+      .input(z.object({ period: z.enum(['all', 'month']) }))
+      .query(({ ctx, input }) =>
+        fameLeaderboard(
+          ctx.db,
+          input.period,
+          ctx.session?.user.id ?? null,
+          100,
+        ),
+      ),
   }),
 
   progress: router({

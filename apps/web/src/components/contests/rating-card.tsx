@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { RatingName } from '@/components/rating-name'
-import { SampleNote, CountryPill } from '@/components/leaderboard/sample-note'
+import { SampleNote } from '@/components/leaderboard/sample-note'
 import { useSession } from '@/lib/auth-client'
 import { players } from '@/lib/sample-data'
 import { numberFmt } from './format'
@@ -67,7 +67,6 @@ export function ContestRatingCard() {
                   rating={p.rating}
                   className="min-w-0 flex-1 truncate"
                 />
-                <CountryPill code={p.country} />
                 <span className="w-12 text-right font-semibold tabular-nums">
                   {numberFmt.format(p.rating)}
                 </span>

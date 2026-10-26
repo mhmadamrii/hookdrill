@@ -1,5 +1,5 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowLeft, Flame, MapPin, Trophy, UserX } from 'lucide-react'
+import { ArrowLeft, Flame, Trophy, UserX } from 'lucide-react'
 import { HeatmapLayout } from '@/components/dashboard/activity-panel'
 import { Panel, SampleBadge } from '@/components/dashboard/panel'
 import { RatingChart } from '@/components/profile/rating-chart'
@@ -21,15 +21,6 @@ export const Route = createFileRoute('/_site/u/$handle')({
   }),
   component: PublicProfile,
 })
-
-const regionNames = new Intl.DisplayNames(['en'], { type: 'region' })
-const countryName = (code: string) => {
-  try {
-    return regionNames.of(code) ?? code
-  } catch {
-    return code
-  }
-}
 
 function PublicProfile() {
   const { handle } = Route.useParams()
@@ -91,10 +82,6 @@ function PublicProfile() {
               </span>
             </h1>
             <p className="mt-1.5 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-              <span className="inline-flex items-center gap-1.5">
-                <MapPin className="size-3.5" />
-                {countryName(player.country)}
-              </span>
               <span className="inline-flex items-center gap-1.5">
                 <Trophy className="size-3.5" />
                 Global rank{' '}
