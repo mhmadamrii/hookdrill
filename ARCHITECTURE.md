@@ -152,22 +152,88 @@ submissions           id, user_id, challenge_id, version, files jsonb,
 hint_reveals          user_id, challenge_id, hint_index, revealed_at          PK(user_id, challenge_id, hint_index)
 solves                user_id, challenge_id, submission_id, version, hints_used,
                       points_awarded, first_solved_at                          PK(user_id, challenge_id)
-user_stats            user_id, score, solved_count, current_streak, best_streak,
-                      last_solve_day, last_score_at
+user_stats            user_id, rating, fame, solved_count, current_streak, best_streak,
+                      last_checkin_day, last_rating_at
+daily_problems        day (UTC date) PK, challenge_id                          scheduled or auto-filled
+checkins              user_id, day                                             PK(user_id, day)
+fame_events           id, user_id, kind (checkin|daily_solve|contest), day,
+                      amount, ref, created_at                                  unique(user_id, kind, day, ref)
+contests              id, slug, title, starts_at, ends_at,
+                      status (scheduled|live|ended|final), rated
+contest_problems      contest_id, challenge_id, label (A–D), points            PK(contest_id, challenge_id)
+contest_registrations contest_id, user_id, registered_at                      PK(contest_id, user_id)
+contest_results       contest_id, user_id, solved, penalty_min, rank,
+                      rating_awarded, fame_awarded                             PK(contest_id, user_id)
 ```
 
-Indexes: `solves(first_solved_at)` for weekly boards, `user_stats(score desc, last_score_at asc)` for all-time, `submissions(user_id, created_at desc)`.
+Indexes: `user_stats(rating desc, last_rating_at asc)` and `user_stats(fame desc)` for all-time boards, `fame_events(day)` and `solves(first_solved_at)` for monthly boards, `submissions(user_id, created_at desc)`.
 
 ## Ranking
 
-- **Points:** easy 10, medium 20, hard 40, awarded only for the **first accepted solve** of a challenge. Re-solves and extra submissions earn nothing, so grinding the same challenge doesn't help.
+Two numbers, measuring different things. Neither ever goes down. There is no country or region grouping anywhere.
+
+**Day boundary:** every "day" (check-in, daily problem, streak) is a **UTC** date computed on the server. One global daily problem, and nothing to gain by changing time zones.
+
+### Rating: skill
+
+Earned only from **server verdicts**.
+
+- **Practice:** easy 10, medium 20, hard 40, awarded only for the **first accepted solve** of a challenge. Re-solves and extra submissions earn nothing, so repeating a challenge doesn't help.
 - **Hint penalty:** −15% per hint revealed before the solve, with a floor of 40%.
-- **All-time:** `user_stats.score` desc. Ties go to whoever reached it first (`last_score_at`).
-- **Weekly:** `SUM(points_awarded)` from `solves` in the current ISO week.
-- **Streak:** consecutive days with at least one solve, counted in the user's timezone (stored on the user). Updated in the solve transaction.
+- **Contests:** see [Contests](#contests). They are worth more than practice.
+- Rating tiers are milestones on this number (the colours in the UI), not a skill estimate that can drop.
+
+### Fame: showing up
+
+An append-only ledger (`fame_events`), with `user_stats.fame` as its running total.
+
+| Event                  | Fame                             | Rule                                                                                                            |
+| ---------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------- |
+| Daily check-in         | +10                              | Explicit "Check in" button, once per UTC day                                                                    |
+| Streak bonus           | +2 per prior streak day, max +20 | Added to the check-in. The streak is consecutive check-in days                                                  |
+| Solve today's problem  | +50                              | Server-accepted submission on that day's problem, during that day. Counts even if solved before (unlike rating) |
+| Take part in a contest | +30                              | At least one submission in a rated contest                                                                      |
+
+- **Daily problem:** comes from the server (`daily_problems`). Maintainers can schedule a day; otherwise the first request of the day picks the challenge used least recently (never used first, then book order) and stores it. The web banner reads it from the API.
+- The check-in and each award happen in one transaction. The unique key on `fame_events` makes every award idempotent.
+
+### Boards
+
+- **Rating, all-time:** `user_stats.rating` desc. Ties go to whoever reached it first (`last_rating_at`).
+- **Fame, all-time and this month:** monthly is `SUM(amount)` from `fame_events` in the current UTC month, so newcomers can top it.
 - **Changed grading tests:** existing solves are kept and record the version they passed. Optionally mark them "re-verify" and let users resubmit. Points are never removed silently.
 
 Plain Postgres handles this comfortably for a long time. Add caching only if the leaderboard queries actually get slow.
+
+## Contests
+
+Timed rounds, 90 minutes, usually four problems (A easy, B and C medium, D hard).
+
+### How a contest problem is made
+
+Problem content is public in git and ships to the browser, so contest problems can't live there before the round.
+
+1. **Write:** a maintainer authors the problem in a private `hookdrill-contests` repo, with the same folder layout as `packages/challenges` plus grading tests.
+2. **Test:** a second maintainer solves it blind, as the tester. CI checks that the starter fails, the solution passes, the grading tests are deterministic, and the problem runs within the time limit.
+3. **Schedule:** an admin creates the contest: problems, labels, points (for example 20/30/40/60) and start/end times. A sync step loads the problems into the DB, never into the web bundle.
+4. **Publish:** after the round, a PR moves the problems into `packages/challenges`, and they become practice problems for upsolving. Practice solves of former contest problems earn the normal practice rating.
+
+### Lifecycle
+
+```
+scheduled → registration open → live → ended → final
+```
+
+- **live:** the API serves problem statements only between `starts_at` and `ends_at`, and only to registered users. Every Submit goes to the grader. Only pass/fail counts are shown, never test names.
+- **Standings (ICPC):** ranked by problems solved, then by penalty: the sum of minutes to each accept, plus 5 minutes per rejected submission before it. Rejections on problems never solved cost nothing.
+- **ended → final:** after a review window, flagged submissions are checked by hand, then the results freeze.
+  - A similarity check across submissions flags near-duplicates.
+  - Rated rounds forbid AI assistance. We can't technically enforce that, so the rule is stated and the review step backs it up.
+- **On final**, in one transaction per contest:
+  - **Rating:** sum of points for solved problems × a placement multiplier (top 10% ×1.5, top 25% ×1.25, else ×1.0). It is written to `contest_results.rating_awarded`.
+  - **Fame:** +30 for taking part.
+
+Only registered users who submitted at least once appear in the results.
 
 ## Auth and sessions
 
@@ -199,21 +265,26 @@ deploy/             Quadlet units, Caddy site snippet for api.<domain>
 ## Phases
 
 1. **Accounts + progress:** API, DB, auth, saved drafts, solved ticks graded in the browser shown only on your own profile. No public leaderboard.
-2. **Server grading:** public/grading test split, grader, runner image, CI parity checks, then public leaderboards.
-3. **Contributors and growth:** a CONTRIBUTING guide for challenges, an optional PR-opening authoring form, DSA challenges through the same grader with a different runner image.
+   - **1b. Fame without grading:** server-side daily problem, the check-in button, check-in and streak fame, and a real Fame leaderboard. None of it depends on test results, so it can't be faked by reporting a pass.
+2. **Server grading:** public/grading test split, grader, runner image, CI parity checks. Then rating, the daily-solve fame bonus and the Rating leaderboard.
+3. **Contests:** private contest repo, admin scheduling, the live round, standings, finalisation.
+4. **Contributors and growth:** a CONTRIBUTING guide for challenges, an optional PR-opening authoring form, DSA challenges through the same grader with a different runner image.
 
 ## Decisions (ADR summary)
 
-| #   | Decision                                                                  | Why                                                           |
-| --- | ------------------------------------------------------------------------- | ------------------------------------------------------------- |
-| 1   | Challenge content lives in git, not a CMS                                 | Review, history, CI checks; no admin UI to build              |
-| 2   | Public tests run in the browser; hidden grading tests run on the server   | Instant feedback plus a trustworthy ranking                   |
-| 3   | API on the VPS next to PostgreSQL; Vercel never connects to the DB        | DB stays private, no serverless connection storms             |
-| 4   | Cloudflare DNS-only for Vercel, proxied for `api.`                        | Follows Vercel's guidance; protects and hides the VPS         |
-| 5   | Postgres doubles as the job queue (pg-boss)                               | One less service to run                                       |
-| 6   | One rootless Podman container per submission, no network, resource limits | Untrusted code on a shared host                               |
-| 7   | Points only for the first accepted solve, with a hint penalty             | Rewards solving breadth, not submission spam                  |
-| 8   | tRPC on Hono for web → API calls; Better Auth and health stay plain HTTP  | End-to-end types in a TS monorepo, TanStack Query integration |
+| #   | Decision                                                                                                                      | Why                                                                                        |
+| --- | ----------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| 1   | Challenge content lives in git, not a CMS                                                                                     | Review, history, CI checks; no admin UI to build                                           |
+| 2   | Public tests run in the browser; hidden grading tests run on the server                                                       | Instant feedback plus a trustworthy ranking                                                |
+| 3   | API on the VPS next to PostgreSQL; Vercel never connects to the DB                                                            | DB stays private, no serverless connection storms                                          |
+| 4   | Cloudflare DNS-only for Vercel, proxied for `api.`                                                                            | Follows Vercel's guidance; protects and hides the VPS                                      |
+| 5   | Postgres doubles as the job queue (pg-boss)                                                                                   | One less service to run                                                                    |
+| 6   | One rootless Podman container per submission, no network, resource limits                                                     | Untrusted code on a shared host                                                            |
+| 7   | Points only for the first accepted solve, with a hint penalty                                                                 | Rewards solving breadth, not submission spam                                               |
+| 8   | tRPC on Hono for web → API calls; Better Auth and health stay plain HTTP                                                      | End-to-end types in a TS monorepo, TanStack Query integration                              |
+| 9   | Two scores: rating (skill, from solves and contests) and fame (consistency, from check-ins and daily solves); both only go up | Separates "good" from "shows up"; additive points stay stable with few players, unlike Elo |
+| 10  | One UTC day for everyone                                                                                                      | One global daily problem; no time-zone gaming of check-ins                                 |
+| 11  | Contest problems are private until the round, then become practice                                                            | Public content in git can't be secret; upsolving reuses them                               |
 
 ## Known risks
 
