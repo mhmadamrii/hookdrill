@@ -19,6 +19,12 @@ export function SiteFooter() {
           <Link to="/leaderboard" className="hover:text-foreground">
             Leaderboard
           </Link>
+          <Link to="/builder-lab" className="hover:text-foreground">
+            Builder Lab
+          </Link>
+          <Link to="/future" className="hover:text-foreground">
+            Why HookDrill
+          </Link>
         </nav>
         <p>Practice by hand. Verified by tests.</p>
       </div>

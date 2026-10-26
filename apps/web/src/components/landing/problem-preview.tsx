@@ -7,14 +7,17 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { problems, topics } from '@/lib/problems'
+import { AcceptanceCell } from '@/components/problems/problem-table'
+import { useAcceptance } from '@/lib/acceptance'
+import { playableProblems, topics } from '@/lib/problems'
 import { useMyProgress } from '@/lib/progress'
 import { cn } from '@/lib/utils'
 
-const preview = problems.filter((p) => p.track === 'react').slice(0, 8)
+const preview = playableProblems.filter((p) => p.track === 'react').slice(0, 8)
 
 export function ProblemPreview() {
   const progress = useMyProgress()
+  const acceptance = useAcceptance()
   return (
     <section aria-labelledby="problems-heading" className="border-y bg-card/40">
       <div className="mx-auto grid max-w-[1440px] gap-10 px-4 py-20 md:px-6 md:py-24 lg:grid-cols-[minmax(0,4fr)_minmax(0,7fr)] lg:gap-16">
@@ -57,12 +60,7 @@ export function ProblemPreview() {
           <div className="grid grid-cols-[1.75rem_minmax(0,1fr)_3.5rem_1.5rem] items-center gap-3 border-b px-4 py-2.5 text-[13px] text-muted-foreground sm:grid-cols-[1.75rem_minmax(0,1fr)_6rem_5rem_1.5rem]">
             <span aria-hidden />
             <span>Title</span>
-            <span className="inline-flex items-center justify-end gap-1.5 text-right max-sm:hidden">
-              Acceptance
-              <span className="rounded-full bg-secondary px-1.5 py-px text-2xs">
-                Sample
-              </span>
-            </span>
+            <span className="text-right max-sm:hidden">Acceptance</span>
             <span>Difficulty</span>
             <span className="sr-only">Access</span>
           </div>
@@ -86,9 +84,7 @@ export function ProblemPreview() {
                     {p.number}. {p.title}
                   </span>
                   <span className="text-right text-muted-foreground tabular-nums max-sm:hidden">
-                    {p.acceptance == null
-                      ? 'New'
-                      : `${p.acceptance.toFixed(1)}%`}
+                    <AcceptanceCell rate={acceptance.rateOf(p.slug)} />
                   </span>
                   <DifficultyText level={p.difficulty} short />
                   <span className="grid place-items-center">

@@ -262,3 +262,33 @@ html .sp-wrapper {
 .sp-wrapper .cm-gutter-lint {
   width: 1.1em;
 }
+
+/*
+ * Embedded X posts (react-tweet). Its dark theme also follows the OS colour
+ * scheme, so pin the neutral surfaces to our tokens, which follow the app theme.
+ * X's own blues stay as they are: it's their content.
+ */
+html .react-tweet-theme {
+  --tweet-container-margin: 0;
+  --tweet-font-family: var(--font-sans);
+  --tweet-font-color: var(--foreground);
+  --tweet-font-color-secondary: var(--muted-foreground);
+  --tweet-bg-color: var(--card);
+  --tweet-bg-color-hover: var(--accent);
+  --tweet-quoted-bg-color-hover: var(--accent);
+  --tweet-border: 1px solid var(--border);
+  --tweet-twitter-icon-color: var(--foreground);
+  --tweet-body-font-size: 0.9375rem;
+  --tweet-body-line-height: 1.5rem;
+}
+html:not(.dark) .react-tweet-theme {
+  --tweet-color-blue-primary: rgb(29, 155, 240);
+  --tweet-color-blue-secondary: rgb(0, 111, 214);
+  --tweet-color-blue-secondary-hover: rgba(0, 111, 214, 0.1);
+  --tweet-verified-old-color: rgb(130, 154, 171);
+  --tweet-verified-blue-color: rgb(29, 155, 240);
+}
+html.dark .react-tweet-theme {
+  --tweet-color-blue-secondary: rgb(107, 201, 251);
+  --tweet-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
+}

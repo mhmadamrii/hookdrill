@@ -8,6 +8,10 @@ export type * from './types'
 const loaders: Record<string, () => Promise<{ default: Challenge }>> = {
   'todo-list': () => import('./react/todo-list'),
   'playlist-builder': () => import('./react/playlist-builder'),
+  accordion: () => import('./react/accordion'),
+  'star-rating': () => import('./react/star-rating'),
+  'counter-with-undo': () => import('./react/counter-with-undo'),
+  'password-strength-meter': () => import('./react/password-strength-meter'),
   // challenge:new loaders
 }
 
@@ -18,6 +22,11 @@ const solutions: Record<string, () => Promise<{ default: FileMap }>> =
     ? {
         'todo-list': () => import('./react/todo-list/solution'),
         'playlist-builder': () => import('./react/playlist-builder/solution'),
+        accordion: () => import('./react/accordion/solution'),
+        'star-rating': () => import('./react/star-rating/solution'),
+        'counter-with-undo': () => import('./react/counter-with-undo/solution'),
+        'password-strength-meter': () =>
+          import('./react/password-strength-meter/solution'),
         // challenge:new solutions
       }
     : {}

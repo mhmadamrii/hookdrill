@@ -35,7 +35,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { playableProblems, problems, topics } from '@/lib/problems'
+import { playableProblems, topics } from '@/lib/problems'
 import { cn } from '@/lib/utils'
 import {
   activeFilterCount,
@@ -128,20 +128,22 @@ export function CategoryPills({
       {categories.map(({ value, label, icon: Icon }) => {
         const on = track === value
         const count = value
-          ? problems.filter((p) => p.track === value).length
-          : problems.length
+          ? playableProblems.filter((p) => p.track === value).length
+          : playableProblems.length
         return (
           <button
             key={label}
             type="button"
             aria-pressed={on}
+            // A track with nothing open yet can't be filtered to.
+            disabled={count === 0}
             onClick={() => update({ track: value })}
             className={cn(
-              'inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors',
+              'inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60',
               focusRing,
               on
                 ? 'bg-foreground text-background'
-                : 'bg-secondary text-secondary-foreground hover:bg-accent',
+                : 'bg-secondary text-secondary-foreground enabled:hover:bg-accent',
             )}
           >
             <Icon className="size-4" />
@@ -152,7 +154,7 @@ export function CategoryPills({
                 on ? 'opacity-70' : 'text-muted-foreground',
               )}
             >
-              {count}
+              {count === 0 ? 'Soon' : count}
             </span>
           </button>
         )
@@ -326,16 +328,6 @@ export function Toolbar({
                 </div>
               ))}
             </fieldset>
-            <div className="flex items-center gap-2.5 border-t pt-4">
-              <Checkbox
-                id="only-playable"
-                checked={!!search.playable}
-                onCheckedChange={(c) =>
-                  update({ playable: c === true ? true : undefined })
-                }
-              />
-              <Label htmlFor="only-playable">Only open problems</Label>
-            </div>
           </div>
           <div className="flex justify-end border-t p-2">
             <Button
@@ -366,7 +358,8 @@ export function Toolbar({
           >
             {solved}
           </span>
-          <span className="tabular-nums">/{problems.length}</span> Solved
+          <span className="tabular-nums">/{playableProblems.length}</span>{' '}
+          Solved
         </p>
         <Tooltip>
           <TooltipTrigger asChild>

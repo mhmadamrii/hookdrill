@@ -1,5 +1,12 @@
 import { Link } from '@tanstack/react-router'
-import { BookOpen, Compass, ListChecks, Star, Trophy } from 'lucide-react'
+import {
+  BookOpen,
+  Compass,
+  FlaskConical,
+  ListChecks,
+  Star,
+  Trophy,
+} from 'lucide-react'
 import type { ComponentType, ReactNode } from 'react'
 import { cn } from '@/lib/utils'
 
@@ -9,26 +16,26 @@ const row =
 function Item({
   icon: Icon,
   children,
-  active,
+  badge,
   ...link
 }: {
   icon: ComponentType<{ className?: string }>
   children: ReactNode
-  active?: boolean
+  badge?: ReactNode
 } & React.ComponentProps<typeof Link>) {
   return (
     <Link
       {...link}
-      aria-current={active ? 'page' : undefined}
+      // The router marks the current page with data-status="active" and aria-current.
+      activeOptions={{ exact: true, includeHash: true, includeSearch: false }}
       className={cn(
         row,
-        active
-          ? 'bg-secondary text-foreground'
-          : 'text-muted-foreground hover:bg-accent hover:text-foreground',
+        'text-muted-foreground hover:bg-accent hover:text-foreground data-[status=active]:bg-secondary data-[status=active]:text-foreground',
       )}
     >
       <Icon className="size-[18px]" />
-      {children}
+      <span className="flex-1">{children}</span>
+      {badge}
     </Link>
   )
 }
@@ -39,7 +46,7 @@ export function LibrarySidebar() {
       aria-label="Library"
       className="sticky top-[4.5rem] flex flex-col gap-1"
     >
-      <Item icon={BookOpen} to="/problems" active>
+      <Item icon={BookOpen} to="/problems">
         Library
       </Item>
       <Item icon={Compass} to="/explore">
@@ -50,6 +57,17 @@ export function LibrarySidebar() {
       </Item>
       <Item icon={Trophy} to="/contests">
         Contests
+      </Item>
+      <Item
+        icon={FlaskConical}
+        to="/builder-lab"
+        badge={
+          <span className="rounded-full bg-primary/15 px-2 py-0.5 text-2xs font-medium text-brand">
+            Soon
+          </span>
+        }
+      >
+        Builder Lab
       </Item>
 
       <div className="my-3 h-px bg-border" />

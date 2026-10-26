@@ -3,6 +3,7 @@ import {
   ArrowRight,
   Check,
   Clock,
+  FileCode2,
   ListChecks,
   Minus,
   Trophy,
@@ -58,18 +59,28 @@ export function WhyByHand() {
           </h2>
           <div className="mt-6 max-w-[62ch] space-y-4 text-base leading-relaxed text-pretty text-muted-foreground md:text-lg">
             <p>
-              Assistants are great at work. They also make it easy to go months
-              without building a component from an empty file, and that skill
-              fades quietly.
+              The job is moving from typing code to deciding what to build,
+              directing agents and verifying what they ship. That only works if
+              you can read code well enough to catch what’s wrong, and that
+              skill fades quietly when you stop using it.
             </p>
             <p>
-              Interviews, code review and the late-night bug in a reducer still
-              ask for it. HookDrill is deliberate practice for exactly that: a
+              HookDrill trains both halves. Drills keep your hands sharp: a
               spec, an empty{' '}
               <span className="font-mono text-[0.9em] text-foreground">
                 App.tsx
               </span>
-              , and tests that only care whether it works.
+              , and tests that only care whether it works. Builder Lab, coming
+              next, trains the rest: specs, agents and verification.
+            </p>
+            <p>
+              <Link
+                to="/future"
+                className="inline-flex items-center gap-1.5 font-medium text-brand hover:underline"
+              >
+                Read how software gets built next
+                <ArrowRight className="size-4" />
+              </Link>
             </p>
           </div>
         </div>
@@ -348,6 +359,12 @@ export function FinalCta({ signedIn }: { signedIn: boolean }) {
   return (
     <section className={cn(container, 'py-20 md:py-24')}>
       <div className="relative overflow-hidden rounded-xl bg-primary px-6 py-12 text-primary-foreground md:px-12 md:py-16">
+        {/* Decorative: the empty file the headline talks about, cropped by the card edge. */}
+        <FileCode2
+          aria-hidden
+          strokeWidth={1.25}
+          className="pointer-events-none absolute -bottom-16 left-[50%] size-72 -rotate-12 text-primary-foreground/15 max-md:-right-16 max-md:left-auto max-md:size-56"
+        />
         <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl">

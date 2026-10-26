@@ -1,5 +1,5 @@
 import { Link, useNavigate } from '@tanstack/react-router'
-import { Lock, SearchX } from 'lucide-react'
+import { Info, Lock, SearchX } from 'lucide-react'
 import { DifficultyText } from '@/components/difficulty'
 import { StatusIcon } from '@/components/status-icon'
 import { Button } from '@/components/ui/button'
@@ -9,6 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { MIN_ATTEMPTS } from '@/lib/acceptance'
 import type { Problem } from '@/lib/problems'
 import type { ProblemStatus } from '@/lib/progress'
 import { cn } from '@/lib/utils'
@@ -16,11 +17,13 @@ import { cn } from '@/lib/utils'
 export function ProblemTable({
   rows,
   statusOf,
+  rateOf,
   statusLoading,
   onClear,
 }: {
   rows: Problem[]
   statusOf: (slug: string) => ProblemStatus
+  rateOf: (slug: string) => number | null
   statusLoading: boolean
   onClear: () => void
 }) {
@@ -55,12 +58,15 @@ export function ProblemTable({
             Title
           </th>
           <th scope="col" className="pr-3 text-right max-sm:hidden">
-            <span className="inline-flex items-center gap-1.5">
-              Acceptance
-              <span className="rounded-full bg-secondary px-1.5 py-px text-2xs">
-                Sample
-              </span>
-            </span>
+            <Tooltip>
+              <TooltipTrigger className="inline-flex items-center gap-1 rounded-sm outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50">
+                Acceptance <Info className="size-3" />
+              </TooltipTrigger>
+              <TooltipContent className="max-w-64">
+                Share of people who ran this problem and passed every test.
+                Shown once {MIN_ATTEMPTS} people have tried it.
+              </TooltipContent>
+            </Tooltip>
           </th>
           <th scope="col" className="pr-3">
             Difficulty
@@ -109,9 +115,7 @@ export function ProblemTable({
                 )}
               </td>
               <td className="w-24 pr-3 text-right tabular-nums max-sm:hidden">
-                <span>
-                  {p.acceptance === null ? '—' : `${p.acceptance.toFixed(1)}%`}
-                </span>
+                <AcceptanceCell rate={rateOf(p.slug)} />
               </td>
               <td className="w-16 pr-3 sm:w-20">
                 <DifficultyText level={p.difficulty} short />
@@ -137,5 +141,13 @@ export function ProblemTable({
         })}
       </tbody>
     </table>
+  )
+}
+
+export function AcceptanceCell({ rate }: { rate: number | null }) {
+  return rate === null ? (
+    <span className="text-muted-foreground">New</span>
+  ) : (
+    <span>{rate.toFixed(1)}%</span>
   )
 }

@@ -24,7 +24,7 @@ export const Route = createFileRoute('/_site/')({
       {
         name: 'description',
         content:
-          'Practice building real React components from a spec, by hand, without AI. Hidden tests verify every problem.',
+          'A learning platform for the developers who will build software alongside AI agents. Drill real React components by hand, verified by hidden tests.',
       },
     ],
   }),
@@ -67,8 +67,9 @@ function Hero({ signedIn }: { signedIn: boolean }) {
             Keep your hands on the code.
           </h1>
           <p className="mt-6 max-w-[46ch] text-lg leading-relaxed text-pretty text-muted-foreground md:text-xl">
-            Build real React components from a spec, by hand, with no AI in the
-            editor. Hidden tests tell you if it works.
+            AI agents write more of the code every month. Someone still has to
+            know good code when they see it. Build real React components from a
+            spec, by hand, and let hidden tests judge.
           </p>
           <div className="mt-9 flex flex-wrap items-center gap-3">
             <Button asChild size="lg" className="h-11 px-6 text-[15px]">
@@ -88,7 +89,14 @@ function Hero({ signedIn }: { signedIn: boolean }) {
               </Link>
             </Button>
           </div>
-          <div className="mt-10 border-t pt-5">
+          <Link
+            to="/future"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand hover:underline"
+          >
+            How software gets built next, and why we exist
+            <ArrowRight className="size-3.5" />
+          </Link>
+          <div className="mt-8 border-t pt-5">
             <p className="text-sm text-muted-foreground">
               Open now in the React track
             </p>

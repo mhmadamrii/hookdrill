@@ -15,7 +15,9 @@ import {
   validateProblemsSearch,
   type ProblemsSearch,
 } from '@/components/problems/search'
-import { problems } from '@/lib/problems'
+import { ComingSoon } from '@/components/problems/coming-soon'
+import { useAcceptance } from '@/lib/acceptance'
+import { playableProblems } from '@/lib/problems'
 import { useMyProgress } from '@/lib/progress'
 
 export const Route = createFileRoute('/_site/problems/')({
@@ -28,6 +30,7 @@ function Problems() {
   const search = Route.useSearch()
   const navigate = useNavigate({ from: Route.fullPath })
   const progress = useMyProgress()
+  const acceptance = useAcceptance()
 
   const update = (patch: Partial<ProblemsSearch>) =>
     navigate({
@@ -37,13 +40,20 @@ function Problems() {
     })
 
   const rows = useMemo(
-    () => applyProblemsSearch(problems, search, progress.status),
+    () =>
+      applyProblemsSearch(
+        playableProblems,
+        search,
+        progress.status,
+        acceptance.rateOf,
+      ),
     // progress.rows identity changes when the user's results load
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [search, progress.rows],
+    [search, progress.rows, acceptance.isLoading],
   )
   const solved = progress.signedIn
-    ? problems.filter((p) => progress.status(p.slug) === 'solved').length
+    ? playableProblems.filter((p) => progress.status(p.slug) === 'solved')
+        .length
     : 0
 
   const clearAll = () =>
@@ -82,15 +92,13 @@ function Problems() {
             <ProblemTable
               rows={rows}
               statusOf={progress.status}
+              rateOf={acceptance.rateOf}
               statusLoading={progress.isLoading && progress.signedIn}
               onClear={clearAll}
             />
-            {rows.length > 0 && (
-              <p className="mt-3 px-3 text-xs text-muted-foreground">
-                Showing {rows.length} of {problems.length}. Locked problems are
-                a sample of the catalogue and open when their tests ship.
-              </p>
-            )}
+          </div>
+          <div>
+            <ComingSoon />
           </div>
         </div>
 

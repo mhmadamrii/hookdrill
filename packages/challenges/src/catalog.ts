@@ -2,6 +2,10 @@
 import type { ChallengeMeta } from './types'
 import { meta as todoList } from './react/todo-list/meta'
 import { meta as playlistBuilder } from './react/playlist-builder/meta'
+import { meta as accordion } from './react/accordion/meta'
+import { meta as starRating } from './react/star-rating/meta'
+import { meta as counterWithUndo } from './react/counter-with-undo/meta'
+import { meta as passwordStrengthMeter } from './react/password-strength-meter/meta'
 // challenge:new imports
 
 export type * from './types'
@@ -13,5 +17,9 @@ export type * from './types'
 export const catalog: ChallengeMeta[] = [
   todoList,
   playlistBuilder,
+  accordion,
+  starRating,
+  counterWithUndo,
+  passwordStrengthMeter,
   // challenge:new catalog
 ]

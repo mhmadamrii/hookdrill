@@ -4,7 +4,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { problems } from '@/lib/problems'
+import { playableProblems } from '@/lib/problems'
 import { cn } from '@/lib/utils'
 import { Panel } from './panel'
 import { solvedByDifficulty, summarize, type ProgressRow } from './stats'
@@ -59,7 +59,7 @@ export function SolvedPanel({
                 {s.solved}
               </span>
               <span className="text-sm text-muted-foreground">
-                /{problems.length}
+                /{playableProblems.length}
               </span>
             </p>
             <p className="text-xs text-muted-foreground">

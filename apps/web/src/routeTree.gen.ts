@@ -12,9 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SiteRouteImport } from './routes/_site'
 import { Route as PlaygroundRouteImport } from './routes/playground'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteBuilderLabRouteImport } from './routes/_site/builder-lab'
 import { Route as SiteContestsRouteImport } from './routes/_site/contests'
 import { Route as SiteDashboardRouteImport } from './routes/_site/dashboard'
 import { Route as SiteExploreRouteImport } from './routes/_site/explore'
+import { Route as SiteFutureRouteImport } from './routes/_site/future'
 import { Route as SiteLeaderboardRouteImport } from './routes/_site/leaderboard'
 import { Route as SiteProfileRouteImport } from './routes/_site/profile'
 import { Route as SiteSigninRouteImport } from './routes/_site/signin'
@@ -37,6 +39,11 @@ const SiteIndexRoute = SiteIndexRouteImport.update({
   path: '/',
   getParentRoute: () => SiteRoute,
 } as any)
+const SiteBuilderLabRoute = SiteBuilderLabRouteImport.update({
+  id: '/builder-lab',
+  path: '/builder-lab',
+  getParentRoute: () => SiteRoute,
+} as any)
 const SiteContestsRoute = SiteContestsRouteImport.update({
   id: '/contests',
   path: '/contests',
@@ -50,6 +57,11 @@ const SiteDashboardRoute = SiteDashboardRouteImport.update({
 const SiteExploreRoute = SiteExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteFutureRoute = SiteFutureRouteImport.update({
+  id: '/future',
+  path: '/future',
   getParentRoute: () => SiteRoute,
 } as any)
 const SiteLeaderboardRoute = SiteLeaderboardRouteImport.update({
@@ -91,9 +103,11 @@ const SiteUHandleRoute = SiteUHandleRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
   '/playground': typeof PlaygroundRoute
+  '/builder-lab': typeof SiteBuilderLabRoute
   '/contests': typeof SiteContestsRoute
   '/dashboard': typeof SiteDashboardRoute
   '/explore': typeof SiteExploreRoute
+  '/future': typeof SiteFutureRoute
   '/leaderboard': typeof SiteLeaderboardRoute
   '/profile': typeof SiteProfileRoute
   '/signin': typeof SiteSigninRoute
@@ -104,9 +118,11 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/playground': typeof PlaygroundRoute
+  '/builder-lab': typeof SiteBuilderLabRoute
   '/contests': typeof SiteContestsRoute
   '/dashboard': typeof SiteDashboardRoute
   '/explore': typeof SiteExploreRoute
+  '/future': typeof SiteFutureRoute
   '/leaderboard': typeof SiteLeaderboardRoute
   '/profile': typeof SiteProfileRoute
   '/signin': typeof SiteSigninRoute
@@ -120,9 +136,11 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_site': typeof SiteRouteWithChildren
   '/playground': typeof PlaygroundRoute
+  '/_site/builder-lab': typeof SiteBuilderLabRoute
   '/_site/contests': typeof SiteContestsRoute
   '/_site/dashboard': typeof SiteDashboardRoute
   '/_site/explore': typeof SiteExploreRoute
+  '/_site/future': typeof SiteFutureRoute
   '/_site/leaderboard': typeof SiteLeaderboardRoute
   '/_site/profile': typeof SiteProfileRoute
   '/_site/signin': typeof SiteSigninRoute
@@ -137,9 +155,11 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/playground'
+    | '/builder-lab'
     | '/contests'
     | '/dashboard'
     | '/explore'
+    | '/future'
     | '/leaderboard'
     | '/profile'
     | '/signin'
@@ -150,9 +170,11 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/playground'
+    | '/builder-lab'
     | '/contests'
     | '/dashboard'
     | '/explore'
+    | '/future'
     | '/leaderboard'
     | '/profile'
     | '/signin'
@@ -165,9 +187,11 @@ export interface FileRouteTypes {
     | '__root__'
     | '/_site'
     | '/playground'
+    | '/_site/builder-lab'
     | '/_site/contests'
     | '/_site/dashboard'
     | '/_site/explore'
+    | '/_site/future'
     | '/_site/leaderboard'
     | '/_site/profile'
     | '/_site/signin'
@@ -208,6 +232,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteIndexRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_site/builder-lab': {
+      id: '/_site/builder-lab'
+      path: '/builder-lab'
+      fullPath: '/builder-lab'
+      preLoaderRoute: typeof SiteBuilderLabRouteImport
+      parentRoute: typeof SiteRoute
+    }
     '/_site/contests': {
       id: '/_site/contests'
       path: '/contests'
@@ -227,6 +258,13 @@ declare module '@tanstack/react-router' {
       path: '/explore'
       fullPath: '/explore'
       preLoaderRoute: typeof SiteExploreRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/future': {
+      id: '/_site/future'
+      path: '/future'
+      fullPath: '/future'
+      preLoaderRoute: typeof SiteFutureRouteImport
       parentRoute: typeof SiteRoute
     }
     '/_site/leaderboard': {
@@ -282,9 +320,11 @@ declare module '@tanstack/react-router' {
 }
 
 interface SiteRouteChildren {
+  SiteBuilderLabRoute: typeof SiteBuilderLabRoute
   SiteContestsRoute: typeof SiteContestsRoute
   SiteDashboardRoute: typeof SiteDashboardRoute
   SiteExploreRoute: typeof SiteExploreRoute
+  SiteFutureRoute: typeof SiteFutureRoute
   SiteLeaderboardRoute: typeof SiteLeaderboardRoute
   SiteProfileRoute: typeof SiteProfileRoute
   SiteSigninRoute: typeof SiteSigninRoute
@@ -294,9 +334,11 @@ interface SiteRouteChildren {
 }
 
 const SiteRouteChildren: SiteRouteChildren = {
+  SiteBuilderLabRoute: SiteBuilderLabRoute,
   SiteContestsRoute: SiteContestsRoute,
   SiteDashboardRoute: SiteDashboardRoute,
   SiteExploreRoute: SiteExploreRoute,
+  SiteFutureRoute: SiteFutureRoute,
   SiteLeaderboardRoute: SiteLeaderboardRoute,
   SiteProfileRoute: SiteProfileRoute,
   SiteSigninRoute: SiteSigninRoute,

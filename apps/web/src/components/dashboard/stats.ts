@@ -1,5 +1,5 @@
 import type { Difficulty } from '@hookdrill/challenges'
-import { findProblem, problems, type Problem } from '@/lib/problems'
+import { findProblem, playableProblems, type Problem } from '@/lib/problems'
 import type { useMyProgress } from '@/lib/progress'
 
 export type ProgressRow = ReturnType<typeof useMyProgress>['rows'][number]
@@ -39,7 +39,7 @@ const levels: Difficulty[] = ['easy', 'medium', 'hard']
 export function solvedByDifficulty(rows: ProgressRow[]) {
   const solvedSlugs = new Set(rows.filter(isSolved).map((r) => r.slug))
   return levels.map((level) => {
-    const all = problems.filter((p) => p.difficulty === level)
+    const all = playableProblems.filter((p) => p.difficulty === level)
     return {
       level,
       total: all.length,

@@ -54,6 +54,7 @@ export function applyProblemsSearch(
   all: Problem[],
   s: ProblemsSearch,
   statusOf: (slug: string) => ProblemStatus,
+  rateOf: (slug: string) => number | null = () => null,
 ): Problem[] {
   const q = s.q?.trim().toLowerCase()
   const out = all.filter((p) => {
@@ -77,7 +78,11 @@ export function applyProblemsSearch(
           a.number - b.number,
       )
     case 'acceptance':
-      return out.sort((a, b) => (b.acceptance ?? -1) - (a.acceptance ?? -1))
+      return out.sort(
+        (a, b) =>
+          (rateOf(b.slug) ?? -1) - (rateOf(a.slug) ?? -1) ||
+          a.number - b.number,
+      )
     case 'title':
       return out.sort((a, b) => a.title.localeCompare(b.title))
     default:
@@ -86,5 +91,5 @@ export function applyProblemsSearch(
 }
 
 export function activeFilterCount(s: ProblemsSearch) {
-  return (s.diff?.length ?? 0) + (s.status?.length ?? 0) + (s.playable ? 1 : 0)
+  return (s.diff?.length ?? 0) + (s.status?.length ?? 0)
 }

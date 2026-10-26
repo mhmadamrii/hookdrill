@@ -28,6 +28,25 @@ async function challengeId(db: Db, s: string) {
 export const appRouter = router({
   me: publicProcedure.query(({ ctx }) => ctx.session?.user ?? null),
 
+  stats: router({
+    /**
+     * Per problem: how many users ran it and how many passed every test.
+     * Aggregate only, so it is public. Phase 1 counts browser-verified passes.
+     */
+    acceptance: publicProcedure.query(({ ctx }) =>
+      ctx.db
+        .select({
+          slug: challenges.slug,
+          attempted: sql<number>`count(*)::int`,
+          solved: sql<number>`count(${progress.publicPassedAt})::int`,
+        })
+        .from(progress)
+        .innerJoin(challenges, eq(challenges.id, progress.challengeId))
+        .where(sql`${progress.runs} > 0`)
+        .groupBy(challenges.slug),
+    ),
+  }),
+
   progress: router({
     /** The signed-in user's progress for every challenge they have touched. */
     list: protectedProcedure.query(({ ctx }) =>
