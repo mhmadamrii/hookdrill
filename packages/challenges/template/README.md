@@ -52,7 +52,9 @@ Tests run in Sandpack's in-browser Jest, which renders into a real DOM but expos
 
 - Create user-event with `userEvent.setup({ document, delay: null })`.
   - Without `document`, typing silently does nothing or throws `The provided value is not of type 'Element'`.
-  - Without `delay: null`, user-event waits on a timer between every action. Browsers throttle timers when the tab is in the background, so runs crawl and tests hit Jest's 5 s timeout.
+  - Without `delay: null`, user-event waits on a timer between every action. Browsers throttle timers when the tab is in the background, so runs crawl and tests hit the per-test timeout (15 s, set by the workspace).
 - Query inside the rendered container (`within(container)`), not `screen`.
 - Stick to plain `expect` matchers; `jest-dom` isn't available.
+- There are no fake timers: `jest` here is only the mock API (`jest.fn`), without `useFakeTimers` or `advanceTimersByTime`. For time-based behaviour, copy the small fake clock from `src/react/countdown-timer/tests/challenge.test.tsx`.
+- The sandbox can evaluate a test file twice per run, so keep shared test state on `globalThis` (as that clock does), not in module variables that a second copy would duplicate.
 - Users build the component their own way, so assert on behaviour through `data-testid`s and attributes (`disabled`, `data-*`, text). Never assert on class names or markup structure.

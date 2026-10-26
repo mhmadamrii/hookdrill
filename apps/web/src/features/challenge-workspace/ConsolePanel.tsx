@@ -108,6 +108,7 @@ function TestResult() {
   }
 
   const accepted = lastRun.total > 0 && lastRun.passed === lastRun.total
+  const { interrupted } = lastRun
   const current = tests[selected]
 
   return (
@@ -116,10 +117,18 @@ function TestResult() {
         <span
           className={cn(
             'text-xl font-semibold',
-            accepted ? 'text-accepted' : 'text-wrong',
+            accepted
+              ? 'text-accepted'
+              : interrupted
+                ? 'text-medium'
+                : 'text-wrong',
           )}
         >
-          {accepted ? 'Accepted' : 'Wrong Answer'}
+          {accepted
+            ? 'Accepted'
+            : interrupted
+              ? 'Run interrupted'
+              : 'Wrong Answer'}
         </span>
         <span className="text-sm text-muted-foreground tabular-nums">
           {lastRun.passed} / {lastRun.total} testcases passed ·{' '}
@@ -140,11 +149,20 @@ function TestResult() {
           before shipping.
         </p>
       )}
-      {tests.some((t) => t.error?.includes('Exceeded timeout')) && (
-        <p className="mt-2 rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted-foreground">
-          Some tests timed out. Browsers slow down tabs that are in the
-          background, so keep this tab in front while tests run, then run again.
+      {interrupted ? (
+        <p className="mt-2 rounded-lg bg-medium/10 px-3 py-2 text-xs text-medium">
+          This tab went into the background while tests ran, and the browser
+          slowed them down until some timed out. That says nothing about your
+          code, so this run wasn’t saved. Keep the tab in front and run again.
         </p>
+      ) : (
+        tests.some((t) => t.error?.includes('Exceeded timeout')) && (
+          <p className="mt-2 rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted-foreground">
+            Some tests timed out. Check for code that never finishes, such as a
+            loop or an update that triggers itself. A very busy computer can
+            also slow tests down, so run again to be sure.
+          </p>
+        )
       )}
       <TestStrip
         className="mt-3"

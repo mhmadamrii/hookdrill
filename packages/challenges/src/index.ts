@@ -12,6 +12,8 @@ const loaders: Record<string, () => Promise<{ default: Challenge }>> = {
   'star-rating': () => import('./react/star-rating'),
   'counter-with-undo': () => import('./react/counter-with-undo'),
   'password-strength-meter': () => import('./react/password-strength-meter'),
+  'shopping-cart': () => import('./react/shopping-cart'),
+  'countdown-timer': () => import('./react/countdown-timer'),
   // challenge:new loaders
 }
 
@@ -27,6 +29,8 @@ const solutions: Record<string, () => Promise<{ default: FileMap }>> =
         'counter-with-undo': () => import('./react/counter-with-undo/solution'),
         'password-strength-meter': () =>
           import('./react/password-strength-meter/solution'),
+        'shopping-cart': () => import('./react/shopping-cart/solution'),
+        'countdown-timer': () => import('./react/countdown-timer/solution'),
         // challenge:new solutions
       }
     : {}

@@ -5,7 +5,7 @@ import { LogoMark } from '@/components/logo'
 import { ThemeToggle } from '@/components/theme-toggle'
 import { Button } from '@/components/ui/button'
 import { UserMenu } from '@/components/user-menu'
-import { useSession } from '@/lib/auth-client'
+import { useSettledSession } from '@/lib/auth-client'
 import { findProblem, playableProblems } from '@/lib/problems'
 import { useTRPC } from '@/lib/trpc'
 
@@ -61,7 +61,7 @@ function Loading() {
 
 function ProblemPage() {
   const challenge = Route.useLoaderData()
-  const { data: session, isPending } = useSession()
+  const { session, isPending } = useSettledSession()
   if (isPending) return <Loading />
   return session ? (
     <SignedInWorkspace challenge={challenge} />
@@ -242,9 +242,11 @@ function SignedInWorkspace({ challenge }: { challenge: Challenge }) {
       initialFiles={draft.data?.files}
       initialHintsRevealed={mine?.hintsRevealed ?? 0}
       onFilesChange={onFilesChange}
-      onTestRunComplete={(r) =>
-        recordRun.mutate({ slug, passed: r.passed, total: r.total })
-      }
+      onTestRunComplete={(r) => {
+        // An interrupted run measured the browser, not the code.
+        if (!r.interrupted)
+          recordRun.mutate({ slug, passed: r.passed, total: r.total })
+      }}
       onHintReveal={(count) => revealHint.mutate({ slug, count })}
       status={status}
     />

@@ -56,6 +56,17 @@ import {
 
 export type { ProblemRecord, TestRunResult }
 
+/**
+ * Raises the per-test limit of the in-browser Jest from 5s to 15s. Healthy
+ * tests take well under a second; the margin absorbs a briefly backgrounded
+ * tab, where browsers throttle the timers user-event relies on. Sandpack's
+ * Jest has no `jest.setTimeout`, so this sets the global jest-circus reads,
+ * which is what `jest.setTimeout` does. Kept on one line so error line
+ * numbers shift by one at most.
+ */
+const TEST_TIMEOUT_PRELUDE =
+  '(globalThis as any)[Symbol.for("TEST_TIMEOUT_SYMBOL")] = 15000;'
+
 export interface ChallengeWorkspaceProps {
   challenge: Challenge
   /** Display number in the problem list. */
@@ -110,6 +121,7 @@ export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
             // Celebrate a solve: a Submit where every test passed. Run stays quiet.
             if (
               result.mode === 'submit' &&
+              !result.interrupted &&
               result.total > 0 &&
               result.passed === result.total
             )
@@ -465,7 +477,7 @@ function toSandpackFiles(
     files[path] = { code: initialFiles?.[path] ?? code }
   }
   for (const [path, code] of Object.entries(challenge.testFiles)) {
-    files[path] = { code, hidden: true }
+    files[path] = { code: `${TEST_TIMEOUT_PRELUDE}\n${code}`, hidden: true }
   }
   return files
 }
