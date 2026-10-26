@@ -1,5 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
+import { Star } from 'lucide-react'
 import { SiteFooter } from '@/components/site-footer'
 import { Banners } from '@/components/problems/banners'
 import {
@@ -16,7 +17,9 @@ import {
   type ProblemsSearch,
 } from '@/components/problems/search'
 import { ComingSoon } from '@/components/problems/coming-soon'
+import { Button } from '@/components/ui/button'
 import { useAcceptance } from '@/lib/acceptance'
+import { useFavorites } from '@/lib/favorites'
 import { playableProblems } from '@/lib/problems'
 import { useMyProgress } from '@/lib/progress'
 
@@ -31,6 +34,7 @@ function Problems() {
   const navigate = useNavigate({ from: Route.fullPath })
   const progress = useMyProgress()
   const acceptance = useAcceptance()
+  const favorites = useFavorites()
 
   const update = (patch: Partial<ProblemsSearch>) =>
     navigate({
@@ -46,10 +50,11 @@ function Problems() {
         search,
         progress.status,
         acceptance.rateOf,
+        favorites.has,
       ),
     // progress.rows identity changes when the user's results load
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [search, progress.rows, acceptance.isLoading],
+    [search, progress.rows, acceptance.isLoading, favorites.has],
   )
   const solved = progress.signedIn
     ? playableProblems.filter((p) => progress.status(p.slug) === 'solved')
@@ -88,13 +93,36 @@ function Problems() {
             />
           </div>
 
+          {search.list === 'favorite' && (
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+                <Star className="size-[18px] fill-current text-medium" />
+                Favorite
+              </h2>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => update({ list: undefined })}
+              >
+                Show all problems
+              </Button>
+            </div>
+          )}
+
           <div>
             <ProblemTable
               rows={rows}
               statusOf={progress.status}
               rateOf={acceptance.rateOf}
               statusLoading={progress.isLoading && progress.signedIn}
+              isFavorite={favorites.has}
+              onToggleFavorite={favorites.toggle}
               onClear={clearAll}
+              empty={
+                search.list === 'favorite' && favorites.slugs.length === 0 ? (
+                  <NoFavorites onBrowse={clearAll} />
+                ) : undefined
+              }
             />
           </div>
           <div>
@@ -111,5 +139,23 @@ function Problems() {
       </main>
       <SiteFooter />
     </>
+  )
+}
+
+function NoFavorites({ onBrowse }: { onBrowse: () => void }) {
+  return (
+    <div className="flex flex-col items-center rounded-xl border border-dashed px-6 py-14 text-center">
+      <span className="grid size-11 place-items-center rounded-full bg-secondary">
+        <Star className="size-5 text-medium" />
+      </span>
+      <h3 className="mt-4 font-semibold">No favorites yet</h3>
+      <p className="mt-1 max-w-sm text-sm text-muted-foreground">
+        Star a problem from the list or its description to come back to it
+        later. Your list is saved in this browser.
+      </p>
+      <Button variant="secondary" className="mt-5" onClick={onBrowse}>
+        Browse problems
+      </Button>
+    </div>
   )
 }

@@ -6,6 +6,7 @@ import {
   History,
   Lightbulb,
   Lock,
+  Star,
   Tag,
 } from 'lucide-react'
 import type { Challenge } from '@hookdrill/challenges'
@@ -19,6 +20,7 @@ import {
 } from '@/components/ui/popover'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useFavorites } from '@/lib/favorites'
 import { cn } from '@/lib/utils'
 import { PanelTabs } from './panel'
 
@@ -50,6 +52,8 @@ export function ProblemPanel({
 }) {
   const hintsRef = useRef<HTMLDivElement>(null)
   const solved = !!record?.publicPassedAt
+  const favorites = useFavorites()
+  const starred = favorites.has(challenge.slug)
 
   return (
     <Tabs defaultValue="description" className="flex h-full flex-col gap-0">
@@ -103,6 +107,20 @@ export function ProblemPanel({
                   ))}
                 </PopoverContent>
               </Popover>
+              <button
+                type="button"
+                aria-pressed={starred}
+                onClick={() => favorites.toggle(challenge.slug)}
+                className="inline-flex h-6 items-center gap-1 rounded-full bg-surface-2 px-2.5 text-xs font-medium hover:bg-accent"
+              >
+                <Star
+                  className={cn(
+                    'size-3',
+                    starred && 'fill-current text-medium',
+                  )}
+                />
+                {starred ? 'Favorited' : 'Favorite'}
+              </button>
               {challenge.hints.length > 0 && (
                 <button
                   onClick={() =>

@@ -14,6 +14,8 @@ export interface ProblemsSearch {
   diff?: Difficulty[]
   status?: StatusFilter[]
   playable?: boolean
+  /** A personal list; only "favorite" exists so far. */
+  list?: 'favorite'
 }
 
 const SORTS: SortKey[] = ['default', 'difficulty', 'acceptance', 'title']
@@ -45,6 +47,7 @@ export function validateProblemsSearch(
     status: list(raw.status, STATUSES),
     playable:
       raw.playable === true || raw.playable === 'true' ? true : undefined,
+    list: raw.list === 'favorite' ? 'favorite' : undefined,
   }
 }
 
@@ -55,6 +58,7 @@ export function applyProblemsSearch(
   s: ProblemsSearch,
   statusOf: (slug: string) => ProblemStatus,
   rateOf: (slug: string) => number | null = () => null,
+  isFavorite: (slug: string) => boolean = () => false,
 ): Problem[] {
   const q = s.q?.trim().toLowerCase()
   const out = all.filter((p) => {
@@ -63,6 +67,7 @@ export function applyProblemsSearch(
     if (s.track && p.track !== s.track) return false
     if (s.diff && !s.diff.includes(p.difficulty)) return false
     if (s.playable && !p.playable) return false
+    if (s.list === 'favorite' && !isFavorite(p.slug)) return false
     if (s.status) {
       const st = statusOf(p.slug)
       const key: StatusFilter = st === 'none' ? 'todo' : st

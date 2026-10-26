@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/react-router'
+import { Link, useRouterState } from '@tanstack/react-router'
 import {
   BookOpen,
   Compass,
@@ -8,6 +8,8 @@ import {
   Trophy,
 } from 'lucide-react'
 import type { ComponentType, ReactNode } from 'react'
+import { useFavorites } from '@/lib/favorites'
+import { playableProblems } from '@/lib/problems'
 import { cn } from '@/lib/utils'
 
 const row =
@@ -17,23 +19,31 @@ function Item({
   icon: Icon,
   children,
   badge,
+  iconClassName,
+  inactive,
+  activeOptions = { exact: true, includeHash: true, includeSearch: false },
   ...link
 }: {
   icon: ComponentType<{ className?: string }>
   children: ReactNode
   badge?: ReactNode
+  iconClassName?: string
+  /** Suppresses the active style when a more specific item owns this URL. */
+  inactive?: boolean
 } & React.ComponentProps<typeof Link>) {
   return (
     <Link
       {...link}
       // The router marks the current page with data-status="active" and aria-current.
-      activeOptions={{ exact: true, includeHash: true, includeSearch: false }}
+      activeOptions={activeOptions}
       className={cn(
         row,
-        'text-muted-foreground hover:bg-accent hover:text-foreground data-[status=active]:bg-secondary data-[status=active]:text-foreground',
+        'text-muted-foreground hover:bg-accent hover:text-foreground',
+        !inactive &&
+          'data-[status=active]:bg-secondary data-[status=active]:text-foreground',
       )}
     >
-      <Icon className="size-[18px]" />
+      <Icon className={cn('size-[18px]', iconClassName)} />
       <span className="flex-1">{children}</span>
       {badge}
     </Link>
@@ -41,12 +51,18 @@ function Item({
 }
 
 export function LibrarySidebar() {
+  const favorites = useFavorites()
+  const count = playableProblems.filter((p) => favorites.has(p.slug)).length
+  const onFavorites = useRouterState({
+    select: (s) =>
+      (s.location.search as { list?: string } | undefined)?.list === 'favorite',
+  })
   return (
     <nav
       aria-label="Library"
       className="sticky top-[4.5rem] flex flex-col gap-1"
     >
-      <Item icon={BookOpen} to="/problems">
+      <Item icon={BookOpen} to="/problems" inactive={onFavorites}>
         Library
       </Item>
       <Item icon={Compass} to="/explore">
@@ -75,16 +91,22 @@ export function LibrarySidebar() {
       <h2 className="px-3 pb-1 text-xs font-medium text-muted-foreground">
         My lists
       </h2>
-      <div
-        className={cn(row, 'cursor-default text-muted-foreground')}
-        title="Starring problems is coming soon"
+      <Item
+        icon={Star}
+        iconClassName={cn('text-medium', count > 0 && 'fill-current')}
+        to="/problems"
+        // Item's props are untyped per route; this matches ProblemsSearch.
+        search={{ list: 'favorite' } as never}
+        // Search matching is partial, so extra filters keep this item active.
+        activeOptions={{ includeSearch: true }}
+        badge={<span className="text-xs tabular-nums">{count}</span>}
       >
-        <Star className="size-[18px] text-medium" />
-        <span className="flex-1">Favorite</span>
-        <span className="text-xs tabular-nums">0</span>
-      </div>
+        Favorite
+      </Item>
       <p className="px-3 text-xs leading-5 text-muted-foreground">
-        Starring problems is coming soon. Your list stays in this browser.
+        {count === 0
+          ? 'Star a problem to keep it here. Saved in this browser.'
+          : 'Saved in this browser.'}
       </p>
     </nav>
   )
