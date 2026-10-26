@@ -1,4 +1,4 @@
-Build a playlist picker in `App.jsx` (default export `App`), like adding songs to a playlist in Spotify. The song library is in `songs.js`.
+Build a playlist picker in `App.tsx` (default export `App`), like adding songs to a playlist in Spotify. The song library is in `songs.ts`.
 
 ## Requirements
 

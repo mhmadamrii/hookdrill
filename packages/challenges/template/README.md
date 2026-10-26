@@ -26,11 +26,11 @@ The scaffold is a working counter: its starter fails every test and its solution
 | `meta.ts`                  | Id, slug, title, difficulty, tags and summary. Shown in problem lists and synced to the database.                         |
 | `description.md`           | The problem statement in markdown. Keep the shape: intro line, Requirements, then the `data-testid` table.                |
 | `hints.ts`                 | Revealed one at a time. Go from a nudge to almost the answer.                                                             |
-| `starter/App.jsx`          | What the user starts with: markup with the required test ids, no behaviour.                                               |
-| `solution/App.jsx`         | Reference solution. Shipped only in development builds ("Load reference solution").                                       |
+| `starter/App.tsx`          | What the user starts with: markup with the required test ids, no behaviour.                                               |
+| `solution/App.tsx`         | Reference solution. Shipped only in development builds ("Load reference solution").                                       |
 | `solution/index.ts`        | Lists every editable file of the solution, keyed like `starterFiles`.                                                     |
-| `tests/challenge.test.jsx` | The test suite, hidden from the editor.                                                                                   |
-| `index.ts`                 | Assembles the challenge: starter files, test files, sandbox dependencies. Add extra starter files here (e.g. `songs.js`). |
+| `tests/challenge.test.tsx` | The test suite, hidden from the editor.                                                                                   |
+| `index.ts`                 | Assembles the challenge: starter files, test files, sandbox dependencies. Add extra starter files here (e.g. `songs.ts`). |
 
 ## Checklist before opening a pull request
 
@@ -40,6 +40,10 @@ The scaffold is a working counter: its starter fails every test and its solution
 - [ ] Hints are ordered from vague to specific and never paste the full answer.
 - [ ] `pnpm typecheck` and `pnpm format:check` pass.
 - [ ] After merging, deploy runs `pnpm db:sync-challenges` so the database knows about the new problem.
+
+## Writing in TypeScript
+
+Challenges are TypeScript (`.tsx`/`.ts`) and run in Sandpack's `react-ts` template. Inside the sandbox, type annotations are stripped, not checked, so a type error won't fail a run. Keep starters and solutions type-correct anyway, since users read them as reference. Import local files without an extension (`import App from "../App"`).
 
 ## Writing tests: sandbox rules
 

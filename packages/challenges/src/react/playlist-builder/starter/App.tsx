@@ -1,4 +1,4 @@
-import { SONGS } from "./songs.js";
+import { SONGS } from "./songs";
 
 export default function App() {
   // TODO: keep the playlist in state, then implement add, reorder, and remove.

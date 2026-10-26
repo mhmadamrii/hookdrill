@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { SONGS } from "./songs.js";
+import { SONGS } from "./songs";
 
 export default function App() {
-  const [playlist, setPlaylist] = useState([]);
+  const [playlist, setPlaylist] = useState<number[]>([]);
 
-  function add(id) {
+  function add(id: number) {
     if (!playlist.includes(id)) setPlaylist([...playlist, id]);
   }
 
-  function remove(id) {
+  function remove(id: number) {
     setPlaylist(playlist.filter((p) => p !== id));
   }
 
-  function move(index, delta) {
+  function move(index: number, delta: number) {
     const target = index + delta;
     if (target < 0 || target >= playlist.length) return;
     const next = [...playlist];
@@ -20,7 +20,7 @@ export default function App() {
     setPlaylist(next);
   }
 
-  const byId = (id) => SONGS.find((s) => s.id === id);
+  const byId = (id: number) => SONGS.find((s) => s.id === id)!;
 
   return (
     <div>

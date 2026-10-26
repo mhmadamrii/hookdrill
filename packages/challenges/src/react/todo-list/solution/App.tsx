@@ -1,14 +1,16 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
+
+type Todo = { id: number; text: string; done: boolean };
 
 let nextId = 1;
 
 export default function App() {
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [text, setText] = useState("");
-  const [editingId, setEditingId] = useState(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
   const [draft, setDraft] = useState("");
 
-  function addTodo(e) {
+  function addTodo(e: FormEvent) {
     e.preventDefault();
     const value = text.trim();
     if (!value) return;
@@ -16,20 +18,20 @@ export default function App() {
     setText("");
   }
 
-  function toggle(id) {
+  function toggle(id: number) {
     setTodos(todos.map((t) => (t.id === id ? { ...t, done: !t.done } : t)));
   }
 
-  function remove(id) {
+  function remove(id: number) {
     setTodos(todos.filter((t) => t.id !== id));
   }
 
-  function startEdit(todo) {
+  function startEdit(todo: Todo) {
     setEditingId(todo.id);
     setDraft(todo.text);
   }
 
-  function save(e) {
+  function save(e: FormEvent) {
     e.preventDefault();
     const value = draft.trim();
     if (value) {

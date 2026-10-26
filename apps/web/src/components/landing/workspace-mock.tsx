@@ -254,7 +254,7 @@ export function WorkspaceMock({ className }: { className?: string }) {
             <DifficultyPill level="easy" className="h-5 text-2xs" />
             <p className="text-xs leading-relaxed text-muted-foreground">
               Build a todo list in{' '}
-              <span className="font-mono text-foreground">App.jsx</span>. Add,
+              <span className="font-mono text-foreground">App.tsx</span>. Add,
               edit, delete and toggle each item.
             </p>
             <div className="rounded-md border text-2xs">
@@ -301,10 +301,10 @@ export function WorkspaceMock({ className }: { className?: string }) {
             <PanelBar>
               <PanelTab icon={Code2} label="Code" active />
               <span className="ml-1 rounded-md bg-card px-2 py-0.5 font-mono text-2xs text-foreground/85 ring-1 ring-border">
-                App.jsx
+                App.tsx
               </span>
               <span className="ml-auto pr-1 text-2xs text-muted-foreground">
-                React · JSX
+                React · TSX
               </span>
             </PanelBar>
             <CodeLines code={CODE} start={3} activeLine={18} className="py-2" />

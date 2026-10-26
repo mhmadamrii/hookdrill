@@ -1,7 +1,7 @@
 import type { FileMap } from '../../../types'
-import app from './App.jsx?raw'
-import songs from '../starter/songs.js?raw'
+import app from './App.tsx?raw'
+import songs from '../starter/songs.ts?raw'
 
-const solutionFiles: FileMap = { '/App.jsx': app, '/songs.js': songs }
+const solutionFiles: FileMap = { '/App.tsx': app, '/songs.ts': songs }
 
 export default solutionFiles

@@ -2,15 +2,15 @@ import type { Challenge } from '../../types'
 import { meta } from './meta'
 import { hints } from './hints'
 import description from './description.md?raw'
-import starterApp from './starter/App.jsx?raw'
-import todoTest from './tests/todo.test.jsx?raw'
+import starterApp from './starter/App.tsx?raw'
+import todoTest from './tests/todo.test.tsx?raw'
 
 const challenge: Challenge = {
   ...meta,
   description,
   hints,
-  starterFiles: { '/App.jsx': starterApp },
-  testFiles: { '/tests/todo.test.jsx': todoTest },
+  starterFiles: { '/App.tsx': starterApp },
+  testFiles: { '/tests/todo.test.tsx': todoTest },
   dependencies: {
     '@testing-library/react': '16.3.0',
     '@testing-library/dom': '10.4.0',

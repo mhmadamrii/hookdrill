@@ -196,7 +196,7 @@ registry = insertAbove(
   'src/index.ts',
 )
 
-// Template tokens appear inside quoted strings ('__TITLE__' in .ts, "__TITLE__" in .jsx);
+// Template tokens appear inside quoted strings ('__TITLE__' in .ts, "__TITLE__" in .tsx);
 // each quoted occurrence is replaced with a properly escaped literal.
 const values = {
   __ID__: `react-${slug}`,

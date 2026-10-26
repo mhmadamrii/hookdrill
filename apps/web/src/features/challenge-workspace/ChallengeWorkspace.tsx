@@ -88,7 +88,7 @@ export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
 
   return (
     <SandpackProvider
-      template="react"
+      template="react-ts"
       theme={editorTheme}
       files={files}
       customSetup={customSetup}
@@ -298,7 +298,7 @@ function CodePanel({
         <span className="flex items-center gap-1.5 px-2 font-medium">
           <Code2 className="size-4 text-accepted" /> Code
           <span className="ml-2 rounded bg-secondary px-1.5 py-0.5 text-xs font-normal text-muted-foreground">
-            React · JSX
+            React · TSX
           </span>
         </span>
         <span className="flex items-center gap-0.5">
@@ -424,9 +424,10 @@ function toSandpackFiles(
 ): SandpackFiles {
   const [mainPath] = Object.keys(challenge.starterFiles)
   // Override the template entry so it renders the challenge's main file.
+  const main = mainPath.replace(/\.[jt]sx?$/, '')
   const files: SandpackFiles = {
-    '/index.js': {
-      code: `import { createRoot } from "react-dom/client";\nimport App from ".${mainPath}";\n\ncreateRoot(document.getElementById("root")).render(<App />);\n`,
+    '/index.tsx': {
+      code: `import { createRoot } from "react-dom/client";\nimport App from ".${main}";\n\ncreateRoot(document.getElementById("root")!).render(<App />);\n`,
       hidden: true,
     },
   }

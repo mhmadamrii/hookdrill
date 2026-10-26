@@ -1,4 +1,4 @@
-Build a todo list in `App.jsx` (default export `App`).
+Build a todo list in `App.tsx` (default export `App`).
 
 ## Requirements
 

@@ -9,5 +9,5 @@ export default function App() {
       <button data-testid="increment-button">+</button>
       <button data-testid="reset-button">Reset</button>
     </div>
-  )
+  );
 }

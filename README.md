@@ -82,9 +82,11 @@ This copies `packages/challenges/template/` to `packages/challenges/src/react/<s
 
 No UI code changes are needed. The full maintainer guide and checklist is in [packages/challenges/template/README.md](./packages/challenges/template/README.md).
 
+Challenges are written in TypeScript (`App.tsx`, `*.test.tsx`) and run in Sandpack's `react-ts` template. The sandbox strips types without checking them, so a type error doesn't fail a run.
+
 ### Writing tests: sandbox gotchas
 
-Sandpack's in-browser Jest renders into a real DOM but exposes jsdom 16 globals. Follow the pattern in `todo-list/tests/todo.test.jsx`:
+Sandpack's in-browser Jest renders into a real DOM but exposes jsdom 16 globals. Follow the pattern in `todo-list/tests/todo.test.tsx`:
 
 - Create user-event with `userEvent.setup({ document })`. Without it, typing silently does nothing or throws `The provided value is not of type 'Element'`.
 - Query inside the rendered container (`within(container)`), not `screen`.

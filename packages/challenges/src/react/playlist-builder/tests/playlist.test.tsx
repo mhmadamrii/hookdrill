@@ -1,8 +1,13 @@
 import React from "react";
 import { render, within, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "../App.jsx";
-import { SONGS } from "../songs.js";
+import type { UserEvent } from "@testing-library/user-event";
+import App from "../App";
+import { SONGS } from "../songs";
+
+type View = ReturnType<typeof within>;
+
+const text = (el: HTMLElement) => (el.textContent ?? "").trim();
 
 // Sandpack's in-browser Jest renders into the iframe's real DOM but exposes
 // jsdom globals, so user-event must be pointed at the real `document`.
@@ -16,15 +21,15 @@ function setup() {
 
 const [A, B, C] = SONGS.map((s) => s.title);
 
-function libraryItem(view, title) {
-  return view
+function libraryItem(view: View, title: string) {
+  const item = view
     .getAllByTestId("library-item")
-    .find(
-      (el) => within(el).getByTestId("song-title").textContent.trim() === title,
-    );
+    .find((el) => text(within(el).getByTestId("song-title")) === title);
+  if (!item) throw new Error(`No library item titled "${title}"`);
+  return item;
 }
 
-async function addSongs(user, view, ...titles) {
+async function addSongs(user: UserEvent, view: View, ...titles: string[]) {
   for (const title of titles) {
     await user.click(
       within(libraryItem(view, title)).getByTestId("add-button"),
@@ -32,18 +37,19 @@ async function addSongs(user, view, ...titles) {
   }
 }
 
-function playlist(view) {
+function playlist(view: View) {
   return view
     .queryAllByTestId("playlist-item")
-    .map((el) => within(el).getByTestId("song-title").textContent.trim());
+    .map((el) => text(within(el).getByTestId("song-title")));
 }
 
-function buttons(view, index) {
+function buttons(view: View, index: number) {
   const item = within(view.getAllByTestId("playlist-item")[index]);
+  const button = (id: string) => item.getByTestId(id) as HTMLButtonElement;
   return {
-    up: item.getByTestId("move-up-button"),
-    down: item.getByTestId("move-down-button"),
-    remove: item.getByTestId("remove-button"),
+    up: button("move-up-button"),
+    down: button("move-down-button"),
+    remove: button("remove-button"),
   };
 }
 
@@ -63,11 +69,17 @@ describe("Playlist Builder", () => {
   it("disables Add for a song already in the playlist", async () => {
     const { user, view } = setup();
     await addSongs(user, view, A);
-    const addA = within(libraryItem(view, A)).getByTestId("add-button");
+    const addA = within(libraryItem(view, A)).getByTestId(
+      "add-button",
+    ) as HTMLButtonElement;
 
     expect(addA.disabled).toBe(true);
     expect(
-      within(libraryItem(view, B)).getByTestId("add-button").disabled,
+      (
+        within(libraryItem(view, B)).getByTestId(
+          "add-button",
+        ) as HTMLButtonElement
+      ).disabled,
     ).toBe(false);
     await user.click(addA);
     expect(playlist(view)).toEqual([A]);
@@ -123,7 +135,11 @@ describe("Playlist Builder", () => {
 
     expect(playlist(view)).toEqual([B]);
     expect(
-      within(libraryItem(view, A)).getByTestId("add-button").disabled,
+      (
+        within(libraryItem(view, A)).getByTestId(
+          "add-button",
+        ) as HTMLButtonElement
+      ).disabled,
     ).toBe(false);
 
     await user.click(buttons(view, 0).remove);

@@ -4,8 +4,15 @@
   "trailingComma": "all",
   "overrides": [
     {
-      "files": "packages/challenges/src/react/**/*.{js,jsx}",
-      "options": { "semi": true, "singleQuote": false }
+      "files": [
+        "packages/challenges/{src/react,template}/**/*.tsx",
+        "packages/challenges/{src/react,template}/**/starter/**/*.ts",
+        "packages/challenges/template/starter/*.ts"
+      ],
+      "options": {
+        "semi": true,
+        "singleQuote": false
+      }
     }
   ]
 }

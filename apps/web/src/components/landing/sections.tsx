@@ -31,7 +31,7 @@ function SampleBadge({ className }: { className?: string }) {
 /* ------------------------------------------------------------------ */
 
 const inEditor = [
-  'React and JSX with syntax colouring',
+  'React and TypeScript with syntax colouring',
   'A live preview that re-renders as you type',
   'Every test by name, with a verdict per test',
   'Hints, revealed one at a time when you ask',
@@ -67,7 +67,7 @@ export function WhyByHand() {
               ask for it. HookDrill is deliberate practice for exactly that: a
               spec, an empty{' '}
               <span className="font-mono text-[0.9em] text-foreground">
-                App.jsx
+                App.tsx
               </span>
               , and tests that only care whether it works.
             </p>
@@ -351,7 +351,7 @@ export function FinalCta({ signedIn }: { signedIn: boolean }) {
         <div className="relative flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
           <div className="max-w-xl">
             <h2 className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl">
-              An empty App.jsx is waiting.
+              An empty App.tsx is waiting.
             </h2>
             <p className="mt-3 text-base leading-relaxed text-primary-foreground/80 md:text-lg">
               Start with Todo List: one component, six tests, nothing to lean on

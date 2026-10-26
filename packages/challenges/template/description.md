@@ -1,4 +1,4 @@
-Build a counter in `App.jsx` (default export `App`).
+Build a counter in `App.tsx` (default export `App`).
 
 <!-- Replace this example with your challenge. Keep the shape: one intro line, Requirements, then the test-id table. -->
 

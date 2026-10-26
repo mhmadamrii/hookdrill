@@ -1,7 +1,10 @@
 import React from "react";
 import { render, within, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import App from "../App.jsx";
+import type { UserEvent } from "@testing-library/user-event";
+import App from "../App";
+
+type View = ReturnType<typeof within>;
 
 // Sandpack's in-browser Jest renders into the iframe's real DOM but exposes
 // jsdom globals, so user-event must be pointed at the real `document`.
@@ -13,13 +16,15 @@ function setup() {
   return { user, view: within(container) };
 }
 
-async function addTodo(user, view, text) {
+async function addTodo(user: UserEvent, view: View, text: string) {
   await user.type(view.getByTestId("todo-input"), text);
   await user.click(view.getByTestId("add-button"));
 }
 
-function texts(view) {
-  return view.queryAllByTestId("todo-text").map((el) => el.textContent.trim());
+function texts(view: View) {
+  return view
+    .queryAllByTestId("todo-text")
+    .map((el) => (el.textContent ?? "").trim());
 }
 
 afterEach(cleanup);
@@ -32,7 +37,7 @@ describe("Todo List", () => {
 
     expect(view.getAllByTestId("todo-item")).toHaveLength(2);
     expect(texts(view)).toEqual(["Buy milk", "Walk dog"]);
-    expect(view.getByTestId("todo-input").value).toBe("");
+    expect((view.getByTestId("todo-input") as HTMLInputElement).value).toBe("");
   });
 
   it("ignores empty and whitespace-only input", async () => {

@@ -3,7 +3,7 @@ export type Difficulty = 'easy' | 'medium' | 'hard'
 /** "react" = build a component, verified in-browser. "dsa" is reserved for later. */
 export type Track = 'react' | 'dsa'
 
-/** Map of sandbox path (e.g. "/App.jsx") to file contents. */
+/** Map of sandbox path (e.g. "/App.tsx") to file contents. */
 export type FileMap = Record<string, string>
 
 export interface ChallengeMeta {

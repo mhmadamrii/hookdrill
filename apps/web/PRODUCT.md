@@ -29,7 +29,7 @@ Two things combined, and a neighbouring product would not truthfully claim both:
 ## Operating Context
 
 - **Workspace:** a desktop, two-column layout. The problem statement and hints on one side; the code editor, live preview, and test results on the other. Mostly keyboard work, with long focus sessions.
-- **Loop:** read the requirements, reveal hints one at a time if stuck, edit `App.jsx` (some challenges have more than one file), watch the live preview, run the public tests (in the browser, instant), then submit (graded on the server, counts for ranking).
+- **Loop:** read the requirements, reveal hints one at a time if stuck, edit `App.tsx` (some challenges have more than one file), watch the live preview, run the public tests (in the browser, instant), then submit (graded on the server, counts for ranking).
 - **Progress:** first accepted solves earn points by difficulty (easy 10, medium 20, hard 40), minus a hint penalty. There are all-time and weekly leaderboards and daily streaks.
 - **Sign-in:** GitHub OAuth first; the audience is developers.
 
