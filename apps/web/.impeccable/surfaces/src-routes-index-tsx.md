@@ -20,7 +20,7 @@ Constraints:
 
 ## Direction contract
 
-THESIS: A competitive-programming-grade practice platform for real UI work. It is dense, fast and dark-first, and makes React components feel as drillable as LeetCode problems. It refuses the editorial, paper and music-book look of the previous world, and arcade gamification (confetti, XP bars).
+THESIS: A competitive-programming-grade practice platform for real UI work. It is dense, fast and dark-first, and makes React components feel as drillable as LeetCode problems. It refuses the editorial, paper and music-book look of the previous world, and arcade gamification (XP bars, badge walls; confetti only on an accepted Submit, by the user's request).
 
 OWN-WORLD:
 - Dark (after the user's LeetCode references): neutral graphite ground #1a1a1a with panels #262626 / #303030, borders #353535, text #eff1f6. Workspace panels float with 8px gaps.

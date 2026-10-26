@@ -179,7 +179,7 @@ HookDrill is built to the category standard set by LeetCode, HackerRank and Code
 
 Depth comes from tone, not shadow. Panels are flat, rounded rectangles with a 1px border, sitting on the page ground. In the workspace they float apart with 8px gutters. The one signature is the test strip: one small square per test, filled pass-green or fail-red, read left to right. It carries HookDrill's promise that every result comes from real tests, and it appears wherever results appear.
 
-This world replaces the rejected "Étude Edition" world. Nothing editorial, paper-like or music-book carries over, and there is no arcade gamification (confetti, XP bars).
+This world replaces the rejected "Étude Edition" world. Nothing editorial, paper-like or music-book carries over, and there is no arcade gamification (XP bars, badge walls). The one exception, chosen by the user: a short confetti burst in brand and verdict colours when a Submit is accepted, skipped under reduced motion.
 
 **Key Characteristics:**
 
@@ -352,4 +352,4 @@ A verdict heading in the verdict colour ("Accepted" / "Wrong Answer"), then a co
 - **Don't** dim difficulty or verdict colours with opacity.
 - **Don't** introduce a second brand accent, or use the banner fills outside banners.
 - **Don't** add new arbitrary pixel type sizes. Use the Tailwind ramp plus text-2xs and text-hero.
-- **Don't** bring back the Étude Edition world (paper, editorial serif, barlines) or arcade gamification (confetti, XP bars).
+- **Don't** bring back the Étude Edition world (paper, editorial serif, barlines) or arcade gamification (XP bars, badge walls). Confetti belongs only to an accepted Submit.

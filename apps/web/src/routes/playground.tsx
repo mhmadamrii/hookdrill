@@ -5,12 +5,43 @@ export const Route = createFileRoute('/playground')({
   component: RouteComponent,
 })
 
+type Todos = {
+  id: number
+  name: string
+  isDone: boolean
+}
+
 function RouteComponent() {
   const [text, setText] = useState('')
-  const [todos, setTodos] = useState([])
+  const [todos, setTodos] = useState<Todos[]>([])
 
   // TODO: keep a list of todos and implement add, edit, delete, and toggle.
   // See the requirements for the data-testid each element needs.
+
+  const handleCreateTodo = () => {
+    setTodos((prev) => [...prev, { id: Date.now(), name: text, isDone: false }])
+    setText('')
+  }
+
+  const handleDeleteTodo = (id: number) => {
+    setTodos((prev) => prev.filter((i) => i.id !== id))
+  }
+
+  const handleToggleTodo = (id: number) => {
+    const current = todos.filter((i) => i.id === id)
+    console.log('current', current)
+    setTodos((prev) =>
+      prev.map((t) =>
+        t.id == id
+          ? {
+              ...t,
+              isDone: !t.isDone,
+            }
+          : t,
+      ),
+    )
+  }
+
   return (
     <div>
       <h1>Todos</h1>
@@ -20,8 +51,25 @@ function RouteComponent() {
         onChange={(e) => setText(e.target.value)}
         placeholder="What needs doing?"
       />
-      <button data-testid="add-button">Add</button>
-      <ul>{/* render one data-testid="todo-item" per todo */}</ul>
+      <button onClick={handleCreateTodo} data-testid="add-button">
+        Add
+      </button>
+      <ul>
+        {todos.map((t) => (
+          <li
+            key={t.id}
+            style={{
+              display: 'flex',
+              gap: 30,
+              color: t.isDone ? 'red' : '',
+            }}
+          >
+            {t.name}
+            <button onClick={() => handleToggleTodo(t.id)}>Done</button>
+            <button onClick={() => handleDeleteTodo(t.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
     </div>
   )
 }

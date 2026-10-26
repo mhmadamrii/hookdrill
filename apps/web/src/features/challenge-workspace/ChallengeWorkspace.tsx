@@ -4,7 +4,7 @@ import {
   SandpackProvider,
   useSandpack,
 } from '@codesandbox/sandpack-react'
-import type { SandpackFiles } from '@codesandbox/sandpack-react'
+import type { CodeEditorRef, SandpackFiles } from '@codesandbox/sandpack-react'
 import {
   CloudUpload,
   Code2,
@@ -36,7 +36,14 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { celebrate } from './celebrate'
 import { ConsolePanel, type ConsoleTab } from './ConsolePanel'
+import {
+  EditorDiagnostics,
+  TypeCheckProvider,
+  TypeStatus,
+  useTypeCheckExtensions,
+} from './typecheck/TypeCheck'
 import { editorTheme } from './editor-theme'
 import { Panel, PanelTabs } from './panel'
 import { ProblemPanel, type ProblemRecord } from './ProblemPanel'
@@ -97,20 +104,33 @@ export function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
       {onFilesChange && (
         <FileWatcher paths={editable} onChange={onFilesChange} />
       )}
-      <TestRunnerProvider onComplete={onTestRunComplete}>
-        <div className="flex h-dvh flex-col bg-background text-foreground">
-          <TopBar
-            nav={props.nav}
-            actions={props.actions}
-            onRun={() => setConsoleTab('result')}
-          />
-          <Layout
-            {...props}
-            consoleTab={consoleTab}
-            onConsoleTab={setConsoleTab}
-          />
-        </div>
-      </TestRunnerProvider>
+      <TypeCheckProvider paths={editable}>
+        <TestRunnerProvider
+          onComplete={(result) => {
+            // Celebrate a solve: a Submit where every test passed. Run stays quiet.
+            if (
+              result.mode === 'submit' &&
+              result.total > 0 &&
+              result.passed === result.total
+            )
+              void celebrate()
+            onTestRunComplete?.(result)
+          }}
+        >
+          <div className="flex h-dvh flex-col bg-background text-foreground">
+            <TopBar
+              nav={props.nav}
+              actions={props.actions}
+              onRun={() => setConsoleTab('result')}
+            />
+            <Layout
+              {...props}
+              consoleTab={consoleTab}
+              onConsoleTab={setConsoleTab}
+            />
+          </div>
+        </TestRunnerProvider>
+      </TypeCheckProvider>
     </SandpackProvider>
   )
 }
@@ -291,6 +311,8 @@ function CodePanel({
 }) {
   const { sandpack } = useSandpack()
   const [confirmReset, setConfirmReset] = useState(false)
+  const editor = useRef<CodeEditorRef>(null)
+  const extensions = useTypeCheckExtensions()
 
   return (
     <Panel>
@@ -339,6 +361,8 @@ function CodePanel({
       </PanelTabs>
       <div className="min-h-0 flex-1 [&_.sp-wrapper]:h-full [&_.sp-stack]:h-full">
         <SandpackCodeEditor
+          ref={editor}
+          extensions={extensions}
           showTabs
           showLineNumbers
           showInlineErrors
@@ -346,9 +370,15 @@ function CodePanel({
           style={{ height: '100%' }}
         />
       </div>
-      <div className="flex h-7 shrink-0 items-center justify-between border-t px-3 text-xs text-muted-foreground">
-        <span>{status ?? 'Not saved'}</span>
-        <span>No autocomplete. That's the point.</span>
+      <EditorDiagnostics editor={editor} />
+      <div className="flex h-7 shrink-0 items-center justify-between gap-4 border-t px-3 text-xs text-muted-foreground">
+        <span className="flex items-center gap-4">
+          <TypeStatus editor={editor} />
+          <span>{status ?? 'Not saved'}</span>
+        </span>
+        <span className="max-sm:hidden">
+          No autocomplete. That's the point.
+        </span>
       </div>
 
       <Dialog open={confirmReset} onOpenChange={setConfirmReset}>

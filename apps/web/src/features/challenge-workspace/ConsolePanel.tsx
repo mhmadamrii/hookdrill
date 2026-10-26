@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils'
 import { Panel, PanelTabs } from './panel'
 import { PreviewPane } from './PreviewPane'
 import { useRunner } from './test-runner'
+import { useTypeCheck } from './typecheck/TypeCheck'
 
 export type ConsoleTab = 'preview' | 'result'
 
@@ -60,6 +61,7 @@ export function ConsolePanel({
 
 function TestResult() {
   const { status, tests, fileError, lastRun } = useRunner()
+  const { errorCount } = useTypeCheck()
   const [selected, setSelected] = useState(0)
   const firstFail = tests.findIndex((t) => t.status === 'fail')
 
@@ -128,6 +130,20 @@ function TestResult() {
         <p className="mt-1 text-xs text-muted-foreground">
           Checked in your browser. Hidden server grading for ranked submissions
           is coming.
+        </p>
+      )}
+      {errorCount > 0 && (
+        <p className="mt-2 rounded-lg bg-wrong/10 px-3 py-2 text-xs text-wrong">
+          Your code has {errorCount} type{' '}
+          {errorCount === 1 ? 'error' : 'errors'}. The tests still ran, because
+          the sandbox strips types before running, but fix them as you would
+          before shipping.
+        </p>
+      )}
+      {tests.some((t) => t.error?.includes('Exceeded timeout')) && (
+        <p className="mt-2 rounded-lg bg-surface-2 px-3 py-2 text-xs text-muted-foreground">
+          Some tests timed out. Browsers slow down tabs that are in the
+          background, so keep this tab in front while tests run, then run again.
         </p>
       )}
       <TestStrip

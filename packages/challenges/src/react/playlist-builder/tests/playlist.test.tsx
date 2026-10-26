@@ -11,10 +11,12 @@ const text = (el: HTMLElement) => (el.textContent ?? "").trim();
 
 // Sandpack's in-browser Jest renders into the iframe's real DOM but exposes
 // jsdom globals, so user-event must be pointed at the real `document`.
+// `delay: null` skips user-event's setTimeout between actions: browsers throttle
+// timers in background tabs, which otherwise pushes tests past Jest's 5s timeout.
 // Queries are scoped to the rendered container because the sandbox entry
 // may also mount the app into the same document.
 function setup() {
-  const user = userEvent.setup({ document });
+  const user = userEvent.setup({ document, delay: null });
   const { container } = render(<App />);
   return { user, view: within(container) };
 }

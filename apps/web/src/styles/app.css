@@ -237,3 +237,28 @@ html .sp-wrapper {
 .sp-wrapper .cm-editor ::selection {
   background: color-mix(in oklab, var(--ring) 28%, transparent) !important;
 }
+
+/* Type-check diagnostics in the editor (CodeMirror lint). */
+.sp-wrapper .cm-tooltip.cm-tooltip-lint,
+.sp-wrapper .cm-tooltip-hover {
+  background: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: 0 6px 24px -8px rgb(0 0 0 / 0.35);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  max-width: 480px;
+}
+.sp-wrapper .cm-diagnostic {
+  padding: 6px 10px;
+}
+.sp-wrapper .cm-diagnostic-error {
+  border-left-color: var(--wrong);
+}
+.sp-wrapper .cm-diagnosticSource {
+  color: var(--muted-foreground);
+}
+.sp-wrapper .cm-gutter-lint {
+  width: 1.1em;
+}

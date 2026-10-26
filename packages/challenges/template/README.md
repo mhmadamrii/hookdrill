@@ -38,18 +38,21 @@ The scaffold is a working counter: its starter fails every test and its solution
 - [ ] With the starter, **every** test fails. A test that passes on an empty component tests nothing.
 - [ ] With the reference solution, **every** test passes. In development, open `/problems/<slug>`, use the sparkle button (Load reference solution), then press Run.
 - [ ] Hints are ordered from vague to specific and never paste the full answer.
+- [ ] Starter and solution both show **No type errors** in the editor footer.
 - [ ] `pnpm typecheck` and `pnpm format:check` pass.
 - [ ] After merging, deploy runs `pnpm db:sync-challenges` so the database knows about the new problem.
 
 ## Writing in TypeScript
 
-Challenges are TypeScript (`.tsx`/`.ts`) and run in Sandpack's `react-ts` template. Inside the sandbox, type annotations are stripped, not checked, so a type error won't fail a run. Keep starters and solutions type-correct anyway, since users read them as reference. Import local files without an extension (`import App from "../App"`).
+Challenges are TypeScript (`.tsx`/`.ts`) and run in Sandpack's `react-ts` template. The sandbox strips types when running, but the editor type-checks every editable file with TypeScript in strict mode (React 19 types, ES2022 + DOM libs), and shows errors inline. Starters and solutions must show **No type errors** in the editor footer. Import local files without an extension (`import App from "../App"`).
 
 ## Writing tests: sandbox rules
 
 Tests run in Sandpack's in-browser Jest, which renders into a real DOM but exposes jsdom 16 globals. The template's `setup()` already handles this:
 
-- Create user-event with `userEvent.setup({ document })`. Without it, typing silently does nothing or throws `The provided value is not of type 'Element'`.
+- Create user-event with `userEvent.setup({ document, delay: null })`.
+  - Without `document`, typing silently does nothing or throws `The provided value is not of type 'Element'`.
+  - Without `delay: null`, user-event waits on a timer between every action. Browsers throttle timers when the tab is in the background, so runs crawl and tests hit Jest's 5 s timeout.
 - Query inside the rendered container (`within(container)`), not `screen`.
 - Stick to plain `expect` matchers; `jest-dom` isn't available.
 - Users build the component their own way, so assert on behaviour through `data-testid`s and attributes (`disabled`, `data-*`, text). Never assert on class names or markup structure.
