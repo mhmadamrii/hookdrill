@@ -3,17 +3,18 @@ import { ArrowLeft, Flame, Trophy, UserX } from 'lucide-react'
 import { HeatmapLayout } from '@/components/dashboard/activity-panel'
 import { Panel, SampleBadge } from '@/components/dashboard/panel'
 import { RatingChart } from '@/components/profile/rating-chart'
+import { RatingName } from '@/components/rating-name'
+import { SiteFooter } from '@/components/site-footer'
+import { Button } from '@/components/ui/button'
+import { players, sampleActivity, tierFor } from '@/lib/sample-data'
+import { cn } from '@/lib/utils'
+
 import {
   ratingHistory,
   recentContests,
   seedFor,
   solvedSplit,
 } from '@/components/profile/sample-player'
-import { RatingName } from '@/components/rating-name'
-import { SiteFooter } from '@/components/site-footer'
-import { Button } from '@/components/ui/button'
-import { players, sampleActivity, tierFor } from '@/lib/sample-data'
-import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/_site/u/$handle')({
   head: ({ params }) => ({

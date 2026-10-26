@@ -4,18 +4,18 @@ import { ActivityPanel } from '@/components/dashboard/activity-panel'
 import { ContinueCard } from '@/components/dashboard/continue-card'
 import { Panel } from '@/components/dashboard/panel'
 import { ProgressList } from '@/components/dashboard/progress-list'
-import { SignInPrompt } from '@/components/dashboard/sign-in-prompt'
-import {
-  TodaysProblem,
-  TopThisWeek,
-  UpcomingContests,
-} from '@/components/dashboard/side-cards'
 import { SolvedPanel } from '@/components/dashboard/solved-panel'
 import { resolveRows, summarize } from '@/components/dashboard/stats'
 import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useMyProgress } from '@/lib/progress'
+import { SignInPrompt } from '@/components/dashboard/sign-in-prompt'
+import {
+  TodaysProblem,
+  TopThisWeek,
+  UpcomingContests,
+} from '@/components/dashboard/side-cards'
 
 export const Route = createFileRoute('/_site/dashboard')({
   head: () => ({ meta: [{ title: 'Dashboard · HookDrill' }] }),

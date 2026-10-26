@@ -1,4 +1,5 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SiteFooter } from '@/components/site-footer'
 import { FameTable, type FamePeriod } from '@/components/leaderboard/fame-table'
 import { RatingTable } from '@/components/leaderboard/rating-table'
@@ -8,7 +9,6 @@ import {
   TierLegend,
   YourPosition,
 } from '@/components/leaderboard/side-cards'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 type Board = 'rating' | 'fame'
 

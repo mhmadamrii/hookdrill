@@ -2,26 +2,26 @@ import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
 import { Star } from 'lucide-react'
 import { SiteFooter } from '@/components/site-footer'
-import { Banners } from '@/components/problems/banners'
-import {
-  CategoryPills,
-  Toolbar,
-  TopicChips,
-} from '@/components/problems/filters'
 import { LibrarySidebar } from '@/components/problems/library-sidebar'
 import { ProblemTable } from '@/components/problems/problem-table'
 import { RightRail } from '@/components/problems/right-rail'
-import {
-  applyProblemsSearch,
-  validateProblemsSearch,
-  type ProblemsSearch,
-} from '@/components/problems/search'
 import { ComingSoon } from '@/components/problems/coming-soon'
 import { Button } from '@/components/ui/button'
 import { useAcceptance } from '@/lib/acceptance'
 import { useFavorites } from '@/lib/favorites'
 import { playableProblems } from '@/lib/problems'
 import { useMyProgress } from '@/lib/progress'
+import { Banners } from '@/components/problems/banners'
+import {
+  CategoryPills,
+  Toolbar,
+  TopicChips,
+} from '@/components/problems/filters'
+import {
+  applyProblemsSearch,
+  validateProblemsSearch,
+  type ProblemsSearch,
+} from '@/components/problems/search'
 
 export const Route = createFileRoute('/_site/problems/')({
   validateSearch: validateProblemsSearch,

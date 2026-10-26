@@ -3,17 +3,18 @@ import { ArrowRight } from 'lucide-react'
 import { DifficultyText } from '@/components/difficulty'
 import { HowItWorks } from '@/components/landing/how-it-works'
 import { ProblemPreview } from '@/components/landing/problem-preview'
+import { WorkspaceMock } from '@/components/landing/workspace-mock'
+import { SiteFooter } from '@/components/site-footer'
+import { Button } from '@/components/ui/button'
+import { useSession } from '@/lib/auth-client'
+import { playableProblems } from '@/lib/problems'
+
 import {
   Arena,
   FinalCta,
   Tracks,
   WhyByHand,
 } from '@/components/landing/sections'
-import { WorkspaceMock } from '@/components/landing/workspace-mock'
-import { SiteFooter } from '@/components/site-footer'
-import { Button } from '@/components/ui/button'
-import { useSession } from '@/lib/auth-client'
-import { playableProblems } from '@/lib/problems'
 
 export const Route = createFileRoute('/_site/')({
   head: () => ({

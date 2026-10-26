@@ -1,14 +1,15 @@
+import { Button } from '@/components/ui/button'
+import { Toaster } from '@/components/ui/sonner'
+import { TooltipProvider } from '@/components/ui/tooltip'
+import { ThemeProvider, themeScript } from '@/lib/theme'
+import { ApiProvider } from '@/lib/trpc'
+
 import {
   HeadContent,
   Link,
   Scripts,
   createRootRoute,
 } from '@tanstack/react-router'
-import { Button } from '@/components/ui/button'
-import { Toaster } from '@/components/ui/sonner'
-import { TooltipProvider } from '@/components/ui/tooltip'
-import { ThemeProvider, themeScript } from '@/lib/theme'
-import { ApiProvider } from '@/lib/trpc'
 
 import appCss from '../styles/app.css?url'
 

@@ -1,12 +1,21 @@
 import { useEffect, useRef } from 'react'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { ChevronLeft, ChevronRight, ListTree, Shuffle } from 'lucide-react'
+import { LogoMark } from '@/components/logo'
+import { ThemeToggle } from '@/components/theme-toggle'
+import { Button } from '@/components/ui/button'
+import { UserMenu } from '@/components/user-menu'
+import { useSession } from '@/lib/auth-client'
+import { findProblem, playableProblems } from '@/lib/problems'
+import { useTRPC } from '@/lib/trpc'
+
 import {
   Link,
   createFileRoute,
   notFound,
   useNavigate,
 } from '@tanstack/react-router'
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { ChevronLeft, ChevronRight, ListTree, Shuffle } from 'lucide-react'
+
 import {
   getChallenge,
   type Challenge,
@@ -16,18 +25,12 @@ import {
   ChallengeWorkspace,
   type ChallengeWorkspaceProps,
 } from '#/features/challenge-workspace'
-import { LogoMark } from '@/components/logo'
-import { ThemeToggle } from '@/components/theme-toggle'
-import { Button } from '@/components/ui/button'
+
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import { UserMenu } from '@/components/user-menu'
-import { useSession } from '@/lib/auth-client'
-import { findProblem, playableProblems } from '@/lib/problems'
-import { useTRPC } from '@/lib/trpc'
 
 const SAVE_DELAY_MS = 800
 
@@ -188,8 +191,7 @@ function SignedInWorkspace({ challenge }: { challenge: Challenge }) {
   const progress = useQuery(trpc.progress.list.queryOptions())
 
   const save = useMutation(trpc.drafts.save.mutationOptions())
-  const invalidateProgress = () =>
-    queryClient.invalidateQueries({ queryKey: trpc.progress.list.queryKey() })
+  const invalidateProgress = () => queryClient.invalidateQueries({ queryKey: trpc.progress.list.queryKey() }) // prettier-ignore
   const recordRun = useMutation(
     trpc.progress.recordRun.mutationOptions({ onSuccess: invalidateProgress }),
   )
