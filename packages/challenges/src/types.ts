@@ -13,6 +13,8 @@ export interface ChallengeMeta {
   difficulty: Difficulty
   track: Track
   summary: string
+  /** Topic tags shown in problem lists and filters, e.g. ['State', 'Forms']. */
+  tags: string[]
 }
 
 export interface Challenge extends ChallengeMeta {

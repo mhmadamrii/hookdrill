@@ -10,6 +10,7 @@
     "db:generate": "pnpm --filter @hookdrill/db generate",
     "db:migrate": "pnpm --filter @hookdrill/db migrate",
     "db:sync-challenges": "pnpm --filter @hookdrill/db sync-challenges",
+    "challenge:new": "node packages/challenges/scripts/new-challenge.mjs",
     "format": "prettier . --write",
     "format:check": "prettier . --check"
   },

@@ -15,18 +15,13 @@ export interface Problem {
   playable: boolean
 }
 
-const REAL_TAGS: Record<string, string[]> = {
-  'todo-list': ['State', 'Lists', 'Forms'],
-  'playlist-builder': ['State', 'Lists', 'Reordering'],
-}
-
 const real: Problem[] = listChallenges().map((c, i) => ({
   number: i + 1,
   slug: c.slug,
   title: c.title,
   difficulty: c.difficulty,
   acceptance: null,
-  tags: REAL_TAGS[c.slug] ?? [],
+  tags: c.tags,
   track: c.track === 'dsa' ? 'dsa' : 'react',
   playable: true,
 }))

@@ -7,4 +7,5 @@ export const meta: ChallengeMeta = {
   difficulty: 'easy',
   track: 'react',
   summary: 'Build a todo list with create, edit, delete, and toggle.',
+  tags: ['State', 'Lists', 'Forms'],
 }

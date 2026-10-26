@@ -7,6 +7,7 @@ export const Route = createFileRoute('/playground')({
 
 function RouteComponent() {
   const [text, setText] = useState('')
+  const [todos, setTodos] = useState([])
 
   // TODO: keep a list of todos and implement add, edit, delete, and toggle.
   // See the requirements for the data-testid each element needs.
@@ -35,4 +36,11 @@ edit-button	enters edit mode, inside todo-item
 edit-input	text input shown while editing
 save-button	saves the edited text
 delete-button	removes the todo, inside todo-item
+ */
+
+/**
+ * Keep the todos in a single useState array. Give each todo a stable id (for example Date.now() or a counter) so you can find it later.
+ * Wrap the input and Add button in a <form> and handle onSubmit. That gives you Enter-to-submit for free. Remember event.preventDefault() and text.trim().
+ * Update immutably: todos.map(t => t.id === id ? { ...t, done: !t.done } : t) to toggle, todos.filter(t => t.id !== id) to delete.
+ * For editing, store the id of the todo being edited (editingId) and a draft string. Render edit-input + save-button for that todo instead of todo-text + edit-button.
  */

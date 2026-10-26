@@ -30,6 +30,7 @@ Sign in with GitHub once `GITHUB_CLIENT_ID`/`GITHUB_CLIENT_SECRET` are set (call
 | `pnpm db:generate`        | Generate a migration after editing `packages/db/src/schema`  |
 | `pnpm db:migrate`         | Apply migrations                                             |
 | `pnpm db:sync-challenges` | Upsert challenge metadata from `packages/challenges`         |
+| `pnpm challenge:new`      | Scaffold a new challenge from the template and register it   |
 | `pnpm format`             | Format all files with Prettier                               |
 | `pnpm format:check`       | Check formatting without writing (for CI)                    |
 
@@ -49,11 +50,11 @@ The Better Auth tables in `packages/db/src/schema/auth.ts` are generated: after 
 
 ```
 apps/web/                      TanStack Start app (Vercel)
-  src/routes/                  __root, index (étude list), challenges.$slug, signin, me
+  src/routes/                  __root, _site/* (landing, problems, dashboard, …), problems.$slug (workspace)
   src/features/challenge-workspace/
                                the only place that imports Sandpack; persistence
                                comes in through props (drafts, runs, hints)
-  src/components/ui/           shadcn/ui primitives + Barline
+  src/components/              shared UI (header, test strip, heatmap, …); ui/ = shadcn/ui
   src/lib/                     tRPC client, Better Auth client, cn()
   src/client.tsx               client entry without StrictMode (see below)
 apps/api/                      Hono + tRPC + Better Auth (VPS); exports type AppRouter
@@ -63,21 +64,23 @@ packages/challenges/           challenge content, data only, no UI
   src/catalog.ts               metadata only, safe outside Vite (API, DB sync)
   src/index.ts                 registry: listChallenges(), getChallenge(slug), getSolutionFiles(slug)
   src/react/<slug>/            meta, description.md, hints, starter/, solution/, tests/
+  template/                    scaffold used by `pnpm challenge:new` (+ maintainer guide)
+  scripts/new-challenge.mjs    the generator
 ```
 
 ## Adding a challenge
 
-1. Create `packages/challenges/src/react/<slug>/` with the same shape as `todo-list/`:
-   - `meta.ts`: id, slug, title, difficulty, track, summary
-   - `description.md`, `hints.ts`
-   - `starter/App.jsx`: what the user starts with (default export `App`)
-   - `solution/App.jsx` + `solution/index.ts`: reference solution
-   - `tests/*.test.jsx`: hidden test suite
-   - `index.ts`: assembles the `Challenge`
-2. Register it: add its meta to `src/catalog.ts`, and one line each in `loaders` and `solutions` in `src/index.ts`. Then run `pnpm db:sync-challenges`.
-3. Verify: in dev, open the challenge, click **Load reference solution (dev only)**, run tests. All must pass. Reset, run again: they must fail.
+```bash
+pnpm challenge:new          # asks for title, slug, difficulty, tags, summary
+# or: pnpm challenge:new --title "Star Rating" --difficulty easy --tags "State, Events" --summary "..."
+```
 
-No UI code changes are needed.
+This copies `packages/challenges/template/` to `packages/challenges/src/react/<slug>/` and registers it in `src/catalog.ts` and `src/index.ts`. The scaffold is a working example (a counter) whose starter fails every test and whose solution passes every test. Replace it with your challenge, then:
+
+1. `pnpm dev`, open `/problems/<slug>`: Run must fail every test; Load reference solution (sparkle button), Run must pass every test.
+2. `pnpm db:sync-challenges`, then `pnpm typecheck && pnpm format`.
+
+No UI code changes are needed. The full maintainer guide and checklist is in [packages/challenges/template/README.md](./packages/challenges/template/README.md).
 
 ### Writing tests: sandbox gotchas
 

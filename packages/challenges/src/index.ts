@@ -8,6 +8,7 @@ export type * from './types'
 const loaders: Record<string, () => Promise<{ default: Challenge }>> = {
   'todo-list': () => import('./react/todo-list'),
   'playlist-builder': () => import('./react/playlist-builder'),
+  // challenge:new loaders
 }
 
 // Reference solutions exist only in dev builds. The literal condition lets the
@@ -17,6 +18,7 @@ const solutions: Record<string, () => Promise<{ default: FileMap }>> =
     ? {
         'todo-list': () => import('./react/todo-list/solution'),
         'playlist-builder': () => import('./react/playlist-builder/solution'),
+        // challenge:new solutions
       }
     : {}
 

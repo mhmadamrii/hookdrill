@@ -7,4 +7,5 @@ export const meta: ChallengeMeta = {
   difficulty: 'medium',
   track: 'react',
   summary: 'Pick songs into a playlist, then reorder and remove them.',
+  tags: ['State', 'Lists', 'Reordering'],
 }
