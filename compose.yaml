@@ -12,8 +12,8 @@ services:
     restart: unless-stopped
     environment:
       NODE_ENV: production
-      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL}
-      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
+      DATABASE_URL: ${DATABASE_URL}
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: https://${API_HOST:-api.hookdrill.yappers.online}
       WEB_ORIGIN: https://${WEB_HOST:-hookdrill.yappers.online}
       API_PORT: '3001'
