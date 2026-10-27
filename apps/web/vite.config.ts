@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 
 import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import { nitro } from 'nitro/vite'
 
 import viteReact from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -20,7 +21,8 @@ const config = defineConfig({
   optimizeDeps: {
     include: ['typescript', 'canvas-confetti', '@codemirror/lint'],
   },
-  plugins: [tailwindcss(), tanstackStart(), viteReact()],
+  // nitro() emits the server output (.vercel/output on Vercel, auto-detected).
+  plugins: [tailwindcss(), tanstackStart(), nitro(), viteReact()],
 })
 
 export default config
