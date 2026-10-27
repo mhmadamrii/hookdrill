@@ -6,7 +6,8 @@ services:
     restart: unless-stopped
     environment:
       POSTGRES_USER: hookdrill
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      # No password: db is only on the private `internal` network, never published.
+      POSTGRES_HOST_AUTH_METHOD: trust
       POSTGRES_DB: hookdrill
     volumes:
       - hookdrill_pgdata:/var/lib/postgresql/data
@@ -25,7 +26,7 @@ services:
     restart: unless-stopped
     environment: &api-env
       NODE_ENV: production
-      DATABASE_URL: postgres://hookdrill:${POSTGRES_PASSWORD}@db:5432/hookdrill
+      DATABASE_URL: ${DATABASE_URL:-postgres://hookdrill@db:5432/hookdrill}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: https://${API_HOST:-api.hookdrill.yappers.online}
       WEB_ORIGIN: https://${WEB_HOST:-hookdrill.yappers.online}
