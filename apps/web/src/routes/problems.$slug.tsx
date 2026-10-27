@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { Suspense, lazy, useEffect, useRef } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft, ChevronRight, ListTree, Shuffle } from 'lucide-react'
 import { LogoMark } from '@/components/logo'
@@ -21,10 +21,7 @@ import {
   type Challenge,
   type FileMap,
 } from '@hookdrill/challenges'
-import {
-  ChallengeWorkspace,
-  type ChallengeWorkspaceProps,
-} from '#/features/challenge-workspace'
+import type { ChallengeWorkspaceProps } from '#/features/challenge-workspace'
 
 import {
   Tooltip,
@@ -33,6 +30,22 @@ import {
 } from '@/components/ui/tooltip'
 
 const SAVE_DELAY_MS = 800
+
+// Sandpack is browser-only. A static import would be bundled into the server
+// function (Nitro) and crash it with "self is not defined", so load it lazily.
+const LazyWorkspace = lazy(() =>
+  import('#/features/challenge-workspace').then((m) => ({
+    default: m.ChallengeWorkspace,
+  })),
+)
+
+function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
+  return (
+    <Suspense fallback={<Loading />}>
+      <LazyWorkspace {...props} />
+    </Suspense>
+  )
+}
 
 export const Route = createFileRoute('/problems/$slug')({
   // The workspace is iframes + browser-only code; skip server rendering.

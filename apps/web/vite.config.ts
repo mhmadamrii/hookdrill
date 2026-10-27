@@ -21,8 +21,17 @@ const config = defineConfig({
   optimizeDeps: {
     include: ['typescript', 'canvas-confetti', '@codemirror/lint'],
   },
-  // nitro() emits the server output (.vercel/output on Vercel, auto-detected).
-  plugins: [tailwindcss(), tanstackStart(), nitro(), viteReact()],
+  plugins: [
+    tailwindcss(),
+    tanstackStart(),
+    // Emits the server output (.vercel/output on Vercel, auto-detected).
+    nitro({
+      // Sandpack is browser-only (nodebox touches `self` at import). Keep it out of the
+      // server function so a cold start never evaluates it; only the client loads it.
+      rollupConfig: { external: [/^@codesandbox\//] },
+    }),
+    viteReact(),
+  ],
 })
 
 export default config
