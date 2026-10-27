@@ -1,6 +1,7 @@
 # API only. Postgres is the existing kommers_postgres_1 (database `hookdrill`) and the
 # web app is deployed on Vercel.
 # podman compose --env-file .env.production up -d --build
+# Migration result: podman logs hookdrill_api | grep '\[hookdrill\]'
 services:
   hookdrill_api:
     build:
@@ -9,7 +10,7 @@ services:
     image: hookdrill-api
     container_name: hookdrill_api
     restart: unless-stopped
-    environment: &api-env
+    environment:
       NODE_ENV: production
       DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
@@ -19,14 +20,18 @@ services:
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
       COOKIE_DOMAIN: ${COOKIE_DOMAIN:-.hookdrill.yappers.online}
-    networks: [proxy]
-
-  # One-off: podman compose --env-file .env.production run --rm migrate
-  migrate:
-    image: hookdrill-api
-    profiles: [tools]
-    environment: *api-env
-    command: sh -c "pnpm db:migrate && pnpm db:sync-challenges"
+    # Migrate, sync challenges, then serve. A failure exits before the API starts.
+    command:
+      - sh
+      - -c
+      - |
+        set -e
+        echo "[hookdrill] running migrations..."
+        pnpm db:migrate
+        echo "[hookdrill] migrations OK"
+        pnpm db:sync-challenges
+        echo "[hookdrill] challenge sync OK"
+        exec pnpm --filter @hookdrill/api start
     networks: [proxy]
 
 networks:
