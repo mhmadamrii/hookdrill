@@ -1,22 +1,7 @@
-# API + Postgres only; the web app is deployed on Vercel.
+# API only. Postgres is the existing kommers_postgres_1 (database `hookdrill`) and the
+# web app is deployed on Vercel.
 # podman compose --env-file .env.production up -d --build
 services:
-  db:
-    image: docker.io/library/postgres:17
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: hookdrill
-      # No password: db is only on the private `internal` network, never published.
-      POSTGRES_HOST_AUTH_METHOD: trust
-      POSTGRES_DB: hookdrill
-    volumes:
-      - hookdrill_pgdata:/var/lib/postgresql/data
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U hookdrill']
-      interval: 5s
-      retries: 10
-    networks: [internal]
-
   hookdrill_api:
     build:
       context: .
@@ -26,7 +11,7 @@ services:
     restart: unless-stopped
     environment: &api-env
       NODE_ENV: production
-      DATABASE_URL: ${DATABASE_URL:-postgres://hookdrill@db:5432/hookdrill}
+      DATABASE_URL: ${DATABASE_URL:?set DATABASE_URL}
       BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
       BETTER_AUTH_URL: https://${API_HOST:-api.hookdrill.yappers.online}
       WEB_ORIGIN: https://${WEB_HOST:-hookdrill.yappers.online}
@@ -34,10 +19,7 @@ services:
       GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
       GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
       COOKIE_DOMAIN: ${COOKIE_DOMAIN:-.hookdrill.yappers.online}
-    depends_on:
-      db:
-        condition: service_healthy
-    networks: [internal, proxy]
+    networks: [proxy]
 
   # One-off: podman compose --env-file .env.production run --rm migrate
   migrate:
@@ -45,17 +27,10 @@ services:
     profiles: [tools]
     environment: *api-env
     command: sh -c "pnpm db:migrate && pnpm db:sync-challenges"
-    depends_on:
-      db:
-        condition: service_healthy
-    networks: [internal]
+    networks: [proxy]
 
 networks:
-  internal: {}
-  # Network the existing Caddy container is on (`podman network ls` on the VPS).
+  # Network shared with Caddy and kommers_postgres_1 (`podman network ls` on the VPS).
   proxy:
     external: true
     name: ${CADDY_NETWORK:-kommers_default}
-
-volumes:
-  hookdrill_pgdata: {}
