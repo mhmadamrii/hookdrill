@@ -1,0 +1,70 @@
+# podman compose --env-file .env.production up -d --build
+services:
+  db:
+    image: docker.io/library/postgres:17
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: hookdrill
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: hookdrill
+    volumes:
+      - hookdrill_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U hookdrill']
+      interval: 5s
+      retries: 10
+    networks: [internal]
+
+  api:
+    build:
+      context: .
+      target: api
+    image: hookdrill-api
+    container_name: hookdrill_api
+    restart: unless-stopped
+    environment: &api-env
+      NODE_ENV: production
+      DATABASE_URL: postgres://hookdrill:${POSTGRES_PASSWORD}@db:5432/hookdrill
+      BETTER_AUTH_SECRET: ${BETTER_AUTH_SECRET:?set BETTER_AUTH_SECRET}
+      BETTER_AUTH_URL: https://${API_HOST:-api.hookdrill.yappers.online}
+      WEB_ORIGIN: https://${WEB_HOST:-hookdrill.yappers.online}
+      API_PORT: '3001'
+      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID:-}
+      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET:-}
+      COOKIE_DOMAIN: ${COOKIE_DOMAIN:-.hookdrill.yappers.online}
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [internal, proxy]
+
+  # One-off: podman compose --env-file .env.production run --rm migrate
+  migrate:
+    image: hookdrill-api
+    profiles: [tools]
+    environment: *api-env
+    command: sh -c "pnpm db:migrate && pnpm db:sync-challenges"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks: [internal]
+
+  web:
+    build:
+      context: .
+      target: web
+      args:
+        VITE_API_URL: https://${API_HOST:-api.hookdrill.yappers.online}
+    image: hookdrill-web
+    container_name: hookdrill_web
+    restart: unless-stopped
+    networks: [proxy]
+
+networks:
+  internal: {}
+  # Network the existing Caddy container is on (`podman network ls` on the VPS).
+  proxy:
+    external: true
+    name: ${CADDY_NETWORK:-kommers_default}
+
+volumes:
+  hookdrill_pgdata: {}

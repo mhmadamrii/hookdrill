@@ -14,6 +14,22 @@ const loaders: Record<string, () => Promise<{ default: Challenge }>> = {
   'password-strength-meter': () => import('./react/password-strength-meter'),
   'shopping-cart': () => import('./react/shopping-cart'),
   'countdown-timer': () => import('./react/countdown-timer'),
+  'tabs-with-roving-focus': () => import('./react/tabs-with-roving-focus'),
+  'sortable-data-table': () => import('./react/sortable-data-table'),
+  'multi-step-form': () => import('./react/multi-step-form'),
+  'modal-focus-trap': () => import('./react/modal-focus-trap'),
+  'autocomplete-combobox': () => import('./react/autocomplete-combobox'),
+  'virtualized-list': () => import('./react/virtualized-list'),
+  'debounced-search': () => import('./react/debounced-search'),
+  'toast-queue': () => import('./react/toast-queue'),
+  'file-explorer-tree': () => import('./react/file-explorer-tree'),
+  'infinite-feed': () => import('./react/infinite-feed'),
+  'kanban-board': () => import('./react/kanban-board'),
+  'date-range-picker': () => import('./react/date-range-picker'),
+  'product-sort': () => import('./react/product-sort'),
+  'leaderboard-ranking': () => import('./react/leaderboard-ranking'),
+  'natural-sort-file-list': () => import('./react/natural-sort-file-list'),
+  'multi-column-sort': () => import('./react/multi-column-sort'),
   // challenge:new loaders
 }
 
@@ -31,6 +47,28 @@ const solutions: Record<string, () => Promise<{ default: FileMap }>> =
           import('./react/password-strength-meter/solution'),
         'shopping-cart': () => import('./react/shopping-cart/solution'),
         'countdown-timer': () => import('./react/countdown-timer/solution'),
+        'tabs-with-roving-focus': () =>
+          import('./react/tabs-with-roving-focus/solution'),
+        'sortable-data-table': () =>
+          import('./react/sortable-data-table/solution'),
+        'multi-step-form': () => import('./react/multi-step-form/solution'),
+        'modal-focus-trap': () => import('./react/modal-focus-trap/solution'),
+        'autocomplete-combobox': () =>
+          import('./react/autocomplete-combobox/solution'),
+        'virtualized-list': () => import('./react/virtualized-list/solution'),
+        'debounced-search': () => import('./react/debounced-search/solution'),
+        'toast-queue': () => import('./react/toast-queue/solution'),
+        'file-explorer-tree': () =>
+          import('./react/file-explorer-tree/solution'),
+        'infinite-feed': () => import('./react/infinite-feed/solution'),
+        'kanban-board': () => import('./react/kanban-board/solution'),
+        'date-range-picker': () => import('./react/date-range-picker/solution'),
+        'product-sort': () => import('./react/product-sort/solution'),
+        'leaderboard-ranking': () =>
+          import('./react/leaderboard-ranking/solution'),
+        'natural-sort-file-list': () =>
+          import('./react/natural-sort-file-list/solution'),
+        'multi-column-sort': () => import('./react/multi-column-sort/solution'),
         // challenge:new solutions
       }
     : {}

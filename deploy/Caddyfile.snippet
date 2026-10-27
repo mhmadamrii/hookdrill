@@ -1,0 +1,10 @@
+# Append to ~/kommers/Caddyfile, then: podman exec <caddy> caddy reload --config /etc/caddy/Caddyfile
+hookdrill.yappers.online {
+    encode gzip
+    reverse_proxy hookdrill_web:3000
+}
+
+api.hookdrill.yappers.online {
+    encode gzip
+    reverse_proxy hookdrill_api:3001
+}

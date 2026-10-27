@@ -112,7 +112,7 @@ export function HowItWorks() {
       aria-labelledby="how-heading"
       className="mx-auto max-w-[1440px] px-4 py-20 md:px-6 md:py-28"
     >
-      <div className="max-w-2xl">
+      <div className="mx-auto max-w-2xl text-center">
         <h2
           id="how-heading"
           className="text-3xl font-semibold tracking-[-0.025em] text-balance md:text-4xl"
@@ -125,21 +125,18 @@ export function HowItWorks() {
         </p>
       </div>
 
-      <ol className="relative mt-12 grid gap-10 lg:grid-cols-3 lg:gap-0">
-        {/* connecting rail behind the step numbers */}
+      <ol className="relative mt-14 grid gap-14 lg:grid-cols-3 lg:gap-0">
+        {/* connecting rail between the step numbers, centred over each column */}
         <span
           aria-hidden
-          className="absolute top-4 right-[16%] left-4 hidden h-px bg-border lg:block"
+          className="absolute top-4 right-[calc(100%/6)] left-[calc(100%/6)] hidden h-px bg-border lg:block"
         />
         {steps.map((s, i) => (
           <li
             key={s.title}
-            className={cn(
-              'relative flex flex-col gap-5 lg:pr-10',
-              i > 0 && 'lg:pl-0',
-            )}
+            className="relative flex flex-col items-center gap-5 text-center lg:px-6"
           >
-            <div className="flex items-center gap-3">
+            <div className="flex flex-col items-center gap-3">
               <span
                 className={cn(
                   'relative grid size-8 place-items-center rounded-full border bg-background text-sm font-semibold tabular-nums',
@@ -156,7 +153,7 @@ export function HowItWorks() {
             <p className="max-w-[46ch] text-[15px] leading-relaxed text-muted-foreground">
               {s.body}
             </p>
-            <div className="max-w-md">{s.visual}</div>
+            <div className="w-full max-w-md text-left">{s.visual}</div>
           </li>
         ))}
       </ol>
