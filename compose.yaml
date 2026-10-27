@@ -1,3 +1,4 @@
+# API + Postgres only; the web app is deployed on Vercel.
 # podman compose --env-file .env.production up -d --build
 services:
   db:
@@ -15,7 +16,7 @@ services:
       retries: 10
     networks: [internal]
 
-  api:
+  hookdrill_api:
     build:
       context: .
       target: api
@@ -47,17 +48,6 @@ services:
       db:
         condition: service_healthy
     networks: [internal]
-
-  web:
-    build:
-      context: .
-      target: web
-      args:
-        VITE_API_URL: https://${API_HOST:-api.hookdrill.yappers.online}
-    image: hookdrill-web
-    container_name: hookdrill_web
-    restart: unless-stopped
-    networks: [proxy]
 
 networks:
   internal: {}
