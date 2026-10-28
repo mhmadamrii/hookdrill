@@ -15,7 +15,11 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur supports-[backdrop-filter]:bg-background/75">
       <div className="mx-auto flex h-14 max-w-[1440px] items-center gap-6 px-4 md:px-6">
-        <Link to="/" aria-label="HookDrill home">
+        <Link
+          to="/"
+          aria-label="HookDrill home"
+          className="flex shrink-0 items-center rounded-md outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50"
+        >
           <Logo />
         </Link>
         <nav className="flex h-full items-center gap-1 overflow-x-auto text-sm max-sm:hidden">
