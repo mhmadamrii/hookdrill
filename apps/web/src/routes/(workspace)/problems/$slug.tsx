@@ -47,7 +47,7 @@ function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
   )
 }
 
-export const Route = createFileRoute('/problems/$slug')({
+export const Route = createFileRoute('/(workspace)/problems/$slug')({
   // The workspace is iframes + browser-only code; skip server rendering.
   ssr: false,
   loader: async ({ params }) => {

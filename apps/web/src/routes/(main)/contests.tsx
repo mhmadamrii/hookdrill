@@ -5,7 +5,7 @@ import { ContestRatingCard } from '@/components/contests/rating-card'
 import { SiteFooter } from '@/components/site-footer'
 import { pastContests, upcomingContests } from '@/lib/sample-data'
 
-export const Route = createFileRoute('/_site/contests')({
+export const Route = createFileRoute('/(main)/contests')({
   head: () => ({ meta: [{ title: 'Contests · HookDrill' }] }),
   component: Contests,
 })

@@ -17,7 +17,7 @@ interface LeaderboardSearch {
   period?: FamePeriod
 }
 
-export const Route = createFileRoute('/_site/leaderboard')({
+export const Route = createFileRoute('/(main)/leaderboard')({
   validateSearch: (raw: Record<string, unknown>): LeaderboardSearch => ({
     board: raw.board === 'fame' ? 'fame' : undefined,
     period: raw.period === 'month' ? 'month' : undefined,

@@ -15,7 +15,7 @@ export function YourPosition({ board }: { board: 'rating' | 'fame' }) {
   const fame = useFameStatus()
   const checkIn = useCheckIn()
   const period = useSearch({
-    from: '/_site/leaderboard',
+    from: '/(main)/leaderboard',
     select: (s) => s.period,
   })
   const s = fame.status

@@ -50,7 +50,7 @@ The Better Auth tables in `packages/db/src/schema/auth.ts` are generated: after 
 
 ```
 apps/web/                      TanStack Start app (Vercel)
-  src/routes/                  __root, _site/* (landing, problems, dashboard, …), problems.$slug (workspace)
+  src/routes/                  __root; (main)/ header pages, (main)/(library)/ sidebar pages, (workspace)/ full-screen editor
   src/features/challenge-workspace/
                                the only place that imports Sandpack; persistence
                                comes in through props (drafts, runs, hints)

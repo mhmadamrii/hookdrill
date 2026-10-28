@@ -13,7 +13,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { useMyProgress } from '@/lib/progress'
 
-export const Route = createFileRoute('/_site/profile')({
+export const Route = createFileRoute('/(main)/profile')({
   head: () => ({ meta: [{ title: 'Your profile · HookDrill' }] }),
   component: Profile,
 })

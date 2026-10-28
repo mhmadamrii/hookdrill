@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useState } from 'react'
 
-export const Route = createFileRoute('/playground')({
+export const Route = createFileRoute('/(workspace)/playground')({
   component: RouteComponent,
 })
 

@@ -17,7 +17,7 @@ import {
   UpcomingContests,
 } from '@/components/dashboard/side-cards'
 
-export const Route = createFileRoute('/_site/dashboard')({
+export const Route = createFileRoute('/(main)/dashboard')({
   head: () => ({ meta: [{ title: 'Dashboard · HookDrill' }] }),
   component: Dashboard,
 })

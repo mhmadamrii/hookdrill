@@ -10,7 +10,7 @@ import { problems, type Track } from '@/lib/problems'
 import { studyTracks } from '@/lib/sample-data'
 import { cn } from '@/lib/utils'
 
-export const Route = createFileRoute('/_site/explore')({
+export const Route = createFileRoute('/(main)/explore')({
   head: () => ({ meta: [{ title: 'Explore · HookDrill' }] }),
   component: Explore,
 })

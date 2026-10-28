@@ -16,7 +16,7 @@ import {
   solvedSplit,
 } from '@/components/profile/sample-player'
 
-export const Route = createFileRoute('/_site/u/$handle')({
+export const Route = createFileRoute('/(main)/u/$handle')({
   head: ({ params }) => ({
     meta: [{ title: `${params.handle} · Sample profile · HookDrill` }],
   }),

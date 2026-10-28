@@ -1,8 +1,6 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
 import { useMemo } from 'react'
 import { Star } from 'lucide-react'
-import { SiteFooter } from '@/components/site-footer'
-import { LibrarySidebar } from '@/components/problems/library-sidebar'
 import { ProblemTable } from '@/components/problems/problem-table'
 import { RightRail } from '@/components/problems/right-rail'
 import { ComingSoon } from '@/components/problems/coming-soon'
@@ -23,7 +21,7 @@ import {
   type ProblemsSearch,
 } from '@/components/problems/search'
 
-export const Route = createFileRoute('/_site/problems/')({
+export const Route = createFileRoute('/(main)/(library)/problems/')({
   validateSearch: validateProblemsSearch,
   head: () => ({ meta: [{ title: 'Problems · HookDrill' }] }),
   component: Problems,
@@ -69,76 +67,63 @@ function Problems() {
     })
 
   return (
-    <>
-      <main className="mx-auto grid max-w-[1440px] gap-6 px-4 py-6 md:px-6 lg:grid-cols-[208px_minmax(0,1fr)] xl:grid-cols-[208px_minmax(0,1fr)_300px]">
-        <aside className="max-lg:hidden">
-          <LibrarySidebar />
-        </aside>
+    <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_300px]">
+      <div className="flex min-w-0 flex-col gap-5">
+        <h1 className="sr-only">Problems</h1>
+        <Banners />
 
-        <div className="flex min-w-0 flex-col gap-5">
-          <h1 className="sr-only">Problems</h1>
-          <Banners />
-
-          <div className="flex flex-col gap-4 border-t pt-5">
-            <TopicChips
-              active={search.tag}
-              onSelect={(tag) => update({ tag })}
-            />
-            <CategoryPills track={search.track} update={update} />
-            <Toolbar
-              search={search}
-              update={update}
-              solved={solved}
-              progressLoading={progress.isLoading}
-            />
-          </div>
-
-          {search.list === 'favorite' && (
-            <div className="flex items-center justify-between gap-4">
-              <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-                <Star className="size-[18px] fill-current text-medium" />
-                Favorite
-              </h2>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => update({ list: undefined })}
-              >
-                Show all problems
-              </Button>
-            </div>
-          )}
-
-          <div>
-            <ProblemTable
-              rows={rows}
-              statusOf={progress.status}
-              rateOf={acceptance.rateOf}
-              statusLoading={progress.isLoading && progress.signedIn}
-              isFavorite={favorites.has}
-              onToggleFavorite={favorites.toggle}
-              onClear={clearAll}
-              empty={
-                search.list === 'favorite' && favorites.slugs.length === 0 ? (
-                  <NoFavorites onBrowse={clearAll} />
-                ) : undefined
-              }
-            />
-          </div>
-          <div>
-            <ComingSoon />
-          </div>
+        <div className="flex flex-col gap-4 border-t pt-5">
+          <TopicChips active={search.tag} onSelect={(tag) => update({ tag })} />
+          <CategoryPills track={search.track} update={update} />
+          <Toolbar
+            search={search}
+            update={update}
+            solved={solved}
+            progressLoading={progress.isLoading}
+          />
         </div>
 
-        <aside
-          className="lg:col-start-2 xl:col-start-3 xl:row-start-1"
-          aria-label="Daily problem and progress"
-        >
-          <RightRail onSelectTopic={(tag) => update({ tag })} />
-        </aside>
-      </main>
-      <SiteFooter />
-    </>
+        {search.list === 'favorite' && (
+          <div className="flex items-center justify-between gap-4">
+            <h2 className="flex items-center gap-2 text-lg font-semibold tracking-tight">
+              <Star className="size-[18px] fill-current text-medium" />
+              Favorite
+            </h2>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => update({ list: undefined })}
+            >
+              Show all problems
+            </Button>
+          </div>
+        )}
+
+        <div>
+          <ProblemTable
+            rows={rows}
+            statusOf={progress.status}
+            rateOf={acceptance.rateOf}
+            statusLoading={progress.isLoading && progress.signedIn}
+            isFavorite={favorites.has}
+            onToggleFavorite={favorites.toggle}
+            onClear={clearAll}
+            empty={
+              search.list === 'favorite' && favorites.slugs.length === 0 ? (
+                <NoFavorites onBrowse={clearAll} />
+              ) : undefined
+            }
+          />
+        </div>
+        <div>
+          <ComingSoon />
+        </div>
+      </div>
+
+      <aside aria-label="Daily problem and progress">
+        <RightRail onSelectTopic={(tag) => update({ tag })} />
+      </aside>
+    </div>
   )
 }
 

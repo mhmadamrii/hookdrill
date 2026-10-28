@@ -9,153 +9,157 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SiteRouteImport } from './routes/_site'
-import { Route as PlaygroundRouteImport } from './routes/playground'
-import { Route as SiteIndexRouteImport } from './routes/_site/index'
-import { Route as SiteBuilderLabRouteImport } from './routes/_site/builder-lab'
-import { Route as SiteContestsRouteImport } from './routes/_site/contests'
-import { Route as SiteDashboardRouteImport } from './routes/_site/dashboard'
-import { Route as SiteExploreRouteImport } from './routes/_site/explore'
-import { Route as SiteFutureRouteImport } from './routes/_site/future'
-import { Route as SiteLeaderboardRouteImport } from './routes/_site/leaderboard'
-import { Route as SiteProfileRouteImport } from './routes/_site/profile'
-import { Route as SiteSigninRouteImport } from './routes/_site/signin'
-import { Route as ChallengesSlugRouteImport } from './routes/challenges.$slug'
-import { Route as ProblemsSlugRouteImport } from './routes/problems.$slug'
-import { Route as SiteProblemsIndexRouteImport } from './routes/_site/problems.index'
-import { Route as SiteUHandleRouteImport } from './routes/_site/u.$handle'
+import { Route as mainRouteRouteImport } from './routes/(main)/route'
+import { Route as mainIndexRouteImport } from './routes/(main)/index'
+import { Route as mainlibraryRouteRouteImport } from './routes/(main)/(library)/route'
+import { Route as mainContestsRouteImport } from './routes/(main)/contests'
+import { Route as mainDashboardRouteImport } from './routes/(main)/dashboard'
+import { Route as mainExploreRouteImport } from './routes/(main)/explore'
+import { Route as mainFutureRouteImport } from './routes/(main)/future'
+import { Route as mainLeaderboardRouteImport } from './routes/(main)/leaderboard'
+import { Route as mainProfileRouteImport } from './routes/(main)/profile'
+import { Route as mainSigninRouteImport } from './routes/(main)/signin'
+import { Route as workspacePlaygroundRouteImport } from './routes/(workspace)/playground'
+import { Route as mainlibraryBuilderLabRouteImport } from './routes/(main)/(library)/builder-lab'
+import { Route as mainUHandleRouteImport } from './routes/(main)/u/$handle'
+import { Route as workspaceChallengesSlugRouteImport } from './routes/(workspace)/challenges/$slug'
+import { Route as workspaceProblemsSlugRouteImport } from './routes/(workspace)/problems/$slug'
+import { Route as mainlibraryProblemsIndexRouteImport } from './routes/(main)/(library)/problems/index'
 
-const SiteRoute = SiteRouteImport.update({
-  id: '/_site',
+const mainRouteRoute = mainRouteRouteImport.update({
+  id: '/(main)',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlaygroundRoute = PlaygroundRouteImport.update({
-  id: '/playground',
+const mainIndexRoute = mainIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainlibraryRouteRoute = mainlibraryRouteRouteImport.update({
+  id: '/(library)',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainContestsRoute = mainContestsRouteImport.update({
+  id: '/contests',
+  path: '/contests',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainDashboardRoute = mainDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainExploreRoute = mainExploreRouteImport.update({
+  id: '/explore',
+  path: '/explore',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainFutureRoute = mainFutureRouteImport.update({
+  id: '/future',
+  path: '/future',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainLeaderboardRoute = mainLeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainProfileRoute = mainProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainSigninRoute = mainSigninRouteImport.update({
+  id: '/signin',
+  path: '/signin',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const workspacePlaygroundRoute = workspacePlaygroundRouteImport.update({
+  id: '/(workspace)/playground',
   path: '/playground',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SiteIndexRoute = SiteIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteBuilderLabRoute = SiteBuilderLabRouteImport.update({
+const mainlibraryBuilderLabRoute = mainlibraryBuilderLabRouteImport.update({
   id: '/builder-lab',
   path: '/builder-lab',
-  getParentRoute: () => SiteRoute,
+  getParentRoute: () => mainlibraryRouteRoute,
 } as any)
-const SiteContestsRoute = SiteContestsRouteImport.update({
-  id: '/contests',
-  path: '/contests',
-  getParentRoute: () => SiteRoute,
+const mainUHandleRoute = mainUHandleRouteImport.update({
+  id: '/u/$handle',
+  path: '/u/$handle',
+  getParentRoute: () => mainRouteRoute,
 } as any)
-const SiteDashboardRoute = SiteDashboardRouteImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteExploreRoute = SiteExploreRouteImport.update({
-  id: '/explore',
-  path: '/explore',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteFutureRoute = SiteFutureRouteImport.update({
-  id: '/future',
-  path: '/future',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteLeaderboardRoute = SiteLeaderboardRouteImport.update({
-  id: '/leaderboard',
-  path: '/leaderboard',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteProfileRoute = SiteProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteSigninRoute = SiteSigninRouteImport.update({
-  id: '/signin',
-  path: '/signin',
-  getParentRoute: () => SiteRoute,
-} as any)
-const ChallengesSlugRoute = ChallengesSlugRouteImport.update({
-  id: '/challenges/$slug',
+const workspaceChallengesSlugRoute = workspaceChallengesSlugRouteImport.update({
+  id: '/(workspace)/challenges/$slug',
   path: '/challenges/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProblemsSlugRoute = ProblemsSlugRouteImport.update({
-  id: '/problems/$slug',
+const workspaceProblemsSlugRoute = workspaceProblemsSlugRouteImport.update({
+  id: '/(workspace)/problems/$slug',
   path: '/problems/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SiteProblemsIndexRoute = SiteProblemsIndexRouteImport.update({
-  id: '/problems/',
-  path: '/problems/',
-  getParentRoute: () => SiteRoute,
-} as any)
-const SiteUHandleRoute = SiteUHandleRouteImport.update({
-  id: '/u/$handle',
-  path: '/u/$handle',
-  getParentRoute: () => SiteRoute,
-} as any)
+const mainlibraryProblemsIndexRoute =
+  mainlibraryProblemsIndexRouteImport.update({
+    id: '/problems/',
+    path: '/problems/',
+    getParentRoute: () => mainlibraryRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof SiteIndexRoute
-  '/playground': typeof PlaygroundRoute
-  '/builder-lab': typeof SiteBuilderLabRoute
-  '/contests': typeof SiteContestsRoute
-  '/dashboard': typeof SiteDashboardRoute
-  '/explore': typeof SiteExploreRoute
-  '/future': typeof SiteFutureRoute
-  '/leaderboard': typeof SiteLeaderboardRoute
-  '/profile': typeof SiteProfileRoute
-  '/signin': typeof SiteSigninRoute
-  '/challenges/$slug': typeof ChallengesSlugRoute
-  '/problems/$slug': typeof ProblemsSlugRoute
-  '/u/$handle': typeof SiteUHandleRoute
-  '/problems/': typeof SiteProblemsIndexRoute
+  '/contests': typeof mainContestsRoute
+  '/dashboard': typeof mainDashboardRoute
+  '/explore': typeof mainExploreRoute
+  '/future': typeof mainFutureRoute
+  '/leaderboard': typeof mainLeaderboardRoute
+  '/profile': typeof mainProfileRoute
+  '/signin': typeof mainSigninRoute
+  '/playground': typeof workspacePlaygroundRoute
+  '/': typeof mainIndexRoute
+  '/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/u/$handle': typeof mainUHandleRoute
+  '/challenges/$slug': typeof workspaceChallengesSlugRoute
+  '/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/problems/': typeof mainlibraryProblemsIndexRoute
 }
 export interface FileRoutesByTo {
-  '/playground': typeof PlaygroundRoute
-  '/builder-lab': typeof SiteBuilderLabRoute
-  '/contests': typeof SiteContestsRoute
-  '/dashboard': typeof SiteDashboardRoute
-  '/explore': typeof SiteExploreRoute
-  '/future': typeof SiteFutureRoute
-  '/leaderboard': typeof SiteLeaderboardRoute
-  '/profile': typeof SiteProfileRoute
-  '/signin': typeof SiteSigninRoute
-  '/challenges/$slug': typeof ChallengesSlugRoute
-  '/problems/$slug': typeof ProblemsSlugRoute
-  '/': typeof SiteIndexRoute
-  '/u/$handle': typeof SiteUHandleRoute
-  '/problems': typeof SiteProblemsIndexRoute
+  '/contests': typeof mainContestsRoute
+  '/dashboard': typeof mainDashboardRoute
+  '/explore': typeof mainExploreRoute
+  '/future': typeof mainFutureRoute
+  '/leaderboard': typeof mainLeaderboardRoute
+  '/profile': typeof mainProfileRoute
+  '/signin': typeof mainSigninRoute
+  '/playground': typeof workspacePlaygroundRoute
+  '/': typeof mainIndexRoute
+  '/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/u/$handle': typeof mainUHandleRoute
+  '/challenges/$slug': typeof workspaceChallengesSlugRoute
+  '/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/problems': typeof mainlibraryProblemsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_site': typeof SiteRouteWithChildren
-  '/playground': typeof PlaygroundRoute
-  '/_site/builder-lab': typeof SiteBuilderLabRoute
-  '/_site/contests': typeof SiteContestsRoute
-  '/_site/dashboard': typeof SiteDashboardRoute
-  '/_site/explore': typeof SiteExploreRoute
-  '/_site/future': typeof SiteFutureRoute
-  '/_site/leaderboard': typeof SiteLeaderboardRoute
-  '/_site/profile': typeof SiteProfileRoute
-  '/_site/signin': typeof SiteSigninRoute
-  '/challenges/$slug': typeof ChallengesSlugRoute
-  '/problems/$slug': typeof ProblemsSlugRoute
-  '/_site/': typeof SiteIndexRoute
-  '/_site/u/$handle': typeof SiteUHandleRoute
-  '/_site/problems/': typeof SiteProblemsIndexRoute
+  '/(main)': typeof mainRouteRouteWithChildren
+  '/(main)/(library)': typeof mainlibraryRouteRouteWithChildren
+  '/(main)/contests': typeof mainContestsRoute
+  '/(main)/dashboard': typeof mainDashboardRoute
+  '/(main)/explore': typeof mainExploreRoute
+  '/(main)/future': typeof mainFutureRoute
+  '/(main)/leaderboard': typeof mainLeaderboardRoute
+  '/(main)/profile': typeof mainProfileRoute
+  '/(main)/signin': typeof mainSigninRoute
+  '/(workspace)/playground': typeof workspacePlaygroundRoute
+  '/(main)/': typeof mainIndexRoute
+  '/(main)/(library)/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/(main)/u/$handle': typeof mainUHandleRoute
+  '/(workspace)/challenges/$slug': typeof workspaceChallengesSlugRoute
+  '/(workspace)/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/(main)/(library)/problems/': typeof mainlibraryProblemsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/playground'
-    | '/builder-lab'
     | '/contests'
     | '/dashboard'
     | '/explore'
@@ -163,14 +167,15 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/profile'
     | '/signin'
+    | '/playground'
+    | '/'
+    | '/builder-lab'
+    | '/u/$handle'
     | '/challenges/$slug'
     | '/problems/$slug'
-    | '/u/$handle'
     | '/problems/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/playground'
-    | '/builder-lab'
     | '/contests'
     | '/dashboard'
     | '/explore'
@@ -178,182 +183,205 @@ export interface FileRouteTypes {
     | '/leaderboard'
     | '/profile'
     | '/signin'
+    | '/playground'
+    | '/'
+    | '/builder-lab'
+    | '/u/$handle'
     | '/challenges/$slug'
     | '/problems/$slug'
-    | '/'
-    | '/u/$handle'
     | '/problems'
   id:
     | '__root__'
-    | '/_site'
-    | '/playground'
-    | '/_site/builder-lab'
-    | '/_site/contests'
-    | '/_site/dashboard'
-    | '/_site/explore'
-    | '/_site/future'
-    | '/_site/leaderboard'
-    | '/_site/profile'
-    | '/_site/signin'
-    | '/challenges/$slug'
-    | '/problems/$slug'
-    | '/_site/'
-    | '/_site/u/$handle'
-    | '/_site/problems/'
+    | '/(main)'
+    | '/(main)/(library)'
+    | '/(main)/contests'
+    | '/(main)/dashboard'
+    | '/(main)/explore'
+    | '/(main)/future'
+    | '/(main)/leaderboard'
+    | '/(main)/profile'
+    | '/(main)/signin'
+    | '/(workspace)/playground'
+    | '/(main)/'
+    | '/(main)/(library)/builder-lab'
+    | '/(main)/u/$handle'
+    | '/(workspace)/challenges/$slug'
+    | '/(workspace)/problems/$slug'
+    | '/(main)/(library)/problems/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  SiteRoute: typeof SiteRouteWithChildren
-  PlaygroundRoute: typeof PlaygroundRoute
-  ChallengesSlugRoute: typeof ChallengesSlugRoute
-  ProblemsSlugRoute: typeof ProblemsSlugRoute
+  mainRouteRoute: typeof mainRouteRouteWithChildren
+  workspacePlaygroundRoute: typeof workspacePlaygroundRoute
+  workspaceChallengesSlugRoute: typeof workspaceChallengesSlugRoute
+  workspaceProblemsSlugRoute: typeof workspaceProblemsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_site': {
-      id: '/_site'
+    '/(main)': {
+      id: '/(main)'
       path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof SiteRouteImport
+      fullPath: ''
+      preLoaderRoute: typeof mainRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/playground': {
-      id: '/playground'
-      path: '/playground'
-      fullPath: '/playground'
-      preLoaderRoute: typeof PlaygroundRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_site/': {
-      id: '/_site/'
+    '/(main)/': {
+      id: '/(main)/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof SiteIndexRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainIndexRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/builder-lab': {
-      id: '/_site/builder-lab'
-      path: '/builder-lab'
-      fullPath: '/builder-lab'
-      preLoaderRoute: typeof SiteBuilderLabRouteImport
-      parentRoute: typeof SiteRoute
+    '/(main)/(library)': {
+      id: '/(main)/(library)'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof mainlibraryRouteRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/contests': {
-      id: '/_site/contests'
+    '/(main)/contests': {
+      id: '/(main)/contests'
       path: '/contests'
       fullPath: '/contests'
-      preLoaderRoute: typeof SiteContestsRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainContestsRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/dashboard': {
-      id: '/_site/dashboard'
+    '/(main)/dashboard': {
+      id: '/(main)/dashboard'
       path: '/dashboard'
       fullPath: '/dashboard'
-      preLoaderRoute: typeof SiteDashboardRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainDashboardRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/explore': {
-      id: '/_site/explore'
+    '/(main)/explore': {
+      id: '/(main)/explore'
       path: '/explore'
       fullPath: '/explore'
-      preLoaderRoute: typeof SiteExploreRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainExploreRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/future': {
-      id: '/_site/future'
+    '/(main)/future': {
+      id: '/(main)/future'
       path: '/future'
       fullPath: '/future'
-      preLoaderRoute: typeof SiteFutureRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainFutureRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/leaderboard': {
-      id: '/_site/leaderboard'
+    '/(main)/leaderboard': {
+      id: '/(main)/leaderboard'
       path: '/leaderboard'
       fullPath: '/leaderboard'
-      preLoaderRoute: typeof SiteLeaderboardRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainLeaderboardRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/profile': {
-      id: '/_site/profile'
+    '/(main)/profile': {
+      id: '/(main)/profile'
       path: '/profile'
       fullPath: '/profile'
-      preLoaderRoute: typeof SiteProfileRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainProfileRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/_site/signin': {
-      id: '/_site/signin'
+    '/(main)/signin': {
+      id: '/(main)/signin'
       path: '/signin'
       fullPath: '/signin'
-      preLoaderRoute: typeof SiteSigninRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainSigninRouteImport
+      parentRoute: typeof mainRouteRoute
     }
-    '/challenges/$slug': {
-      id: '/challenges/$slug'
-      path: '/challenges/$slug'
-      fullPath: '/challenges/$slug'
-      preLoaderRoute: typeof ChallengesSlugRouteImport
+    '/(workspace)/playground': {
+      id: '/(workspace)/playground'
+      path: '/playground'
+      fullPath: '/playground'
+      preLoaderRoute: typeof workspacePlaygroundRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/problems/$slug': {
-      id: '/problems/$slug'
-      path: '/problems/$slug'
-      fullPath: '/problems/$slug'
-      preLoaderRoute: typeof ProblemsSlugRouteImport
-      parentRoute: typeof rootRouteImport
+    '/(main)/(library)/builder-lab': {
+      id: '/(main)/(library)/builder-lab'
+      path: '/builder-lab'
+      fullPath: '/builder-lab'
+      preLoaderRoute: typeof mainlibraryBuilderLabRouteImport
+      parentRoute: typeof mainlibraryRouteRoute
     }
-    '/_site/problems/': {
-      id: '/_site/problems/'
-      path: '/problems'
-      fullPath: '/problems/'
-      preLoaderRoute: typeof SiteProblemsIndexRouteImport
-      parentRoute: typeof SiteRoute
-    }
-    '/_site/u/$handle': {
-      id: '/_site/u/$handle'
+    '/(main)/u/$handle': {
+      id: '/(main)/u/$handle'
       path: '/u/$handle'
       fullPath: '/u/$handle'
-      preLoaderRoute: typeof SiteUHandleRouteImport
-      parentRoute: typeof SiteRoute
+      preLoaderRoute: typeof mainUHandleRouteImport
+      parentRoute: typeof mainRouteRoute
+    }
+    '/(workspace)/challenges/$slug': {
+      id: '/(workspace)/challenges/$slug'
+      path: '/challenges/$slug'
+      fullPath: '/challenges/$slug'
+      preLoaderRoute: typeof workspaceChallengesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(workspace)/problems/$slug': {
+      id: '/(workspace)/problems/$slug'
+      path: '/problems/$slug'
+      fullPath: '/problems/$slug'
+      preLoaderRoute: typeof workspaceProblemsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(main)/(library)/problems/': {
+      id: '/(main)/(library)/problems/'
+      path: '/problems'
+      fullPath: '/problems/'
+      preLoaderRoute: typeof mainlibraryProblemsIndexRouteImport
+      parentRoute: typeof mainlibraryRouteRoute
     }
   }
 }
 
-interface SiteRouteChildren {
-  SiteBuilderLabRoute: typeof SiteBuilderLabRoute
-  SiteContestsRoute: typeof SiteContestsRoute
-  SiteDashboardRoute: typeof SiteDashboardRoute
-  SiteExploreRoute: typeof SiteExploreRoute
-  SiteFutureRoute: typeof SiteFutureRoute
-  SiteLeaderboardRoute: typeof SiteLeaderboardRoute
-  SiteProfileRoute: typeof SiteProfileRoute
-  SiteSigninRoute: typeof SiteSigninRoute
-  SiteIndexRoute: typeof SiteIndexRoute
-  SiteUHandleRoute: typeof SiteUHandleRoute
-  SiteProblemsIndexRoute: typeof SiteProblemsIndexRoute
+interface mainlibraryRouteRouteChildren {
+  mainlibraryBuilderLabRoute: typeof mainlibraryBuilderLabRoute
+  mainlibraryProblemsIndexRoute: typeof mainlibraryProblemsIndexRoute
 }
 
-const SiteRouteChildren: SiteRouteChildren = {
-  SiteBuilderLabRoute: SiteBuilderLabRoute,
-  SiteContestsRoute: SiteContestsRoute,
-  SiteDashboardRoute: SiteDashboardRoute,
-  SiteExploreRoute: SiteExploreRoute,
-  SiteFutureRoute: SiteFutureRoute,
-  SiteLeaderboardRoute: SiteLeaderboardRoute,
-  SiteProfileRoute: SiteProfileRoute,
-  SiteSigninRoute: SiteSigninRoute,
-  SiteIndexRoute: SiteIndexRoute,
-  SiteUHandleRoute: SiteUHandleRoute,
-  SiteProblemsIndexRoute: SiteProblemsIndexRoute,
+const mainlibraryRouteRouteChildren: mainlibraryRouteRouteChildren = {
+  mainlibraryBuilderLabRoute: mainlibraryBuilderLabRoute,
+  mainlibraryProblemsIndexRoute: mainlibraryProblemsIndexRoute,
 }
 
-const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+const mainlibraryRouteRouteWithChildren =
+  mainlibraryRouteRoute._addFileChildren(mainlibraryRouteRouteChildren)
+
+interface mainRouteRouteChildren {
+  mainlibraryRouteRoute: typeof mainlibraryRouteRouteWithChildren
+  mainContestsRoute: typeof mainContestsRoute
+  mainDashboardRoute: typeof mainDashboardRoute
+  mainExploreRoute: typeof mainExploreRoute
+  mainFutureRoute: typeof mainFutureRoute
+  mainLeaderboardRoute: typeof mainLeaderboardRoute
+  mainProfileRoute: typeof mainProfileRoute
+  mainSigninRoute: typeof mainSigninRoute
+  mainIndexRoute: typeof mainIndexRoute
+  mainUHandleRoute: typeof mainUHandleRoute
+}
+
+const mainRouteRouteChildren: mainRouteRouteChildren = {
+  mainlibraryRouteRoute: mainlibraryRouteRouteWithChildren,
+  mainContestsRoute: mainContestsRoute,
+  mainDashboardRoute: mainDashboardRoute,
+  mainExploreRoute: mainExploreRoute,
+  mainFutureRoute: mainFutureRoute,
+  mainLeaderboardRoute: mainLeaderboardRoute,
+  mainProfileRoute: mainProfileRoute,
+  mainSigninRoute: mainSigninRoute,
+  mainIndexRoute: mainIndexRoute,
+  mainUHandleRoute: mainUHandleRoute,
+}
+
+const mainRouteRouteWithChildren = mainRouteRoute._addFileChildren(
+  mainRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  SiteRoute: SiteRouteWithChildren,
-  PlaygroundRoute: PlaygroundRoute,
-  ChallengesSlugRoute: ChallengesSlugRoute,
-  ProblemsSlugRoute: ProblemsSlugRoute,
+  mainRouteRoute: mainRouteRouteWithChildren,
+  workspacePlaygroundRoute: workspacePlaygroundRoute,
+  workspaceChallengesSlugRoute: workspaceChallengesSlugRoute,
+  workspaceProblemsSlugRoute: workspaceProblemsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

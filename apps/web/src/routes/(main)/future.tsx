@@ -5,7 +5,7 @@ import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
 import { getExpertPosts } from '@/lib/expert-posts'
 
-export const Route = createFileRoute('/_site/future')({
+export const Route = createFileRoute('/(main)/future')({
   head: () => ({
     meta: [
       { title: 'How software gets built next · HookDrill' },

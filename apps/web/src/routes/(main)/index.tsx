@@ -16,7 +16,7 @@ import {
   WhyByHand,
 } from '@/components/landing/sections'
 
-export const Route = createFileRoute('/_site/')({
+export const Route = createFileRoute('/(main)/')({
   head: () => ({
     meta: [
       {

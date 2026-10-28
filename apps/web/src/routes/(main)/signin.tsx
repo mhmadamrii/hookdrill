@@ -3,7 +3,7 @@ import { FileCode2, ListChecks, Trophy } from 'lucide-react'
 import { SignInCard } from '@/components/auth/sign-in-card'
 import { TestStrip } from '@/components/test-strip'
 
-export const Route = createFileRoute('/_site/signin')({
+export const Route = createFileRoute('/(main)/signin')({
   head: () => ({ meta: [{ title: 'Sign in · HookDrill' }] }),
   component: SignIn,
 })
