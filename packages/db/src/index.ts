@@ -3,6 +3,7 @@ import { drizzle } from 'drizzle-orm/node-postgres'
 import {
   challenges,
   checkins,
+  courseResults,
   dailyProblems,
   drafts,
   fameEvents,
@@ -17,6 +18,7 @@ export * from './schema'
 const relations = defineRelations({
   challenges,
   checkins,
+  courseResults,
   dailyProblems,
   drafts,
   fameEvents,

@@ -8,7 +8,8 @@ import {
 } from 'lucide-react'
 import type { ReactNode } from 'react'
 import { useDailyProblem } from '@/lib/daily'
-import { studyTracks, upcomingContests } from '@/lib/sample-data'
+import { aiEngineer } from '@hookdrill/courses'
+import { upcomingContests } from '@/lib/sample-data'
 
 const card =
   'group relative isolate flex min-h-[160px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
@@ -140,7 +141,6 @@ const contestDate = new Intl.DateTimeFormat('en-US', {
 
 export function Banners() {
   const { daily } = useDailyProblem()
-  const track = studyTracks[0]
   const contest = upcomingContests[0]
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
@@ -177,20 +177,24 @@ export function Banners() {
         </div>
       )}
 
-      <Link to="/explore" hash="tracks" className={cn(card, 'bg-banner-plan')}>
+      <Link
+        to="/courses/$course"
+        params={{ course: aiEngineer.slug }}
+        className={cn(card, 'bg-banner-plan')}
+      >
         <TrackArt />
         <div>
           <h3 className="text-xl font-semibold tracking-tight">
-            {track.title}
+            {aiEngineer.title}
           </h3>
           <p className="mt-1.5 flex max-w-[24ch] flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
             <Chip>
-              <RouteIcon className="size-3" /> Study plan
+              <RouteIcon className="size-3" /> Course
             </Chip>
-            {track.problems} problems · {track.level}
+            Module 01 open · {aiEngineer.level}
           </p>
         </div>
-        <Cta>Start the plan</Cta>
+        <Cta>Start the course</Cta>
       </Link>
 
       <Link

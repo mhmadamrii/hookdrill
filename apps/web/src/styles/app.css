@@ -292,3 +292,34 @@ html.dark .react-tweet-theme {
   --tweet-color-blue-secondary: rgb(107, 201, 251);
   --tweet-color-blue-secondary-hover: rgba(107, 201, 251, 0.1);
 }
+
+/* Course lessons: longer reading, so a larger size and real links. */
+.prose-lesson {
+  @apply text-base leading-7 text-pretty;
+}
+.prose-lesson > :first-child {
+  @apply mt-0;
+}
+.prose-lesson p,
+.prose-lesson ul,
+.prose-lesson ol {
+  @apply my-3;
+}
+.prose-lesson ul {
+  @apply list-disc pl-5 marker:text-muted-foreground;
+}
+.prose-lesson ol {
+  @apply list-decimal pl-5 marker:text-muted-foreground;
+}
+.prose-lesson li {
+  @apply my-1.5 pl-1;
+}
+.prose-lesson strong {
+  @apply font-semibold;
+}
+.prose-lesson a {
+  @apply text-brand underline underline-offset-2 hover:no-underline;
+}
+.prose-lesson code {
+  @apply rounded-md border bg-surface-2 px-1.5 py-0.5 font-mono text-[0.85em];
+}

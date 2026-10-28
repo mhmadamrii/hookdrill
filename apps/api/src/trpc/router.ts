@@ -3,6 +3,7 @@ import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { challenges, drafts, progress, type Db } from '@hookdrill/db'
 import { dailyProblem } from '../services/daily'
+import { courseProgress, submitAssessment } from '../services/courses'
 import { checkIn, fameLeaderboard, fameStatus } from '../services/fame'
 import { protectedProcedure, publicProcedure, router } from './init'
 
@@ -189,6 +190,34 @@ export const appRouter = router({
           .returning({ updatedAt: drafts.updatedAt })
         return row
       }),
+  }),
+
+  courses: router({
+    progress: protectedProcedure
+      .input(z.object({ course: slug }))
+      .query(({ ctx, input }) =>
+        courseProgress(ctx.db, ctx.session.user.id, input.course),
+      ),
+    /** Graded here, not trusted from the browser. */
+    submit: protectedProcedure
+      .input(
+        z.object({
+          course: slug,
+          assessment: z.string().min(1).max(200),
+          answers: z
+            .record(z.string().max(100), z.string().max(10))
+            .refine((a) => Object.keys(a).length <= 50, 'Too many answers'),
+        }),
+      )
+      .mutation(({ ctx, input }) =>
+        submitAssessment(
+          ctx.db,
+          ctx.session.user.id,
+          input.course,
+          input.assessment,
+          input.answers,
+        ),
+      ),
   }),
 })
 

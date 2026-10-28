@@ -235,6 +235,17 @@ scheduled → registration open → live → ended → final
 
 Only registered users who submitted at least once appear in the results.
 
+## Courses
+
+Structured paths: **course → phase → module → submodule → lesson**. Two courses for now: AI Engineer (Module 01 published, the rest listed as in development) and React Mastery (announced, no syllabus).
+
+- **Content** lives in `packages/courses` as typed data, reviewed in PRs like challenges. The schema (`types.ts`) is the lesson specification: objectives, concept sections (intuition first), a real-world application, misconceptions, a question bank, references and a review date. Each lesson is labelled `foundational`, `current-practice` or `emerging` so reviewers know what ages first. How content is sourced and verified: `packages/courses/CONTENT.md`.
+- **Assessments:** a lesson quiz draws 6 of its 8 questions; a submodule exam draws 15 from every lesson's bank plus exam-only cumulative questions. Draws go round-robin across learning objectives, so a paper never skips one while it has room. Options are shuffled. Pass mark 80%.
+- **Progression:** a submodule opens when the previous exam is passed; its lessons open in any order; its exam opens when every lesson quiz is passed. Passing is permanent.
+- **Grading is on the server** (`courses.submit`), which also enforces the unlock rules. `course_results` keeps one row per user per assessment: attempts, best score, `passed_at`. Course results don't feed rating or fame yet.
+- **Signed out:** the first submodule is readable; quizzes ask you to sign in.
+- **Routes:** `/courses` and `/courses/$course` sit in the `(library)` group with the library sidebar; lessons (`/courses/$course/$lesson`) and exams (`/courses/$course/exam/$submodule`) sit in the `(course)` group, whose layout shows the course outline. `/explore` redirects to `/courses`.
+
 ## Auth and sessions
 
 - Better Auth in `apps/api` with the Drizzle adapter. Start with GitHub OAuth (the audience is developers), then add email.

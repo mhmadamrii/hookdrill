@@ -1,13 +1,15 @@
 import { Link, useRouterState } from '@tanstack/react-router'
 import {
   BookOpen,
-  Compass,
+  BrainCircuit,
   FlaskConical,
-  ListChecks,
+  GraduationCap,
   Star,
   Trophy,
 } from 'lucide-react'
 import type { ComponentType, ReactNode } from 'react'
+import { aiEngineer } from '@hookdrill/courses'
+import { useCourseProgress } from '@/lib/courses'
 import { useFavorites } from '@/lib/favorites'
 import { playableProblems } from '@/lib/problems'
 import { cn } from '@/lib/utils'
@@ -65,11 +67,13 @@ export function LibrarySidebar() {
       <Item icon={BookOpen} to="/problems" inactive={onFavorites}>
         Library
       </Item>
-      <Item icon={Compass} to="/explore">
-        Explore
-      </Item>
-      <Item icon={ListChecks} to="/explore" hash="tracks">
-        Study plans
+      <Item
+        icon={GraduationCap}
+        to="/courses"
+        // Stays active on every course page.
+        activeOptions={{ exact: false }}
+      >
+        Courses
       </Item>
       <Item icon={Trophy} to="/contests">
         Contests
@@ -87,6 +91,8 @@ export function LibrarySidebar() {
       </Item>
 
       <div className="my-3 h-px bg-border" />
+
+      <MyCourses />
 
       <h2 className="px-3 pb-1 text-xs font-medium text-muted-foreground">
         My lists
@@ -109,5 +115,31 @@ export function LibrarySidebar() {
           : 'Saved in this browser.'}
       </p>
     </nav>
+  )
+}
+
+/** Courses the user has started, so they can jump back in. */
+function MyCourses() {
+  const progress = useCourseProgress(aiEngineer)
+  if (!progress.signedIn || progress.done === 0) return null
+  return (
+    <>
+      <h2 className="px-3 pb-1 text-xs font-medium text-muted-foreground">
+        My courses
+      </h2>
+      <Item
+        icon={BrainCircuit}
+        to="/courses/$course"
+        params={{ course: aiEngineer.slug } as never}
+        badge={
+          <span className="text-xs tabular-nums">
+            {progress.done}/{progress.total}
+          </span>
+        }
+      >
+        {aiEngineer.title}
+      </Item>
+      <div className="h-3" />
+    </>
   )
 }

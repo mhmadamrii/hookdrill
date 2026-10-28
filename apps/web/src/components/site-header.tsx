@@ -6,7 +6,7 @@ import { UserMenu } from '@/components/user-menu'
 
 const nav = [
   { to: '/problems', label: 'Problems' },
-  { to: '/explore', label: 'Explore' },
+  { to: '/courses', label: 'Courses' },
   { to: '/contests', label: 'Contests' },
   { to: '/leaderboard', label: 'Leaderboard' },
 ] as const

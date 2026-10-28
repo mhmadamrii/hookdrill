@@ -10,8 +10,8 @@ export function SiteFooter() {
           <Link to="/problems" className="hover:text-foreground">
             Problems
           </Link>
-          <Link to="/explore" className="hover:text-foreground">
-            Explore
+          <Link to="/courses" className="hover:text-foreground">
+            Courses
           </Link>
           <Link to="/contests" className="hover:text-foreground">
             Contests

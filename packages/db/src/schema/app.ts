@@ -137,3 +137,28 @@ export const fameEvents = pgTable(
   },
   (t) => [unique().on(t.userId, t.kind, t.day, t.ref), index().on(t.day)],
 )
+
+/**
+ * One row per user per course assessment (a lesson quiz or a submodule exam).
+ * Content lives in packages/courses; this only records results. Passing is
+ * permanent: retries can raise the best score but never clear passedAt.
+ */
+export const courseResults = pgTable(
+  'course_results',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    course: text('course').notNull(),
+    /** "lesson:<slug>" or "exam:<submodule slug>". */
+    assessment: text('assessment').notNull(),
+    attempts: integer('attempts').notNull().default(0),
+    bestCorrect: integer('best_correct').notNull().default(0),
+    total: integer('total').notNull(),
+    passedAt: timestamp('passed_at', { withTimezone: true }),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.course, t.assessment] })],
+)

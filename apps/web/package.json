@@ -17,6 +17,7 @@
     "@fontsource-variable/inter": "5.3.0",
     "@fontsource-variable/jetbrains-mono": "5.3.0",
     "@hookdrill/challenges": "workspace:*",
+    "@hookdrill/courses": "workspace:*",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-query": "5.104.5",
     "@tanstack/react-router": "1.170.45",

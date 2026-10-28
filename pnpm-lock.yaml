@@ -184,6 +184,9 @@ importers:
       '@hookdrill/challenges':
         specifier: workspace:*
         version: link:../../packages/challenges
+      '@hookdrill/courses':
+        specifier: workspace:*
+        version: link:../../packages/courses
       '@hookdrill/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -236,6 +239,9 @@ importers:
       '@hookdrill/challenges':
         specifier: workspace:*
         version: link:../../packages/challenges
+      '@hookdrill/courses':
+        specifier: workspace:*
+        version: link:../../packages/courses
       '@tailwindcss/vite':
         specifier: ^4.1.18
         version: 4.3.3(vite@8.3.4(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15))
@@ -341,6 +347,12 @@ importers:
         version: 8.3.4(@types/node@22.20.5)(esbuild@0.28.2)(jiti@2.7.0)(tsx@4.23.15)
 
   packages/challenges: {}
+
+  packages/courses:
+    devDependencies:
+      tsx:
+        specifier: 4.23.15
+        version: 4.23.15
 
   packages/db:
     dependencies:
