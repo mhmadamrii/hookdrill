@@ -328,19 +328,18 @@ function Future() {
             <div className="flex flex-col rounded-xl border bg-card p-5">
               <h3 className="flex items-center gap-2 font-semibold">
                 <span className="rounded-full bg-primary/15 px-2 py-0.5 text-2xs font-medium text-brand">
-                  Soon
+                  Preview
                 </span>
-                Builder Lab
+                System Design
               </h3>
               <p className="mt-2 leading-relaxed text-muted-foreground">
-                Practise the other half: write the spec, design the system,
-                direct an agent, and verify what it shipped. Same sandbox, same
-                hidden tests.
+                Browse common system design questions. Guided practice for each
+                question will be added later.
               </p>
               <div className="h-5 shrink-0" />
               <Button asChild variant="outline" className="mt-auto self-start">
                 <Link to="/builder-lab">
-                  See Builder Lab <ArrowRight />
+                  Browse questions <ArrowRight />
                 </Link>
               </Button>
             </div>

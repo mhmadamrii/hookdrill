@@ -2,7 +2,6 @@ import { Link, useRouterState } from '@tanstack/react-router'
 import {
   BookOpen,
   BrainCircuit,
-  FlaskConical,
   GraduationCap,
   Star,
   Trophy,
@@ -78,16 +77,8 @@ export function LibrarySidebar() {
       <Item icon={Trophy} to="/contests">
         Contests
       </Item>
-      <Item
-        icon={FlaskConical}
-        to="/builder-lab"
-        badge={
-          <span className="rounded-full bg-primary/15 px-2 py-0.5 text-2xs font-medium text-brand">
-            Soon
-          </span>
-        }
-      >
-        Builder Lab
+      <Item icon={BrainCircuit} to="/builder-lab">
+        System Design
       </Item>
 
       <div className="my-3 h-px bg-border" />

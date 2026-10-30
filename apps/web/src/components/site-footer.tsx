@@ -20,7 +20,7 @@ export function SiteFooter() {
             Leaderboard
           </Link>
           <Link to="/builder-lab" className="hover:text-foreground">
-            Builder Lab
+            System Design
           </Link>
           <Link to="/future" className="hover:text-foreground">
             Why HookDrill

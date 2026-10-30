@@ -70,8 +70,9 @@ export function WhyByHand() {
               <span className="font-mono text-[0.9em] text-foreground">
                 App.tsx
               </span>
-              , and tests that only care whether it works. Builder Lab, coming
-              next, trains the rest: specs, agents and verification.
+              , and tests that only care whether it works. System Design
+              questions are the next step; guided practice will build on them
+              later.
             </p>
             <p>
               <Link
