@@ -54,7 +54,7 @@ GoRide must never assign one driver to two trips, or two drivers to one request.
         title: 'Capacity estimation',
         weight: 10,
         description:
-          'A strong answer computes peak location writes (600,000 drivers / 4 s is about 150,000 updates per second globally, with the largest city a meaningful share), ride requests (3 million/day is about 35 per second average, about 175 per second at the busy hour), concurrent trips at peak (roughly request rate x trip duration, on the order of 200,000), fan-out of location to watching riders, and storage (GPS traces in the hundreds of GB per day and tens of TB over 90 days; trip records in the tens of TB over 7 years), with assumptions shown. It concludes that location ingestion and the geospatial index, not trip writes, are the throughput problem. Penalize errors of an order of magnitude or more or numbers that never inform the design.',
+          'A strong answer computes peak location writes (600,000 drivers / 4 s is about 150,000 updates per second globally, with the largest city a meaningful share), ride requests (3 million/day is about 35 per second average, about 175 per second at the busy hour), concurrent trips at peak (roughly request rate x trip duration, on the order of 200,000), fan-out of location to watching riders, and storage (GPS traces in the hundreds of GB per day and tens of TB over 90 days; trip records from a stated record size, for example about 15-40 TB over 7 years at 2-5 KB per trip), with assumptions shown. It concludes that location ingestion and the geospatial index, not trip writes, are the throughput problem. Penalize errors of an order of magnitude or more or numbers that never inform the design.',
       },
       {
         id: 'architecture_design',

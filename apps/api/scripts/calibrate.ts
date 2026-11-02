@@ -57,7 +57,9 @@ for (const file of files) {
   const { samples } = (await import(resolve(dir, file))) as {
     samples: CalibrationSample[]
   }
-  console.log(`\n${item.title} (rubric ${item.challenge.rubric.version}, ${evaluator.model})`)
+  console.log(
+    `\n${item.title} (rubric ${item.challenge.rubric.version}, ${evaluator.model})`,
+  )
   for (const s of samples) {
     const raw = await evaluator
       .evaluate({

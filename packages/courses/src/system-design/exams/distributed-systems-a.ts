@@ -93,9 +93,9 @@ export const examQuestions: Question[] = [
       },
       {
         id: 'c',
-        text: 'They favor neither, because CAP does not apply to databases using 2PC',
+        text: 'They favor neither: after voting yes, each may decide the outcome alone',
         explanation:
-          'The participants are replicated state separated by a network failure; they face exactly the choice between waiting and acting without coordination.',
+          'A yes vote gives up the right to decide alone. Cut off from the coordinator, each participant faces the choice between waiting and acting without coordination.',
       },
       {
         id: 'd',

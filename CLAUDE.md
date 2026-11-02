@@ -52,13 +52,13 @@ A challenge is done when its starter passes 0/N tests, its solution passes N/N, 
 
 - Content is typed data in `packages/courses` (`types.ts` is the lesson spec). Two formats: `modules` (AI Engineer, linear unlock) and `levels` (System Design, unlock by prerequisites); narrow on `course.format`. Assessment ids are `lesson:<slug>`, `exam:<submodule or level slug>` and `challenge:<slug>`.
 - Draws, grading and unlock rules live in `packages/courses/src/assessment.ts`, shared by web and API. The API grades (`courses.submit`) and refuses locked or planned assessments via `assessmentStatus()`; never trust a client score.
-- System Design is built in phases from `thesis/s-design.md`. Phase 1 (curriculum model, dashboard, curriculum page) is done; next is Phase 2, Level 1 lessons. Decided: lesson practical scenarios are self-check (no AI); challenges lock behind prerequisites; Gemini runs server-side only, with a stub evaluator until `GEMINI_API_KEY` exists; challenge pages tell learners submissions go to Google; no rating/fame for course passes yet.
+- System Design (`thesis/s-design.md`) is built: 24 reviewed lessons, 3 level exams, 8 challenges graded by Gemini (`apps/api/src/services/design/`). Server recomputes scores and never trusts the model's total. Content loads per lesson on demand (`system-design/content.ts`). Tests: `pnpm --filter @hookdrill/api test:design-eval`, `test:design-flow` (needs a `*_test` DATABASE_URL), `eval:calibrate` (needs `GEMINI_API_KEY`; `--stub` checks plumbing only). Dev without a key: `DESIGN_EVAL_STUB=1`.
 - Content changes must pass `pnpm --filter @hookdrill/courses check` and get an independent accuracy review before publishing.
 - Exam questions may only map to objectives in their own submodule (the checker enforces it).
 
 ## Open items (as of 2026-11-02)
 
-- `course_results` migration (`packages/db/drizzle/20261028102904_course_results`) is generated but not applied: run `pnpm db:migrate` once Postgres is up.
+- `course_results` and `design_challenges` migrations (`packages/db/drizzle/20261028102904_course_results`) is generated but not applied: run `pnpm db:migrate` once Postgres is up.
 - `@hookdrill/courses` imports all lesson text eagerly (~177 KB raw), and the library sidebar and banner pull it in. Lazy-load module content before adding modules.
 - Exam question `m01-ai-family-tree-x7` really tests a `when-to-use-ai` objective from the other submodule; rewrite it or relax the mapping rule.
 - Course passes don't feed rating or fame yet; undecided.

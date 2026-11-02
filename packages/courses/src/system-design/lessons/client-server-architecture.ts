@@ -195,9 +195,9 @@ export const lesson: Lesson = {
         },
         {
           id: 'b',
-          text: 'Whichever side opened the most recent connection',
+          text: 'Whichever side has more data to send at that moment',
           explanation:
-            'The role is defined by who sends requests on a connection, and in HTTP that is always the client.',
+            'The amount of data does not decide anything. In HTTP the client always sends the request first, however large or small the response will be.',
         },
         {
           id: 'c',

@@ -315,9 +315,9 @@ export const lesson: Lesson = {
       options: [
         {
           id: 'a',
-          text: 'The response became stale the moment the data changed on the server',
+          text: 'It is fresh for another hour, because each reuse restarts its `max-age`',
           explanation:
-            'The cache cannot see server changes. In HTTP terms, staleness is decided by age versus `max-age`.',
+            'Reusing a stored response does not reset its age. After two hours it is past its 3,600-second freshness lifetime, so it is stale.',
         },
         {
           id: 'b',

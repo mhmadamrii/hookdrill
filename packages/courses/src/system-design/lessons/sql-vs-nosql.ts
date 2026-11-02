@@ -272,7 +272,7 @@ export const lesson: Lesson = {
           id: 'd',
           text: 'One relational table with a nullable column for every attribute of every type',
           explanation:
-            'This works but most columns are empty for any row, and every new product type needs a schema change. It is the least natural fit here.',
+            'This works but most columns are empty for any row, and every new product type needs a schema change. It is a less natural fit than one document per product.',
         },
       ],
       answer: 'a',

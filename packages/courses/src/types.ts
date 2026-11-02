@@ -34,13 +34,7 @@ export type Block =
 
 /** What a box in a diagram stands for; it picks the box's shape. */
 export type DiagramNodeKind =
-  | 'client'
-  | 'service'
-  | 'store'
-  | 'cache'
-  | 'queue'
-  | 'external'
-  | 'balancer'
+  'client' | 'service' | 'store' | 'cache' | 'queue' | 'external' | 'balancer'
 
 export interface DiagramNode {
   id: string

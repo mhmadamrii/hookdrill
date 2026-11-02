@@ -18,15 +18,15 @@ Each submodule adds 8 exam-only questions that combine ideas across its lessons.
 
 ## Assessment rules
 
-| Assessment     | Rule                                                      |
-| -------------- | --------------------------------------------------------- |
-| Lesson quiz    | 6 questions drawn from the lesson's 8                     |
-| Submodule exam | 15 questions from all lesson banks plus exam questions    |
-| Pass mark      | 80%                                                       |
-| Failing        | Review every explanation, retry with a fresh draw         |
-| Selection      | Round-robin across objectives, so no objective is skipped |
-| Progression    | Passing a submodule exam unlocks the next submodule       |
-| Practical work | Required at project milestones in later modules           |
+| Assessment     | Rule                                                             |
+| -------------- | ---------------------------------------------------------------- |
+| Lesson quiz    | Drawn from the lesson's 8 (6 in AI Engineer, 5 in System Design) |
+| Submodule exam | 15 questions from all lesson banks plus exam questions           |
+| Pass mark      | 80%                                                              |
+| Failing        | Review every explanation, retry with a fresh draw                |
+| Selection      | Round-robin across objectives, so no objective is skipped        |
+| Progression    | Passing a submodule exam unlocks the next submodule              |
+| Practical work | Required at project milestones in later modules                  |
 
 Multiple choice checks conceptual understanding only. From Phase 2 on, modules add coding exercises in the sandbox, and Phase 7 is graded projects.
 
