@@ -3,19 +3,31 @@ import { and, eq, isNotNull, sql } from 'drizzle-orm'
 import {
   assessments,
   courseBySlug,
-  courseState,
-  examId,
+  assessmentStatus,
   grade,
-  lessonQuizId,
+  hydrateLevelCourse,
   type Answers,
+  type Course,
 } from '@hookdrill/courses'
 import { courseResults, type Db } from '@hookdrill/db'
 
-function availableCourse(slug: string) {
+const hydrated = new Map<string, Promise<Course>>()
+
+/**
+ * A published course with all its content loaded. Level courses load content
+ * on demand in the browser; the server loads it once and keeps it.
+ */
+export async function availableCourse(slug: string): Promise<Course> {
   const course = courseBySlug(slug)
   if (!course || course.status !== 'available')
     throw new TRPCError({ code: 'NOT_FOUND', message: 'Unknown course' })
-  return course
+  if (course.format === 'modules') return course
+  let loading = hydrated.get(slug)
+  if (!loading) {
+    loading = hydrateLevelCourse(course)
+    hydrated.set(slug, loading)
+  }
+  return loading
 }
 
 /** The user's results for one course. */
@@ -46,7 +58,7 @@ export async function submitAssessment(
   assessmentId: string,
   answers: Answers,
 ) {
-  const course = availableCourse(courseSlug)
+  const course = await availableCourse(courseSlug)
   const assessment = assessments(course).get(assessmentId)
   if (!assessment)
     throw new TRPCError({ code: 'NOT_FOUND', message: 'Unknown assessment' })
@@ -62,21 +74,14 @@ export async function submitAssessment(
       ),
     )
   const passed = new Set(passedRows.map((r) => r.assessment))
-  const sub = courseState(course, passed)
-    .flatMap((m) => m.submodules)
-    .find((s) => s.submodule.slug === assessment.submodule.slug)
-  const status =
-    assessment.kind === 'exam'
-      ? sub?.exam
-      : sub?.lessons.find((l) => lessonQuizId(l.lesson) === assessment.id)
-          ?.status
-  if (!status || status === 'locked')
+  const status = assessmentStatus(course, passed, assessment.id)
+  if (!status || status === 'locked' || status === 'planned')
     throw new TRPCError({
       code: 'FORBIDDEN',
       message:
         assessment.kind === 'exam'
           ? 'Pass every lesson quiz first'
-          : 'Pass the previous exam first',
+          : 'Pass the prerequisites first',
     })
 
   const result = grade(assessment, answers)
@@ -112,6 +117,5 @@ export async function submitAssessment(
   return {
     ...result,
     firstPass: result.passed && !passed.has(assessment.id),
-    examId: examId(assessment.submodule),
   }
 }

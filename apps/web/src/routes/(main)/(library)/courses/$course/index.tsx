@@ -8,7 +8,13 @@ import {
   GraduationCap,
   Play,
 } from 'lucide-react'
-import { courseBySlug, passCount, rules, type Course } from '@hookdrill/courses'
+import {
+  courseBySlug,
+  passCount,
+  type Course,
+  type ModuleCourse,
+} from '@hookdrill/courses'
+import { LevelDashboard } from '@/components/system-design/dashboard'
 import { CourseProgressBar, ItemIcon } from '@/components/courses/syllabus'
 import { Button } from '@/components/ui/button'
 import { useCourseProgress, type CourseProgress } from '@/lib/courses'
@@ -47,6 +53,8 @@ function CoursePage() {
       </Link>
       {course.status === 'coming-soon' ? (
         <ComingSoon course={course} />
+      ) : course.format === 'levels' ? (
+        <LevelDashboard course={course} />
       ) : (
         <AvailableCourse course={course} />
       )}
@@ -84,7 +92,7 @@ function ContinueButton({
   course,
   progress,
 }: {
-  course: Course
+  course: ModuleCourse
   progress: CourseProgress
 }) {
   const first = progress.states[0]?.submodules[0]?.lessons[0]?.lesson
@@ -122,7 +130,8 @@ function ContinueButton({
   )
 }
 
-function AvailableCourse({ course }: { course: Course }) {
+function AvailableCourse({ course }: { course: ModuleCourse }) {
+  const { rules } = course
   const progress = useCourseProgress(course)
   const modules = course.phases.flatMap((p) => p.modules)
   return (
@@ -241,7 +250,8 @@ function AvailableCourse({ course }: { course: Course }) {
             <ul className="mt-3 flex flex-col gap-2 text-muted-foreground">
               <li>
                 Each lesson ends with a {rules.lessonQuizSize}-question quiz.
-                Pass with {passCount(rules.lessonQuizSize)} correct.
+                Pass with {passCount(rules.lessonQuizSize, rules.passMark)}{' '}
+                correct.
               </li>
               <li>
                 Pass every quiz in a submodule to open its {rules.examSize}
@@ -285,7 +295,7 @@ function ModuleCard({
   course,
   state,
 }: {
-  course: Course
+  course: ModuleCourse
   state: CourseProgress['states'][number]
 }) {
   const { module } = state

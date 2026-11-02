@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, Lock } from 'lucide-react'
 import type { ReactNode } from 'react'
-import type { Course } from '@hookdrill/courses'
+import type { ModuleCourse } from '@hookdrill/courses'
 import { courseSteps } from '@/lib/courses'
 import { StepLink } from './step-link'
 
@@ -13,7 +13,7 @@ export function StepNav({
   kind,
   slug,
 }: {
-  course: Course
+  course: ModuleCourse
   kind: 'lesson' | 'exam'
   slug: string
 }) {

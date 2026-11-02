@@ -40,7 +40,10 @@ function SystemDesign() {
       </header>
 
       <section aria-labelledby="questions-heading">
-        <h2 id="questions-heading" className="text-xl font-semibold tracking-tight">
+        <h2
+          id="questions-heading"
+          className="text-xl font-semibold tracking-tight"
+        >
           Questions
         </h2>
         <ol className="mt-4 divide-y rounded-xl border">

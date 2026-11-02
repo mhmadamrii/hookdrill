@@ -8,7 +8,10 @@
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "test:design-eval": "tsx scripts/test-design-eval.ts",
+    "test:design-flow": "tsx scripts/test-design-flow.ts",
+    "eval:calibrate": "tsx scripts/calibrate.ts"
   },
   "dependencies": {
     "@better-auth/drizzle-adapter": "1.7.12",

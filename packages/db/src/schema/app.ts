@@ -1,4 +1,5 @@
 import {
+  boolean,
   date,
   index,
   integer,
@@ -161,4 +162,87 @@ export const courseResults = pgTable(
       .defaultNow(),
   },
   (t) => [primaryKey({ columns: [t.userId, t.course, t.assessment] })],
+)
+
+/** A learner's working answers to a design challenge. Saved freely. */
+export const designDrafts = pgTable(
+  'design_drafts',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    course: text('course').notNull(),
+    challenge: text('challenge').notNull(),
+    /** Challenge version the draft was written for. */
+    version: text('version').notNull(),
+    answers: jsonb('answers').$type<Record<string, string>>().notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.challenge, t.version] })],
+)
+
+/**
+ * The one final submission per learner per challenge version. The unique key
+ * is what makes it one: a second submit finds this row. Status "failed" means
+ * evaluation broke, so the attempt is not consumed and may be resubmitted.
+ */
+export const designSubmissions = pgTable(
+  'design_submissions',
+  {
+    id: text('id').primaryKey(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    course: text('course').notNull(),
+    challenge: text('challenge').notNull(),
+    version: text('version').notNull(),
+    rubricVersion: text('rubric_version').notNull(),
+    answers: jsonb('answers').$type<Record<string, string>>().notNull(),
+    status: text('status', {
+      enum: ['evaluating', 'evaluated', 'failed'],
+    }).notNull(),
+    /** Sent by the client per submit click; a retried request reuses it. */
+    idempotencyKey: text('idempotency_key').notNull(),
+    lockedAt: timestamp('locked_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+    evaluatedAt: timestamp('evaluated_at', { withTimezone: true }),
+    /** Weighted score computed by the server, not the model. */
+    score: integer('score'),
+    passed: boolean('passed'),
+    /** The validated evaluation shown to the learner. */
+    result: jsonb('result'),
+    error: text('error'),
+  },
+  (t) => [
+    unique().on(t.userId, t.challenge, t.version),
+    index().on(t.userId, t.evaluatedAt),
+  ],
+)
+
+/** Every evaluator run, valid or not, for audit and reproducibility. */
+export const designEvaluations = pgTable(
+  'design_evaluations',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    submissionId: text('submission_id')
+      .notNull()
+      .references(() => designSubmissions.id, { onDelete: 'cascade' }),
+    attempt: integer('attempt').notNull(),
+    model: text('model').notNull(),
+    promptVersion: text('prompt_version').notNull(),
+    rubricVersion: text('rubric_version').notNull(),
+    outcome: text('outcome', {
+      enum: ['valid', 'invalid', 'error'],
+    }).notNull(),
+    raw: text('raw'),
+    error: text('error'),
+    durationMs: integer('duration_ms'),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index().on(t.submissionId)],
 )

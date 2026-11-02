@@ -5,9 +5,14 @@ import {
   useParams,
 } from '@tanstack/react-router'
 import { ListTree } from 'lucide-react'
-import { useState } from 'react'
-import { courseBySlug, type Course } from '@hookdrill/courses'
+import { useState, type ReactNode } from 'react'
+import {
+  courseBySlug,
+  type LevelCourse,
+  type ModuleCourse,
+} from '@hookdrill/courses'
 import { CourseProgressBar, SyllabusNav } from '@/components/courses/syllabus'
+import { LevelOutlineNav } from '@/components/system-design/outline'
 import { SiteFooter } from '@/components/site-footer'
 import { Button } from '@/components/ui/button'
 import {
@@ -18,9 +23,9 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { useCourseProgress } from '@/lib/courses'
+import { useCourseProgress, useLevelProgress } from '@/lib/courses'
 
-/** Lessons and exams: the course outline sits beside the content. */
+/** Lessons, exams and challenges: the course outline sits beside them. */
 export const Route = createFileRoute('/(main)/(course)')({
   component: CourseLayout,
 })
@@ -30,37 +35,85 @@ function CourseLayout() {
   const course = slug ? courseBySlug(slug) : undefined
   // Unknown or unpublished courses fall through to the child's not-found.
   if (!course || course.status !== 'available') return <Outlet />
-  return <WithOutline course={course} />
+  return course.format === 'modules' ? (
+    <ModuleOutline course={course} />
+  ) : (
+    <LevelOutline course={course} />
+  )
 }
 
-function WithOutline({ course }: { course: Course }) {
+function ModuleOutline({ course }: { course: ModuleCourse }) {
   const progress = useCourseProgress(course)
-  const [open, setOpen] = useState(false)
-  const header = (
-    <div className="px-2.5">
-      <Link
-        to="/courses/$course"
-        params={{ course: course.slug }}
-        className="font-semibold hover:text-brand"
-      >
-        {course.title}
-      </Link>
-      {progress.signedIn && (
-        <CourseProgressBar
-          className="mt-2"
-          done={progress.done}
-          total={progress.total}
+  return (
+    <Shell
+      title={course.title}
+      slug={course.slug}
+      done={progress.signedIn ? progress.done : null}
+      total={progress.total}
+      nav={(close) => (
+        <SyllabusNav
+          courseSlug={course.slug}
+          progress={progress}
+          onNavigate={close}
         />
       )}
-    </div>
+    />
   )
+}
+
+function LevelOutline({ course }: { course: LevelCourse }) {
+  const progress = useLevelProgress(course)
+  return (
+    <Shell
+      title={course.title}
+      slug={course.slug}
+      done={progress.signedIn ? progress.done : null}
+      total={progress.total}
+      nav={(close) => (
+        <LevelOutlineNav
+          courseSlug={course.slug}
+          progress={progress}
+          onNavigate={close}
+        />
+      )}
+    />
+  )
+}
+
+/** Outline in a sticky column on desktop, in a drawer on small screens. */
+function Shell({
+  title,
+  slug,
+  done,
+  total,
+  nav,
+}: {
+  title: string
+  slug: string
+  /** Null when signed out: no progress to show. */
+  done: number | null
+  total: number
+  nav: (close?: () => void) => ReactNode
+}) {
+  const [open, setOpen] = useState(false)
   return (
     <>
       <main className="mx-auto grid max-w-[1440px] gap-8 px-4 py-6 md:px-6 lg:grid-cols-[264px_minmax(0,1fr)]">
         <aside className="max-lg:hidden">
           <div className="sticky top-[4.5rem] flex max-h-[calc(100dvh-5.5rem)] flex-col gap-5 overflow-y-auto pb-4">
-            {header}
-            <SyllabusNav courseSlug={course.slug} progress={progress} />
+            <div className="px-2.5">
+              <Link
+                to="/courses/$course"
+                params={{ course: slug }}
+                className="font-semibold hover:text-brand"
+              >
+                {title}
+              </Link>
+              {done !== null && (
+                <CourseProgressBar className="mt-2" done={done} total={total} />
+              )}
+            </div>
+            {nav()}
           </div>
         </aside>
         <div className="min-w-0">
@@ -72,16 +125,12 @@ function WithOutline({ course }: { course: Course }) {
             </SheetTrigger>
             <SheetContent side="left" className="w-[300px] overflow-y-auto">
               <SheetHeader>
-                <SheetTitle>{course.title}</SheetTitle>
-                <SheetDescription>Lessons and exams</SheetDescription>
+                <SheetTitle>{title}</SheetTitle>
+                <SheetDescription>
+                  Lessons, exams and challenges
+                </SheetDescription>
               </SheetHeader>
-              <div className="px-2 pb-6">
-                <SyllabusNav
-                  courseSlug={course.slug}
-                  progress={progress}
-                  onNavigate={() => setOpen(false)}
-                />
-              </div>
+              <div className="px-2 pb-6">{nav(() => setOpen(false))}</div>
             </SheetContent>
           </Sheet>
           <Outlet />

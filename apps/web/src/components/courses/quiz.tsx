@@ -10,14 +10,13 @@ import { useRef, useState, type ReactNode } from 'react'
 import {
   drawPaper,
   passCount,
-  rules,
   type Answers,
   type Assessment,
   type Course,
   type Question,
 } from '@hookdrill/courses'
 import { Button } from '@/components/ui/button'
-import { useSubmitAssessment, type CourseProgress } from '@/lib/courses'
+import { useSubmitAssessment, type CourseResults } from '@/lib/courses'
 import { cn } from '@/lib/utils'
 import { mdInline } from './blocks'
 
@@ -48,7 +47,7 @@ export function AssessmentCard({
 }: {
   course: Course
   assessment: Assessment
-  progress: CourseProgress
+  progress: CourseResults
   /** Why it can't be taken yet, if it can't. */
   locked?: ReactNode
   /** Where to go after passing. */
@@ -99,8 +98,9 @@ export function AssessmentCard({
             {isExam ? 'Submodule exam' : 'Lesson quiz'}
           </h2>
           <p className="mt-1 text-sm text-muted-foreground">
-            {assessment.size} questions · {passCount(assessment.size)} correct
-            to pass ({pct(rules.passMark)}) · new questions each attempt
+            {assessment.size} questions ·{' '}
+            {passCount(assessment.size, assessment.passMark)} correct to pass (
+            {pct(assessment.passMark)}) · new questions each attempt
           </p>
         </div>
         {result && (
@@ -170,6 +170,7 @@ export function AssessmentCard({
       ) : (
         <Review
           phase={phase}
+          passMark={assessment.passMark}
           noun={noun}
           onRetry={start}
           next={phase.passed ? next : undefined}
@@ -260,11 +261,13 @@ function Paper({
 
 function Review({
   phase,
+  passMark,
   noun,
   onRetry,
   next,
 }: {
   phase: Extract<Phase, { name: 'review' }>
+  passMark: number
   noun: string
   onRetry: () => void
   next?: ReactNode
@@ -290,7 +293,7 @@ function Review({
           <p className="mt-0.5 text-sm text-muted-foreground">
             {passed
               ? 'Review the explanations below, then move on.'
-              : `You need ${passCount(paper.length)}. Read why each answer is right or wrong, then try a new set of questions.`}
+              : `You need ${passCount(paper.length, passMark)}. Read why each answer is right or wrong, then try a new set of questions.`}
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

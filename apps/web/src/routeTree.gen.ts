@@ -29,7 +29,10 @@ import { Route as mainlibraryCoursesIndexRouteImport } from './routes/(main)/(li
 import { Route as mainlibraryProblemsIndexRouteImport } from './routes/(main)/(library)/problems/index'
 import { Route as maincourseCoursesCourseLessonRouteImport } from './routes/(main)/(course)/courses/$course/$lesson'
 import { Route as mainlibraryCoursesCourseIndexRouteImport } from './routes/(main)/(library)/courses/$course/index'
+import { Route as mainlibraryCoursesCourseCurriculumRouteImport } from './routes/(main)/(library)/courses/$course/curriculum'
 import { Route as maincourseCoursesCourseExamSubmoduleRouteImport } from './routes/(main)/(course)/courses/$course/exam/$submodule'
+import { Route as maincourseCoursesCourseChallengeSlugIndexRouteImport } from './routes/(main)/(course)/courses/$course/challenge/$slug/index'
+import { Route as maincourseCoursesCourseChallengeSlugResultRouteImport } from './routes/(main)/(course)/courses/$course/challenge/$slug/result'
 
 const mainRouteRoute = mainRouteRouteImport.update({
   id: '/(main)',
@@ -131,10 +134,28 @@ const mainlibraryCoursesCourseIndexRoute =
     path: '/courses/$course/',
     getParentRoute: () => mainlibraryRouteRoute,
   } as any)
+const mainlibraryCoursesCourseCurriculumRoute =
+  mainlibraryCoursesCourseCurriculumRouteImport.update({
+    id: '/courses/$course/curriculum',
+    path: '/courses/$course/curriculum',
+    getParentRoute: () => mainlibraryRouteRoute,
+  } as any)
 const maincourseCoursesCourseExamSubmoduleRoute =
   maincourseCoursesCourseExamSubmoduleRouteImport.update({
     id: '/courses/$course/exam/$submodule',
     path: '/courses/$course/exam/$submodule',
+    getParentRoute: () => maincourseRouteRoute,
+  } as any)
+const maincourseCoursesCourseChallengeSlugIndexRoute =
+  maincourseCoursesCourseChallengeSlugIndexRouteImport.update({
+    id: '/courses/$course/challenge/$slug/',
+    path: '/courses/$course/challenge/$slug/',
+    getParentRoute: () => maincourseRouteRoute,
+  } as any)
+const maincourseCoursesCourseChallengeSlugResultRoute =
+  maincourseCoursesCourseChallengeSlugResultRouteImport.update({
+    id: '/courses/$course/challenge/$slug/result',
+    path: '/courses/$course/challenge/$slug/result',
     getParentRoute: () => maincourseRouteRoute,
   } as any)
 
@@ -155,8 +176,11 @@ export interface FileRoutesByFullPath {
   '/courses/': typeof mainlibraryCoursesIndexRoute
   '/problems/': typeof mainlibraryProblemsIndexRoute
   '/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
+  '/courses/$course/curriculum': typeof mainlibraryCoursesCourseCurriculumRoute
   '/courses/$course/': typeof mainlibraryCoursesCourseIndexRoute
   '/courses/$course/exam/$submodule': typeof maincourseCoursesCourseExamSubmoduleRoute
+  '/courses/$course/challenge/$slug/result': typeof maincourseCoursesCourseChallengeSlugResultRoute
+  '/courses/$course/challenge/$slug/': typeof maincourseCoursesCourseChallengeSlugIndexRoute
 }
 export interface FileRoutesByTo {
   '/contests': typeof mainContestsRoute
@@ -175,8 +199,11 @@ export interface FileRoutesByTo {
   '/courses': typeof mainlibraryCoursesIndexRoute
   '/problems': typeof mainlibraryProblemsIndexRoute
   '/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
+  '/courses/$course/curriculum': typeof mainlibraryCoursesCourseCurriculumRoute
   '/courses/$course': typeof mainlibraryCoursesCourseIndexRoute
   '/courses/$course/exam/$submodule': typeof maincourseCoursesCourseExamSubmoduleRoute
+  '/courses/$course/challenge/$slug/result': typeof maincourseCoursesCourseChallengeSlugResultRoute
+  '/courses/$course/challenge/$slug': typeof maincourseCoursesCourseChallengeSlugIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -199,8 +226,11 @@ export interface FileRoutesById {
   '/(main)/(library)/courses/': typeof mainlibraryCoursesIndexRoute
   '/(main)/(library)/problems/': typeof mainlibraryProblemsIndexRoute
   '/(main)/(course)/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
+  '/(main)/(library)/courses/$course/curriculum': typeof mainlibraryCoursesCourseCurriculumRoute
   '/(main)/(library)/courses/$course/': typeof mainlibraryCoursesCourseIndexRoute
   '/(main)/(course)/courses/$course/exam/$submodule': typeof maincourseCoursesCourseExamSubmoduleRoute
+  '/(main)/(course)/courses/$course/challenge/$slug/result': typeof maincourseCoursesCourseChallengeSlugResultRoute
+  '/(main)/(course)/courses/$course/challenge/$slug/': typeof maincourseCoursesCourseChallengeSlugIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -221,8 +251,11 @@ export interface FileRouteTypes {
     | '/courses/'
     | '/problems/'
     | '/courses/$course/$lesson'
+    | '/courses/$course/curriculum'
     | '/courses/$course/'
     | '/courses/$course/exam/$submodule'
+    | '/courses/$course/challenge/$slug/result'
+    | '/courses/$course/challenge/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/contests'
@@ -241,8 +274,11 @@ export interface FileRouteTypes {
     | '/courses'
     | '/problems'
     | '/courses/$course/$lesson'
+    | '/courses/$course/curriculum'
     | '/courses/$course'
     | '/courses/$course/exam/$submodule'
+    | '/courses/$course/challenge/$slug/result'
+    | '/courses/$course/challenge/$slug'
   id:
     | '__root__'
     | '/(main)'
@@ -264,8 +300,11 @@ export interface FileRouteTypes {
     | '/(main)/(library)/courses/'
     | '/(main)/(library)/problems/'
     | '/(main)/(course)/courses/$course/$lesson'
+    | '/(main)/(library)/courses/$course/curriculum'
     | '/(main)/(library)/courses/$course/'
     | '/(main)/(course)/courses/$course/exam/$submodule'
+    | '/(main)/(course)/courses/$course/challenge/$slug/result'
+    | '/(main)/(course)/courses/$course/challenge/$slug/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -417,11 +456,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof mainlibraryCoursesCourseIndexRouteImport
       parentRoute: typeof mainlibraryRouteRoute
     }
+    '/(main)/(library)/courses/$course/curriculum': {
+      id: '/(main)/(library)/courses/$course/curriculum'
+      path: '/courses/$course/curriculum'
+      fullPath: '/courses/$course/curriculum'
+      preLoaderRoute: typeof mainlibraryCoursesCourseCurriculumRouteImport
+      parentRoute: typeof mainlibraryRouteRoute
+    }
     '/(main)/(course)/courses/$course/exam/$submodule': {
       id: '/(main)/(course)/courses/$course/exam/$submodule'
       path: '/courses/$course/exam/$submodule'
       fullPath: '/courses/$course/exam/$submodule'
       preLoaderRoute: typeof maincourseCoursesCourseExamSubmoduleRouteImport
+      parentRoute: typeof maincourseRouteRoute
+    }
+    '/(main)/(course)/courses/$course/challenge/$slug/': {
+      id: '/(main)/(course)/courses/$course/challenge/$slug/'
+      path: '/courses/$course/challenge/$slug'
+      fullPath: '/courses/$course/challenge/$slug/'
+      preLoaderRoute: typeof maincourseCoursesCourseChallengeSlugIndexRouteImport
+      parentRoute: typeof maincourseRouteRoute
+    }
+    '/(main)/(course)/courses/$course/challenge/$slug/result': {
+      id: '/(main)/(course)/courses/$course/challenge/$slug/result'
+      path: '/courses/$course/challenge/$slug/result'
+      fullPath: '/courses/$course/challenge/$slug/result'
+      preLoaderRoute: typeof maincourseCoursesCourseChallengeSlugResultRouteImport
       parentRoute: typeof maincourseRouteRoute
     }
   }
@@ -430,12 +490,18 @@ declare module '@tanstack/react-router' {
 interface maincourseRouteRouteChildren {
   maincourseCoursesCourseLessonRoute: typeof maincourseCoursesCourseLessonRoute
   maincourseCoursesCourseExamSubmoduleRoute: typeof maincourseCoursesCourseExamSubmoduleRoute
+  maincourseCoursesCourseChallengeSlugResultRoute: typeof maincourseCoursesCourseChallengeSlugResultRoute
+  maincourseCoursesCourseChallengeSlugIndexRoute: typeof maincourseCoursesCourseChallengeSlugIndexRoute
 }
 
 const maincourseRouteRouteChildren: maincourseRouteRouteChildren = {
   maincourseCoursesCourseLessonRoute: maincourseCoursesCourseLessonRoute,
   maincourseCoursesCourseExamSubmoduleRoute:
     maincourseCoursesCourseExamSubmoduleRoute,
+  maincourseCoursesCourseChallengeSlugResultRoute:
+    maincourseCoursesCourseChallengeSlugResultRoute,
+  maincourseCoursesCourseChallengeSlugIndexRoute:
+    maincourseCoursesCourseChallengeSlugIndexRoute,
 }
 
 const maincourseRouteRouteWithChildren = maincourseRouteRoute._addFileChildren(
@@ -446,6 +512,7 @@ interface mainlibraryRouteRouteChildren {
   mainlibraryBuilderLabRoute: typeof mainlibraryBuilderLabRoute
   mainlibraryCoursesIndexRoute: typeof mainlibraryCoursesIndexRoute
   mainlibraryProblemsIndexRoute: typeof mainlibraryProblemsIndexRoute
+  mainlibraryCoursesCourseCurriculumRoute: typeof mainlibraryCoursesCourseCurriculumRoute
   mainlibraryCoursesCourseIndexRoute: typeof mainlibraryCoursesCourseIndexRoute
 }
 
@@ -453,6 +520,8 @@ const mainlibraryRouteRouteChildren: mainlibraryRouteRouteChildren = {
   mainlibraryBuilderLabRoute: mainlibraryBuilderLabRoute,
   mainlibraryCoursesIndexRoute: mainlibraryCoursesIndexRoute,
   mainlibraryProblemsIndexRoute: mainlibraryProblemsIndexRoute,
+  mainlibraryCoursesCourseCurriculumRoute:
+    mainlibraryCoursesCourseCurriculumRoute,
   mainlibraryCoursesCourseIndexRoute: mainlibraryCoursesCourseIndexRoute,
 }
 

@@ -4,12 +4,13 @@ import {
   assessments,
   courseBySlug,
   findLesson,
+  loadLesson,
   lessonQuizId,
-  type ContentLabel,
-  type Course,
-  type Lesson,
+  type ModuleCourse,
 } from '@hookdrill/courses'
 import { Blocks, mdInline } from '@/components/courses/blocks'
+import { labels, References, reviewed } from '@/components/courses/lesson-parts'
+import { LevelLessonView } from '@/components/system-design/lesson-view'
 import { AssessmentCard } from '@/components/courses/quiz'
 import { StepLink } from '@/components/courses/step-link'
 import { LockedNotice, StepNav } from '@/components/courses/step-nav'
@@ -20,46 +21,40 @@ import { courseSteps, useCourseProgress } from '@/lib/courses'
 export const Route = createFileRoute(
   '/(main)/(course)/courses/$course/$lesson',
 )({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     const course = courseBySlug(params.course)
-    const found =
-      course?.status === 'available' && findLesson(course, params.lesson)
-    if (!course || !found) throw notFound()
-    return { title: found.lesson.title, course: course.title }
+    if (!course || course.status !== 'available') throw notFound()
+    if (course.format === 'levels') {
+      // Level courses load each lesson's content on demand.
+      const lesson = await loadLesson(course, params.lesson)
+      if (!lesson) throw notFound()
+      return { title: lesson.title, course: course.title, lesson }
+    }
+    const found = findLesson(course, params.lesson)
+    if (!found) throw notFound()
+    return { title: found.lesson.title, course: course.title, lesson: null }
   },
   head: ({ loaderData }) => ({
     meta: loaderData
       ? [{ title: `${loaderData.title} · ${loaderData.course} · HookDrill` }]
       : [],
   }),
-  component: LessonPage,
+  component: LessonRoute,
 })
 
-const labels: Record<ContentLabel, { name: string; hint: string }> = {
-  foundational: {
-    name: 'Foundational',
-    hint: 'Established knowledge that changes slowly.',
-  },
-  'current-practice': {
-    name: 'Current practice',
-    hint: 'How the field works today. Reviewed often, since tools change fast.',
-  },
-  emerging: {
-    name: 'Emerging research',
-    hint: 'Active research. Expect this to change.',
-  },
+function LessonRoute() {
+  const { lesson } = Route.useLoaderData()
+  const course = courseBySlug(Route.useParams().course)!
+  return course.format === 'levels' && lesson ? (
+    <LevelLessonView course={course} lesson={lesson} />
+  ) : (
+    <LessonPage />
+  )
 }
-
-const reviewed = new Intl.DateTimeFormat('en', {
-  month: 'short',
-  day: 'numeric',
-  year: 'numeric',
-  timeZone: 'UTC',
-})
 
 function LessonPage() {
   const params = Route.useParams()
-  const course = courseBySlug(params.course)!
+  const course = courseBySlug(params.course) as ModuleCourse
   const { module, submodule, lesson } = findLesson(course, params.lesson)!
   const progress = useCourseProgress(course)
   const sub = progress.states
@@ -196,51 +191,14 @@ function LessonPage() {
   )
 }
 
-function References({ lesson }: { lesson: Lesson }) {
-  const groups = [
-    {
-      name: 'Sources',
-      items: lesson.references.filter((r) => r.kind === 'source'),
-    },
-    {
-      name: 'Further reading',
-      items: lesson.references.filter((r) => r.kind === 'further'),
-    },
-  ].filter((g) => g.items.length > 0)
-  return (
-    <>
-      {groups.map((g) => (
-        <div key={g.name} className="mt-3">
-          <h3 className="text-sm font-medium text-muted-foreground">
-            {g.name}
-          </h3>
-          <ul className="mt-1.5 flex flex-col gap-1.5 text-sm">
-            {g.items.map((r) => (
-              <li key={r.url}>
-                <a
-                  href={r.url}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:underline"
-                >
-                  {r.title}
-                </a>
-                <span className="text-muted-foreground"> · {r.publisher}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      ))}
-      <p className="mt-4 text-xs leading-relaxed text-muted-foreground">
-        Sources back the facts in this lesson. Sections marked “Teaching
-        example” are our own illustrations.
-      </p>
-    </>
-  )
-}
-
 /** After passing, point at the next lesson or the exam. */
-function NextAfterPass({ course, slug }: { course: Course; slug: string }) {
+function NextAfterPass({
+  course,
+  slug,
+}: {
+  course: ModuleCourse
+  slug: string
+}) {
   const steps = courseSteps(course)
   const next = steps[steps.findIndex((s) => s.slug === slug) + 1]
   if (!next) return null
@@ -258,7 +216,7 @@ function Locked({
   course,
   beforeSlug,
 }: {
-  course: Course
+  course: ModuleCourse
   beforeSlug: string
 }) {
   const subs = course.phases

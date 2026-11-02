@@ -50,8 +50,9 @@ A challenge is done when its starter passes 0/N tests, its solution passes N/N, 
 
 ## Courses
 
-- Content is typed data in `packages/courses` (`types.ts` is the lesson spec). Assessment ids are `lesson:<slug>` and `exam:<submodule slug>`.
-- Draws, grading and unlock rules live in `packages/courses/src/assessment.ts`, shared by web and API. The API grades (`courses.submit`) and refuses locked assessments; never trust a client score.
+- Content is typed data in `packages/courses` (`types.ts` is the lesson spec). Two formats: `modules` (AI Engineer, linear unlock) and `levels` (System Design, unlock by prerequisites); narrow on `course.format`. Assessment ids are `lesson:<slug>`, `exam:<submodule or level slug>` and `challenge:<slug>`.
+- Draws, grading and unlock rules live in `packages/courses/src/assessment.ts`, shared by web and API. The API grades (`courses.submit`) and refuses locked or planned assessments via `assessmentStatus()`; never trust a client score.
+- System Design is built in phases from `thesis/s-design.md`. Phase 1 (curriculum model, dashboard, curriculum page) is done; next is Phase 2, Level 1 lessons. Decided: lesson practical scenarios are self-check (no AI); challenges lock behind prerequisites; Gemini runs server-side only, with a stub evaluator until `GEMINI_API_KEY` exists; challenge pages tell learners submissions go to Google; no rating/fame for course passes yet.
 - Content changes must pass `pnpm --filter @hookdrill/courses check` and get an independent accuracy review before publishing.
 - Exam questions may only map to objectives in their own submodule (the checker enforces it).
 

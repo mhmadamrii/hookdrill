@@ -6,7 +6,8 @@
     ".": "./src/index.ts"
   },
   "scripts": {
-    "check": "tsx scripts/check.ts"
+    "check": "tsx scripts/check.ts",
+    "check-file": "tsx scripts/check-file.ts"
   },
   "devDependencies": {
     "tsx": "4.23.15"

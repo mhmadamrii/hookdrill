@@ -4,10 +4,23 @@ import { z } from 'zod'
 import { challenges, drafts, progress, type Db } from '@hookdrill/db'
 import { dailyProblem } from '../services/daily'
 import { courseProgress, submitAssessment } from '../services/courses'
+import { configuredEvaluator } from '../services/design/evaluators'
+import {
+  designOverview,
+  getDraft,
+  getSubmission,
+  saveDraft,
+  submitDesign,
+} from '../services/design/submissions'
 import { checkIn, fameLeaderboard, fameStatus } from '../services/fame'
 import { protectedProcedure, publicProcedure, router } from './init'
 
 const slug = z.string().min(1).max(100)
+
+// Field id -> answer text. Lengths are checked against the form's limits later.
+const designAnswers = z
+  .record(z.string().max(40), z.string().max(10_000))
+  .refine((a) => Object.keys(a).length <= 20, 'Too many fields')
 
 // Sandbox path -> code. Generous for hand-written components, small enough to keep rows cheap.
 const files = z
@@ -217,6 +230,73 @@ export const appRouter = router({
           input.assessment,
           input.answers,
         ),
+      ),
+  }),
+
+  /** System Design challenges: drafts, the one final submission, results. */
+  design: router({
+    /** Whether final submissions can be graded on this deployment. */
+    grading: publicProcedure.query(() => {
+      const evaluator = configuredEvaluator()
+      return { available: !!evaluator, stub: evaluator?.model === 'stub' }
+    }),
+    draft: protectedProcedure
+      .input(z.object({ course: slug, challenge: slug }))
+      .query(({ ctx, input }) =>
+        getDraft(ctx.db, ctx.session.user.id, input.course, input.challenge),
+      ),
+    saveDraft: protectedProcedure
+      .input(
+        z.object({ course: slug, challenge: slug, answers: designAnswers }),
+      )
+      .mutation(({ ctx, input }) =>
+        saveDraft(
+          ctx.db,
+          ctx.session.user.id,
+          input.course,
+          input.challenge,
+          input.answers,
+        ),
+      ),
+    /** Locks the submission and grades it in the background. */
+    submit: protectedProcedure
+      .input(
+        z.object({
+          course: slug,
+          challenge: slug,
+          answers: designAnswers,
+          idempotencyKey: z.string().uuid(),
+        }),
+      )
+      .mutation(async ({ ctx, input }) => {
+        const { id, evaluation } = await submitDesign(
+          ctx.db,
+          ctx.session.user.id,
+          input.course,
+          input.challenge,
+          input.answers,
+          input.idempotencyKey,
+          configuredEvaluator(),
+        )
+        evaluation.catch((e) =>
+          console.error('[design] evaluation crashed', id, e),
+        )
+        return { id }
+      }),
+    submission: protectedProcedure
+      .input(z.object({ course: slug, challenge: slug }))
+      .query(({ ctx, input }) =>
+        getSubmission(
+          ctx.db,
+          ctx.session.user.id,
+          input.course,
+          input.challenge,
+        ),
+      ),
+    overview: protectedProcedure
+      .input(z.object({ course: slug }))
+      .query(({ ctx, input }) =>
+        designOverview(ctx.db, ctx.session.user.id, input.course),
       ),
   }),
 })

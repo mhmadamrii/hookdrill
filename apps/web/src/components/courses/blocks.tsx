@@ -1,6 +1,7 @@
 import { marked } from 'marked'
 import { Info, Lightbulb } from 'lucide-react'
 import type { Block } from '@hookdrill/courses'
+import { Diagram } from './diagram'
 import { CourseFigure } from './figures'
 
 // Course content is our own, reviewed source, like problem descriptions.
@@ -52,6 +53,14 @@ function BlockView({ block }: { block: Block }) {
             </div>
           ))}
         </dl>
+      )
+    case 'diagram':
+      return (
+        <Diagram
+          nodes={block.nodes}
+          edges={block.edges}
+          caption={block.caption}
+        />
       )
     case 'note':
       return (

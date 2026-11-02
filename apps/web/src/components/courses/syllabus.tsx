@@ -1,5 +1,11 @@
 import { Link } from '@tanstack/react-router'
-import { CheckCircle2, Circle, GraduationCap, Lock } from 'lucide-react'
+import {
+  CheckCircle2,
+  Circle,
+  CircleDashed,
+  GraduationCap,
+  Lock,
+} from 'lucide-react'
 import type { ItemStatus } from '@hookdrill/courses'
 import type { CourseProgress } from '@/lib/courses'
 import { cn } from '@/lib/utils'
@@ -16,6 +22,13 @@ export function ItemIcon({
       <CheckCircle2
         aria-label="Passed"
         className={cn('size-4 shrink-0 text-accepted', className)}
+      />
+    )
+  if (status === 'planned')
+    return (
+      <CircleDashed
+        aria-label="In development"
+        className={cn('size-4 shrink-0 text-muted-foreground/50', className)}
       />
     )
   if (status === 'locked')

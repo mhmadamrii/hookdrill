@@ -1,8 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import { ArrowRight, Atom, BrainCircuit } from 'lucide-react'
+import { ArrowRight, Atom, BrainCircuit, Network } from 'lucide-react'
 import { courses, type Course } from '@hookdrill/courses'
 import { CourseProgressBar } from '@/components/courses/syllabus'
-import { useCourseProgress } from '@/lib/courses'
+import { useCourseSummary } from '@/lib/courses'
 import { cn } from '@/lib/utils'
 
 export const Route = createFileRoute('/(main)/(library)/courses/')({
@@ -21,19 +21,27 @@ export const Route = createFileRoute('/(main)/(library)/courses/')({
 
 const icons: Record<string, typeof Atom> = {
   'ai-engineer': BrainCircuit,
+  'system-design': Network,
   'react-mastery': Atom,
 }
 
-function modulesCount(course: Course) {
+/** One line of course facts for the card. */
+function facts(course: Course) {
+  if (course.status === 'coming-soon') return 'Syllabus in progress'
+  if (course.format === 'levels') {
+    const items = course.levels.flatMap((l) => l.items)
+    const lessons = items.filter((i) => i.kind === 'lesson').length
+    return `${course.levels.length} levels · ${lessons} lessons · ${items.length - lessons} design challenges · ${course.level}`
+  }
   const all = course.phases.flatMap((p) => p.modules)
-  return { total: all.length, open: all.filter((m) => m.module).length }
+  const open = all.filter((m) => m.module).length
+  return `${course.phases.length} phases · ${all.length} modules · ${open} open now · ${course.level}`
 }
 
 function CourseCard({ course }: { course: Course }) {
-  const progress = useCourseProgress(course)
+  const progress = useCourseSummary(course)
   const Icon = icons[course.slug] ?? BrainCircuit
   const soon = course.status === 'coming-soon'
-  const { total, open } = modulesCount(course)
   const started = progress.signedIn && progress.done > 0
   return (
     <li>
@@ -61,11 +69,7 @@ function CourseCard({ course }: { course: Course }) {
           {course.title}
         </h2>
         <p className="mt-1.5 text-muted-foreground">{course.tagline}</p>
-        <p className="mt-4 text-sm text-muted-foreground">
-          {soon
-            ? 'Syllabus in progress'
-            : `${course.phases.length} phases · ${total} modules · ${open} open now · ${course.level}`}
-        </p>
+        <p className="mt-4 text-sm text-muted-foreground">{facts(course)}</p>
         <div className="mt-auto pt-6">
           {started ? (
             <CourseProgressBar done={progress.done} total={progress.total} />
@@ -94,7 +98,7 @@ function Courses() {
           unlock the next.
         </p>
       </header>
-      <ul className="mt-8 grid gap-4 md:grid-cols-2">
+      <ul className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {courses.map((c) => (
           <CourseCard key={c.slug} course={c} />
         ))}

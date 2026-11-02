@@ -27,6 +27,17 @@ const schema = z.object({
     .string()
     .optional()
     .transform((v) => v || undefined),
+  /** Grades design challenges. Without it, final submissions are refused. */
+  GEMINI_API_KEY: z
+    .string()
+    .optional()
+    .transform((v) => v || undefined),
+  GEMINI_MODEL: z.string().default('gemini-3.8-flash'),
+  /** Development only: grade with a deterministic stub instead of Gemini. */
+  DESIGN_EVAL_STUB: z
+    .enum(['0', '1'])
+    .optional()
+    .transform((v) => v === '1'),
 })
 
 export const env = schema.parse(process.env)

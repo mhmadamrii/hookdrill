@@ -1,77 +1,131 @@
 /**
- * Structural checks on course content. Accuracy still needs a human review;
- * this catches the mistakes a reviewer's eye slides past.
+ * Structural checks on every course, with all content loaded. Run before
+ * publishing content: `pnpm --filter @hookdrill/courses check`.
  */
 import {
   assessments,
   availableModules,
   courses,
   drawPaper,
-  rules,
-  type Question,
+  hydrateLevelCourse,
+  levelLessons,
+  type Course,
+  type Lesson,
+  type LevelCourse,
 } from '../src'
+import {
+  checkChallenge,
+  checkLesson,
+  checkQuestion,
+  fail,
+  report,
+} from './validate'
 
-const errors: string[] = []
-const fail = (msg: string) => errors.push(msg)
-
-function checkQuestion(q: Question, where: string, objectives: Set<string>) {
-  if (!objectives.has(q.objective))
-    fail(`${where} ${q.id}: unknown objective ${q.objective}`)
-  if (q.options.length !== 4) fail(`${where} ${q.id}: needs 4 options`)
-  const ids = new Set(q.options.map((o) => o.id))
-  if (ids.size !== q.options.length)
-    fail(`${where} ${q.id}: repeated option id`)
-  if (!ids.has(q.answer)) fail(`${where} ${q.id}: answer ${q.answer} missing`)
-  for (const o of q.options) {
-    if (!o.text.trim()) fail(`${where} ${q.id}/${o.id}: empty text`)
-    if (!o.explanation.trim())
-      fail(`${where} ${q.id}/${o.id}: empty explanation`)
-    if (/\b(all|none) of the above\b/i.test(o.text))
-      fail(`${where} ${q.id}/${o.id}: "all/none of the above"`)
+/** Prerequisites name real items, never the item itself, and never loop. */
+function checkPrerequisites(course: LevelCourse) {
+  const items = new Map(
+    course.levels.flatMap((l) => l.items).map((i) => [i.slug, i]),
+  )
+  for (const item of items.values())
+    for (const p of item.prerequisites) {
+      if (!items.has(p))
+        fail(`${course.slug}/${item.slug}: unknown prereq ${p}`)
+      if (p === item.slug) fail(`${course.slug}/${item.slug}: requires itself`)
+    }
+  const state = new Map<string, 'visiting' | 'done'>()
+  const visit = (slug: string, path: string[]): void => {
+    if (state.get(slug) === 'done') return
+    if (state.get(slug) === 'visiting') {
+      fail(`${course.slug}: prerequisite cycle ${[...path, slug].join(' → ')}`)
+      return
+    }
+    state.set(slug, 'visiting')
+    for (const p of items.get(slug)?.prerequisites ?? [])
+      visit(p, [...path, slug])
+    state.set(slug, 'done')
   }
+  for (const slug of items.keys()) visit(slug, [])
+
+  // Registered content must belong to the curriculum.
+  const { lessons, exams, challenges } = course.content
+  for (const slug of Object.keys(lessons))
+    if (items.get(slug)?.kind !== 'lesson')
+      fail(`${course.slug}: content for unknown lesson ${slug}`)
+  for (const slug of Object.keys(challenges))
+    if (items.get(slug)?.kind !== 'challenge')
+      fail(`${course.slug}: content for unknown challenge ${slug}`)
+  for (const slug of Object.keys(exams))
+    if (!course.levels.some((l) => l.slug === slug))
+      fail(`${course.slug}: exam for unknown level ${slug}`)
 }
 
-for (const course of courses) {
+for (const raw of courses) {
+  const course: Course =
+    raw.format === 'levels' ? await hydrateLevelCourse(raw) : raw
   const ids = new Set<string>()
   const unique = (id: string, what: string) => {
     if (ids.has(id)) fail(`${course.slug}: duplicate ${what} id ${id}`)
     ids.add(id)
   }
-  for (const module of availableModules(course)) {
-    for (const sub of module.submodules) {
-      unique(sub.slug, 'submodule')
-      const subObjectives = new Set<string>()
-      for (const lesson of sub.lessons) {
-        const where = `${course.slug}/${lesson.slug}`
-        unique(lesson.slug, 'lesson')
-        const objectives = new Set(lesson.objectives.map((o) => o.id))
-        lesson.objectives.forEach((o) => {
-          unique(o.id, 'objective')
-          subObjectives.add(o.id)
-        })
-        if (lesson.questions.length < rules.lessonQuizSize)
-          fail(`${where}: fewer questions than a quiz draws`)
-        for (const q of lesson.questions) {
+  const lessonRules = {
+    quizSize: course.rules.lessonQuizSize,
+    levels: course.format === 'levels',
+  }
+  let lessons: Lesson[]
+
+  if (course.format === 'modules') {
+    for (const module of availableModules(course)) {
+      for (const sub of module.submodules) {
+        unique(sub.slug, 'submodule')
+        const scope = new Set<string>()
+        for (const lesson of sub.lessons) {
+          unique(lesson.slug, 'lesson')
+          checkLesson(
+            lesson,
+            `${course.slug}/${lesson.slug}`,
+            lessonRules,
+            unique,
+            scope,
+          )
+        }
+        for (const q of sub.examQuestions) {
           unique(q.id, 'question')
-          checkQuestion(q, where, objectives)
+          checkQuestion(q, `${course.slug}/${sub.slug} exam`, scope)
         }
-        for (const o of lesson.objectives) {
-          const n = lesson.questions.filter((q) => q.objective === o.id).length
-          if (n < 2) fail(`${where}: objective ${o.id} has ${n} questions`)
-        }
-        for (const kind of ['recall', 'concept', 'application'] as const)
-          if (!lesson.questions.some((q) => q.kind === kind))
-            fail(`${where}: no ${kind} questions`)
-        if (!lesson.references.some((r) => r.kind === 'source'))
-          fail(`${where}: no source references`)
-        if (Number.isNaN(Date.parse(lesson.reviewedAt)))
-          fail(`${where}: bad reviewedAt`)
-      }
-      for (const q of sub.examQuestions) {
-        unique(q.id, 'question')
-        checkQuestion(q, `${course.slug}/${sub.slug} exam`, subObjectives)
       }
     }
+    lessons = availableModules(course).flatMap((m) =>
+      m.submodules.flatMap((s) => s.lessons),
+    )
+  } else {
+    checkPrerequisites(course)
+    const lessonSlugs = new Set(
+      course.levels
+        .flatMap((l) => l.items)
+        .filter((i) => i.kind === 'lesson')
+        .map((i) => i.slug),
+    )
+    for (const level of course.levels) {
+      unique(level.slug, 'level')
+      const scope = new Set<string>()
+      for (const item of level.items) {
+        unique(item.slug, 'item')
+        const where = `${course.slug}/${item.slug}`
+        if (item.kind === 'lesson' && item.lesson) {
+          if (item.lesson.slug !== item.slug) fail(`${where}: slug mismatch`)
+          if (item.lesson.title !== item.title)
+            fail(`${where}: title differs from the curriculum`)
+          checkLesson(item.lesson, where, lessonRules, unique, scope)
+        }
+        if (item.kind === 'challenge' && item.challenge)
+          checkChallenge(item.challenge, where, lessonSlugs)
+      }
+      for (const q of level.examQuestions ?? []) {
+        unique(q.id, 'question')
+        checkQuestion(q, `${course.slug}/${level.slug} exam`, scope)
+      }
+    }
+    lessons = course.levels.flatMap(levelLessons)
   }
 
   // Every draw must cover every objective it has room for.
@@ -88,9 +142,6 @@ for (const course of courses) {
     }
   }
 
-  const lessons = availableModules(course).flatMap((m) =>
-    m.submodules.flatMap((s) => s.lessons),
-  )
   const answers = lessons
     .flatMap((l) => l.questions)
     .reduce<Record<string, number>>((n, q) => {
@@ -102,8 +153,4 @@ for (const course of courses) {
   )
 }
 
-if (errors.length) {
-  console.error(errors.join('\n'))
-  process.exit(1)
-}
-console.log('All course content checks passed.')
+report('All course content checks passed.')

@@ -1,4 +1,4 @@
-import type { Course } from '../types'
+import type { ModuleCourse } from '../types'
 import { module01 } from './module-01'
 
 /**
@@ -7,7 +7,8 @@ import { module01 } from './module-01'
  * reviewed. Foundation → algorithms → deep learning → modern AI systems →
  * production engineering.
  */
-export const aiEngineer: Course = {
+export const aiEngineer: ModuleCourse = {
+  format: 'modules',
   slug: 'ai-engineer',
   title: 'AI Engineer',
   tagline: 'From what AI is to shipping evaluated AI systems.',
@@ -15,6 +16,7 @@ export const aiEngineer: Course = {
     'A progressive path through the foundations, classical machine learning, deep learning, LLM engineering and production practice. It prepares you to understand, build, evaluate and deploy AI applications; research-level topics are electives.',
   level: 'Beginner to advanced',
   status: 'available',
+  rules: { lessonQuizSize: 6, examSize: 15, passMark: 0.8 },
   outcomes: [
     'Explain how AI, machine learning, deep learning and LLMs relate',
     'Train and evaluate classical and neural models',
