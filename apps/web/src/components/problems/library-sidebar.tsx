@@ -77,9 +77,6 @@ export function LibrarySidebar() {
       <Item icon={Trophy} to="/contests">
         Contests
       </Item>
-      <Item icon={BrainCircuit} to="/builder-lab">
-        System Design
-      </Item>
 
       <div className="my-3 h-px bg-border" />
 
