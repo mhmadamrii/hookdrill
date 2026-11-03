@@ -62,4 +62,4 @@ A challenge is done when its starter passes 0/N tests, its solution passes N/N, 
 - `@hookdrill/courses` imports all lesson text eagerly (~177 KB raw), and the library sidebar and banner pull it in. Lazy-load module content before adding modules.
 - Exam question `m01-ai-family-tree-x7` really tests a `when-to-use-ai` objective from the other submodule; rewrite it or relax the mapping rule.
 - Course passes don't feed rating or fame yet; undecided.
-- AI Engineer Modules 02–19 are roadmap only. React Mastery has no syllabus.
+- AI Engineer Modules 01–02 are written and reviewed; 03–19 are roadmap only. React Mastery has no syllabus.

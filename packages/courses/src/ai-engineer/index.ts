@@ -1,5 +1,6 @@
 import type { ModuleCourse } from '../types'
 import { module01 } from './module-01'
+import { module02 } from './module-02'
 
 /**
  * The AI Engineer curriculum. Every planned module is listed so learners can
@@ -56,6 +57,7 @@ export const aiEngineer: ModuleCourse = {
           number: 2,
           title: 'Python and NumPy for scientific computing',
           topics: ['Python for data work', 'NumPy arrays and vectorization'],
+          module: module02,
         },
         {
           number: 3,
