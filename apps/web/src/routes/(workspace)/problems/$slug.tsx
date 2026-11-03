@@ -3,6 +3,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { ChevronLeft, ChevronRight, ListTree, Shuffle } from 'lucide-react'
 import { LogoMark } from '@/components/logo'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { UserMenu } from '@/components/user-menu'
 import { useSettledSession } from '@/lib/auth-client'
@@ -50,6 +51,10 @@ function ChallengeWorkspace(props: ChallengeWorkspaceProps) {
 export const Route = createFileRoute('/(workspace)/problems/$slug')({
   // The workspace is iframes + browser-only code; skip server rendering.
   ssr: false,
+  // `?contest=<slug>`: opened from a live contest; passing runs also submit.
+  validateSearch: (raw: Record<string, unknown>): { contest?: string } => ({
+    contest: typeof raw.contest === 'string' ? raw.contest : undefined,
+  }),
   loader: async ({ params }) => {
     const challenge = await getChallenge(params.slug)
     if (!challenge) throw notFound()
@@ -208,6 +213,21 @@ function SignedInWorkspace({ challenge }: { challenge: Challenge }) {
   const recordRun = useMutation(
     trpc.progress.recordRun.mutationOptions({ onSuccess: invalidateProgress }),
   )
+  const { contest } = Route.useSearch()
+  const contestSubmit = useMutation(
+    trpc.contests.submit.mutationOptions({
+      onSuccess: (r) =>
+        toast(
+          r.accepted ? 'Accepted in the contest' : 'Wrong answer recorded',
+          {
+            description: r.accepted
+              ? 'Counted in the standings.'
+              : 'Each wrong try before an accept adds 5 minutes.',
+          },
+        ),
+      onError: (e) => toast.error(e.message),
+    }),
+  )
   const revealHint = useMutation(
     trpc.progress.revealHint.mutationOptions({ onSuccess: invalidateProgress }),
   )
@@ -257,8 +277,15 @@ function SignedInWorkspace({ challenge }: { challenge: Challenge }) {
       onFilesChange={onFilesChange}
       onTestRunComplete={(r) => {
         // An interrupted run measured the browser, not the code.
-        if (!r.interrupted)
-          recordRun.mutate({ slug, passed: r.passed, total: r.total })
+        if (r.interrupted) return
+        recordRun.mutate({ slug, passed: r.passed, total: r.total })
+        if (contest)
+          contestSubmit.mutate({
+            slug: contest,
+            problem: slug,
+            passed: r.passed,
+            total: r.total,
+          })
       }}
       onHintReveal={(count) => revealHint.mutate({ slug, count })}
       status={status}

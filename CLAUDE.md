@@ -58,8 +58,9 @@ A challenge is done when its starter passes 0/N tests, its solution passes N/N, 
 
 ## Open items (as of 2026-11-02)
 
-- `course_results` and `design_challenges` migrations (`packages/db/drizzle/20261028102904_course_results`) is generated but not applied: run `pnpm db:migrate` once Postgres is up.
+- `course_results`, `design_challenges`, `contests` and `practice_rating_backfill` migrations (`packages/db/drizzle/20261028102904_course_results`) is generated but not applied: run `pnpm db:migrate` once Postgres is up.
 - `@hookdrill/courses` imports all lesson text eagerly (~177 KB raw), and the library sidebar and banner pull it in. Lazy-load module content before adding modules.
 - Exam question `m01-ai-family-tree-x7` really tests a `when-to-use-ai` objective from the other submodule; rewrite it or relax the mapping rule.
+- Grading is trusted from the browser (README caveat): practice rating, daily-solve fame and contests (`packages/challenges/src/contests.ts`, finalised lazily on first read after the round) are gameable by design. Test: `pnpm --filter @hookdrill/api test:contests` (needs a `*_test` DATABASE_URL).
 - Course passes don't feed rating or fame yet; undecided.
 - AI Engineer Modules 01–02 are written and reviewed; 03–19 are roadmap only. React Mastery has no syllabus.

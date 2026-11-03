@@ -3,7 +3,6 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SiteFooter } from '@/components/site-footer'
 import { FameTable, type FamePeriod } from '@/components/leaderboard/fame-table'
 import { RatingTable } from '@/components/leaderboard/rating-table'
-import { SampleNote } from '@/components/leaderboard/sample-note'
 import {
   FameRules,
   TierLegend,
@@ -50,9 +49,6 @@ function Leaderboard() {
               Fame rewards showing up: daily check-ins and today’s problem.
             </p>
           </div>
-          {board === 'rating' && (
-            <SampleNote>Sample data until server grading opens</SampleNote>
-          )}
         </div>
 
         <Tabs

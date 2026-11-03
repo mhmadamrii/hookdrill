@@ -101,3 +101,13 @@ Sandpack's in-browser Jest renders into a real DOM but exposes jsdom 16 globals.
 - React StrictMode is disabled app-wide (`apps/web/src/client.tsx`) because it breaks Sandpack's client registration.
 
 See [SPIKE_REPORT.md](./SPIKE_REPORT.md) for details, risks, and next steps.
+
+## Caveat: results are self-reported
+
+Tests run in the browser, and the server trusts what the browser reports. That keeps the app simple (no server-side code execution), but it means anyone can fake a pass:
+
+- **Practice rating** (a problem's points the first time all its tests pass) and the **daily-solve fame bonus** can be gamed.
+- **Contests** are graded the same way. The server only enforces the time window, registration and each contest's problem list; standings, contest rating and participation fame can be gamed.
+- Contest problems are ordinary practice problems, so they are visible before a round starts.
+
+Treat rating and standings as practice, not proof of skill. Server grading (hidden tests in a sandboxed runner, see ARCHITECTURE.md) is the fix if that ever matters.

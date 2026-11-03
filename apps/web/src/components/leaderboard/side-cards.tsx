@@ -3,7 +3,9 @@ import { UserRound } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useSession } from '@/lib/auth-client'
+import { useQuery } from '@tanstack/react-query'
 import { useCheckIn, useFameStatus } from '@/lib/fame'
+import { useTRPC } from '@/lib/trpc'
 import { ratingTiers } from '@/lib/sample-data'
 import { cn } from '@/lib/utils'
 
@@ -18,13 +20,25 @@ export function YourPosition({ board }: { board: 'rating' | 'fame' }) {
     from: '/(main)/leaderboard',
     select: (s) => s.period,
   })
+  const trpc = useTRPC()
+  const rating = useQuery({
+    ...trpc.leaderboard.myRating.queryOptions(),
+    enabled: !!user && board === 'rating',
+  })
   const s = fame.status
+  const r = rating.data
   const rank =
-    board === 'fame' ? (period === 'month' ? s?.monthRank : s?.rank) : null
+    board === 'fame'
+      ? period === 'month'
+        ? s?.monthRank
+        : s?.rank
+      : (r?.rank ?? null)
   const value =
     board === 'fame'
       ? s && `${fameFmt.format(period === 'month' ? s.monthFame : s.fame)} fame`
-      : 'Unrated'
+      : r?.rating
+        ? `${fameFmt.format(r.rating)} rating`
+        : 'Unrated'
 
   return (
     <section
@@ -61,14 +75,16 @@ export function YourPosition({ board }: { board: 'rating' | 'fame' }) {
         {!user
           ? board === 'fame'
             ? 'Sign in and check in daily to join the fame board.'
-            : 'Sign in to start earning rating once server grading opens.'
+            : 'Sign in, then solve problems to earn rating.'
           : board === 'fame'
             ? rank
               ? s?.checkedIn
                 ? 'Checked in today. Come back tomorrow to keep your streak.'
                 : `Check in today for +${s?.nextAward} fame.`
               : 'Check in once to join the board.'
-            : 'Rating comes from server-graded solves and contests, which are on the way.'}
+            : rank
+              ? 'Solve more problems or place in a contest to climb.'
+              : 'Pass every test on a problem to earn its points.'}
       </p>
       {!isPending && !user && (
         <Button asChild size="sm" variant="outline" className="mt-3 w-full">

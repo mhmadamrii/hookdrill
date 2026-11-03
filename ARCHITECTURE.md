@@ -207,6 +207,8 @@ Plain Postgres handles this comfortably for a long time. Add caching only if the
 
 ## Contests
 
+> **Current build (trust mode):** grading stays in the browser and the server trusts reported results. Contests are defined in `packages/challenges/src/contests.ts`, submits are recorded only while live and registered, standings are ICPC, and results/rating/fame are written once on the first read after the round. The private repo, server grader and review steps below are the hardened design, not built.
+
 Timed rounds, 90 minutes, usually four problems (A easy, B and C medium, D hard).
 
 ### How a contest problem is made

@@ -13,7 +13,6 @@ import { Route as mainRouteRouteImport } from './routes/(main)/route'
 import { Route as mainIndexRouteImport } from './routes/(main)/index'
 import { Route as maincourseRouteRouteImport } from './routes/(main)/(course)/route'
 import { Route as mainlibraryRouteRouteImport } from './routes/(main)/(library)/route'
-import { Route as mainContestsRouteImport } from './routes/(main)/contests'
 import { Route as mainDashboardRouteImport } from './routes/(main)/dashboard'
 import { Route as mainExploreRouteImport } from './routes/(main)/explore'
 import { Route as mainFutureRouteImport } from './routes/(main)/future'
@@ -22,6 +21,8 @@ import { Route as mainProfileRouteImport } from './routes/(main)/profile'
 import { Route as mainSigninRouteImport } from './routes/(main)/signin'
 import { Route as workspacePlaygroundRouteImport } from './routes/(workspace)/playground'
 import { Route as mainlibraryBuilderLabRouteImport } from './routes/(main)/(library)/builder-lab'
+import { Route as mainContestsIndexRouteImport } from './routes/(main)/contests/index'
+import { Route as mainContestsSlugRouteImport } from './routes/(main)/contests/$slug'
 import { Route as mainUHandleRouteImport } from './routes/(main)/u/$handle'
 import { Route as workspaceChallengesSlugRouteImport } from './routes/(workspace)/challenges/$slug'
 import { Route as workspaceProblemsSlugRouteImport } from './routes/(workspace)/problems/$slug'
@@ -49,11 +50,6 @@ const maincourseRouteRoute = maincourseRouteRouteImport.update({
 } as any)
 const mainlibraryRouteRoute = mainlibraryRouteRouteImport.update({
   id: '/(library)',
-  getParentRoute: () => mainRouteRoute,
-} as any)
-const mainContestsRoute = mainContestsRouteImport.update({
-  id: '/contests',
-  path: '/contests',
   getParentRoute: () => mainRouteRoute,
 } as any)
 const mainDashboardRoute = mainDashboardRouteImport.update({
@@ -95,6 +91,16 @@ const mainlibraryBuilderLabRoute = mainlibraryBuilderLabRouteImport.update({
   id: '/builder-lab',
   path: '/builder-lab',
   getParentRoute: () => mainlibraryRouteRoute,
+} as any)
+const mainContestsIndexRoute = mainContestsIndexRouteImport.update({
+  id: '/contests/',
+  path: '/contests/',
+  getParentRoute: () => mainRouteRoute,
+} as any)
+const mainContestsSlugRoute = mainContestsSlugRouteImport.update({
+  id: '/contests/$slug',
+  path: '/contests/$slug',
+  getParentRoute: () => mainRouteRoute,
 } as any)
 const mainUHandleRoute = mainUHandleRouteImport.update({
   id: '/u/$handle',
@@ -160,7 +166,6 @@ const maincourseCoursesCourseChallengeSlugResultRoute =
   } as any)
 
 export interface FileRoutesByFullPath {
-  '/contests': typeof mainContestsRoute
   '/dashboard': typeof mainDashboardRoute
   '/explore': typeof mainExploreRoute
   '/future': typeof mainFutureRoute
@@ -170,9 +175,11 @@ export interface FileRoutesByFullPath {
   '/playground': typeof workspacePlaygroundRoute
   '/': typeof mainIndexRoute
   '/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/contests/$slug': typeof mainContestsSlugRoute
   '/u/$handle': typeof mainUHandleRoute
   '/challenges/$slug': typeof workspaceChallengesSlugRoute
   '/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/contests/': typeof mainContestsIndexRoute
   '/courses/': typeof mainlibraryCoursesIndexRoute
   '/problems/': typeof mainlibraryProblemsIndexRoute
   '/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
@@ -183,7 +190,6 @@ export interface FileRoutesByFullPath {
   '/courses/$course/challenge/$slug/': typeof maincourseCoursesCourseChallengeSlugIndexRoute
 }
 export interface FileRoutesByTo {
-  '/contests': typeof mainContestsRoute
   '/dashboard': typeof mainDashboardRoute
   '/explore': typeof mainExploreRoute
   '/future': typeof mainFutureRoute
@@ -193,9 +199,11 @@ export interface FileRoutesByTo {
   '/playground': typeof workspacePlaygroundRoute
   '/': typeof mainIndexRoute
   '/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/contests/$slug': typeof mainContestsSlugRoute
   '/u/$handle': typeof mainUHandleRoute
   '/challenges/$slug': typeof workspaceChallengesSlugRoute
   '/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/contests': typeof mainContestsIndexRoute
   '/courses': typeof mainlibraryCoursesIndexRoute
   '/problems': typeof mainlibraryProblemsIndexRoute
   '/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
@@ -210,7 +218,6 @@ export interface FileRoutesById {
   '/(main)': typeof mainRouteRouteWithChildren
   '/(main)/(course)': typeof maincourseRouteRouteWithChildren
   '/(main)/(library)': typeof mainlibraryRouteRouteWithChildren
-  '/(main)/contests': typeof mainContestsRoute
   '/(main)/dashboard': typeof mainDashboardRoute
   '/(main)/explore': typeof mainExploreRoute
   '/(main)/future': typeof mainFutureRoute
@@ -220,9 +227,11 @@ export interface FileRoutesById {
   '/(workspace)/playground': typeof workspacePlaygroundRoute
   '/(main)/': typeof mainIndexRoute
   '/(main)/(library)/builder-lab': typeof mainlibraryBuilderLabRoute
+  '/(main)/contests/$slug': typeof mainContestsSlugRoute
   '/(main)/u/$handle': typeof mainUHandleRoute
   '/(workspace)/challenges/$slug': typeof workspaceChallengesSlugRoute
   '/(workspace)/problems/$slug': typeof workspaceProblemsSlugRoute
+  '/(main)/contests/': typeof mainContestsIndexRoute
   '/(main)/(library)/courses/': typeof mainlibraryCoursesIndexRoute
   '/(main)/(library)/problems/': typeof mainlibraryProblemsIndexRoute
   '/(main)/(course)/courses/$course/$lesson': typeof maincourseCoursesCourseLessonRoute
@@ -235,7 +244,6 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/contests'
     | '/dashboard'
     | '/explore'
     | '/future'
@@ -245,9 +253,11 @@ export interface FileRouteTypes {
     | '/playground'
     | '/'
     | '/builder-lab'
+    | '/contests/$slug'
     | '/u/$handle'
     | '/challenges/$slug'
     | '/problems/$slug'
+    | '/contests/'
     | '/courses/'
     | '/problems/'
     | '/courses/$course/$lesson'
@@ -258,7 +268,6 @@ export interface FileRouteTypes {
     | '/courses/$course/challenge/$slug/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/contests'
     | '/dashboard'
     | '/explore'
     | '/future'
@@ -268,9 +277,11 @@ export interface FileRouteTypes {
     | '/playground'
     | '/'
     | '/builder-lab'
+    | '/contests/$slug'
     | '/u/$handle'
     | '/challenges/$slug'
     | '/problems/$slug'
+    | '/contests'
     | '/courses'
     | '/problems'
     | '/courses/$course/$lesson'
@@ -284,7 +295,6 @@ export interface FileRouteTypes {
     | '/(main)'
     | '/(main)/(course)'
     | '/(main)/(library)'
-    | '/(main)/contests'
     | '/(main)/dashboard'
     | '/(main)/explore'
     | '/(main)/future'
@@ -294,9 +304,11 @@ export interface FileRouteTypes {
     | '/(workspace)/playground'
     | '/(main)/'
     | '/(main)/(library)/builder-lab'
+    | '/(main)/contests/$slug'
     | '/(main)/u/$handle'
     | '/(workspace)/challenges/$slug'
     | '/(workspace)/problems/$slug'
+    | '/(main)/contests/'
     | '/(main)/(library)/courses/'
     | '/(main)/(library)/problems/'
     | '/(main)/(course)/courses/$course/$lesson'
@@ -342,13 +354,6 @@ declare module '@tanstack/react-router' {
       path: ''
       fullPath: ''
       preLoaderRoute: typeof mainlibraryRouteRouteImport
-      parentRoute: typeof mainRouteRoute
-    }
-    '/(main)/contests': {
-      id: '/(main)/contests'
-      path: '/contests'
-      fullPath: '/contests'
-      preLoaderRoute: typeof mainContestsRouteImport
       parentRoute: typeof mainRouteRoute
     }
     '/(main)/dashboard': {
@@ -406,6 +411,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/builder-lab'
       preLoaderRoute: typeof mainlibraryBuilderLabRouteImport
       parentRoute: typeof mainlibraryRouteRoute
+    }
+    '/(main)/contests/': {
+      id: '/(main)/contests/'
+      path: '/contests'
+      fullPath: '/contests/'
+      preLoaderRoute: typeof mainContestsIndexRouteImport
+      parentRoute: typeof mainRouteRoute
+    }
+    '/(main)/contests/$slug': {
+      id: '/(main)/contests/$slug'
+      path: '/contests/$slug'
+      fullPath: '/contests/$slug'
+      preLoaderRoute: typeof mainContestsSlugRouteImport
+      parentRoute: typeof mainRouteRoute
     }
     '/(main)/u/$handle': {
       id: '/(main)/u/$handle'
@@ -531,7 +550,6 @@ const mainlibraryRouteRouteWithChildren =
 interface mainRouteRouteChildren {
   maincourseRouteRoute: typeof maincourseRouteRouteWithChildren
   mainlibraryRouteRoute: typeof mainlibraryRouteRouteWithChildren
-  mainContestsRoute: typeof mainContestsRoute
   mainDashboardRoute: typeof mainDashboardRoute
   mainExploreRoute: typeof mainExploreRoute
   mainFutureRoute: typeof mainFutureRoute
@@ -539,13 +557,14 @@ interface mainRouteRouteChildren {
   mainProfileRoute: typeof mainProfileRoute
   mainSigninRoute: typeof mainSigninRoute
   mainIndexRoute: typeof mainIndexRoute
+  mainContestsSlugRoute: typeof mainContestsSlugRoute
   mainUHandleRoute: typeof mainUHandleRoute
+  mainContestsIndexRoute: typeof mainContestsIndexRoute
 }
 
 const mainRouteRouteChildren: mainRouteRouteChildren = {
   maincourseRouteRoute: maincourseRouteRouteWithChildren,
   mainlibraryRouteRoute: mainlibraryRouteRouteWithChildren,
-  mainContestsRoute: mainContestsRoute,
   mainDashboardRoute: mainDashboardRoute,
   mainExploreRoute: mainExploreRoute,
   mainFutureRoute: mainFutureRoute,
@@ -553,7 +572,9 @@ const mainRouteRouteChildren: mainRouteRouteChildren = {
   mainProfileRoute: mainProfileRoute,
   mainSigninRoute: mainSigninRoute,
   mainIndexRoute: mainIndexRoute,
+  mainContestsSlugRoute: mainContestsSlugRoute,
   mainUHandleRoute: mainUHandleRoute,
+  mainContestsIndexRoute: mainContestsIndexRoute,
 }
 
 const mainRouteRouteWithChildren = mainRouteRoute._addFileChildren(

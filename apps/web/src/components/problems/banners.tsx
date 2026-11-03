@@ -9,7 +9,7 @@ import {
 import type { ReactNode } from 'react'
 import { useDailyProblem } from '@/lib/daily'
 import { aiEngineer } from '@hookdrill/courses'
-import { upcomingContests } from '@/lib/sample-data'
+import { contestPhase, contests } from '@hookdrill/challenges/contests'
 
 const card =
   'group relative isolate flex min-h-[160px] flex-col justify-between overflow-hidden rounded-xl p-5 text-white outline-none transition-[transform,filter] duration-300 ease-out hover:brightness-110 focus-visible:ring-[3px] focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background'
@@ -141,7 +141,11 @@ const contestDate = new Intl.DateTimeFormat('en-US', {
 
 export function Banners() {
   const { daily } = useDailyProblem()
-  const contest = upcomingContests[0]
+  // The live round, else the next one, else the latest.
+  const contest =
+    contests.find((c) => contestPhase(c) === 'live') ??
+    contests.find((c) => contestPhase(c) === 'upcoming') ??
+    contests[contests.length - 1]
   return (
     <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
       {daily ? (
@@ -198,20 +202,26 @@ export function Banners() {
       </Link>
 
       <Link
-        to="/contests"
+        to="/contests/$slug"
+        params={{ slug: contest.slug }}
         className={cn(card, 'bg-banner-contest sm:col-span-2 xl:col-span-1')}
       >
         <ContestArt />
         <div>
           <h3 className="text-xl font-semibold tracking-tight">
-            {contest.name}
+            {contest.title}
           </h3>
           <p className="mt-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-white/80">
             <Chip>
-              <CalendarClock className="size-3" /> Next contest · Sample
+              <CalendarClock className="size-3" />{' '}
+              {contestPhase(contest) === 'live'
+                ? 'Live now'
+                : contestPhase(contest) === 'upcoming'
+                  ? 'Next contest'
+                  : 'Latest contest'}
             </Chip>
             {contestDate.format(new Date(contest.startsAt))} UTC ·{' '}
-            {contest.durationMin} min
+            {contest.durationMinutes} min
           </p>
         </div>
         <Cta>See contest details</Cta>

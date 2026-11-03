@@ -3,7 +3,14 @@ import { and, eq, sql } from 'drizzle-orm'
 import { z } from 'zod'
 import { challenges, drafts, progress, type Db } from '@hookdrill/db'
 import { dailyProblem } from '../services/daily'
+import {
+  contestDetail,
+  listContests,
+  register,
+  submit,
+} from '../services/contests'
 import { courseProgress, submitAssessment } from '../services/courses'
+import { ratingLeaderboard, ratingStatus, recordRun } from '../services/rating'
 import { configuredEvaluator } from '../services/design/evaluators'
 import {
   designOverview,
@@ -90,6 +97,48 @@ export const appRouter = router({
           100,
         ),
       ),
+    rating: publicProcedure.query(({ ctx }) =>
+      ratingLeaderboard(ctx.db, ctx.session?.user.id ?? null, 100),
+    ),
+    myRating: protectedProcedure.query(({ ctx }) =>
+      ratingStatus(ctx.db, ctx.session.user.id),
+    ),
+  }),
+
+  /** Contests graded in the browser; results are trusted (README caveat). */
+  contests: router({
+    list: publicProcedure.query(({ ctx }) =>
+      listContests(ctx.db, ctx.session?.user.id ?? null),
+    ),
+    detail: publicProcedure
+      .input(z.object({ slug }))
+      .query(({ ctx, input }) =>
+        contestDetail(ctx.db, input.slug, ctx.session?.user.id ?? null),
+      ),
+    register: protectedProcedure
+      .input(z.object({ slug }))
+      .mutation(({ ctx, input }) =>
+        register(ctx.db, ctx.session.user.id, input.slug),
+      ),
+    submit: protectedProcedure
+      .input(
+        z.object({
+          slug,
+          problem: slug,
+          passed: z.number().int().min(0).max(500),
+          total: z.number().int().min(0).max(500),
+        }),
+      )
+      .mutation(({ ctx, input }) =>
+        submit(
+          ctx.db,
+          ctx.session.user.id,
+          input.slug,
+          input.problem,
+          input.passed,
+          input.total,
+        ),
+      ),
   }),
 
   progress: router({
@@ -121,29 +170,13 @@ export const appRouter = router({
       )
       .mutation(async ({ ctx, input }) => {
         const id = await challengeId(ctx.db, input.slug)
-        const allPassed = input.total > 0 && input.passed === input.total
-        await ctx.db
-          .insert(progress)
-          .values({
-            userId: ctx.session.user.id,
-            challengeId: id,
-            runs: 1,
-            lastPassed: input.passed,
-            lastTotal: input.total,
-            publicPassedAt: allPassed ? new Date() : null,
-          })
-          .onConflictDoUpdate({
-            target: [progress.userId, progress.challengeId],
-            set: {
-              runs: sql`${progress.runs} + 1`,
-              lastPassed: input.passed,
-              lastTotal: input.total,
-              publicPassedAt: allPassed
-                ? sql`coalesce(${progress.publicPassedAt}, now())`
-                : sql`${progress.publicPassedAt}`,
-              updatedAt: sql`now()`,
-            },
-          })
+        return recordRun(
+          ctx.db,
+          ctx.session.user.id,
+          id,
+          input.passed,
+          input.total,
+        )
       }),
 
     /** Hints are revealed in order, so only the count is stored. */

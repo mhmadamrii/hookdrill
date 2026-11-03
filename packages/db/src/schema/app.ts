@@ -246,3 +246,57 @@ export const designEvaluations = pgTable(
   },
   (t) => [index().on(t.submissionId)],
 )
+
+/** Contests are defined in code (packages/challenges/src/contests.ts). */
+export const contestRegistrations = pgTable(
+  'contest_registrations',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    contest: text('contest').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.contest] })],
+)
+
+/** Every contest submit, graded in the browser and trusted. */
+export const contestSubmissions = pgTable(
+  'contest_submissions',
+  {
+    id: integer('id').primaryKey().generatedAlwaysAsIdentity(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    contest: text('contest').notNull(),
+    problem: text('problem').notNull(),
+    accepted: boolean('accepted').notNull(),
+    passed: integer('passed').notNull(),
+    total: integer('total').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [index().on(t.contest, t.createdAt)],
+)
+
+/** Final standings, written once when a finished contest is first read. */
+export const contestResults = pgTable(
+  'contest_results',
+  {
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    contest: text('contest').notNull(),
+    rank: integer('rank').notNull(),
+    solved: integer('solved').notNull(),
+    penalty: integer('penalty').notNull(),
+    ratingAwarded: integer('rating_awarded').notNull(),
+    createdAt: timestamp('created_at', { withTimezone: true })
+      .notNull()
+      .defaultNow(),
+  },
+  (t) => [primaryKey({ columns: [t.userId, t.contest] })],
+)
