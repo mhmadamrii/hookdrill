@@ -6,7 +6,7 @@ import { SiteFooter } from '@/components/site-footer'
 export const Route = createFileRoute('/(main)/(library)')({
   component: () => (
     <>
-      <main className="mx-auto grid max-w-[1440px] gap-6 px-4 py-6 md:px-6 lg:grid-cols-[208px_minmax(0,1fr)]">
+      <main className="mx-auto grid w-full max-w-[1440px] flex-1 content-start gap-6 px-4 pt-6 pb-12 md:px-6 md:pb-16 lg:grid-cols-[208px_minmax(0,1fr)]">
         <aside className="max-lg:hidden">
           <LibrarySidebar />
         </aside>
